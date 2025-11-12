@@ -35,6 +35,7 @@ const BLOCKCHAINS = [
   { name: 'Optimism', symbol: 'OP', color: 'text-red-400' },
   { name: 'Avalanche', symbol: 'AVAX', color: 'text-red-300' },
   { name: 'Solana', symbol: 'SOL', color: 'text-green-400' },
+  { name: 'Stellar', symbol: 'XLM', color: 'text-indigo-400' },
 ];
 
 export function CustodyAccountsModule() {
