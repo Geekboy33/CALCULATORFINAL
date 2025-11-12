@@ -734,7 +734,18 @@ Hash de Documento: ${Math.random().toString(36).substring(2, 15).toUpperCase()}
                     )}
                   </div>
                 </div>
-                <div className="flex gap-2">
+                <div className="flex gap-2 flex-wrap">
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      const verificationUrl = `${window.location.origin}/${account.accountType}/verify/${account.id}`;
+                      window.open(verificationUrl, '_blank');
+                    }}
+                    className="px-4 py-2 bg-gradient-to-r from-green-600 to-blue-600 text-white rounded-lg hover:shadow-[0_0_20px_rgba(0,255,136,0.6)] transition-all text-sm font-bold"
+                  >
+                    <Shield className="w-4 h-4 inline mr-1" />
+                    {language === 'es' ? 'Ver Verificación' : 'View Verification'}
+                  </button>
                   <button
                     onClick={(e) => {
                       e.stopPropagation();

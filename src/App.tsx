@@ -2,6 +2,7 @@ import { useState, useEffect, lazy, Suspense } from 'react';
 import { LayoutDashboard, FileText, Send, Key, Shield, Wallet, Binary, Eye, Database, Building2, BookOpen, LogOut, FileCheck, Menu, FileSearch, ArrowRightLeft, Lock, TrendingUp, User } from 'lucide-react';
 import { LanguageSelector } from './components/LanguageSelector';
 import { Login } from './components/Login';
+import { PublicVerificationPage } from './components/PublicVerificationPage';
 import { useLanguage } from './lib/i18n.tsx';
 import { useAuth } from './lib/auth.tsx';
 import { MobileMenu } from './components/ui/MobileMenu';
@@ -36,6 +37,21 @@ function App() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { t } = useLanguage();
   const { isAuthenticated, user, login, logout } = useAuth();
+
+  // Detectar si es una URL de verificación pública
+  const checkPublicVerificationUrl = (): string | null => {
+    const path = window.location.pathname;
+    // Detectar patrones: /blockchain/verify/{ID} o /banking/verify/{ID}
+    const match = path.match(/\/(blockchain|banking)\/verify\/(.+)/);
+    return match ? match[2] : null;
+  };
+
+  const verificationAccountId = checkPublicVerificationUrl();
+
+  // Si es una URL de verificación pública, mostrar la página de verificación
+  if (verificationAccountId) {
+    return <PublicVerificationPage accountId={verificationAccountId} />;
+  }
 
   // Efecto para mantener procesamiento global activo al cambiar de módulo
   useEffect(() => {
