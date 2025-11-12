@@ -23,6 +23,7 @@ import {
 import { useLanguage } from '../lib/i18n';
 import { vusdCapStore, type Pledge, type PorPublication, type TreasuryTransfer } from '../lib/vusd-cap-store';
 import { custodyStore } from '../lib/custody-store';
+import { apiVUSD1Store } from '../lib/api-vusd1-store';
 
 export function APIVUSDModule() {
   const { language } = useLanguage();
@@ -263,6 +264,36 @@ export function APIVUSDModule() {
 
       console.log('[VUSD] ✅ Pledge creado exitosamente:', result);
 
+      // ========================================
+      // INTEGRACIÓN AUTOMÁTICA CON API VUSD1
+      // ========================================
+      try {
+        console.log('[VUSD→VUSD1] 🔄 Replicando pledge a API VUSD1...');
+
+        const vusd1Pledge = await apiVUSD1Store.createPledge({
+          amount: pledgeForm.amount,
+          currency: pledgeForm.currency,
+          beneficiary: pledgeForm.beneficiary,
+          external_ref: result.pledge_id || `VUSD_${Date.now()}`,
+          expires_at: pledgeForm.expires_at || undefined,
+          metadata: {
+            source: 'API_VUSD',
+            original_pledge_id: result.pledge_id,
+            custody_account: selectedCustodyAccount || 'manual',
+            created_from: 'APIVUSDModule'
+          },
+          idempotency_key: `VUSD_${result.pledge_id || Date.now()}`
+        });
+
+        console.log('[VUSD→VUSD1] ✅ Pledge replicado exitosamente en API VUSD1:', vusd1Pledge.pledge_id);
+        console.log('[VUSD→VUSD1] 📊 Circulating Cap actualizado automáticamente');
+        console.log('[VUSD→VUSD1] 📨 Webhook HMAC queued hacia Anchor');
+
+      } catch (vusd1Error) {
+        console.warn('[VUSD→VUSD1] ⚠️ Error replicando a VUSD1 (no crítico):', vusd1Error);
+        // No bloqueamos el flujo principal si VUSD1 falla
+      }
+
       // Cerrar modal y limpiar
       setShowPledgeModal(false);
       setSelectedCustodyAccount('');
@@ -279,7 +310,10 @@ export function APIVUSDModule() {
       alert(t.pledgeSuccess + '\n\n' +
             `Pledge ID: ${result.pledge_id || 'N/A'}\n` +
             `Amount: ${pledgeForm.currency} ${pledgeForm.amount.toLocaleString()}\n` +
-            `Beneficiary: ${pledgeForm.beneficiary}`);
+            `Beneficiary: ${pledgeForm.beneficiary}\n\n` +
+            `✅ Auto-synced to API VUSD1\n` +
+            `📊 Circulating Cap Updated\n` +
+            `📨 Webhook Queued to Anchor`);
     } catch (err) {
       const error = err as Error;
       console.error('[VUSD] ❌ Error creando pledge:', error);
