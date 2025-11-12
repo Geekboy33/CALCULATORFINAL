@@ -27,8 +27,9 @@ const CoreBankingAPIModule = lazy(() => import('./components/CoreBankingAPIModul
 const CustodyAccountsModule = lazy(() => import('./components/CustodyAccountsModule').then(m => ({ default: m.CustodyAccountsModule })));
 const APIDAESModule = lazy(() => import('./components/APIDAESModule').then(m => ({ default: m.APIDAESModule })));
 const APIVUSDModule = lazy(() => import('./components/APIVUSDModule').then(m => ({ default: m.APIVUSDModule })));
+const APIDAESPledgeModule = lazy(() => import('./components/APIDAESPledgeModule').then(m => ({ default: m.APIDAESPledgeModule })));
 
-type Tab = 'dashboard' | 'analytics' | 'processor' | 'transfer' | 'api-keys' | 'audit' | 'binary-reader' | 'hex-viewer' | 'large-file-analyzer' | 'xcp-b2b' | 'ledger' | 'blackscreen' | 'audit-bank' | 'corebanking-api' | 'custody' | 'api-daes' | 'api-vusd';
+type Tab = 'dashboard' | 'analytics' | 'processor' | 'transfer' | 'api-keys' | 'audit' | 'binary-reader' | 'hex-viewer' | 'large-file-analyzer' | 'xcp-b2b' | 'ledger' | 'blackscreen' | 'audit-bank' | 'corebanking-api' | 'custody' | 'api-daes' | 'api-vusd' | 'api-daes-pledge';
 
 function App() {
   const [activeTab, setActiveTab] = useState<Tab>('dashboard');
@@ -86,6 +87,7 @@ function App() {
     { id: 'custody' as Tab, name: t.navCustody, icon: Lock },
     { id: 'api-daes' as Tab, name: 'API DAES', icon: Key },
     { id: 'api-vusd' as Tab, name: 'API VUSD', icon: TrendingUp },
+    { id: 'api-daes-pledge' as Tab, name: 'DAES Pledge/Escrow', icon: Shield },
     { id: 'audit-bank' as Tab, name: t.navAuditBank, icon: FileSearch },
     { id: 'corebanking-api' as Tab, name: 'CoreBanking API', icon: ArrowRightLeft },
     { id: 'xcp-b2b' as Tab, name: t.navXcpB2B, icon: Building2 },
@@ -199,6 +201,7 @@ function App() {
           {activeTab === 'custody' && <CustodyAccountsModule />}
           {activeTab === 'api-daes' && <APIDAESModule />}
           {activeTab === 'api-vusd' && <APIVUSDModule />}
+          {activeTab === 'api-daes-pledge' && <APIDAESPledgeModule />}
           {activeTab === 'audit-bank' && <AuditBankWindow />}
           {activeTab === 'corebanking-api' && <CoreBankingAPIModule />}
           {activeTab === 'xcp-b2b' && <XcpB2BInterface />}
