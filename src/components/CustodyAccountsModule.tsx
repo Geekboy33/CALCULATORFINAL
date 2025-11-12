@@ -1636,6 +1636,45 @@ Hash de Documento: ${Math.random().toString(36).substring(2, 15).toUpperCase()}
                       Token: {selectedAccount.tokenSymbol}
                     </div>
                   </div>
+
+                  {/* Selector de Porcentajes para Token Mint */}
+                  <div className="bg-gradient-to-r from-cyan-900/20 to-blue-900/20 border border-cyan-500/30 rounded-lg p-4">
+                    <label className="text-sm text-cyan-400 mb-3 block font-semibold">
+                      ⚡ {language === 'es' ? 'Minteo Rápido - % del Monto a Reservar' : 'Quick Mint - % of Reserved Amount'}
+                    </label>
+                    <div className="grid grid-cols-5 gap-2">
+                      {[10, 20, 50, 75, 100].map(percentage => {
+                        const reservedAmount = reserveData.amount;
+                        const calculatedTokens = (reservedAmount * percentage) / 100;
+
+                        return (
+                          <button
+                            key={percentage}
+                            type="button"
+                            onClick={() => setReserveData({...reserveData, tokenAmount: calculatedTokens})}
+                            className="px-3 py-3 bg-gradient-to-br from-cyan-600 to-blue-600 text-white rounded-lg hover:shadow-[0_0_20px_rgba(0,255,255,0.6)] transition-all text-sm font-bold hover:scale-105"
+                          >
+                            <div className="text-lg mb-1">{percentage}%</div>
+                            <div className="text-xs opacity-80">
+                              {calculatedTokens.toLocaleString(undefined, {maximumFractionDigits: 0})} {selectedAccount.tokenSymbol}
+                            </div>
+                          </button>
+                        );
+                      })}
+                    </div>
+                    <div className="mt-3 text-xs text-gray-400 text-center">
+                      {language === 'es'
+                        ? `💰 Monto Reservado: ${selectedAccount.currency} ${reserveData.amount.toLocaleString()}`
+                        : `💰 Reserved Amount: ${selectedAccount.currency} ${reserveData.amount.toLocaleString()}`
+                      }
+                    </div>
+                    <div className="mt-2 text-xs text-cyan-300 text-center">
+                      {language === 'es'
+                        ? `ℹ️ 100% = 1:1 ratio (${reserveData.amount.toLocaleString()} ${selectedAccount.tokenSymbol})`
+                        : `ℹ️ 100% = 1:1 ratio (${reserveData.amount.toLocaleString()} ${selectedAccount.tokenSymbol})`
+                      }
+                    </div>
+                  </div>
                 </>
               )}
 
