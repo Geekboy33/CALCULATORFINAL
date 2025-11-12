@@ -100,7 +100,21 @@ export function APIVUSDModule() {
       lastPor: 'Último PoR',
       asOf: 'A partir de',
       txId: 'TX ID',
-      noData: 'Sin datos disponibles'
+      noData: 'Sin datos disponibles',
+      // Validation Messages
+      validationNoCapitalTitle: 'SIN CAPITAL DISPONIBLE',
+      validationNoCapitalAccount: 'Cuenta',
+      validationNoCapitalBalanceTotal: 'Balance Total',
+      validationNoCapitalBalanceAvailable: 'Balance Disponible',
+      validationNoCapitalBalanceReserved: 'Balance Reservado',
+      validationNoCapitalMessage: 'No se puede crear pledge sin capital disponible.',
+      validationNoCapitalSolution: 'Solución:',
+      validationNoCapitalSolution1: 'Libera el pledge existente de esta cuenta, o',
+      validationNoCapitalSolution2: 'Usa una cuenta custody con balance disponible',
+      validationAmountExceedsTitle: 'MONTO EXCEDE DISPONIBLE',
+      validationAmountExceedsRequested: 'Solicitado',
+      validationAmountExceedsAvailable: 'Disponible',
+      validationAmountExceedsMessage: 'Reduce el monto del pledge o selecciona otra cuenta.'
     },
     en: {
       title: 'API VUSD - Circulating Cap',
@@ -143,7 +157,21 @@ export function APIVUSDModule() {
       lastPor: 'Last PoR',
       asOf: 'As of',
       txId: 'TX ID',
-      noData: 'No data available'
+      noData: 'No data available',
+      // Validation Messages
+      validationNoCapitalTitle: 'NO CAPITAL AVAILABLE',
+      validationNoCapitalAccount: 'Account',
+      validationNoCapitalBalanceTotal: 'Total Balance',
+      validationNoCapitalBalanceAvailable: 'Available Balance',
+      validationNoCapitalBalanceReserved: 'Reserved Balance',
+      validationNoCapitalMessage: 'Cannot create pledge without available capital.',
+      validationNoCapitalSolution: 'Solution:',
+      validationNoCapitalSolution1: 'Release the existing pledge from this account, or',
+      validationNoCapitalSolution2: 'Use a custody account with available balance',
+      validationAmountExceedsTitle: 'AMOUNT EXCEEDS AVAILABLE',
+      validationAmountExceedsRequested: 'Requested',
+      validationAmountExceedsAvailable: 'Available',
+      validationAmountExceedsMessage: 'Reduce the pledge amount or select another account.'
     }
   };
 
