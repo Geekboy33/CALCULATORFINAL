@@ -1458,6 +1458,35 @@ Hash de Documento: ${Math.random().toString(36).substring(2, 15).toUpperCase()}
                 {language === 'es' ? 'Cancelar' : 'Cancel'}
               </button>
               <button
+                onClick={() => {
+                  // Cargar 100% de los fondos disponibles
+                  const selectedBalance = systemBalances.find(b => b.currency === formData.currency);
+                  const totalAvailable = selectedBalance?.totalAmount || 0;
+                  setFormData({...formData, amount: totalAvailable});
+                  // Ejecutar creación inmediatamente
+                  setTimeout(() => {
+                    handleCreateAccount();
+                  }, 100);
+                }}
+                className={`px-6 py-2 bg-gradient-to-br text-white font-bold rounded-lg transition-all border-2 ${
+                  formData.accountType === 'blockchain'
+                    ? 'from-purple-600 to-pink-600 border-purple-400 hover:shadow-[0_0_20px_rgba(168,85,247,0.8)]'
+                    : 'from-purple-600 to-pink-600 border-purple-400 hover:shadow-[0_0_20px_rgba(168,85,247,0.8)]'
+                }`}
+              >
+                {formData.accountType === 'blockchain' ? (
+                  <>
+                    <div className="inline text-lg mr-2">💎</div>
+                    {language === 'es' ? 'Crear con TODO (100%)' : 'Create with ALL (100%)'}
+                  </>
+                ) : (
+                  <>
+                    <div className="inline text-lg mr-2">💎</div>
+                    {language === 'es' ? 'Crear con TODO (100%)' : 'Create with ALL (100%)'}
+                  </>
+                )}
+              </button>
+              <button
                 onClick={handleCreateAccount}
                 className={`px-6 py-2 bg-gradient-to-br text-black font-bold rounded-lg transition-all ${
                   formData.accountType === 'blockchain'
