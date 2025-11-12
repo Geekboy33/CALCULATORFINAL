@@ -268,8 +268,12 @@ export function APIVUSDModule() {
       setSelectedCustodyAccount('');
       setPledgeForm({ amount: 0, currency: 'USD', beneficiary: '', expires_at: '' });
 
-      // Recargar datos para mostrar el nuevo pledge
-      await loadData();
+      // Forzar actualización de caché y recargar datos
+      console.log('[VUSD] 🔄 Recargando datos y caché...');
+      await vusdCapStore.initializeCache(); // Forzar actualización de caché
+      await loadData(); // Recargar todos los datos
+
+      console.log('[VUSD] ✅ Datos recargados, pledge debe estar visible');
 
       // Notificar éxito
       alert(t.pledgeSuccess + '\n\n' +
