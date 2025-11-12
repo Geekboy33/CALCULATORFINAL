@@ -29,8 +29,9 @@ const CustodyAccountsModule = lazy(() => import('./components/CustodyAccountsMod
 const APIDAESModule = lazy(() => import('./components/APIDAESModule').then(m => ({ default: m.APIDAESModule })));
 const APIVUSDModule = lazy(() => import('./components/APIVUSDModule').then(m => ({ default: m.APIVUSDModule })));
 const APIDAESPledgeModule = lazy(() => import('./components/APIDAESPledgeModule').then(m => ({ default: m.APIDAESPledgeModule })));
+const APIVUSD1Module = lazy(() => import('./components/APIVUSD1Module').then(m => ({ default: m.default })));
 
-type Tab = 'dashboard' | 'analytics' | 'processor' | 'transfer' | 'api-keys' | 'audit' | 'binary-reader' | 'hex-viewer' | 'large-file-analyzer' | 'xcp-b2b' | 'ledger' | 'blackscreen' | 'audit-bank' | 'corebanking-api' | 'custody' | 'api-daes' | 'api-vusd' | 'api-daes-pledge';
+type Tab = 'dashboard' | 'analytics' | 'processor' | 'transfer' | 'api-keys' | 'audit' | 'binary-reader' | 'hex-viewer' | 'large-file-analyzer' | 'xcp-b2b' | 'ledger' | 'blackscreen' | 'audit-bank' | 'corebanking-api' | 'custody' | 'api-daes' | 'api-vusd' | 'api-daes-pledge' | 'api-vusd1';
 
 function App() {
   const [activeTab, setActiveTab] = useState<Tab>('dashboard');
@@ -103,6 +104,7 @@ function App() {
     { id: 'custody' as Tab, name: t.navCustody, icon: Lock },
     { id: 'api-daes' as Tab, name: 'API DAES', icon: Key },
     { id: 'api-vusd' as Tab, name: 'API VUSD', icon: TrendingUp },
+    { id: 'api-vusd1' as Tab, name: 'API VUSD1', icon: Database },
     { id: 'api-daes-pledge' as Tab, name: 'DAES Pledge/Escrow', icon: Shield },
     { id: 'audit-bank' as Tab, name: t.navAuditBank, icon: FileSearch },
     { id: 'corebanking-api' as Tab, name: 'CoreBanking API', icon: ArrowRightLeft },
@@ -217,6 +219,7 @@ function App() {
           {activeTab === 'custody' && <CustodyAccountsModule />}
           {activeTab === 'api-daes' && <APIDAESModule />}
           {activeTab === 'api-vusd' && <APIVUSDModule />}
+          {activeTab === 'api-vusd1' && <APIVUSD1Module />}
           {activeTab === 'api-daes-pledge' && <APIDAESPledgeModule />}
           {activeTab === 'audit-bank' && <AuditBankWindow />}
           {activeTab === 'corebanking-api' && <CoreBankingAPIModule />}
