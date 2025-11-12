@@ -38,9 +38,6 @@ export function AccountLedger() {
     return unsubscribe;
   }, []);
 
-  const getTotalBalance = () => {
-    return balances.reduce((sum, b) => sum + b.totalAmount, 0);
-  };
 
   const getTotalTransactions = () => {
     return balances.reduce((sum, b) => sum + b.transactionCount, 0);

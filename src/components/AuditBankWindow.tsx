@@ -958,13 +958,17 @@ export function AuditBankWindow() {
 
       // 🔥 EXTRACCIÓN CONTEXTUAL REAL - DETECTAR BLOQUES DE INFORMACIÓN RELACIONADA 🔥
       const hallazgos: any[] = [];
-      
+
+      // Decodificar el texto completo para análisis contextual
+      const fullTextDecoder = new TextDecoder('utf-8', { fatal: false });
+      const fullText = fullTextDecoder.decode(data);
+
       // Función para extraer contexto REAL alrededor de un monto
-      const extractRealContext = (offset: number, text: string, amt: any) => {
+      const extractRealContext = (offset: number, contextText: string, _amt: any) => {
         // Extraer 300 caracteres antes y después del monto
         const contextStart = Math.max(0, offset - 300);
-        const contextEnd = Math.min(text.length, offset + 300);
-        const context = text.substring(contextStart, contextEnd);
+        const contextEnd = Math.min(contextText.length, offset + 300);
+        const context = contextText.substring(contextStart, contextEnd);
         
         // Buscar datos relacionados en el contexto
         let relatedAccount = null;
@@ -1040,7 +1044,7 @@ export function AuditBankWindow() {
         }
         
         // Extraer contexto REAL del archivo
-        const realContext = extractRealContext(amt.offset, text, amt);
+        const realContext = extractRealContext(amt.offset, fullText, amt);
         
         // Construir evidencia con datos REALES (no simulados)
         let evidencia = `Monto: ${amt.currency} ${amt.value.toLocaleString()} (USD ${valueUsd.toLocaleString()})`;

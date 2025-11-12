@@ -13,7 +13,6 @@ export function APIKeyManager() {
   const [selectedPermissions, setSelectedPermissions] = useState<string[]>([]);
   const [newKeyResult, setNewKeyResult] = useState<NewKeyResult | null>(null);
   const [copiedField, setCopiedField] = useState<string | null>(null);
-  const [revealedSecrets, setRevealedSecrets] = useState<Set<string>>(new Set());
 
   const availablePermissions = [
     'transfer:read',
@@ -62,17 +61,6 @@ export function APIKeyManager() {
     }
   };
 
-  const toggleSecretVisibility = (keyId: string) => {
-    setRevealedSecrets(prev => {
-      const next = new Set(prev);
-      if (next.has(keyId)) {
-        next.delete(keyId);
-      } else {
-        next.add(keyId);
-      }
-      return next;
-    });
-  };
 
   const togglePermission = (permission: string) => {
     setSelectedPermissions(prev =>

@@ -7,21 +7,16 @@ import { useState, useEffect } from 'react';
 import {
   Send,
   Download,
-  Upload,
   Key,
   RefreshCw,
   CheckCircle,
   X,
-  Plus,
-  Lock,
-  Unlock,
-  AlertCircle,
-  DollarSign
+  AlertCircle
 } from 'lucide-react';
 import { useLanguage } from '../lib/i18n';
 import { custodyStore, type CustodyAccount } from '../lib/custody-store';
 
-interface APIConnection {
+interface _APIConnection {
   id: string;
   accountId: string;
   accountName: string;
