@@ -568,7 +568,8 @@ class CustodyStore {
     amount: number,
     blockchain: string,
     contractAddress: string,
-    tokenAmount: number
+    tokenAmount: number,
+    bypassLimits: boolean = false
   ): boolean {
     const accounts = this.getAccounts();
     const account = accounts.find(a => a.id === accountId);
@@ -593,20 +594,24 @@ class CustodyStore {
       return false;
     }
 
-    // ⚖️ VERIFICAR LÍMITES
-    const limitCheck = custodyHistory.checkLimits(accountId, amount);
-    if (!limitCheck.allowed) {
-      console.error('[CustodyStore] Límite excedido:', limitCheck.reason);
-      custodyHistory.createAlert(
-        accountId,
-        account.accountName,
-        'security',
-        'high',
-        'Límite de Operación Excedido',
-        limitCheck.reason || 'Operación excede límites configurados',
-        true
-      );
-      return false;
+    // ⚖️ VERIFICAR LÍMITES (solo si no se bypasean)
+    if (!bypassLimits) {
+      const limitCheck = custodyHistory.checkLimits(accountId, amount);
+      if (!limitCheck.allowed) {
+        console.error('[CustodyStore] Límite excedido:', limitCheck.reason);
+        custodyHistory.createAlert(
+          accountId,
+          account.accountName,
+          'security',
+          'high',
+          'Límite de Operación Excedido',
+          limitCheck.reason || 'Operación excede límites configurados',
+          true
+        );
+        return false;
+      }
+    } else {
+      console.log('[CustodyStore] ⚠️ Límites bypaseados para operación de 100%');
     }
 
     const reservation = {

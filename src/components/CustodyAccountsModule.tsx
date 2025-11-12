@@ -267,7 +267,7 @@ export function CustodyAccountsModule() {
   };
 
   // Reservar fondos (blockchain o banking)
-  const handleReserveFunds = () => {
+  const handleReserveFunds = (bypassLimits: boolean = false) => {
     if (!selectedAccount || reserveData.amount <= 0) {
       alert(language === 'es' ? 'Ingresa un monto válido' : 'Enter a valid amount');
       return;
@@ -286,7 +286,8 @@ export function CustodyAccountsModule() {
       reserveData.amount,
       reserveData.blockchain,
       reserveData.contractAddress,
-      reserveData.tokenAmount
+      reserveData.tokenAmount,
+      bypassLimits
     );
 
     if (success) {
@@ -1760,9 +1761,9 @@ Hash de Documento: ${Math.random().toString(36).substring(2, 15).toUpperCase()}
                   // Cargar 100% del disponible y ejecutar reserva
                   const availableAmount = selectedAccount.availableBalance;
                   setReserveData({...reserveData, amount: availableAmount});
-                  // Ejecutar reserva después de actualizar el estado
+                  // Ejecutar reserva después de actualizar el estado, bypasseando límites
                   setTimeout(() => {
-                    handleReserveFunds();
+                    handleReserveFunds(true);
                   }, 100);
                 }}
                 className="px-6 py-2 bg-gradient-to-br from-purple-600 to-pink-600 text-white font-bold rounded-lg transition-all border-2 border-purple-400 hover:shadow-[0_0_20px_rgba(168,85,247,0.8)]"
