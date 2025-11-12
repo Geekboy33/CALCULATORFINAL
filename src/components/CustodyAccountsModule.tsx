@@ -798,6 +798,94 @@ Hash de Documento: ${Math.random().toString(36).substring(2, 15).toUpperCase()}
                 </div>
               </div>
 
+              {/* API Integration Toggles */}
+              <div className="bg-gradient-to-r from-purple-900/20 to-pink-900/20 border border-purple-500/30 rounded-lg p-4 mb-4">
+                <h4 className="text-sm font-semibold text-purple-400 mb-3 flex items-center gap-2">
+                  🔗 {language === 'es' ? 'Integración con APIs' : 'API Integration'}
+                </h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {/* VUSD Balance Toggle */}
+                  <div className="flex items-center justify-between bg-black/30 rounded-lg p-3 border border-purple-500/20">
+                    <div className="flex items-center gap-2">
+                      <Shield className="w-4 h-4 text-green-400" />
+                      <div>
+                        <div className="text-sm font-semibold text-white">API VUSD</div>
+                        <div className="text-xs text-gray-400">
+                          {account.vusdBalanceEnabled ? (
+                            <span className="text-green-400">✓ {language === 'es' ? 'Activo' : 'Active'}</span>
+                          ) : (
+                            <span className="text-gray-500">{language === 'es' ? 'Desactivado' : 'Disabled'}</span>
+                          )}
+                          {account.vusdBalanceId && (
+                            <span className="ml-2 font-mono text-xs">({account.vusdBalanceId.substring(0, 10)}...)</span>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                    <button
+                      onClick={async (e) => {
+                        e.stopPropagation();
+                        try {
+                          await custodyStore.toggleVUSDBalance(account.id, !account.vusdBalanceEnabled);
+                          loadCustodyAccounts();
+                        } catch (error) {
+                          console.error('Error toggling VUSD:', error);
+                        }
+                      }}
+                      className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
+                        account.vusdBalanceEnabled ? 'bg-green-600' : 'bg-gray-600'
+                      }`}
+                    >
+                      <span
+                        className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                          account.vusdBalanceEnabled ? 'translate-x-6' : 'translate-x-1'
+                        }`}
+                      />
+                    </button>
+                  </div>
+
+                  {/* DAES Pledge Toggle */}
+                  <div className="flex items-center justify-between bg-black/30 rounded-lg p-3 border border-purple-500/20">
+                    <div className="flex items-center gap-2">
+                      <Lock className="w-4 h-4 text-blue-400" />
+                      <div>
+                        <div className="text-sm font-semibold text-white">DAES Pledge/Escrow</div>
+                        <div className="text-xs text-gray-400">
+                          {account.daesPledgeEnabled ? (
+                            <span className="text-blue-400">✓ {language === 'es' ? 'Activo' : 'Active'}</span>
+                          ) : (
+                            <span className="text-gray-500">{language === 'es' ? 'Desactivado' : 'Disabled'}</span>
+                          )}
+                          {account.daesPledgeId && (
+                            <span className="ml-2 font-mono text-xs">({account.daesPledgeId.substring(0, 10)}...)</span>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                    <button
+                      onClick={async (e) => {
+                        e.stopPropagation();
+                        try {
+                          await custodyStore.toggleDAESPledge(account.id, !account.daesPledgeEnabled);
+                          loadCustodyAccounts();
+                        } catch (error) {
+                          console.error('Error toggling DAES Pledge:', error);
+                        }
+                      }}
+                      className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
+                        account.daesPledgeEnabled ? 'bg-blue-600' : 'bg-gray-600'
+                      }`}
+                    >
+                      <span
+                        className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                          account.daesPledgeEnabled ? 'translate-x-6' : 'translate-x-1'
+                        }`}
+                      />
+                    </button>
+                  </div>
+                </div>
+              </div>
+
               {/* Información según Tipo de Cuenta */}
               {(account.accountType || 'blockchain') === 'blockchain' ? (
                 <div className="bg-gradient-to-r from-cyan-900/20 to-blue-900/20 border border-cyan-500/30 rounded-lg p-4 mb-4">

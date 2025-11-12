@@ -5,6 +5,8 @@
 
 import CryptoJS from 'crypto-js';
 import { custodyHistory } from './custody-history';
+import { vusdCapStore } from './vusd-cap-store';
+import { daesPledgeStore } from './daes-pledge-store';
 
 export interface CustodyAccount {
   id: string;
@@ -37,6 +39,11 @@ export interface CustodyAccount {
   externalAPISecret?: string; // Secret para autenticación externa
   externalProvider?: string; // Nombre del proveedor (Stripe, Wise, Plaid, etc.)
   externalConnected?: boolean; // Estado de conexión externa
+  // VUSD & DAES Pledge Integration
+  vusdBalanceEnabled: boolean; // Activar/desactivar balance en API VUSD
+  daesPledgeEnabled: boolean; // Activar/desactivar balance en DAES Pledge
+  vusdBalanceId?: string; // ID del balance en VUSD Cap Store
+  daesPledgeId?: string; // ID del pledge en DAES Pledge Store
   // Compliance & Security
   iso27001Compliant: boolean;
   iso20022Compatible: boolean;
@@ -245,6 +252,9 @@ class CustodyStore {
       apiEndpoint: `https://api.daes-custody.io/${accountType}/verify/${id}`,
       apiKey,
       apiStatus: 'pending',
+      // VUSD & DAES Integration
+      vusdBalanceEnabled: true,
+      daesPledgeEnabled: true,
       // Compliance
       iso27001Compliant: true,
       iso20022Compatible: true,
@@ -298,6 +308,9 @@ class CustodyStore {
 
     // 🔥 DESCUENTO AUTOMÁTICO DEL BALANCE DEL SISTEMA DAES 🔥
     this.deductFromSystemBalance(currency, balance);
+
+    // 🔗 CREAR BALANCES EN API VUSD Y DAES PLEDGE 🔗
+    this.createLinkedBalances(account);
 
     // 📜 REGISTRAR EN HISTORIAL
     custodyHistory.addTransactionLog(
@@ -372,6 +385,138 @@ class CustodyStore {
     } catch (error) {
       console.error('[CustodyStore] ❌ Error al descontar del sistema:', error);
     }
+  }
+
+  /**
+   * Crear balances vinculados en API VUSD y DAES Pledge
+   */
+  private async createLinkedBalances(account: CustodyAccount): Promise<void> {
+    try {
+      console.log('[CustodyStore] 🔗 Creando balances vinculados...');
+
+      // Solo crear si las opciones están habilitadas
+      if (account.vusdBalanceEnabled) {
+        try {
+          // Crear balance en VUSD Cap Store
+          const pledge = await vusdCapStore.createPledge({
+            amount: account.totalBalance,
+            currency: account.currency,
+            beneficiary: account.accountName,
+            expires_at: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString(), // 1 año
+            purpose: `custody_account_${account.id}`
+          });
+
+          account.vusdBalanceId = pledge.pledge_id;
+          console.log('[CustodyStore] ✅ Balance VUSD creado:', pledge.pledge_id);
+        } catch (error) {
+          console.error('[CustodyStore] ❌ Error creando balance VUSD:', error);
+        }
+      }
+
+      if (account.daesPledgeEnabled) {
+        try {
+          // Crear pledge en DAES Pledge Store
+          const pledge = await daesPledgeStore.createPledge({
+            amount: account.totalBalance.toFixed(2),
+            currency: account.currency,
+            beneficiary: account.accountName,
+            expires_at: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString(),
+            purpose: `custody_account_${account.id}`
+          });
+
+          account.daesPledgeId = pledge.pledge_id;
+          console.log('[CustodyStore] ✅ Pledge DAES creado:', pledge.pledge_id);
+        } catch (error) {
+          console.error('[CustodyStore] ❌ Error creando pledge DAES:', error);
+        }
+      }
+
+      // Guardar cambios
+      const accounts = this.getAccounts();
+      const index = accounts.findIndex(a => a.id === account.id);
+      if (index !== -1) {
+        accounts[index] = account;
+        this.saveAccounts(accounts);
+      }
+    } catch (error) {
+      console.error('[CustodyStore] ❌ Error en createLinkedBalances:', error);
+    }
+  }
+
+  /**
+   * Toggle VUSD balance para una cuenta
+   */
+  async toggleVUSDBalance(accountId: string, enabled: boolean): Promise<void> {
+    const accounts = this.getAccounts();
+    const account = accounts.find(a => a.id === accountId);
+
+    if (!account) {
+      throw new Error('Account not found');
+    }
+
+    account.vusdBalanceEnabled = enabled;
+
+    if (enabled && !account.vusdBalanceId) {
+      // Crear nuevo balance en VUSD
+      const pledge = await vusdCapStore.createPledge({
+        amount: account.totalBalance,
+        currency: account.currency,
+        beneficiary: account.accountName,
+        expires_at: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString(),
+        purpose: `custody_account_${account.id}`
+      });
+      account.vusdBalanceId = pledge.pledge_id;
+      console.log('[CustodyStore] ✅ VUSD balance activado:', pledge.pledge_id);
+    } else if (!enabled && account.vusdBalanceId) {
+      // Liberar pledge en VUSD
+      try {
+        await vusdCapStore.releasePledge(account.vusdBalanceId);
+        console.log('[CustodyStore] ✅ VUSD balance desactivado:', account.vusdBalanceId);
+      } catch (error) {
+        console.error('[CustodyStore] Error releasing VUSD pledge:', error);
+      }
+    }
+
+    this.saveAccounts(accounts);
+    this.notifyListeners();
+  }
+
+  /**
+   * Toggle DAES Pledge balance para una cuenta
+   */
+  async toggleDAESPledge(accountId: string, enabled: boolean): Promise<void> {
+    const accounts = this.getAccounts();
+    const account = accounts.find(a => a.id === accountId);
+
+    if (!account) {
+      throw new Error('Account not found');
+    }
+
+    account.daesPledgeEnabled = enabled;
+
+    if (enabled && !account.daesPledgeId) {
+      // Crear nuevo pledge en DAES
+      const pledge = await daesPledgeStore.createPledge({
+        amount: account.totalBalance.toFixed(2),
+        currency: account.currency,
+        beneficiary: account.accountName,
+        expires_at: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString(),
+        purpose: `custody_account_${account.id}`
+      });
+      account.daesPledgeId = pledge.pledge_id;
+      console.log('[CustodyStore] ✅ DAES Pledge activado:', pledge.pledge_id);
+    } else if (!enabled && account.daesPledgeId) {
+      // Liberar pledge en DAES
+      try {
+        await daesPledgeStore.releasePledge(account.daesPledgeId);
+        console.log('[CustodyStore] ✅ DAES Pledge desactivado:', account.daesPledgeId);
+      } catch (error) {
+        console.error('[CustodyStore] Error releasing DAES pledge:', error);
+      }
+    }
+
+    this.saveAccounts(accounts);
+    this.notifyListeners();
   }
 
   /**
