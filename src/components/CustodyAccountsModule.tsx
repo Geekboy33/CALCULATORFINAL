@@ -1756,6 +1756,21 @@ Hash de Documento: ${Math.random().toString(36).substring(2, 15).toUpperCase()}
                 {language === 'es' ? 'Cancelar' : 'Cancel'}
               </button>
               <button
+                onClick={() => {
+                  // Cargar 100% del disponible y ejecutar reserva
+                  const availableAmount = selectedAccount.availableBalance;
+                  setReserveData({...reserveData, amount: availableAmount});
+                  // Ejecutar reserva después de actualizar el estado
+                  setTimeout(() => {
+                    handleReserveFunds();
+                  }, 100);
+                }}
+                className="px-6 py-2 bg-gradient-to-br from-purple-600 to-pink-600 text-white font-bold rounded-lg transition-all border-2 border-purple-400 hover:shadow-[0_0_20px_rgba(168,85,247,0.8)]"
+              >
+                <div className="inline text-lg mr-2">💎</div>
+                {language === 'es' ? 'Reservar TODO (100%)' : 'Reserve ALL (100%)'}
+              </button>
+              <button
                 onClick={handleReserveFunds}
                 className={`px-6 py-2 bg-gradient-to-br text-black font-bold rounded-lg ${
                   (selectedAccount.accountType || 'blockchain') === 'blockchain'
