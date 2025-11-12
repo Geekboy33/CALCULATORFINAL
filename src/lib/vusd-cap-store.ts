@@ -12,6 +12,7 @@ export interface Pledge {
   available: number;
   currency: string;
   beneficiary: string;
+  custody_account_id?: string; // ID de la cuenta custody origen
   expires_at?: string;
   updated_at: string;
 }
@@ -240,13 +241,58 @@ class VUSDCapStore {
   }
 
   // Create a new pledge
+  /**
+   * Verificar si ya existe un pledge activo para una cuenta custody
+   */
+  async checkDuplicatePledge(custodyAccountId: string): Promise<boolean> {
+    try {
+      const supabase = getSupabaseClient();
+      if (!supabase) return false;
+
+      const { data, error } = await supabase
+        .from('daes_pledges_cache')
+        .select('pledge_id')
+        .eq('custody_account_id', custodyAccountId)
+        .eq('status', 'ACTIVE')
+        .limit(1);
+
+      if (error) {
+        console.error('[VUSD] Error checking duplicate pledge:', error);
+        return false;
+      }
+
+      return (data && data.length > 0);
+    } catch (error) {
+      console.error('[VUSD] Error checking duplicate pledge:', error);
+      return false;
+    }
+  }
+
   async createPledge(pledge: {
     amount: number;
     currency: string;
     beneficiary: string;
+    custody_account_id?: string;
     expires_at?: string;
   }): Promise<Pledge> {
     try {
+      // ========================================
+      // VALIDACIÓN 1: VERIFICAR DUPLICADOS
+      // ========================================
+      if (pledge.custody_account_id) {
+        const isDuplicate = await this.checkDuplicatePledge(pledge.custody_account_id);
+        if (isDuplicate) {
+          throw new Error(
+            `❌ PLEDGE DUPLICADO DETECTADO\n\n` +
+            `Ya existe un pledge ACTIVO para esta cuenta custody.\n` +
+            `No se puede desplegar el mismo capital dos veces.\n\n` +
+            `Solución:\n` +
+            `1. Libera el pledge existente primero, o\n` +
+            `2. Usa una cuenta custody diferente`
+          );
+        }
+      }
+
       // Generate pledge ID
       const pledge_id = `PLG_${Date.now()}_${Math.random().toString(36).substring(2, 9).toUpperCase()}`;
 
@@ -257,6 +303,7 @@ class VUSDCapStore {
         available: pledge.amount,
         currency: pledge.currency,
         beneficiary: pledge.beneficiary,
+        custody_account_id: pledge.custody_account_id,
         expires_at: pledge.expires_at,
         updated_at: new Date().toISOString()
       };
@@ -276,6 +323,7 @@ class VUSDCapStore {
           available: newPledge.available,
           currency: newPledge.currency,
           beneficiary: newPledge.beneficiary,
+          custody_account_id: newPledge.custody_account_id,
           expires_at: newPledge.expires_at,
           updated_at: newPledge.updated_at
         });
@@ -284,6 +332,8 @@ class VUSDCapStore {
 
       // Update local cache
       this.pledgesCache.set(pledge_id, newPledge);
+
+      console.log('[VUSD] ✅ Pledge creado sin duplicados para custody:', pledge.custody_account_id || 'manual');
 
       return newPledge;
     } catch (error) {

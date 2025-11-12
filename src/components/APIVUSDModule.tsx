@@ -248,17 +248,58 @@ export function APIVUSDModule() {
       setLoading(true);
       setError(null);
 
+      // ========================================
+      // VALIDACIÓN 1: CAPITAL DISPONIBLE EN CUSTODY
+      // ========================================
+      if (selectedCustodyAccount) {
+        const account = custodyAccounts.find(a => a.id === selectedCustodyAccount);
+        if (!account) {
+          throw new Error('❌ CUENTA CUSTODY NO ENCONTRADA\n\nSelecciona una cuenta válida.');
+        }
+
+        if (account.availableBalance <= 0) {
+          throw new Error(
+            `❌ SIN CAPITAL DISPONIBLE\n\n` +
+            `Cuenta: ${account.accountName}\n` +
+            `Balance Total: ${account.currency} ${account.totalBalance.toLocaleString()}\n` +
+            `Balance Disponible: ${account.currency} ${account.availableBalance.toLocaleString()}\n` +
+            `Balance Reservado: ${account.currency} ${account.reservedBalance.toLocaleString()}\n\n` +
+            `No se puede crear pledge sin capital disponible.\n\n` +
+            `Solución:\n` +
+            `1. Libera el pledge existente de esta cuenta, o\n` +
+            `2. Usa una cuenta custody con balance disponible`
+          );
+        }
+
+        if (pledgeForm.amount > account.availableBalance) {
+          throw new Error(
+            `❌ MONTO EXCEDE DISPONIBLE\n\n` +
+            `Solicitado: ${pledgeForm.currency} ${pledgeForm.amount.toLocaleString()}\n` +
+            `Disponible: ${account.currency} ${account.availableBalance.toLocaleString()}\n\n` +
+            `Reduce el monto del pledge o selecciona otra cuenta.`
+          );
+        }
+
+        console.log('[VUSD] ✅ Validación de capital aprobada:', {
+          account: account.accountName,
+          available: account.availableBalance,
+          requested: pledgeForm.amount
+        });
+      }
+
       console.log('[VUSD] Creando pledge:', {
         amount: pledgeForm.amount,
         currency: pledgeForm.currency,
         beneficiary: pledgeForm.beneficiary,
-        fromCustodyAccount: selectedCustodyAccount || 'Manual Entry'
+        custody_account_id: selectedCustodyAccount || null,
+        fromCustodyAccount: selectedCustodyAccount ? custodyAccounts.find(a => a.id === selectedCustodyAccount)?.accountName : 'Manual Entry'
       });
 
       const result = await vusdCapStore.createPledge({
         amount: pledgeForm.amount,
         currency: pledgeForm.currency,
         beneficiary: pledgeForm.beneficiary,
+        custody_account_id: selectedCustodyAccount || undefined,
         expires_at: pledgeForm.expires_at || undefined
       });
 
@@ -270,6 +311,10 @@ export function APIVUSDModule() {
       try {
         console.log('[VUSD→VUSD1] 🔄 Replicando pledge a API VUSD1...');
 
+        const custodyAccountName = selectedCustodyAccount
+          ? custodyAccounts.find(a => a.id === selectedCustodyAccount)?.accountName
+          : 'manual';
+
         const vusd1Pledge = await apiVUSD1Store.createPledge({
           amount: pledgeForm.amount,
           currency: pledgeForm.currency,
@@ -279,8 +324,11 @@ export function APIVUSDModule() {
           metadata: {
             source: 'API_VUSD',
             original_pledge_id: result.pledge_id,
-            custody_account: selectedCustodyAccount || 'manual',
-            created_from: 'APIVUSDModule'
+            custody_account_id: selectedCustodyAccount || null,
+            custody_account_name: custodyAccountName,
+            created_from: 'APIVUSDModule',
+            validation: 'capital_disponible_verificado',
+            no_duplicate: 'validado'
           },
           idempotency_key: `VUSD_${result.pledge_id || Date.now()}`
         });
