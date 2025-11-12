@@ -6,7 +6,7 @@
 import React, { useState, useEffect } from 'react';
 import {
   Lock, Send, FileText, Activity, CheckCircle, Clock,
-  AlertCircle, Database, Shield, Zap, Download, RefreshCw
+  AlertCircle, Database, Shield, Zap, Download, RefreshCw, Trash2
 } from 'lucide-react';
 import { apiVUSD1Store, type ApiPledge, type ApiPayout, type ApiAttestation, type ReserveSummary } from '../lib/api-vusd1-store';
 
@@ -130,6 +130,47 @@ export default function APIVUSD1Module() {
       console.error('[APIVUSD1] Error creating payout:', error);
       setError(error.message);
       alert('Error creating payout: ' + error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Delete Pledge
+  const handleDeletePledge = async (pledge: ApiPledge) => {
+    const confirmMessage =
+      `Delete this pledge?\n\n` +
+      `Pledge ID: ${pledge.pledge_id}\n` +
+      `Amount: ${pledge.currency} ${pledge.amount.toLocaleString('en-US', { minimumFractionDigits: 3, maximumFractionDigits: 3 })}\n` +
+      `Beneficiary: ${pledge.beneficiary}\n\n` +
+      `This action cannot be undone.`;
+
+    if (!window.confirm(confirmMessage)) {
+      return;
+    }
+
+    try {
+      setLoading(true);
+      setError(null);
+
+      console.log('[APIVUSD1] 🗑️ Deleting pledge:', pledge.pledge_id);
+
+      await apiVUSD1Store.deletePledge(pledge.pledge_id);
+
+      console.log('[APIVUSD1] ✅ Pledge deleted successfully');
+
+      await loadData();
+
+      alert(
+        `✅ Pledge Deleted Successfully!\n\n` +
+        `Pledge ID: ${pledge.pledge_id}\n` +
+        `Amount: ${pledge.currency} ${pledge.amount.toLocaleString('en-US', { minimumFractionDigits: 3, maximumFractionDigits: 3 })}`
+      );
+
+    } catch (err) {
+      const error = err as Error;
+      console.error('[APIVUSD1] ❌ Error deleting pledge:', error);
+      setError(error.message);
+      alert('Error deleting pledge: ' + error.message);
     } finally {
       setLoading(false);
     }
@@ -383,7 +424,7 @@ export default function APIVUSD1Module() {
                       </div>
                       <Lock className="w-5 h-5 text-[#00ff88]" />
                     </div>
-                    <div className="grid grid-cols-3 gap-4 text-sm">
+                    <div className="grid grid-cols-3 gap-4 text-sm mb-3">
                       <div>
                         <div className="text-[#4d7c4d]">Amount</div>
                         <div className="text-[#00ff88] font-bold">${pledge.amount.toLocaleString('en-US', { minimumFractionDigits: 3, maximumFractionDigits: 3 })} {pledge.currency}</div>
@@ -397,6 +438,17 @@ export default function APIVUSD1Module() {
                         <div className="text-white truncate">{pledge.beneficiary}</div>
                       </div>
                     </div>
+                    {pledge.status === 'ACTIVE' && (
+                      <div className="flex justify-end">
+                        <button
+                          onClick={() => handleDeletePledge(pledge)}
+                          className="flex items-center gap-2 px-3 py-1.5 bg-red-600/20 hover:bg-red-600/30 border border-red-500/30 rounded text-sm text-red-400 transition-colors"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                          Delete
+                        </button>
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>

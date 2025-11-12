@@ -553,6 +553,29 @@ export function APIVUSDModule() {
       console.log('[VUSD] ✅ Pledge eliminado exitosamente');
 
       // ========================================
+      // SINCRONIZAR ELIMINACIÓN CON API VUSD1
+      // ========================================
+      try {
+        console.log('[VUSD→VUSD1] 🔄 Eliminando pledge replicado en API VUSD1...');
+
+        // Buscar el pledge correspondiente en VUSD1 por external_ref
+        const vusd1Pledges = await apiVUSD1Store.getActivePledges();
+        const matchingPledge = vusd1Pledges.find(p =>
+          p.external_ref === pledge.pledge_id ||
+          p.metadata?.original_pledge_id === pledge.pledge_id
+        );
+
+        if (matchingPledge) {
+          await apiVUSD1Store.deletePledge(matchingPledge.pledge_id);
+          console.log('[VUSD→VUSD1] ✅ Pledge eliminado en API VUSD1:', matchingPledge.pledge_id);
+        } else {
+          console.log('[VUSD→VUSD1] ℹ️ No se encontró pledge replicado en VUSD1');
+        }
+      } catch (vusd1Error) {
+        console.warn('[VUSD→VUSD1] ⚠️ Error eliminando en VUSD1 (no crítico):', vusd1Error);
+      }
+
+      // ========================================
       // LIBERAR CAPITAL EN CUSTODY STORE
       // ========================================
       if (pledge.custody_account_id) {

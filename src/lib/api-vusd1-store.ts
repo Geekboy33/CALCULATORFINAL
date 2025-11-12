@@ -426,6 +426,64 @@ class ApiVUSD1Store {
     }
   }
 
+  /**
+   * DELETE Pledge - Eliminar físicamente un pledge
+   */
+  async deletePledge(pledge_id: string): Promise<void> {
+    try {
+      const supabase = getSupabaseClient();
+      if (!supabase) throw new Error('Supabase not configured');
+
+      // Obtener el pledge antes de eliminarlo para logs
+      const { data: pledge, error: fetchError } = await supabase
+        .from('api_pledges')
+        .select('*')
+        .eq('pledge_id', pledge_id)
+        .single();
+
+      if (fetchError) throw fetchError;
+      if (!pledge) throw new Error('Pledge not found');
+
+      // Eliminar el pledge
+      const { error: deleteError } = await supabase
+        .from('api_pledges')
+        .delete()
+        .eq('pledge_id', pledge_id);
+
+      if (deleteError) throw deleteError;
+
+      // Log event
+      await this.logEvent({
+        event_type: 'PLEDGE_DELETED',
+        entity_type: 'PLEDGE',
+        entity_id: pledge_id,
+        payload: {
+          pledge_id,
+          amount: pledge.amount,
+          currency: pledge.currency,
+          beneficiary: pledge.beneficiary
+        }
+      });
+
+      // Queue webhook
+      await this.queueWebhook({
+        event_type: 'pledge.deleted',
+        data: {
+          pledge_id,
+          amount: pledge.amount,
+          currency: pledge.currency,
+          deleted_at: new Date().toISOString()
+        }
+      });
+
+      console.log(`[API-VUSD1] ✅ Pledge deleted: ${pledge_id}`);
+
+    } catch (error) {
+      console.error('[API-VUSD1] Error deleting pledge:', error);
+      throw error;
+    }
+  }
+
   // =====================================================
   // PAYOUTS ENDPOINTS
   // =====================================================
