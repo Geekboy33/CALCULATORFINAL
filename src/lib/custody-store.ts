@@ -249,7 +249,7 @@ class CustodyStore {
       verificationHash,
       // API Configuration
       apiId,
-      apiEndpoint: `https://api.daes-custody.io/${accountType}/verify/${id}`,
+      apiEndpoint: `https://luxliqdaes.cloud/${accountType}/verify/${id}`,
       apiKey,
       apiStatus: 'pending',
       // VUSD & DAES Integration
