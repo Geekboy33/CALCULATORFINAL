@@ -277,19 +277,46 @@ class VUSDCapStore {
   }): Promise<Pledge> {
     try {
       // ========================================
-      // VALIDACIÓN 1: VERIFICAR DUPLICADOS
+      // VALIDACIÓN 1: VERIFICAR CAPITAL DISPONIBLE
       // ========================================
       if (pledge.custody_account_id) {
-        const isDuplicate = await this.checkDuplicatePledge(pledge.custody_account_id);
-        if (isDuplicate) {
-          throw new Error(
-            `❌ PLEDGE DUPLICADO DETECTADO\n\n` +
-            `Ya existe un pledge ACTIVO para esta cuenta custody.\n` +
-            `No se puede desplegar el mismo capital dos veces.\n\n` +
-            `Solución:\n` +
-            `1. Libera el pledge existente primero, o\n` +
-            `2. Usa una cuenta custody diferente`
-          );
+        // Obtener todos los pledges activos de esta cuenta
+        const activePledges = await this.getActivePledges();
+        const totalReserved = activePledges
+          .filter(p => p.custody_account_id === pledge.custody_account_id && p.status === 'active')
+          .reduce((sum, p) => sum + p.amount, 0);
+
+        // Importar custodyStore para obtener el balance total
+        const { custodyStore } = await import('./custody-store');
+        const accounts = custodyStore.getAccounts();
+        const custodyAccount = accounts.find(a => a.id === pledge.custody_account_id);
+
+        if (custodyAccount) {
+          const availableBalance = custodyAccount.totalBalance - totalReserved;
+
+          console.log('[VUSD Store] 🔍 Validación de capital en store:', {
+            account: custodyAccount.accountName,
+            totalBalance: custodyAccount.totalBalance,
+            currentlyReserved: totalReserved,
+            available: availableBalance,
+            requested: pledge.amount,
+            willBeAvailable: availableBalance - pledge.amount
+          });
+
+          if (availableBalance < pledge.amount) {
+            throw new Error(
+              `❌ CAPITAL INSUFICIENTE\n\n` +
+              `Cuenta: ${custodyAccount.accountName}\n` +
+              `Total: ${custodyAccount.currency} ${custodyAccount.totalBalance.toLocaleString()}\n` +
+              `Ya Reservado: ${custodyAccount.currency} ${totalReserved.toLocaleString()}\n` +
+              `Disponible: ${custodyAccount.currency} ${availableBalance.toLocaleString()}\n` +
+              `Solicitado: ${pledge.currency} ${pledge.amount.toLocaleString()}\n\n` +
+              `Solución:\n` +
+              `1. Reduce el monto del pledge\n` +
+              `2. Libera un pledge existente de esta cuenta\n` +
+              `3. Usa una cuenta con más capital disponible`
+            );
+          }
         }
       }
 

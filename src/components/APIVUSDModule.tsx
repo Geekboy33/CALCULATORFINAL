@@ -316,18 +316,38 @@ export function APIVUSDModule() {
       // VALIDACIÓN 1: CAPITAL DISPONIBLE EN CUSTODY
       // ========================================
       if (selectedCustodyAccount) {
-        const account = custodyAccounts.find(a => a.id === selectedCustodyAccount);
-        if (!account) {
+        // IMPORTANTE: Obtener balance REAL actual antes de validar
+        const accounts = custodyStore.getAccounts();
+        const custodyAccount = accounts.find(a => a.id === selectedCustodyAccount);
+
+        if (!custodyAccount) {
           throw new Error('❌ CUENTA CUSTODY NO ENCONTRADA\n\nSelecciona una cuenta válida.');
         }
 
-        if (account.availableBalance <= 0) {
+        // Recalcular balance disponible REAL basado en pledges activos
+        const activePledges = await vusdCapStore.getActivePledges();
+        const totalReservedByThisAccount = activePledges
+          .filter(p => p.custody_account_id === selectedCustodyAccount && p.status === 'active')
+          .reduce((sum, p) => sum + p.amount, 0);
+
+        const realAvailableBalance = custodyAccount.totalBalance - totalReservedByThisAccount;
+
+        console.log('[VUSD] 🔍 Validación de capital:', {
+          account: custodyAccount.accountName,
+          totalBalance: custodyAccount.totalBalance,
+          activePledges: activePledges.filter(p => p.custody_account_id === selectedCustodyAccount).length,
+          totalReserved: totalReservedByThisAccount,
+          realAvailable: realAvailableBalance,
+          requestedAmount: pledgeForm.amount
+        });
+
+        if (realAvailableBalance <= 0) {
           throw new Error(
             `❌ ${t.validationNoCapitalTitle}\n\n` +
-            `${t.validationNoCapitalAccount}: ${account.accountName}\n` +
-            `${t.validationNoCapitalBalanceTotal}: ${account.currency} ${account.totalBalance.toLocaleString('en-US', { minimumFractionDigits: 3, maximumFractionDigits: 3 })}\n` +
-            `${t.validationNoCapitalBalanceAvailable}: ${account.currency} ${account.availableBalance.toLocaleString('en-US', { minimumFractionDigits: 3, maximumFractionDigits: 3 })}\n` +
-            `${t.validationNoCapitalBalanceReserved}: ${account.currency} ${account.reservedBalance.toLocaleString('en-US', { minimumFractionDigits: 3, maximumFractionDigits: 3 })}\n\n` +
+            `${t.validationNoCapitalAccount}: ${custodyAccount.accountName}\n` +
+            `${t.validationNoCapitalBalanceTotal}: ${custodyAccount.currency} ${custodyAccount.totalBalance.toLocaleString('en-US', { minimumFractionDigits: 3, maximumFractionDigits: 3 })}\n` +
+            `${t.validationNoCapitalBalanceAvailable}: ${custodyAccount.currency} ${realAvailableBalance.toLocaleString('en-US', { minimumFractionDigits: 3, maximumFractionDigits: 3 })}\n` +
+            `${t.validationNoCapitalBalanceReserved}: ${custodyAccount.currency} ${totalReservedByThisAccount.toLocaleString('en-US', { minimumFractionDigits: 3, maximumFractionDigits: 3 })}\n\n` +
             `${t.validationNoCapitalMessage}\n\n` +
             `${t.validationNoCapitalSolution}\n` +
             `1. ${t.validationNoCapitalSolution1}\n` +
@@ -335,19 +355,46 @@ export function APIVUSDModule() {
           );
         }
 
-        if (pledgeForm.amount > account.availableBalance) {
+        // ========================================
+        // VALIDACIÓN 2: MONTO NO EXCEDE DISPONIBLE
+        // ========================================
+        if (pledgeForm.amount > realAvailableBalance) {
           throw new Error(
             `❌ ${t.validationAmountExceedsTitle}\n\n` +
             `${t.validationAmountExceedsRequested}: ${pledgeForm.currency} ${pledgeForm.amount.toLocaleString('en-US', { minimumFractionDigits: 3, maximumFractionDigits: 3 })}\n` +
-            `${t.validationAmountExceedsAvailable}: ${account.currency} ${account.availableBalance.toLocaleString('en-US', { minimumFractionDigits: 3, maximumFractionDigits: 3 })}\n\n` +
+            `${t.validationAmountExceedsAvailable}: ${custodyAccount.currency} ${realAvailableBalance.toLocaleString('en-US', { minimumFractionDigits: 3, maximumFractionDigits: 3 })}\n\n` +
             `${t.validationAmountExceedsMessage}`
           );
         }
 
+        // ========================================
+        // VALIDACIÓN 3: PREVENIR DOUBLE-SPEND
+        // ========================================
+        // Verificar que no se esté intentando usar más capital del disponible
+        const willBeAvailable = realAvailableBalance - pledgeForm.amount;
+        if (willBeAvailable < 0) {
+          throw new Error(
+            `❌ DOUBLE-SPEND DETECTADO\n\n` +
+            `No puedes usar más capital del disponible.\n\n` +
+            `Balance Disponible: ${custodyAccount.currency} ${realAvailableBalance.toLocaleString('en-US', { minimumFractionDigits: 3, maximumFractionDigits: 3 })}\n` +
+            `Solicitado: ${pledgeForm.currency} ${pledgeForm.amount.toLocaleString('en-US', { minimumFractionDigits: 3, maximumFractionDigits: 3 })}\n` +
+            `Faltante: ${custodyAccount.currency} ${Math.abs(willBeAvailable).toLocaleString('en-US', { minimumFractionDigits: 3, maximumFractionDigits: 3 })}\n\n` +
+            `Solución:\n` +
+            `1. Reduce el monto del pledge\n` +
+            `2. Elimina un pledge existente de esta cuenta\n` +
+            `3. Usa una cuenta con más capital disponible`
+          );
+        }
+
         console.log('[VUSD] ✅ Validación de capital aprobada:', {
-          account: account.accountName,
-          available: account.availableBalance,
-          requested: pledgeForm.amount
+          account: custodyAccount.accountName,
+          totalBalance: custodyAccount.totalBalance,
+          currentlyReserved: totalReservedByThisAccount,
+          activePledgesCount: activePledges.filter(p => p.custody_account_id === selectedCustodyAccount).length,
+          realAvailable: realAvailableBalance,
+          requested: pledgeForm.amount,
+          willBeAvailableAfter: willBeAvailable,
+          status: willBeAvailable >= 0 ? 'OK' : 'BLOCKED'
         });
       }
 
