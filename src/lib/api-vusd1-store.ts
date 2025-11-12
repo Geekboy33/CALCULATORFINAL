@@ -157,6 +157,37 @@ class ApiVUSD1Store {
       const supabase = getSupabaseClient();
       if (!supabase) throw new Error('Supabase not configured');
 
+      // ========================================
+      // VALIDACIÓN 1: VERIFICAR DUPLICADOS POR CUSTODY ACCOUNT
+      // ========================================
+      if (params.metadata?.custody_account_id) {
+        const { data: existingPledges, error: checkError } = await supabase
+          .from('api_pledges')
+          .select('pledge_id, amount, currency')
+          .eq('status', 'ACTIVE')
+          .contains('metadata', { custody_account_id: params.metadata.custody_account_id });
+
+        if (checkError) {
+          console.warn('[API-VUSD1] Error checking duplicates:', checkError);
+        } else if (existingPledges && existingPledges.length > 0) {
+          // Calcular capital total reservado
+          const totalReserved = existingPledges.reduce((sum, p) => sum + p.amount, 0);
+
+          console.log('[API-VUSD1] 🔍 Pledges activos detectados:', {
+            custody_account_id: params.metadata.custody_account_id,
+            existing_count: existingPledges.length,
+            total_reserved: totalReserved,
+            new_amount: params.amount
+          });
+
+          // Si ya hay pledges activos, advertir
+          console.warn(
+            `[API-VUSD1] ⚠️ ADVERTENCIA: Ya existen ${existingPledges.length} pledge(s) activo(s) ` +
+            `para custody_account_id: ${params.metadata.custody_account_id}`
+          );
+        }
+      }
+
       // Check idempotency
       if (params.idempotency_key) {
         const existing = await this.checkIdempotency(params.idempotency_key);

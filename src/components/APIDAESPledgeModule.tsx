@@ -26,7 +26,8 @@ import {
   Webhook,
   Database,
   ArrowUpRight,
-  ArrowDownRight
+  ArrowDownRight,
+  Trash2
 } from 'lucide-react';
 import { useLanguage } from '../lib/i18n';
 import { daesPledgeStore, type Pledge, type Payout, type ReserveSummary, type Attestation, type WebhookEvent } from '../lib/daes-pledge-store';
@@ -223,6 +224,36 @@ export function APIDAESPledgeModule() {
       setLoading(true);
       await daesPledgeStore.releasePledge(pledgeId);
       setSuccess(language === 'es' ? 'Pledge liberado' : 'Pledge released');
+      await loadData();
+    } catch (err) {
+      const error = err as Error;
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleDeletePledge = async (pledge: Pledge) => {
+    if (!isConfigured) return;
+
+    const confirmMessage = language === 'es'
+      ? `¿Eliminar este pledge?\n\n` +
+        `Pledge ID: ${pledge.pledge_id}\n` +
+        `Monto: ${pledge.currency} ${parseFloat(pledge.amount).toLocaleString()}\n` +
+        `Propósito: ${pledge.purpose}\n\n` +
+        `Esta acción no se puede deshacer.`
+      : `Delete this pledge?\n\n` +
+        `Pledge ID: ${pledge.pledge_id}\n` +
+        `Amount: ${pledge.currency} ${parseFloat(pledge.amount).toLocaleString()}\n` +
+        `Purpose: ${pledge.purpose}\n\n` +
+        `This action cannot be undone.`;
+
+    if (!confirm(confirmMessage)) return;
+
+    try {
+      setLoading(true);
+      await daesPledgeStore.deletePledge(pledge.pledge_id);
+      setSuccess(language === 'es' ? 'Pledge eliminado exitosamente' : 'Pledge deleted successfully');
       await loadData();
     } catch (err) {
       const error = err as Error;
@@ -550,6 +581,13 @@ export function APIDAESPledgeModule() {
                       >
                         <Unlock className="w-4 h-4" />
                         {language === 'es' ? 'Liberar' : 'Release'}
+                      </button>
+                      <button
+                        onClick={() => handleDeletePledge(pledge)}
+                        className="flex items-center gap-2 bg-red-600/20 hover:bg-red-600/30 border border-red-500/30 px-3 py-2 rounded text-sm transition-colors"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                        {language === 'es' ? 'Eliminar' : 'Delete'}
                       </button>
                     </div>
                   )}

@@ -229,6 +229,22 @@ class DAESPledgeStore {
     return pledge;
   }
 
+  // Delete Pledge (physical removal)
+  async deletePledge(pledgeId: string): Promise<void> {
+    const pledgeIndex = this.pledges.findIndex(p => p.pledge_id === pledgeId);
+    if (pledgeIndex === -1) throw new Error('Pledge not found');
+
+    const pledge = this.pledges[pledgeIndex];
+
+    // Remove from array
+    this.pledges.splice(pledgeIndex, 1);
+
+    // Trigger webhook
+    this.triggerWebhook('PLEDGE_DELETED', pledge);
+
+    console.log('[DAES] Pledge deleted:', pledge);
+  }
+
   // 6) GET /v1/reserves/summary - Reserve Summary
   async getReserveSummary(): Promise<ReserveSummary> {
     const activePledges = this.pledges.filter(p => p.status === 'ACTIVE');
