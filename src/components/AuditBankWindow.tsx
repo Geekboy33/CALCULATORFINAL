@@ -103,7 +103,7 @@ export function AuditBankWindow() {
     return () => {
       unsubscribe();
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+     
   }, []);
 
   // Suscribirse al progreso del Analizador de Archivos Grandes EN TIEMPO REAL
