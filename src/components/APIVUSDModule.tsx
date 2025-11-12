@@ -808,9 +808,19 @@ export function APIVUSDModule() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="flex-1 px-4 py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600 disabled:opacity-50 font-bold"
+                  className="flex-1 px-6 py-3 bg-purple-500 text-white rounded-lg hover:bg-purple-600 disabled:opacity-50 font-bold flex items-center justify-center gap-2 transition-all"
                 >
-                  {loading ? t.loading : t.submit}
+                  {loading ? (
+                    <>
+                      <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                      {t.loading}
+                    </>
+                  ) : (
+                    <>
+                      <Lock className="w-5 h-5" />
+                      Create Pledge
+                    </>
+                  )}
                 </button>
               </div>
             </form>
