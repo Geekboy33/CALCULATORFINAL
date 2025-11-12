@@ -247,19 +247,40 @@ export function APIVUSDModule() {
       setLoading(true);
       setError(null);
 
-      await vusdCapStore.createPledge({
+      console.log('[VUSD] Creando pledge:', {
+        amount: pledgeForm.amount,
+        currency: pledgeForm.currency,
+        beneficiary: pledgeForm.beneficiary,
+        fromCustodyAccount: selectedCustodyAccount || 'Manual Entry'
+      });
+
+      const result = await vusdCapStore.createPledge({
         amount: pledgeForm.amount,
         currency: pledgeForm.currency,
         beneficiary: pledgeForm.beneficiary,
         expires_at: pledgeForm.expires_at || undefined
       });
 
+      console.log('[VUSD] ✅ Pledge creado exitosamente:', result);
+
+      // Cerrar modal y limpiar
       setShowPledgeModal(false);
+      setSelectedCustodyAccount('');
       setPledgeForm({ amount: 0, currency: 'USD', beneficiary: '', expires_at: '' });
+
+      // Recargar datos para mostrar el nuevo pledge
       await loadData();
+
+      // Notificar éxito
+      alert(t.pledgeSuccess + '\n\n' +
+            `Pledge ID: ${result.pledge_id || 'N/A'}\n` +
+            `Amount: ${pledgeForm.currency} ${pledgeForm.amount.toLocaleString()}\n` +
+            `Beneficiary: ${pledgeForm.beneficiary}`);
     } catch (err) {
       const error = err as Error;
+      console.error('[VUSD] ❌ Error creando pledge:', error);
       setError(error.message || 'Pledge creation failed');
+      alert((language === 'es' ? 'Error creando pledge: ' : 'Error creating pledge: ') + error.message);
     } finally {
       setLoading(false);
     }
