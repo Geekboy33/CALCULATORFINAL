@@ -186,8 +186,43 @@ export function APIVUSDModule() {
   }, []);
 
   // Load custody accounts
-  const loadCustodyAccounts = () => {
+  const loadCustodyAccounts = async () => {
     const accounts = custodyStore.getAccounts();
+
+    // ========================================
+    // SINCRONIZAR BALANCES CON PLEDGES ACTIVOS
+    // ========================================
+    // Resetear reservas de todos los pledges para recalcular
+    accounts.forEach(account => {
+      // Guardar el balance original total
+      const originalTotal = account.totalBalance;
+
+      // Resetear a estado inicial
+      account.reservedBalance = 0;
+      account.availableBalance = originalTotal;
+    });
+
+    // Recalcular reservas basado en pledges activos
+    const pledges = await vusdCapStore.getActivePledges();
+    pledges.forEach(pledge => {
+      if (pledge.custody_account_id && pledge.status === 'active') {
+        const account = accounts.find(a => a.id === pledge.custody_account_id);
+        if (account && account.currency === pledge.currency) {
+          account.reservedBalance += pledge.amount;
+          account.availableBalance -= pledge.amount;
+
+          console.log('[VUSD→Custody] 🔄 Sincronizando pledge:', {
+            account: account.accountName,
+            pledge: pledge.pledge_id,
+            reserved: pledge.amount
+          });
+        }
+      }
+    });
+
+    // Guardar estado actualizado
+    custodyStore.saveAccounts(accounts);
+
     setCustodyAccounts(accounts);
   };
 
@@ -335,6 +370,34 @@ export function APIVUSDModule() {
       console.log('[VUSD] ✅ Pledge creado exitosamente:', result);
 
       // ========================================
+      // RESERVAR CAPITAL EN CUSTODY STORE
+      // ========================================
+      if (selectedCustodyAccount) {
+        try {
+          const account = custodyAccounts.find(a => a.id === selectedCustodyAccount);
+          if (account) {
+            // Actualizar los balances en custody store
+            const accounts = custodyStore.getAccounts();
+            const custodyAccount = accounts.find(a => a.id === selectedCustodyAccount);
+            if (custodyAccount) {
+              custodyAccount.reservedBalance += pledgeForm.amount;
+              custodyAccount.availableBalance -= pledgeForm.amount;
+              custodyStore.saveAccounts(accounts);
+
+              console.log('[VUSD→Custody] ✅ Capital reservado:', {
+                account: custodyAccount.accountName,
+                reserved: pledgeForm.amount,
+                newAvailable: custodyAccount.availableBalance,
+                newReserved: custodyAccount.reservedBalance
+              });
+            }
+          }
+        } catch (reserveError) {
+          console.warn('[VUSD→Custody] ⚠️ Error reservando capital (no crítico):', reserveError);
+        }
+      }
+
+      // ========================================
       // INTEGRACIÓN AUTOMÁTICA CON API VUSD1
       // ========================================
       try {
@@ -380,6 +443,7 @@ export function APIVUSDModule() {
       console.log('[VUSD] 🔄 Recargando datos y caché...');
       await vusdCapStore.initializeCache(); // Forzar actualización de caché
       await loadData(); // Recargar todos los datos
+      loadCustodyAccounts(); // Recargar cuentas custody con balances actualizados
 
       console.log('[VUSD] ✅ Datos recargados, pledge debe estar visible');
 
@@ -440,6 +504,33 @@ export function APIVUSDModule() {
       await vusdCapStore.deletePledge(pledge.pledge_id);
 
       console.log('[VUSD] ✅ Pledge eliminado exitosamente');
+
+      // ========================================
+      // LIBERAR CAPITAL EN CUSTODY STORE
+      // ========================================
+      if (pledge.custody_account_id) {
+        try {
+          const accounts = custodyStore.getAccounts();
+          const custodyAccount = accounts.find(a => a.id === pledge.custody_account_id);
+          if (custodyAccount) {
+            custodyAccount.reservedBalance -= pledge.amount;
+            custodyAccount.availableBalance += pledge.amount;
+            custodyStore.saveAccounts(accounts);
+
+            console.log('[VUSD→Custody] ✅ Capital liberado:', {
+              account: custodyAccount.accountName,
+              liberated: pledge.amount,
+              newAvailable: custodyAccount.availableBalance,
+              newReserved: custodyAccount.reservedBalance
+            });
+
+            // Recargar cuentas custody
+            loadCustodyAccounts();
+          }
+        } catch (releaseError) {
+          console.warn('[VUSD→Custody] ⚠️ Error liberando capital (no crítico):', releaseError);
+        }
+      }
 
       // Recargar datos
       await vusdCapStore.initializeCache();
