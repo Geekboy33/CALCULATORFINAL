@@ -18,7 +18,8 @@ import {
   Clock,
   ChevronRight,
   Database,
-  ArrowUpRight
+  ArrowUpRight,
+  Trash2
 } from 'lucide-react';
 import { useLanguage } from '../lib/i18n';
 import { vusdCapStore, type Pledge, type PorPublication, type TreasuryTransfer } from '../lib/vusd-cap-store';
@@ -388,6 +389,52 @@ export function APIVUSDModule() {
     }
   };
 
+  const handleDeletePledge = async (pledge: Pledge) => {
+    try {
+      // Confirmación con detalles del pledge
+      const confirmMessage =
+        `¿Eliminar este pledge?\n\n` +
+        `Pledge ID: ${pledge.pledge_id}\n` +
+        `Amount: ${pledge.currency} ${pledge.amount.toLocaleString()}\n` +
+        `Beneficiary: ${pledge.beneficiary}\n\n` +
+        `El capital será liberado y podrás crear un nuevo pledge.`;
+
+      if (!window.confirm(confirmMessage)) {
+        return;
+      }
+
+      setLoading(true);
+      setError(null);
+
+      console.log('[VUSD] 🗑️ Eliminando pledge:', pledge.pledge_id);
+
+      // Eliminar pledge (marca como RELEASED)
+      await vusdCapStore.deletePledge(pledge.pledge_id);
+
+      console.log('[VUSD] ✅ Pledge eliminado exitosamente');
+
+      // Recargar datos
+      await vusdCapStore.initializeCache();
+      await loadData();
+
+      alert(
+        `✅ Pledge eliminado exitosamente\n\n` +
+        `Pledge ID: ${pledge.pledge_id}\n` +
+        `Amount: ${pledge.currency} ${pledge.amount.toLocaleString()}\n\n` +
+        `💡 El capital ha sido liberado.\n` +
+        `Ahora puedes crear un nuevo pledge desde esta cuenta custody.`
+      );
+
+    } catch (err) {
+      const error = err as Error;
+      console.error('[VUSD] ❌ Error eliminando pledge:', error);
+      setError(error.message || 'Failed to delete pledge');
+      alert('Error eliminando pledge: ' + error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const remaining = circulatingCap - circulatingOut;
   const utilizationPercent = circulatingCap > 0 ? (circulatingOut / circulatingCap) * 100 : 0;
 
@@ -569,7 +616,7 @@ export function APIVUSDModule() {
                     key={pledge.pledge_id}
                     className="bg-[#0a0a0a] border border-[#00ff88]/30 rounded-lg p-4 hover:border-[#00ff88] transition-colors"
                   >
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-center justify-between gap-4">
                       <div className="flex-1">
                         <div className="flex items-center gap-3 mb-2">
                           <span className="px-2 py-1 bg-[#00ff88]/20 text-[#00ff88] text-xs rounded">
@@ -606,7 +653,14 @@ export function APIVUSDModule() {
                           )}
                         </div>
                       </div>
-                      <ChevronRight className="w-5 h-5 text-[#4d7c4d]" />
+                      <button
+                        onClick={() => handleDeletePledge(pledge)}
+                        disabled={loading}
+                        className="p-3 bg-red-500/10 border border-red-500/30 text-red-400 rounded-lg hover:bg-red-500/20 hover:border-red-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                        title="Eliminar pledge"
+                      >
+                        <Trash2 className="w-5 h-5" />
+                      </button>
                     </div>
                   </div>
                 ))}

@@ -342,6 +342,59 @@ class VUSDCapStore {
     }
   }
 
+  /**
+   * Eliminar pledge (marca como RELEASED y libera capital)
+   */
+  async deletePledge(pledge_id: string): Promise<void> {
+    try {
+      const supabase = getSupabaseClient();
+      if (!supabase) {
+        throw new Error('Supabase not configured');
+      }
+
+      // Obtener el pledge antes de eliminarlo para logs
+      const { data: pledge, error: fetchError } = await supabase
+        .from('daes_pledges_cache')
+        .select('*')
+        .eq('pledge_id', pledge_id)
+        .single();
+
+      if (fetchError || !pledge) {
+        throw new Error('Pledge not found');
+      }
+
+      // Marcar como RELEASED en lugar de eliminar físicamente
+      const { error: updateError } = await supabase
+        .from('daes_pledges_cache')
+        .update({
+          status: 'RELEASED',
+          updated_at: new Date().toISOString()
+        })
+        .eq('pledge_id', pledge_id);
+
+      if (updateError) throw updateError;
+
+      // Eliminar del cache local
+      this.pledgesCache.delete(pledge_id);
+
+      console.log('[VUSD] ✅ Pledge eliminado (RELEASED):', {
+        pledge_id,
+        amount: pledge.amount,
+        currency: pledge.currency,
+        custody_account_id: pledge.custody_account_id
+      });
+
+      // Si tiene custody_account_id, el capital queda disponible nuevamente
+      if (pledge.custody_account_id) {
+        console.log('[VUSD] 🔓 Capital liberado para cuenta custody:', pledge.custody_account_id);
+      }
+
+    } catch (error) {
+      console.error('[VUSD] Error deleting pledge:', error);
+      throw error;
+    }
+  }
+
   // Publish PoR
   async publishPor(): Promise<PorPublication> {
     try {
