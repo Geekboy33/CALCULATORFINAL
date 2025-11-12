@@ -1316,6 +1316,40 @@ Hash de Documento: ${Math.random().toString(36).substring(2, 15).toUpperCase()}
                 </div>
               </div>
 
+              {/* Selector de Porcentajes */}
+              <div className="bg-gradient-to-r from-purple-900/20 to-pink-900/20 border border-purple-500/30 rounded-lg p-4">
+                <label className="text-sm text-purple-400 mb-3 block font-semibold">
+                  ⚡ {language === 'es' ? 'Carga Rápida - % del Capital Disponible' : 'Quick Load - % of Available Capital'}
+                </label>
+                <div className="grid grid-cols-5 gap-2">
+                  {[10, 20, 50, 75, 100].map(percentage => {
+                    const selectedBalance = systemBalances.find(b => b.currency === formData.currency);
+                    const availableAmount = selectedBalance?.totalAmount || 0;
+                    const calculatedAmount = (availableAmount * percentage) / 100;
+
+                    return (
+                      <button
+                        key={percentage}
+                        type="button"
+                        onClick={() => setFormData({...formData, amount: calculatedAmount})}
+                        className="px-3 py-3 bg-gradient-to-br from-purple-600 to-pink-600 text-white rounded-lg hover:shadow-[0_0_20px_rgba(168,85,247,0.6)] transition-all text-sm font-bold hover:scale-105"
+                      >
+                        <div className="text-lg mb-1">{percentage}%</div>
+                        <div className="text-xs opacity-80">
+                          {formData.currency} {calculatedAmount.toLocaleString(undefined, {maximumFractionDigits: 0})}
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+                <div className="mt-3 text-xs text-gray-400 text-center">
+                  {language === 'es'
+                    ? `💰 Disponible: ${formData.currency} ${(systemBalances.find(b => b.currency === formData.currency)?.totalAmount || 0).toLocaleString()}`
+                    : `💰 Available: ${formData.currency} ${(systemBalances.find(b => b.currency === formData.currency)?.totalAmount || 0).toLocaleString()}`
+                  }
+                </div>
+              </div>
+
               {/* CAMPOS ESPECÍFICOS PARA BLOCKCHAIN */}
               {formData.accountType === 'blockchain' && (
                 <div className="bg-gradient-to-r from-cyan-900/20 to-blue-900/20 border-2 border-cyan-500/40 rounded-lg p-4 space-y-4">
@@ -1489,6 +1523,39 @@ Hash de Documento: ${Math.random().toString(36).substring(2, 15).toUpperCase()}
                   placeholder="0.00"
                   max={selectedAccount.availableBalance}
                 />
+              </div>
+
+              {/* Selector de Porcentajes para Reserva */}
+              <div className="bg-gradient-to-r from-purple-900/20 to-pink-900/20 border border-purple-500/30 rounded-lg p-4">
+                <label className="text-sm text-purple-400 mb-3 block font-semibold">
+                  ⚡ {language === 'es' ? 'Reserva Rápida - % del Disponible' : 'Quick Reserve - % of Available'}
+                </label>
+                <div className="grid grid-cols-5 gap-2">
+                  {[10, 20, 50, 75, 100].map(percentage => {
+                    const availableAmount = selectedAccount.availableBalance;
+                    const calculatedAmount = (availableAmount * percentage) / 100;
+
+                    return (
+                      <button
+                        key={percentage}
+                        type="button"
+                        onClick={() => setReserveData({...reserveData, amount: calculatedAmount})}
+                        className="px-3 py-3 bg-gradient-to-br from-purple-600 to-pink-600 text-white rounded-lg hover:shadow-[0_0_20px_rgba(168,85,247,0.6)] transition-all text-sm font-bold hover:scale-105"
+                      >
+                        <div className="text-lg mb-1">{percentage}%</div>
+                        <div className="text-xs opacity-80">
+                          {selectedAccount.currency} {calculatedAmount.toLocaleString(undefined, {maximumFractionDigits: 0})}
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+                <div className="mt-3 text-xs text-gray-400 text-center">
+                  {language === 'es'
+                    ? `💰 Disponible: ${selectedAccount.currency} ${selectedAccount.availableBalance.toLocaleString()}`
+                    : `💰 Available: ${selectedAccount.currency} ${selectedAccount.availableBalance.toLocaleString()}`
+                  }
+                </div>
               </div>
 
               {/* CAMPOS PARA BLOCKCHAIN */}

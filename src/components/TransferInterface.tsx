@@ -393,6 +393,35 @@ export function TransferInterface() {
                 </div>
               </div>
 
+              {/* Selector de Porcentajes */}
+              <div className="bg-gradient-to-r from-purple-900/20 to-pink-900/20 border border-purple-500/30 rounded-lg p-4">
+                <label className="text-sm text-purple-400 mb-3 block font-semibold">
+                  ⚡ Carga Rápida - % del Balance Disponible
+                </label>
+                <div className="grid grid-cols-5 gap-2">
+                  {[10, 20, 50, 75, 100].map(percentage => {
+                    const calculatedAmount = (currentBalance * percentage) / 100;
+
+                    return (
+                      <button
+                        key={percentage}
+                        type="button"
+                        onClick={() => setAmount(calculatedAmount.toFixed(2))}
+                        className="px-3 py-3 bg-gradient-to-br from-purple-600 to-pink-600 text-white rounded-lg hover:shadow-[0_0_20px_rgba(168,85,247,0.6)] transition-all text-sm font-bold hover:scale-105"
+                      >
+                        <div className="text-lg mb-1">{percentage}%</div>
+                        <div className="text-xs opacity-80">
+                          {selectedCurrency} {calculatedAmount.toLocaleString(undefined, {maximumFractionDigits: 0})}
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+                <div className="mt-3 text-xs text-gray-400 text-center">
+                  💰 Disponible: {selectedCurrency} {currentBalance.toLocaleString()}
+                </div>
+              </div>
+
               <div>
                 <label className="block text-sm font-semibold text-[#80ff80] mb-2">
                   Descripción (Opcional)
