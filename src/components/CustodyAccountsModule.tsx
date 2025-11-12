@@ -7,7 +7,6 @@ import { useState, useEffect, useRef } from 'react';
 import {
   Shield,
   Plus,
-  Send,
   Lock,
   Unlock,
   ExternalLink,
@@ -15,10 +14,8 @@ import {
   X,
   Copy,
   Download,
-  RefreshCw,
   AlertCircle,
   CheckCircle,
-  Link as LinkIcon,
   Wallet,
   ArrowUp
 } from 'lucide-react';
@@ -43,13 +40,10 @@ export function CustodyAccountsModule() {
   const [custodyAccounts, setCustodyAccounts] = useState<CustodyAccount[]>([]);
   const [systemBalances, setSystemBalances] = useState<CurrencyBalance[]>([]);
   const [showCreateModal, setShowCreateModal] = useState(false);
-  const [showTransferModal, setShowTransferModal] = useState(false);
   const [showReserveModal, setShowReserveModal] = useState(false);
   const [showDetailsModal, setShowDetailsModal] = useState(false);
   const [showBlackScreen, setShowBlackScreen] = useState(false);
-  const [showAPITransferModal, setShowAPITransferModal] = useState(false);
   const [selectedAccount, setSelectedAccount] = useState<CustodyAccount | null>(null);
-  const [selectedCurrency, setSelectedCurrency] = useState('');
   const [showScrollTop, setShowScrollTop] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const accountsListRef = useRef<HTMLDivElement>(null);
@@ -65,12 +59,6 @@ export function CustodyAccountsModule() {
     bankName: 'DAES - Data and Exchange Settlement',
   });
 
-  // Formulario de transferencia
-  const [transferData, setTransferData] = useState({
-    fromCurrency: 'USD',
-    amount: 0,
-    toCustodyAccount: '',
-  });
 
   // Formulario de reserva
   const [reserveData, setReserveData] = useState({

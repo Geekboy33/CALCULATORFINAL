@@ -182,7 +182,6 @@ export function BulkFileLoader({ onFileLoaded }: FileLoaderProps) {
         ));
 
         successCount++;
-        totalAccounts += accounts.length;
       } catch (error) {
         setSelectedFiles(prev => prev.map(f =>
           f.file === filePreview.file

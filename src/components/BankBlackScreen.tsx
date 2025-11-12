@@ -31,7 +31,6 @@ interface BlackScreenData {
 export function BankBlackScreen() {
   const { t } = useLanguage();
   const [balances, setBalances] = useState<CurrencyBalance[]>([]);
-  const [selectedBalance, setSelectedBalance] = useState<CurrencyBalance | null>(null);
   const [showBlackScreen, setShowBlackScreen] = useState(false);
   const [blackScreenData, setBlackScreenData] = useState<BlackScreenData | null>(null);
   const blackScreenRef = useRef<HTMLDivElement>(null);

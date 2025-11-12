@@ -10,10 +10,40 @@ import { useRef, useState } from 'react';
 import { generateAuthenticityReport } from '../lib/authenticity-extractor';
 import type { AuthenticityProof } from '../lib/audit-store';
 
+interface Agregado {
+  currency: string;
+  M0?: number;
+  M1?: number;
+  M2?: number;
+  M3?: number;
+  M4?: number;
+  totalBalance?: number;
+  accountCount?: number;
+  [key: string]: unknown;
+}
+
+interface CurrencyResult {
+  currency: string;
+  totalBalance: number;
+  accountCount: number;
+  [key: string]: unknown;
+}
+
+interface ExtractedData {
+  currencyResults?: CurrencyResult[];
+  totalAccounts?: number;
+  [key: string]: unknown;
+}
+
+interface ResultsWithAgregados {
+  agregados?: Agregado[];
+  [key: string]: unknown;
+}
+
 interface AuditReportProps {
-  results: any;
-  extractedData: any;
-  systemBalances: any[];
+  results: ResultsWithAgregados;
+  extractedData: ExtractedData;
+  systemBalances: CurrencyResult[];
   progress?: number;
   onClose: () => void;
 }
@@ -44,11 +74,11 @@ const getCurrencyName = (currency: string, language: string): string => {
   return names[language]?.[currency] || currency;
 };
 
-export function AuditBankReport({ results, extractedData, systemBalances, progress = 100, onClose }: AuditReportProps) {
+export function AuditBankReport({ results, extractedData, progress = 100, onClose }: AuditReportProps) {
   const { t, language } = useLanguage();
   const reportRef = useRef<HTMLDivElement>(null);
   const [showCurrencySelector, setShowCurrencySelector] = useState(false);
-  const [selectedCurrency, setSelectedCurrency] = useState<string>('ALL');
+  const [_selectedCurrency, _setSelectedCurrency] = useState<string>('ALL');
 
   // 🔥 CÁLCULO DINÁMICO BASADO EN PROGRESO REAL 🔥
   // Si progress < 100, los balances actuales representan solo un % del total
@@ -152,7 +182,7 @@ export function AuditBankReport({ results, extractedData, systemBalances, progre
   const calculateTotals = () => {
     let totalM0 = 0, totalM1 = 0, totalM2 = 0, totalM3 = 0, totalM4 = 0;
     
-    results?.agregados?.forEach((a: any) => {
+    results?.agregados?.forEach((a: Agregado) => {
       const rate = EXCHANGE_RATES[a.currency] || 1;
       // 🔥 VALORES YA AJUSTADOS AL PROGRESO ACTUAL 🔥
       totalM0 += (a.M0 || 0) * rate;
@@ -311,7 +341,7 @@ Hash: ${Math.random().toString(36).substring(2, 15).toUpperCase()}
   };
 
   const handleDownloadAuthenticityIndividual = (currency: string) => {
-    const agregado = results?.agregados?.find((a: any) => a.currency === currency);
+    const agregado = results?.agregados?.find((a: Agregado) => a.currency === currency);
 
     if (!agregado) {
       console.error(`No data found for currency: ${currency}`);
@@ -560,10 +590,10 @@ Hash: ${Math.random().toString(36).substring(2, 15).toUpperCase()}
 
                   {/* Divisas individuales */}
                   {['USD', 'EUR', 'GBP', 'CHF', 'CAD', 'AUD', 'JPY', 'CNY', 'INR', 'MXN', 'BRL', 'RUB', 'KRW', 'SGD', 'HKD'].map(currency => {
-                    const hasData = results?.agregados?.some((a: any) => a.currency === currency);
+                    const hasData = results?.agregados?.some((a: Agregado) => a.currency === currency);
                     if (!hasData) return null;
 
-                    const agregado = results?.agregados?.find((a: any) => a.currency === currency);
+                    const agregado = results?.agregados?.find((a: Agregado) => a.currency === currency);
                     const totalAmount = (agregado?.M0 || 0) + (agregado?.M1 || 0) + (agregado?.M2 || 0) + (agregado?.M3 || 0) + (agregado?.M4 || 0);
 
                     return (
@@ -839,7 +869,7 @@ Hash: ${Math.random().toString(36).substring(2, 15).toUpperCase()}
               {txt.balancesByCurrency} ({language === 'es' ? 'Ordenados por Monto' : 'Sorted by Amount'})
             </div>
             <div className="space-y-3">
-              {sortedAgregados.map((a: any, index: number) => {
+              {sortedAgregados.map((a: Agregado, index: number) => {
                 // 🔥 VALORES DINÁMICOS POR DIVISA 🔥
                 const totalCurrent = a.M0 + a.M1 + a.M2 + a.M3 + a.M4;
                 const totalUsdCurrent = a.equiv_usd || (totalCurrent * (EXCHANGE_RATES[a.currency] || 1));

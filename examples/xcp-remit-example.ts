@@ -47,7 +47,7 @@ async function main() {
         console.log(`  Available: ${balance.availableBalance.value} ${balance.availableBalance.currency}`);
       }
       console.log();
-    } catch (error) {
+    } catch (_error) {
       console.log('⚠ Balance check skipped (endpoint may not be available)');
       console.log();
     }

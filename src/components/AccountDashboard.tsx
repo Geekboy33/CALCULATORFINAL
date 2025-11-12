@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import { Wallet, TrendingUp, TrendingDown, RefreshCw, AlertCircle, FileUp, FolderOpen, Eye, Database, Shield, Key, CheckCircle, ArrowRightLeft } from 'lucide-react';
 import { bankingStore, Account, Transfer } from '../lib/store';
 import { DTC1BParser } from '../lib/dtc1b-parser';
@@ -151,7 +151,7 @@ export function AccountDashboard() {
     if (selectedAccount) {
       loadTransfers(selectedAccount.id);
     }
-  }, [selectedAccount]);
+  }, [selectedAccount, loadTransfers]);
 
   const loadAccounts = () => {
     const allAccounts = bankingStore.getAccounts();
@@ -196,34 +196,10 @@ export function AccountDashboard() {
     }
   };
 
-  const loadTransfers = (accountId: string) => {
+  const loadTransfers = useCallback((accountId: string) => {
     setTransfers(bankingStore.getTransfersByAccount(accountId));
-  };
+  }, []);
 
-  const _handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    setUploading(true);
-    try {
-      const buffer = await file.arrayBuffer();
-      const data = new Uint8Array(buffer);
-
-      const newAccounts = await bankingStore.processFileAndCreateAccounts(data, file.name);
-
-      if (newAccounts.length === 0) {
-        toast.warning(t.dashboardNoCurrencyBlocks);
-      } else {
-        toast.success(t.dashboardFileProcessed.replace('{count}', newAccounts.length.toString()));
-        loadAccounts();
-      }
-    } catch (error) {
-      toast.error(t.dashboardErrorProcessing, error instanceof Error ? error.message : t.dashboardUnknownError);
-    } finally {
-      setUploading(false);
-      e.target.value = '';
-    }
-  };
 
   const generateSampleFile = async () => {
     setUploading(true);

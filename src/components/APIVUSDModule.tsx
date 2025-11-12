@@ -184,10 +184,11 @@ export function APIVUSDModule() {
       setShowTransferModal(false);
       setTransferForm({ external_ref: '', amount: 0, to_account: '', description: '' });
       await loadData();
-    } catch (err: any) {
-      setError(err.message || 'Transfer failed');
-      if (err.message?.includes('cap')) {
-        alert(`${t.capViolation}: ${err.message}`);
+    } catch (err) {
+      const error = err as Error;
+      setError(error.message || 'Transfer failed');
+      if (error.message?.includes('cap')) {
+        alert(`${t.capViolation}: ${error.message}`);
       }
     } finally {
       setLoading(false);
@@ -210,8 +211,9 @@ export function APIVUSDModule() {
       setShowPledgeModal(false);
       setPledgeForm({ amount: 0, currency: 'USD', beneficiary: '', expires_at: '' });
       await loadData();
-    } catch (err: any) {
-      setError(err.message || 'Pledge creation failed');
+    } catch (err) {
+      const error = err as Error;
+      setError(error.message || 'Pledge creation failed');
     } finally {
       setLoading(false);
     }
@@ -225,8 +227,9 @@ export function APIVUSDModule() {
       const result = await vusdCapStore.publishPor();
       alert(`${t.porPublished}\nTX ID: ${result.txId || 'N/A'}`);
       await loadData();
-    } catch (err: any) {
-      setError(err.message || 'PoR publication failed');
+    } catch (err) {
+      const error = err as Error;
+      setError(error.message || 'PoR publication failed');
     } finally {
       setLoading(false);
     }

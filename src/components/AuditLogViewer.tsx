@@ -18,7 +18,7 @@ export function AuditLogViewer() {
 
   useEffect(() => {
     filterLogs();
-  }, [logs, searchTerm, serviceFilter]);
+  }, [logs, searchTerm, serviceFilter, filterLogs]);
 
   const loadLogs = () => {
     setLogs(bankingStore.getAuditLogs());

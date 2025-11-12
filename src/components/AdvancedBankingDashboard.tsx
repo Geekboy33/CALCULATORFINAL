@@ -1,12 +1,12 @@
 import { useState, useEffect, useMemo } from 'react';
 import {
-  Wallet, TrendingUp, TrendingDown, DollarSign, Activity, ArrowUpRight, ArrowDownRight,
-  PieChart, BarChart3, AlertCircle, CheckCircle, Clock, XCircle, FileText, Database,
-  RefreshCw, Filter, Download, Eye, EyeOff, Lock, Unlock, Shield, Zap
+  Wallet, TrendingUp, Activity, ArrowUpRight, ArrowDownRight,
+  PieChart, AlertCircle, CheckCircle, Clock, XCircle, FileText, Database,
+  Eye, EyeOff, Shield
 } from 'lucide-react';
 import { transactionsStore, type FileAccount, type Transaction } from '../lib/transactions-store';
 import { formatCurrency } from '../lib/balances-store';
-import { ledgerAccountsStore, type LedgerAccount, SUPPORTED_CURRENCIES } from '../lib/ledger-accounts-store';
+import { ledgerAccountsStore, type LedgerAccount } from '../lib/ledger-accounts-store';
 import { useLanguage } from '../lib/i18n';
 
 interface DashboardStats {
@@ -35,7 +35,7 @@ interface CurrencyStats {
 
 export function AdvancedBankingDashboard() {
   const { t } = useLanguage();
-  const [accounts, setAccounts] = useState<FileAccount[]>([]);
+  const [_accounts, _setAccounts] = useState<FileAccount[]>([]);
   const [ledgerAccounts, setLedgerAccounts] = useState<LedgerAccount[]>([]);
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [loading, setLoading] = useState(true);
@@ -429,7 +429,7 @@ export function AdvancedBankingDashboard() {
               {/* Period Filter */}
               <select
                 value={selectedPeriod}
-                onChange={(e) => setSelectedPeriod(e.target.value as any)}
+                onChange={(e) => setSelectedPeriod(e.target.value)}
                 className="bg-[#0d0d0d] border border-[#00ff88]/30 text-[#e0ffe0] px-3 py-2 rounded-lg text-sm focus:border-[#00ff88] focus:outline-none"
               >
                 <option value="all">{t.advDashboardAllPeriods}</option>

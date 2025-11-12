@@ -16,24 +16,6 @@ import {
 import { useLanguage } from '../lib/i18n';
 import { custodyStore, type CustodyAccount } from '../lib/custody-store';
 
-interface _APIConnection {
-  id: string;
-  accountId: string;
-  accountName: string;
-  accountNumber: string;
-  currency: string;
-  apiId: string;
-  apiKey: string;
-  endpoint: string;
-  privileges: {
-    canSend: boolean;
-    canReceive: boolean;
-    dailyLimit: number;
-    perTransactionLimit: number;
-  };
-  status: 'active' | 'inactive';
-  createdAt: string;
-}
 
 export function APIDAESModule() {
   const { language } = useLanguage();

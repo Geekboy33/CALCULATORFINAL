@@ -7,9 +7,8 @@
 import { useState } from 'react';
 import { 
   Send, 
-  Webhook, 
-  CheckCircle, 
-  XCircle, 
+  Webhook,
+  CheckCircle,
   Loader, 
   DollarSign,
   Building2,
@@ -48,7 +47,7 @@ export function CoreBankingAPIModule() {
   const [isConfigured, setIsConfigured] = useState(false);
   const [isSending, setIsSending] = useState(false);
   const [transactions, setTransactions] = useState<Transaction[]>([]);
-  const [webhookEvents, setWebhookEvents] = useState<any[]>([]);
+  const [webhookEvents, setWebhookEvents] = useState<Array<{ event_type: string; data: unknown; timestamp: string }>>([]);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
 
