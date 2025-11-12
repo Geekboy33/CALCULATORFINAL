@@ -1,8 +1,6 @@
 import { getSupabaseClient } from './supabase-client';
 import { CurrencyBalance } from './balances-store';
 
-const supabase = getSupabaseClient();
-
 export interface Transaction {
   id: string;
   userId: string;
@@ -51,6 +49,11 @@ class TransactionsStore {
 
   private async initializeUser(): Promise<string | null> {
     try {
+      const supabase = getSupabaseClient();
+      if (!supabase) {
+        this.currentUserId = null;
+        return null;
+      }
       const { data: { user } } = await supabase.auth.getUser();
       this.currentUserId = user?.id || null;
       return this.currentUserId;

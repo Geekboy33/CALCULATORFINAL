@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo } from 'react';
 import {
   Wallet, TrendingUp, Activity, ArrowUpRight, ArrowDownRight,
   PieChart, AlertCircle, CheckCircle, Clock, XCircle, FileText, Database,
-  Eye, EyeOff, Shield
+  Eye, EyeOff, Shield, RefreshCw
 } from 'lucide-react';
 import { transactionsStore, type FileAccount, type Transaction } from '../lib/transactions-store';
 import { formatCurrency } from '../lib/balances-store';
@@ -35,7 +35,7 @@ interface CurrencyStats {
 
 export function AdvancedBankingDashboard() {
   const { t } = useLanguage();
-  const [_accounts, _setAccounts] = useState<FileAccount[]>([]);
+  const [accounts, setAccounts] = useState<FileAccount[]>([]);
   const [ledgerAccounts, setLedgerAccounts] = useState<LedgerAccount[]>([]);
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [loading, setLoading] = useState(true);
