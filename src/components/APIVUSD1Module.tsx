@@ -89,7 +89,7 @@ export default function APIVUSD1Module() {
 
       await loadData();
 
-      alert(`✅ Pledge Created Successfully!\n\nPledge ID: ${result.pledge_id}\nAmount: ${result.currency} ${result.amount.toLocaleString()}\nBeneficiary: ${result.beneficiary}`);
+      alert(`✅ Pledge Created Successfully!\n\nPledge ID: ${result.pledge_id}\nAmount: ${result.currency} ${result.amount.toLocaleString('en-US', { minimumFractionDigits: 3, maximumFractionDigits: 3 })}\nBeneficiary: ${result.beneficiary}`);
 
     } catch (err) {
       const error = err as Error;
@@ -123,7 +123,7 @@ export default function APIVUSD1Module() {
 
       await loadData();
 
-      alert(`✅ Payout Created Successfully!\n\nPayout ID: ${result.payout_id}\nAmount: ${result.currency} ${result.amount.toLocaleString()}\nStatus: ${result.status}`);
+      alert(`✅ Payout Created Successfully!\n\nPayout ID: ${result.payout_id}\nAmount: ${result.currency} ${result.amount.toLocaleString('en-US', { minimumFractionDigits: 3, maximumFractionDigits: 3 })}\nStatus: ${result.status}`);
 
     } catch (err) {
       const error = err as Error;
@@ -150,7 +150,7 @@ export default function APIVUSD1Module() {
 
       await loadData();
 
-      alert(`✅ Attestation Created!\n\nAttestation ID: ${result.attestation_id}\nCirculating Cap: $${result.circulating_cap.toLocaleString()}\nDocument Hash: ${result.document_hash.substring(0, 16)}...`);
+      alert(`✅ Attestation Created!\n\nAttestation ID: ${result.attestation_id}\nCirculating Cap: $${result.circulating_cap.toLocaleString('en-US', { minimumFractionDigits: 3, maximumFractionDigits: 3 })}\nDocument Hash: ${result.document_hash.substring(0, 16)}...`);
 
     } catch (err) {
       const error = err as Error;
@@ -213,7 +213,7 @@ export default function APIVUSD1Module() {
               Circulating Cap
             </div>
             <div className="text-2xl font-bold text-[#00ff88]">
-              ${reserveSummary.circulating_cap.toLocaleString()}
+              ${reserveSummary.circulating_cap.toLocaleString('en-US', { minimumFractionDigits: 3, maximumFractionDigits: 3 })}
             </div>
           </div>
 
@@ -223,7 +223,7 @@ export default function APIVUSD1Module() {
               Pledged USD
             </div>
             <div className="text-2xl font-bold text-white">
-              ${reserveSummary.pledged_usd.toLocaleString()}
+              ${reserveSummary.pledged_usd.toLocaleString('en-US', { minimumFractionDigits: 3, maximumFractionDigits: 3 })}
             </div>
           </div>
 
@@ -243,7 +243,7 @@ export default function APIVUSD1Module() {
               Total Reserves
             </div>
             <div className="text-2xl font-bold text-white">
-              ${reserveSummary.total_reserves.toLocaleString()}
+              ${reserveSummary.total_reserves.toLocaleString('en-US', { minimumFractionDigits: 3, maximumFractionDigits: 3 })}
             </div>
           </div>
         </div>
@@ -320,7 +320,7 @@ export default function APIVUSD1Module() {
                 </div>
                 <div>
                   <span className="text-[#4d7c4d]">Unpledged USD:</span>
-                  <span className="text-white ml-2 font-mono">${reserveSummary.unpledged_usd.toLocaleString()}</span>
+                  <span className="text-white ml-2 font-mono">${reserveSummary.unpledged_usd.toLocaleString('en-US', { minimumFractionDigits: 3, maximumFractionDigits: 3 })}</span>
                 </div>
               </div>
             </div>
@@ -386,11 +386,11 @@ export default function APIVUSD1Module() {
                     <div className="grid grid-cols-3 gap-4 text-sm">
                       <div>
                         <div className="text-[#4d7c4d]">Amount</div>
-                        <div className="text-[#00ff88] font-bold">${pledge.amount.toLocaleString()} {pledge.currency}</div>
+                        <div className="text-[#00ff88] font-bold">${pledge.amount.toLocaleString('en-US', { minimumFractionDigits: 3, maximumFractionDigits: 3 })} {pledge.currency}</div>
                       </div>
                       <div>
                         <div className="text-[#4d7c4d]">Available</div>
-                        <div className="text-white font-bold">${pledge.available.toLocaleString()}</div>
+                        <div className="text-white font-bold">${pledge.available.toLocaleString('en-US', { minimumFractionDigits: 3, maximumFractionDigits: 3 })}</div>
                       </div>
                       <div>
                         <div className="text-[#4d7c4d]">Beneficiary</div>
@@ -517,7 +517,7 @@ export default function APIVUSD1Module() {
                   <option value="">-- Select Pledge --</option>
                   {pledges.map((p) => (
                     <option key={p.id} value={p.pledge_id}>
-                      {p.pledge_id} - ${p.available.toLocaleString()} available
+                      {p.pledge_id} - ${p.available.toLocaleString('en-US', { minimumFractionDigits: 3, maximumFractionDigits: 3 })} available
                     </option>
                   ))}
                 </select>
