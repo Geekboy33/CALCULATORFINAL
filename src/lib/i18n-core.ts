@@ -220,6 +220,26 @@ export interface Translations {
   msgProcessingFile: string;
   msgAnalysisComplete: string;
   msgErrorOccurred: string;
+
+  // Validation Messages
+  validationNoCapitalTitle: string;
+  validationNoCapitalAccount: string;
+  validationNoCapitalBalanceTotal: string;
+  validationNoCapitalBalanceAvailable: string;
+  validationNoCapitalBalanceReserved: string;
+  validationNoCapitalMessage: string;
+  validationNoCapitalSolution: string;
+  validationNoCapitalSolution1: string;
+  validationNoCapitalSolution2: string;
+  validationAmountExceedsTitle: string;
+  validationAmountExceedsRequested: string;
+  validationAmountExceedsAvailable: string;
+  validationAmountExceedsMessage: string;
+  validationDuplicatePledgeTitle: string;
+  validationDuplicatePledgeMessage: string;
+  validationDuplicatePledgeSolution: string;
+  validationDuplicatePledgeSolution1: string;
+  validationDuplicatePledgeSolution2: string;
   
   // Time
   timeSeconds: string;
@@ -604,6 +624,26 @@ export const translations: Record<Language, Translations> = {
     msgAnalysisComplete: 'Análisis Completado',
     msgErrorOccurred: 'Error al procesar',
 
+    // Validation Messages
+    validationNoCapitalTitle: 'SIN CAPITAL DISPONIBLE',
+    validationNoCapitalAccount: 'Cuenta',
+    validationNoCapitalBalanceTotal: 'Balance Total',
+    validationNoCapitalBalanceAvailable: 'Balance Disponible',
+    validationNoCapitalBalanceReserved: 'Balance Reservado',
+    validationNoCapitalMessage: 'No se puede crear pledge sin capital disponible.',
+    validationNoCapitalSolution: 'Solución:',
+    validationNoCapitalSolution1: 'Libera el pledge existente de esta cuenta, o',
+    validationNoCapitalSolution2: 'Usa una cuenta custody con balance disponible',
+    validationAmountExceedsTitle: 'MONTO EXCEDE DISPONIBLE',
+    validationAmountExceedsRequested: 'Solicitado',
+    validationAmountExceedsAvailable: 'Disponible',
+    validationAmountExceedsMessage: 'Reduce el monto del pledge o selecciona otra cuenta.',
+    validationDuplicatePledgeTitle: 'PLEDGE DUPLICADO DETECTADO',
+    validationDuplicatePledgeMessage: 'Ya existe un pledge ACTIVO para esta cuenta custody.\nNo se puede desplegar el mismo capital dos veces.',
+    validationDuplicatePledgeSolution: 'Solución:',
+    validationDuplicatePledgeSolution1: 'Libera el pledge existente primero, o',
+    validationDuplicatePledgeSolution2: 'Usa una cuenta custody diferente',
+
     // Time
     timeSeconds: 'segundos',
     timeMinutes: 'minutos',
@@ -985,6 +1025,26 @@ export const translations: Record<Language, Translations> = {
     msgProcessingFile: 'Processing file',
     msgAnalysisComplete: 'Analysis Complete',
     msgErrorOccurred: 'Error processing',
+
+    // Validation Messages
+    validationNoCapitalTitle: 'NO CAPITAL AVAILABLE',
+    validationNoCapitalAccount: 'Account',
+    validationNoCapitalBalanceTotal: 'Total Balance',
+    validationNoCapitalBalanceAvailable: 'Available Balance',
+    validationNoCapitalBalanceReserved: 'Reserved Balance',
+    validationNoCapitalMessage: 'Cannot create pledge without available capital.',
+    validationNoCapitalSolution: 'Solution:',
+    validationNoCapitalSolution1: 'Release the existing pledge from this account, or',
+    validationNoCapitalSolution2: 'Use a custody account with available balance',
+    validationAmountExceedsTitle: 'AMOUNT EXCEEDS AVAILABLE',
+    validationAmountExceedsRequested: 'Requested',
+    validationAmountExceedsAvailable: 'Available',
+    validationAmountExceedsMessage: 'Reduce the pledge amount or select another account.',
+    validationDuplicatePledgeTitle: 'DUPLICATE PLEDGE DETECTED',
+    validationDuplicatePledgeMessage: 'An ACTIVE pledge already exists for this custody account.\nThe same capital cannot be deployed twice.',
+    validationDuplicatePledgeSolution: 'Solution:',
+    validationDuplicatePledgeSolution1: 'Release the existing pledge first, or',
+    validationDuplicatePledgeSolution2: 'Use a different custody account',
 
     // Time
     timeSeconds: 'seconds',

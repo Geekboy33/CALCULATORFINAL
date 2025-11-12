@@ -260,24 +260,24 @@ export function APIVUSDModule() {
 
         if (account.availableBalance <= 0) {
           throw new Error(
-            `❌ SIN CAPITAL DISPONIBLE\n\n` +
-            `Cuenta: ${account.accountName}\n` +
-            `Balance Total: ${account.currency} ${account.totalBalance.toLocaleString()}\n` +
-            `Balance Disponible: ${account.currency} ${account.availableBalance.toLocaleString()}\n` +
-            `Balance Reservado: ${account.currency} ${account.reservedBalance.toLocaleString()}\n\n` +
-            `No se puede crear pledge sin capital disponible.\n\n` +
-            `Solución:\n` +
-            `1. Libera el pledge existente de esta cuenta, o\n` +
-            `2. Usa una cuenta custody con balance disponible`
+            `❌ ${t.validationNoCapitalTitle}\n\n` +
+            `${t.validationNoCapitalAccount}: ${account.accountName}\n` +
+            `${t.validationNoCapitalBalanceTotal}: ${account.currency} ${account.totalBalance.toLocaleString('en-US', { minimumFractionDigits: 3, maximumFractionDigits: 3 })}\n` +
+            `${t.validationNoCapitalBalanceAvailable}: ${account.currency} ${account.availableBalance.toLocaleString('en-US', { minimumFractionDigits: 3, maximumFractionDigits: 3 })}\n` +
+            `${t.validationNoCapitalBalanceReserved}: ${account.currency} ${account.reservedBalance.toLocaleString('en-US', { minimumFractionDigits: 3, maximumFractionDigits: 3 })}\n\n` +
+            `${t.validationNoCapitalMessage}\n\n` +
+            `${t.validationNoCapitalSolution}\n` +
+            `1. ${t.validationNoCapitalSolution1}\n` +
+            `2. ${t.validationNoCapitalSolution2}`
           );
         }
 
         if (pledgeForm.amount > account.availableBalance) {
           throw new Error(
-            `❌ MONTO EXCEDE DISPONIBLE\n\n` +
-            `Solicitado: ${pledgeForm.currency} ${pledgeForm.amount.toLocaleString()}\n` +
-            `Disponible: ${account.currency} ${account.availableBalance.toLocaleString()}\n\n` +
-            `Reduce el monto del pledge o selecciona otra cuenta.`
+            `❌ ${t.validationAmountExceedsTitle}\n\n` +
+            `${t.validationAmountExceedsRequested}: ${pledgeForm.currency} ${pledgeForm.amount.toLocaleString('en-US', { minimumFractionDigits: 3, maximumFractionDigits: 3 })}\n` +
+            `${t.validationAmountExceedsAvailable}: ${account.currency} ${account.availableBalance.toLocaleString('en-US', { minimumFractionDigits: 3, maximumFractionDigits: 3 })}\n\n` +
+            `${t.validationAmountExceedsMessage}`
           );
         }
 
