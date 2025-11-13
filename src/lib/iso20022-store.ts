@@ -102,7 +102,8 @@ class ISO20022Store {
    * Extract digital signatures from Bank Audit DTC1B data
    */
   extractDigitalSignatures(): DigitalSignature[] {
-    const auditData = auditStore.getResults();
+    const storeData = auditStore.loadAuditData();
+    const auditData = storeData?.results;
     if (!auditData) {
       console.warn('[ISO20022] No audit data available');
       return [];
@@ -190,7 +191,8 @@ class ISO20022Store {
    * Extract M2 money balance from DTC1B via Bank Audit
    */
   extractM2Balance(): { total: number; currency: string; validated: boolean } {
-    const auditData = auditStore.getResults();
+    const storeData = auditStore.loadAuditData();
+    const auditData = storeData?.results;
     if (!auditData) {
       throw new Error('No audit data available. Please process DTC1B file in Bank Audit module first.');
     }
@@ -430,7 +432,8 @@ class ISO20022Store {
    * Deduct from M2 balance in Bank Audit
    */
   deductFromM2Balance(amount: number, currency: string, transferId: string): void {
-    const auditData = auditStore.getResults();
+    const storeData = auditStore.loadAuditData();
+    const auditData = storeData?.results;
     if (!auditData) {
       throw new Error('No audit data available');
     }
@@ -452,11 +455,13 @@ class ISO20022Store {
     const exchangeRate = m2Data.equiv_usd / (m2Data.M0 + m2Data.M1 + m2Data.M2 + m2Data.M3 + m2Data.M4 + amount);
     m2Data.equiv_usd = (m2Data.M0 + m2Data.M1 + m2Data.M2 + m2Data.M3 + m2Data.M4) * exchangeRate;
 
-    // Update total
-    auditData.resumen.total_equiv_usd = auditData.agregados.reduce((sum, agg) => sum + agg.equiv_usd, 0);
+    // Update total if exists
+    if (auditData.resumen && 'total_equiv_usd' in auditData.resumen) {
+      (auditData.resumen as any).total_equiv_usd = auditData.agregados.reduce((sum, agg) => sum + agg.equiv_usd, 0);
+    }
 
     // Save updated audit data
-    auditStore.saveResults(auditData);
+    auditStore.saveAuditData(auditData, storeData?.extractedData || null);
 
     console.log(`[ISO20022] 💰 Deducted ${currency} ${amount.toLocaleString()} from M2 balance`);
     console.log(`[ISO20022] 📊 New M2 balance: ${currency} ${m2Data.M2.toLocaleString()}`);
