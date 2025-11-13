@@ -10,6 +10,7 @@ import {
 } from 'lucide-react';
 import { apiVUSD1Store, type ApiPledge, type ApiPayout, type ApiAttestation, type ReserveSummary } from '../lib/api-vusd1-store';
 import { APIVUSD1KeysManager } from './APIVUSD1KeysManager';
+import { custodyStore, type CustodyAccount } from '../lib/custody-store';
 
 export default function APIVUSD1Module() {
   const [selectedView, setSelectedView] = useState<'overview' | 'pledges' | 'payouts' | 'attestations' | 'events' | 'api-keys'>('overview');
@@ -21,14 +22,16 @@ export default function APIVUSD1Module() {
   const [payouts, setPayouts] = useState<ApiPayout[]>([]);
   const [attestation, setAttestation] = useState<ApiAttestation | null>(null);
   const [reserveSummary, setReserveSummary] = useState<ReserveSummary | null>(null);
+  const [custodyAccounts, setCustodyAccounts] = useState<CustodyAccount[]>([]);
 
   // Form states
   const [showPledgeModal, setShowPledgeModal] = useState(false);
   const [showPayoutModal, setShowPayoutModal] = useState(false);
+  const [selectedCustodyAccount, setSelectedCustodyAccount] = useState<string>('');
   const [pledgeForm, setPledgeForm] = useState({
     amount: 0,
     currency: 'USD',
-    beneficiary: '',
+    beneficiary: 'VUSD', // Default beneficiary
     external_ref: '',
     expires_at: ''
   });
@@ -42,6 +45,7 @@ export default function APIVUSD1Module() {
   // Load data
   useEffect(() => {
     loadData();
+    loadCustodyAccounts();
   }, []);
 
   const loadData = async () => {
@@ -65,6 +69,12 @@ export default function APIVUSD1Module() {
     } finally {
       setLoading(false);
     }
+  };
+
+  const loadCustodyAccounts = () => {
+    const accounts = custodyStore.getAccounts();
+    console.log('[APIVUSD1] Loaded custody accounts:', accounts.length);
+    setCustodyAccounts(accounts);
   };
 
   // Create Pledge
@@ -475,9 +485,60 @@ export default function APIVUSD1Module() {
       {/* Create Pledge Modal */}
       {showPledgeModal && (
         <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4">
-          <div className="bg-[#0d0d0d] border border-[#00ff88] rounded-lg max-w-md w-full p-6">
+          <div className="bg-[#0d0d0d] border border-[#00ff88] rounded-lg max-w-xl w-full p-6 max-h-[90vh] overflow-y-auto">
             <h2 className="text-xl font-bold text-[#00ff88] mb-4">Create New Pledge</h2>
             <form onSubmit={handleCreatePledge} className="space-y-4">
+
+              {/* Custody Account Selector */}
+              <div className="bg-[#0a0a0a] border-2 border-[#00ff88]/40 rounded-lg p-4">
+                <label className="block text-[#00ff88] text-sm font-semibold mb-2 flex items-center gap-2">
+                  <Database className="w-4 h-4" />
+                  Select Custody Account *
+                </label>
+                {custodyAccounts.length === 0 ? (
+                  <div className="bg-[#1a1a1a] border border-yellow-500/30 rounded p-3 text-center">
+                    <AlertCircle className="w-6 h-6 text-yellow-500 mx-auto mb-2" />
+                    <p className="text-yellow-400 text-sm font-semibold">No Custody Accounts Available</p>
+                    <p className="text-[#4d7c4d] text-xs mt-1">
+                      Create custody accounts first in the Custody Accounts module
+                    </p>
+                  </div>
+                ) : (
+                  <>
+                    <select
+                      value={selectedCustodyAccount}
+                      onChange={(e) => {
+                        const accountId = e.target.value;
+                        setSelectedCustodyAccount(accountId);
+                        const account = custodyAccounts.find(a => a.id === accountId);
+                        if (account) {
+                          setPledgeForm({
+                            ...pledgeForm,
+                            amount: account.availableBalance,
+                            currency: account.currency
+                          });
+                        }
+                      }}
+                      className="w-full bg-[#0d0d0d] border-2 border-[#00ff88]/30 focus:border-[#00ff88] text-[#e0ffe0] px-4 py-3 rounded-lg outline-none transition-all text-sm"
+                      required
+                    >
+                      <option value="">-- Select a custody account --</option>
+                      {custodyAccounts.map((account) => (
+                        <option key={account.id} value={account.id}>
+                          {account.accountName} | {account.currency} ${account.availableBalance.toLocaleString()} available
+                        </option>
+                      ))}
+                    </select>
+                    {selectedCustodyAccount && (
+                      <p className="text-green-400 text-xs mt-2 flex items-center gap-1">
+                        <CheckCircle className="w-3 h-3" />
+                        Account selected - Amount and currency auto-filled
+                      </p>
+                    )}
+                  </>
+                )}
+              </div>
+
               <div>
                 <label className="block text-[#4d7c4d] text-sm mb-2">Amount</label>
                 <input
@@ -487,7 +548,11 @@ export default function APIVUSD1Module() {
                   onChange={(e) => setPledgeForm({ ...pledgeForm, amount: parseFloat(e.target.value) || 0 })}
                   className="w-full bg-[#0a0a0a] border border-[#1a1a1a] rounded px-4 py-2 text-white"
                   required
+                  disabled={!selectedCustodyAccount}
                 />
+                {!selectedCustodyAccount && (
+                  <p className="text-[#4d7c4d] text-xs mt-1">Select a custody account first</p>
+                )}
               </div>
 
               <div>
@@ -496,22 +561,27 @@ export default function APIVUSD1Module() {
                   value={pledgeForm.currency}
                   onChange={(e) => setPledgeForm({ ...pledgeForm, currency: e.target.value })}
                   className="w-full bg-[#0a0a0a] border border-[#1a1a1a] rounded px-4 py-2 text-white"
+                  disabled={!selectedCustodyAccount}
                 >
                   <option value="USD">USD</option>
                   <option value="EUR">EUR</option>
                   <option value="GBP">GBP</option>
                 </select>
+                {!selectedCustodyAccount && (
+                  <p className="text-[#4d7c4d] text-xs mt-1">Select a custody account first</p>
+                )}
               </div>
 
               <div>
-                <label className="block text-[#4d7c4d] text-sm mb-2">Beneficiary</label>
+                <label className="block text-[#00ff88] text-sm font-semibold mb-2">Beneficiary</label>
                 <input
                   type="text"
                   value={pledgeForm.beneficiary}
                   onChange={(e) => setPledgeForm({ ...pledgeForm, beneficiary: e.target.value })}
-                  className="w-full bg-[#0a0a0a] border border-[#1a1a1a] rounded px-4 py-2 text-white"
+                  className="w-full bg-[#0a0a0a] border border-[#00ff88]/30 focus:border-[#00ff88] rounded px-4 py-2 text-white"
                   required
                 />
+                <p className="text-green-400 text-xs mt-1">Default: VUSD</p>
               </div>
 
               <div>
@@ -521,29 +591,36 @@ export default function APIVUSD1Module() {
                   value={pledgeForm.external_ref}
                   onChange={(e) => setPledgeForm({ ...pledgeForm, external_ref: e.target.value })}
                   className="w-full bg-[#0a0a0a] border border-[#1a1a1a] rounded px-4 py-2 text-white"
+                  placeholder="Optional reference ID"
                 />
               </div>
 
-              <div className="flex gap-3 pt-4">
+              <div className="flex gap-3 pt-6 border-t border-[#00ff88]/20 mt-6">
                 <button
                   type="button"
                   onClick={() => {
                     setShowPledgeModal(false);
-                    setPledgeForm({ amount: 0, currency: 'USD', beneficiary: '', external_ref: '', expires_at: '' });
+                    setSelectedCustodyAccount('');
+                    setPledgeForm({ amount: 0, currency: 'USD', beneficiary: 'VUSD', external_ref: '', expires_at: '' });
                   }}
-                  className="flex-1 px-4 py-2 bg-[#1a1a1a] text-white rounded-lg hover:bg-[#2a2a2a]"
+                  className="flex-1 px-6 py-3 bg-[#1a1a1a] border border-[#00ff88]/30 hover:border-[#00ff88] text-[#00ff88] rounded-lg font-bold transition-all"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  disabled={loading}
-                  className="flex-1 px-6 py-3 bg-[#00ff88] text-black rounded-lg hover:bg-[#00ff88]/80 disabled:opacity-50 font-bold flex items-center justify-center gap-2"
+                  disabled={loading || !selectedCustodyAccount}
+                  className="flex-1 px-6 py-4 bg-gradient-to-r from-[#00ff88] to-[#00cc6a] hover:from-[#00cc6a] hover:to-[#00aa55] text-black rounded-lg font-bold text-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-[0_0_20px_rgba(0,255,136,0.5)] flex items-center justify-center gap-2"
                 >
                   {loading ? (
                     <>
                       <div className="w-5 h-5 border-2 border-black/30 border-t-black rounded-full animate-spin"></div>
-                      Creating...
+                      Creating Pledge...
+                    </>
+                  ) : !selectedCustodyAccount ? (
+                    <>
+                      <AlertCircle className="w-5 h-5" />
+                      Select Account First
                     </>
                   ) : (
                     <>
