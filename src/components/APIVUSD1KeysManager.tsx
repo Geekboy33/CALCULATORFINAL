@@ -68,49 +68,60 @@ export function APIVUSD1KeysManager() {
   const loadCustodyAccountsAndPledges = async () => {
     const supabase = getSupabaseClient();
     console.log('[APIVUSD1KeysManager] loadCustodyAccountsAndPledges called, supabase:', !!supabase);
+
+    setLoadingData(true);
+    console.log('[APIVUSD1KeysManager] Set loadingData to true');
+
     if (!supabase) {
       console.error('[APIVUSD1KeysManager] Supabase client not available!');
+      setLoadingData(false);
       return;
     }
 
     try {
-      setLoadingData(true);
-      console.log('[APIVUSD1KeysManager] Set loadingData to true');
-
       // Get current user
       const { data: { user }, error: userError } = await supabase.auth.getUser();
       console.log('[APIVUSD1KeysManager] User:', user?.id, 'Error:', userError);
+
       if (!user) {
-        console.error('[APIVUSD1KeysManager] No user found!');
+        console.error('[APIVUSD1KeysManager] No user authenticated!');
+        setPledges([]);
         return;
       }
 
       // Load pledges - only ACTIVE pledges (no custody accounts needed)
       console.log('[APIVUSD1KeysManager] Loading ACTIVE pledges from api_pledges table...');
+      console.log('[APIVUSD1KeysManager] Query: SELECT * FROM api_pledges WHERE status = ACTIVE ORDER BY created_at DESC');
+
       const { data: pledgesData, error: pledgesError } = await supabase
         .from('api_pledges')
         .select('*')
         .eq('status', 'ACTIVE')
         .order('created_at', { ascending: false });
 
-      console.log('[APIVUSD1KeysManager] Query result:', {
-        data: pledgesData,
-        error: pledgesError,
-        count: pledgesData?.length || 0
-      });
+      console.log('[APIVUSD1KeysManager] Query completed!');
+      console.log('[APIVUSD1KeysManager] - Data received:', pledgesData);
+      console.log('[APIVUSD1KeysManager] - Error:', pledgesError);
+      console.log('[APIVUSD1KeysManager] - Count:', pledgesData?.length || 0);
 
       if (pledgesError) {
-        console.error('[APIVUSD1KeysManager] Error loading pledges:', pledgesError);
+        console.error('[APIVUSD1KeysManager] ❌ ERROR loading pledges:', pledgesError);
+        console.error('[APIVUSD1KeysManager] Error details:', JSON.stringify(pledgesError, null, 2));
+        setPledges([]);
       } else {
-        console.log('[APIVUSD1KeysManager] SUCCESS - Loaded pledges:', pledgesData?.length || 0, pledgesData);
-        console.log('[APIVUSD1KeysManager] Setting pledges state with:', pledgesData);
+        console.log('[APIVUSD1KeysManager] ✅ SUCCESS - Loaded pledges:', pledgesData?.length || 0);
+        console.log('[APIVUSD1KeysManager] Pledges data:', JSON.stringify(pledgesData, null, 2));
+        console.log('[APIVUSD1KeysManager] Setting pledges state NOW...');
         setPledges(pledgesData || []);
+        console.log('[APIVUSD1KeysManager] Pledges state updated!');
       }
     } catch (error) {
-      console.error('[APIVUSD1KeysManager] Exception in loadCustodyAccountsAndPledges:', error);
+      console.error('[APIVUSD1KeysManager] ❌ Exception in loadCustodyAccountsAndPledges:', error);
+      setPledges([]);
     } finally {
       console.log('[APIVUSD1KeysManager] Setting loadingData to false');
       setLoadingData(false);
+      console.log('[APIVUSD1KeysManager] Function completed!');
     }
   };
 
@@ -394,10 +405,20 @@ export function APIVUSD1KeysManager() {
 
               {/* Pledge Selector - MAIN FOCUS */}
               <div className="bg-[#0a0a0a] border-2 border-[#00ff88]/40 rounded-lg p-5 shadow-[0_0_20px_rgba(0,255,136,0.2)]">
-                <label className="text-[#00ff88] text-base font-semibold block mb-3 flex items-center gap-2">
-                  <Lock className="w-5 h-5 text-[#00ff88]" />
-                  Select Active Pledge *
-                </label>
+                <div className="flex items-center justify-between mb-3">
+                  <label className="text-[#00ff88] text-base font-semibold flex items-center gap-2">
+                    <Lock className="w-5 h-5 text-[#00ff88]" />
+                    Select Active Pledge *
+                  </label>
+                  <button
+                    onClick={loadCustodyAccountsAndPledges}
+                    disabled={loadingData}
+                    className="flex items-center gap-2 px-3 py-1.5 bg-[#1a1a1a] border border-[#00ff88]/30 hover:border-[#00ff88] text-[#00ff88] rounded-lg text-sm transition-all disabled:opacity-50"
+                  >
+                    <RefreshCw className={`w-4 h-4 ${loadingData ? 'animate-spin' : ''}`} />
+                    Refresh
+                  </button>
+                </div>
                 {loadingData ? (
                   <div className="text-center py-6">
                     <RefreshCw className="w-6 h-6 text-[#00ff88] animate-spin mx-auto mb-2" />
