@@ -1,5 +1,5 @@
 import { useState, useEffect, lazy, Suspense } from 'react';
-import { LayoutDashboard, FileText, Send, Key, Shield, Wallet, Binary, Eye, Database, Building2, BookOpen, LogOut, FileCheck, Menu, FileSearch, ArrowRightLeft, Lock, TrendingUp, User } from 'lucide-react';
+import { LayoutDashboard, FileText, Send, Key, Shield, Wallet, Binary, Eye, Database, Building2, BookOpen, LogOut, FileCheck, Menu, FileSearch, ArrowRightLeft, Lock, TrendingUp, User, Globe } from 'lucide-react';
 import { LanguageSelector } from './components/LanguageSelector';
 import { Login } from './components/Login';
 import { PublicVerificationPage } from './components/PublicVerificationPage';
@@ -30,8 +30,9 @@ const APIDAESModule = lazy(() => import('./components/APIDAESModule').then(m => 
 const APIVUSDModule = lazy(() => import('./components/APIVUSDModule').then(m => ({ default: m.APIVUSDModule })));
 const APIDAESPledgeModule = lazy(() => import('./components/APIDAESPledgeModule').then(m => ({ default: m.APIDAESPledgeModule })));
 const APIVUSD1Module = lazy(() => import('./components/APIVUSD1Module').then(m => ({ default: m.default })));
+const APIGlobalModule = lazy(() => import('./components/APIGlobalModule').then(m => ({ default: m.default })));
 
-type Tab = 'dashboard' | 'analytics' | 'processor' | 'transfer' | 'api-keys' | 'audit' | 'binary-reader' | 'hex-viewer' | 'large-file-analyzer' | 'xcp-b2b' | 'ledger' | 'blackscreen' | 'audit-bank' | 'corebanking-api' | 'custody' | 'api-daes' | 'api-vusd' | 'api-daes-pledge' | 'api-vusd1';
+type Tab = 'dashboard' | 'analytics' | 'processor' | 'transfer' | 'api-keys' | 'audit' | 'binary-reader' | 'hex-viewer' | 'large-file-analyzer' | 'xcp-b2b' | 'ledger' | 'blackscreen' | 'audit-bank' | 'corebanking-api' | 'custody' | 'api-daes' | 'api-vusd' | 'api-daes-pledge' | 'api-vusd1' | 'api-global';
 
 function App() {
   const [activeTab, setActiveTab] = useState<Tab>('dashboard');
@@ -103,6 +104,7 @@ function App() {
     { id: 'blackscreen' as Tab, name: t.navBlackScreen, icon: FileCheck },
     { id: 'custody' as Tab, name: t.navCustody, icon: Lock },
     { id: 'api-daes' as Tab, name: 'API DAES', icon: Key },
+    { id: 'api-global' as Tab, name: 'API GLOBAL', icon: Globe },
     { id: 'api-vusd' as Tab, name: 'API VUSD', icon: TrendingUp },
     { id: 'api-vusd1' as Tab, name: 'API VUSD1', icon: Database },
     { id: 'api-daes-pledge' as Tab, name: 'DAES Pledge/Escrow', icon: Shield },
@@ -218,6 +220,7 @@ function App() {
           {activeTab === 'blackscreen' && <BankBlackScreen />}
           {activeTab === 'custody' && <CustodyAccountsModule />}
           {activeTab === 'api-daes' && <APIDAESModule />}
+          {activeTab === 'api-global' && <APIGlobalModule />}
           {activeTab === 'api-vusd' && <APIVUSDModule />}
           {activeTab === 'api-vusd1' && <APIVUSD1Module />}
           {activeTab === 'api-daes-pledge' && <APIDAESPledgeModule />}

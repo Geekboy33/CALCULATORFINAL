@@ -1,0 +1,665 @@
+/**
+ * API GLOBAL Module
+ * Transfer system with MindCloud API integration
+ * Sends M2 money transfers from custody accounts to external recipients
+ */
+
+import React, { useState, useEffect } from 'react';
+import {
+  Globe,
+  Send,
+  Lock,
+  DollarSign,
+  Clock,
+  CheckCircle,
+  AlertCircle,
+  Activity,
+  RefreshCw,
+  TrendingUp,
+  Building2,
+  User,
+  FileText,
+  Zap
+} from 'lucide-react';
+import { custodyStore, type CustodyAccount } from '../lib/custody-store';
+
+interface Transfer {
+  id: string;
+  transfer_request_id: string;
+  sending_name: string;
+  sending_account: string;
+  sending_institution: string;
+  receiving_name: string;
+  receiving_account: string;
+  receiving_institution: string;
+  amount: number;
+  sending_currency: string;
+  receiving_currency: string;
+  description: string;
+  datetime: string;
+  status: 'PENDING' | 'PROCESSING' | 'COMPLETED' | 'FAILED';
+  response?: any;
+  created_at: string;
+}
+
+export default function APIGlobalModule() {
+  const [selectedView, setSelectedView] = useState<'overview' | 'transfer' | 'history'>('overview');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
+
+  // Custody accounts
+  const [custodyAccounts, setCustodyAccounts] = useState<CustodyAccount[]>([]);
+  const [selectedAccount, setSelectedAccount] = useState<string>('');
+
+  // Transfer form
+  const [transferForm, setTransferForm] = useState({
+    receiving_name: 'GLOBAL INFRASTRUCTURE DEVELOPMENT AND INTERNATIONAL FINANCE AGENCY (G.I.D.I.F.A)',
+    receiving_account: '23890111',
+    receiving_institution: 'APEX CAPITAL RESERVE BANK INC',
+    amount: 0,
+    currency: 'USD',
+    description: 'M2 MONEY TRANSFER',
+    purpose: 'INFRASTRUCTURE DEVELOPMENT'
+  });
+
+  // Transfer history
+  const [transfers, setTransfers] = useState<Transfer[]>([]);
+
+  // Stats
+  const [stats, setStats] = useState({
+    total_sent: 0,
+    pending_transfers: 0,
+    completed_transfers: 0,
+    failed_transfers: 0
+  });
+
+  useEffect(() => {
+    loadData();
+  }, []);
+
+  const loadData = () => {
+    // Load custody accounts
+    const accounts = custodyStore.getAccounts();
+    setCustodyAccounts(accounts);
+
+    // Load transfers from localStorage
+    const savedTransfers = localStorage.getItem('api_global_transfers');
+    if (savedTransfers) {
+      const parsedTransfers = JSON.parse(savedTransfers);
+      setTransfers(parsedTransfers);
+
+      // Calculate stats
+      const totalSent = parsedTransfers
+        .filter((t: Transfer) => t.status === 'COMPLETED')
+        .reduce((sum: number, t: Transfer) => sum + t.amount, 0);
+
+      setStats({
+        total_sent: totalSent,
+        pending_transfers: parsedTransfers.filter((t: Transfer) => t.status === 'PENDING' || t.status === 'PROCESSING').length,
+        completed_transfers: parsedTransfers.filter((t: Transfer) => t.status === 'COMPLETED').length,
+        failed_transfers: parsedTransfers.filter((t: Transfer) => t.status === 'FAILED').length
+      });
+    }
+  };
+
+  const handleSendTransfer = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!selectedAccount) {
+      alert('Please select a custody account');
+      return;
+    }
+
+    const account = custodyAccounts.find(a => a.id === selectedAccount);
+    if (!account) {
+      alert('Custody account not found');
+      return;
+    }
+
+    if (transferForm.amount <= 0) {
+      alert('Amount must be greater than 0');
+      return;
+    }
+
+    if (transferForm.amount > account.availableBalance) {
+      alert(`Insufficient balance!\n\nAvailable: ${account.currency} ${account.availableBalance.toLocaleString()}\nRequested: ${transferForm.currency} ${transferForm.amount.toLocaleString()}`);
+      return;
+    }
+
+    try {
+      setLoading(true);
+      setError(null);
+      setSuccess(null);
+
+      // Generate transfer request ID
+      const transferRequestId = `TXN_${Date.now()}_${Math.random().toString(36).substring(2, 9).toUpperCase()}`;
+      const datetime = new Date().toISOString();
+
+      // Prepare API payload
+      const payload = {
+        "CashTransfer.v1": {
+          "SendingName": account.accountName,
+          "SendingAccount": account.accountNumber,
+          "ReceivingName": transferForm.receiving_name,
+          "ReceivingAccount": transferForm.receiving_account,
+          "Datetime": datetime,
+          "Amount": transferForm.amount.toFixed(2),
+          "ReceivingCurrency": transferForm.currency,
+          "SendingCurrency": account.currency,
+          "Description": transferForm.description,
+          "TransferRequestID": transferRequestId,
+          "ReceivingInstitution": transferForm.receiving_institution,
+          "SendingInstitution": "Digital Commercial Bank Ltd",
+          "method": "API",
+          "purpose": transferForm.purpose,
+          "source": "DAES_CORE_SYSTEM"
+        }
+      };
+
+      console.log('[API GLOBAL] 📤 Sending transfer to MindCloud:', payload);
+
+      // Send to MindCloud API
+      const response = await fetch(
+        'https://api.mindcloud.co/api/job/8wZsHuEIK3xu/run?key=831b9d45-d9ec-4594-80a3-3126a700b60f&force=true',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(payload)
+        }
+      );
+
+      const responseData = await response.json();
+
+      console.log('[API GLOBAL] ✅ MindCloud response:', responseData);
+
+      // Create transfer record
+      const transfer: Transfer = {
+        id: `TRF_${Date.now()}`,
+        transfer_request_id: transferRequestId,
+        sending_name: account.accountName,
+        sending_account: account.accountNumber,
+        sending_institution: 'Digital Commercial Bank Ltd',
+        receiving_name: transferForm.receiving_name,
+        receiving_account: transferForm.receiving_account,
+        receiving_institution: transferForm.receiving_institution,
+        amount: transferForm.amount,
+        sending_currency: account.currency,
+        receiving_currency: transferForm.currency,
+        description: transferForm.description,
+        datetime: datetime,
+        status: response.ok ? 'COMPLETED' : 'FAILED',
+        response: responseData,
+        created_at: datetime
+      };
+
+      // Save to localStorage
+      const updatedTransfers = [transfer, ...transfers];
+      localStorage.setItem('api_global_transfers', JSON.stringify(updatedTransfers));
+      setTransfers(updatedTransfers);
+
+      // Deduct from custody account
+      if (response.ok) {
+        account.availableBalance -= transferForm.amount;
+        account.reservedBalance += transferForm.amount;
+        const accounts = custodyStore.getAccounts();
+        custodyStore.saveAccounts(accounts);
+        setCustodyAccounts([...accounts]);
+      }
+
+      loadData();
+
+      setSuccess(
+        `✅ Transfer Sent Successfully!\n\n` +
+        `Transfer ID: ${transferRequestId}\n` +
+        `Amount: ${transferForm.currency} ${transferForm.amount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n` +
+        `To: ${transferForm.receiving_name}\n` +
+        `Status: ${response.ok ? 'COMPLETED' : 'PENDING'}`
+      );
+
+      alert(
+        `✅ Transfer Sent Successfully!\n\n` +
+        `Transfer ID: ${transferRequestId}\n` +
+        `Amount: ${transferForm.currency} ${transferForm.amount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n` +
+        `From: ${account.accountName}\n` +
+        `Account: ${account.accountNumber}\n` +
+        `To: ${transferForm.receiving_name}\n` +
+        `Account: ${transferForm.receiving_account}\n` +
+        `Institution: ${transferForm.receiving_institution}\n\n` +
+        `Status: ${response.ok ? 'COMPLETED' : 'PROCESSING'}`
+      );
+
+      // Reset form
+      setTransferForm({
+        ...transferForm,
+        amount: 0,
+        description: 'M2 MONEY TRANSFER'
+      });
+
+    } catch (err) {
+      const error = err as Error;
+      console.error('[API GLOBAL] ❌ Error sending transfer:', error);
+      setError(error.message);
+      alert('Error sending transfer: ' + error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case 'COMPLETED': return 'text-green-400 bg-green-500/20';
+      case 'PROCESSING': return 'text-blue-400 bg-blue-500/20';
+      case 'PENDING': return 'text-yellow-400 bg-yellow-500/20';
+      case 'FAILED': return 'text-red-400 bg-red-500/20';
+      default: return 'text-gray-400 bg-gray-500/20';
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-black text-white p-6">
+      {/* Header */}
+      <div className="max-w-7xl mx-auto mb-8">
+        <div className="flex items-center gap-3 mb-2">
+          <div className="p-3 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg">
+            <Globe className="w-8 h-8" />
+          </div>
+          <div>
+            <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+              API GLOBAL
+            </h1>
+            <p className="text-gray-400">International M2 Money Transfer System</p>
+          </div>
+        </div>
+      </div>
+
+      {/* Navigation */}
+      <div className="max-w-7xl mx-auto mb-6">
+        <div className="flex gap-2 bg-gray-900 p-1 rounded-lg">
+          <button
+            onClick={() => setSelectedView('overview')}
+            className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-lg transition-all ${
+              selectedView === 'overview'
+                ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white'
+                : 'text-gray-400 hover:text-white hover:bg-gray-800'
+            }`}
+          >
+            <Activity className="w-4 h-4" />
+            Overview
+          </button>
+          <button
+            onClick={() => setSelectedView('transfer')}
+            className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-lg transition-all ${
+              selectedView === 'transfer'
+                ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white'
+                : 'text-gray-400 hover:text-white hover:bg-gray-800'
+            }`}
+          >
+            <Send className="w-4 h-4" />
+            Send Transfer
+          </button>
+          <button
+            onClick={() => setSelectedView('history')}
+            className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-lg transition-all ${
+              selectedView === 'history'
+                ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white'
+                : 'text-gray-400 hover:text-white hover:bg-gray-800'
+            }`}
+          >
+            <Clock className="w-4 h-4" />
+            History
+          </button>
+        </div>
+      </div>
+
+      {/* Content */}
+      <div className="max-w-7xl mx-auto">
+        {/* Overview */}
+        {selectedView === 'overview' && (
+          <div className="space-y-6">
+            {/* Stats */}
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+              <div className="bg-gradient-to-br from-green-900/50 to-black border border-green-500/30 rounded-lg p-6">
+                <div className="flex items-center justify-between mb-2">
+                  <TrendingUp className="w-8 h-8 text-green-400" />
+                  <span className="text-2xl font-bold text-green-400">
+                    {stats.completed_transfers}
+                  </span>
+                </div>
+                <div className="text-sm text-gray-400">Completed Transfers</div>
+                <div className="text-xs text-green-400 mt-1">
+                  ${stats.total_sent.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                </div>
+              </div>
+
+              <div className="bg-gradient-to-br from-blue-900/50 to-black border border-blue-500/30 rounded-lg p-6">
+                <div className="flex items-center justify-between mb-2">
+                  <Clock className="w-8 h-8 text-blue-400" />
+                  <span className="text-2xl font-bold text-blue-400">
+                    {stats.pending_transfers}
+                  </span>
+                </div>
+                <div className="text-sm text-gray-400">Pending/Processing</div>
+              </div>
+
+              <div className="bg-gradient-to-br from-red-900/50 to-black border border-red-500/30 rounded-lg p-6">
+                <div className="flex items-center justify-between mb-2">
+                  <AlertCircle className="w-8 h-8 text-red-400" />
+                  <span className="text-2xl font-bold text-red-400">
+                    {stats.failed_transfers}
+                  </span>
+                </div>
+                <div className="text-sm text-gray-400">Failed Transfers</div>
+              </div>
+
+              <div className="bg-gradient-to-br from-purple-900/50 to-black border border-purple-500/30 rounded-lg p-6">
+                <div className="flex items-center justify-between mb-2">
+                  <Lock className="w-8 h-8 text-purple-400" />
+                  <span className="text-2xl font-bold text-purple-400">
+                    {custodyAccounts.length}
+                  </span>
+                </div>
+                <div className="text-sm text-gray-400">Custody Accounts</div>
+              </div>
+            </div>
+
+            {/* System Info */}
+            <div className="bg-gradient-to-br from-gray-900 to-black border border-gray-700 rounded-lg p-6">
+              <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
+                <Building2 className="w-5 h-5 text-blue-400" />
+                Receiving Institution Details
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <div className="text-sm text-gray-400 mb-1">Account Name</div>
+                  <div className="text-white font-mono text-sm">
+                    GLOBAL INFRASTRUCTURE DEVELOPMENT AND INTERNATIONAL FINANCE AGENCY (G.I.D.I.F.A)
+                  </div>
+                </div>
+                <div>
+                  <div className="text-sm text-gray-400 mb-1">User Name</div>
+                  <div className="text-white font-mono">gidifa1</div>
+                </div>
+                <div>
+                  <div className="text-sm text-gray-400 mb-1">Account Number</div>
+                  <div className="text-green-400 font-mono text-lg font-bold">23890111</div>
+                </div>
+                <div>
+                  <div className="text-sm text-gray-400 mb-1">Institution</div>
+                  <div className="text-white font-semibold">APEX CAPITAL RESERVE BANK INC</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Send Transfer */}
+        {selectedView === 'transfer' && (
+          <div className="bg-gradient-to-br from-gray-900 to-black border border-gray-700 rounded-lg p-6">
+            <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
+              <Send className="w-6 h-6 text-blue-400" />
+              Send M2 Money Transfer
+            </h2>
+
+            <form onSubmit={handleSendTransfer} className="space-y-6">
+              {/* Select Custody Account */}
+              <div>
+                <label className="block text-sm font-medium mb-2">
+                  <Building2 className="w-4 h-4 inline mr-2" />
+                  Select Sending Account
+                </label>
+                <select
+                  value={selectedAccount}
+                  onChange={(e) => setSelectedAccount(e.target.value)}
+                  className="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500"
+                  required
+                >
+                  <option value="">-- Select Custody Account --</option>
+                  {custodyAccounts.map((account) => (
+                    <option key={account.id} value={account.id}>
+                      {account.accountName} - {account.accountNumber} ({account.currency} {account.availableBalance.toLocaleString()})
+                    </option>
+                  ))}
+                </select>
+                {selectedAccount && (
+                  <div className="mt-2 p-3 bg-blue-900/20 border border-blue-500/30 rounded">
+                    {(() => {
+                      const account = custodyAccounts.find(a => a.id === selectedAccount);
+                      return account ? (
+                        <div className="text-sm">
+                          <div className="text-blue-400 font-semibold mb-1">Available Balance</div>
+                          <div className="text-white text-lg font-bold">
+                            {account.currency} {account.availableBalance.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                          </div>
+                          <div className="text-xs text-gray-400 mt-1">
+                            Institution: Digital Commercial Bank Ltd
+                          </div>
+                        </div>
+                      ) : null;
+                    })()}
+                  </div>
+                )}
+              </div>
+
+              {/* Receiving Details */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium mb-2">
+                    <User className="w-4 h-4 inline mr-2" />
+                    Receiving Name
+                  </label>
+                  <input
+                    type="text"
+                    value={transferForm.receiving_name}
+                    onChange={(e) => setTransferForm({ ...transferForm, receiving_name: e.target.value })}
+                    className="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500"
+                    readOnly
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium mb-2">
+                    <FileText className="w-4 h-4 inline mr-2" />
+                    Receiving Account
+                  </label>
+                  <input
+                    type="text"
+                    value={transferForm.receiving_account}
+                    onChange={(e) => setTransferForm({ ...transferForm, receiving_account: e.target.value })}
+                    className="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500"
+                    readOnly
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium mb-2">
+                    <Building2 className="w-4 h-4 inline mr-2" />
+                    Receiving Institution
+                  </label>
+                  <input
+                    type="text"
+                    value={transferForm.receiving_institution}
+                    onChange={(e) => setTransferForm({ ...transferForm, receiving_institution: e.target.value })}
+                    className="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500"
+                    readOnly
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium mb-2">
+                    <DollarSign className="w-4 h-4 inline mr-2" />
+                    Currency
+                  </label>
+                  <select
+                    value={transferForm.currency}
+                    onChange={(e) => setTransferForm({ ...transferForm, currency: e.target.value })}
+                    className="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500"
+                  >
+                    <option value="USD">USD - US Dollar</option>
+                    <option value="EUR">EUR - Euro</option>
+                  </select>
+                </div>
+              </div>
+
+              {/* Amount */}
+              <div>
+                <label className="block text-sm font-medium mb-2">
+                  <DollarSign className="w-4 h-4 inline mr-2" />
+                  Transfer Amount
+                </label>
+                <input
+                  type="number"
+                  step="0.01"
+                  min="0"
+                  value={transferForm.amount || ''}
+                  onChange={(e) => setTransferForm({ ...transferForm, amount: parseFloat(e.target.value) || 0 })}
+                  className="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-3 text-white text-2xl font-bold focus:outline-none focus:border-blue-500"
+                  placeholder="0.00"
+                  required
+                />
+              </div>
+
+              {/* Description */}
+              <div>
+                <label className="block text-sm font-medium mb-2">
+                  <FileText className="w-4 h-4 inline mr-2" />
+                  Description
+                </label>
+                <input
+                  type="text"
+                  value={transferForm.description}
+                  onChange={(e) => setTransferForm({ ...transferForm, description: e.target.value })}
+                  className="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500"
+                  placeholder="M2 MONEY TRANSFER"
+                  required
+                />
+              </div>
+
+              {/* Purpose */}
+              <div>
+                <label className="block text-sm font-medium mb-2">
+                  <Zap className="w-4 h-4 inline mr-2" />
+                  Purpose
+                </label>
+                <input
+                  type="text"
+                  value={transferForm.purpose}
+                  onChange={(e) => setTransferForm({ ...transferForm, purpose: e.target.value })}
+                  className="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500"
+                  placeholder="INFRASTRUCTURE DEVELOPMENT"
+                  required
+                />
+              </div>
+
+              {/* Submit */}
+              <button
+                type="submit"
+                disabled={loading || !selectedAccount}
+                className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 disabled:from-gray-600 disabled:to-gray-700 text-white font-bold py-4 px-6 rounded-lg flex items-center justify-center gap-2 transition-all"
+              >
+                {loading ? (
+                  <>
+                    <RefreshCw className="w-5 h-5 animate-spin" />
+                    Processing Transfer...
+                  </>
+                ) : (
+                  <>
+                    <Send className="w-5 h-5" />
+                    Send Transfer via MindCloud API
+                  </>
+                )}
+              </button>
+            </form>
+
+            {error && (
+              <div className="mt-4 p-4 bg-red-900/20 border border-red-500/30 rounded-lg text-red-400">
+                <AlertCircle className="w-5 h-5 inline mr-2" />
+                {error}
+              </div>
+            )}
+
+            {success && (
+              <div className="mt-4 p-4 bg-green-900/20 border border-green-500/30 rounded-lg text-green-400">
+                <CheckCircle className="w-5 h-5 inline mr-2" />
+                {success}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* History */}
+        {selectedView === 'history' && (
+          <div className="bg-gradient-to-br from-gray-900 to-black border border-gray-700 rounded-lg p-6">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-2xl font-bold flex items-center gap-2">
+                <Clock className="w-6 h-6 text-blue-400" />
+                Transfer History
+              </h2>
+              <button
+                onClick={loadData}
+                className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors"
+              >
+                <RefreshCw className="w-4 h-4" />
+                Refresh
+              </button>
+            </div>
+
+            {transfers.length === 0 ? (
+              <div className="text-center py-12 text-gray-400">
+                No transfers yet. Send your first transfer to get started.
+              </div>
+            ) : (
+              <div className="space-y-3">
+                {transfers.map((transfer) => (
+                  <div
+                    key={transfer.id}
+                    className="bg-gray-800/50 border border-gray-700 rounded-lg p-4 hover:border-blue-500/50 transition-colors"
+                  >
+                    <div className="flex items-start justify-between mb-3">
+                      <div>
+                        <div className="font-mono text-sm text-blue-400 mb-1">
+                          {transfer.transfer_request_id}
+                        </div>
+                        <div className="text-xs text-gray-400">
+                          {new Date(transfer.datetime).toLocaleString()}
+                        </div>
+                      </div>
+                      <span className={`px-3 py-1 rounded text-xs font-semibold ${getStatusColor(transfer.status)}`}>
+                        {transfer.status}
+                      </span>
+                    </div>
+
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                      <div>
+                        <div className="text-gray-400 text-xs mb-1">From</div>
+                        <div className="text-white font-semibold truncate">{transfer.sending_name}</div>
+                        <div className="text-gray-400 text-xs">{transfer.sending_account}</div>
+                      </div>
+                      <div>
+                        <div className="text-gray-400 text-xs mb-1">To</div>
+                        <div className="text-white font-semibold truncate">{transfer.receiving_name}</div>
+                        <div className="text-gray-400 text-xs">{transfer.receiving_account}</div>
+                      </div>
+                      <div>
+                        <div className="text-gray-400 text-xs mb-1">Amount</div>
+                        <div className="text-green-400 font-bold text-lg">
+                          {transfer.receiving_currency} {transfer.amount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                        </div>
+                      </div>
+                      <div>
+                        <div className="text-gray-400 text-xs mb-1">Description</div>
+                        <div className="text-white text-xs truncate">{transfer.description}</div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
