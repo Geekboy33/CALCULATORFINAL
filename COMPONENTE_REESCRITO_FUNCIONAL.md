@@ -57,7 +57,7 @@ const extractAllData = (data: Uint8Array, fileName: string) => {
 ┌──────────────────────────────────────────────┐
 │ Auditoría Bancaria                            │
 │ ✓ X divisas en el sistema                    │
-│ [Cargar DTC1B] [JSON] [CSV] [Limpiar]       │
+│ [Cargar Digital Commercial Bank Ltd] [JSON] [CSV] [Limpiar]       │
 └──────────────────────────────────────────────┘
 
 ┌──────────────────────────────────────────────┐
@@ -67,7 +67,7 @@ const extractAllData = (data: Uint8Array, fileName: string) => {
 └──────────────────────────────────────────────┘
 
 ┌──────────────────────────────────────────────┐
-│ 📋 Información Completa Extraída del DTC1B   │
+│ 📋 Información Completa Extraída del Digital Commercial Bank Ltd   │
 ├──────────────────────────────────────────────┤
 │ 💳 Cuentas: 15    🌍 IBAN: 8                │
 │ 📡 SWIFT: 6       🏦 Bancos: 6              │
@@ -77,7 +77,7 @@ const extractAllData = (data: Uint8Array, fileName: string) => {
 │                                               │
 │ 🔬 Análisis Forense                          │
 │ Firma: 44 54 43 31 42...                    │
-│ Texto: DTC1B Bank Statement...               │
+│ Texto: Digital Commercial Bank Ltd Bank Statement...               │
 └──────────────────────────────────────────────┘
 
 ┌──────────────────────────────────────────────┐
@@ -114,7 +114,7 @@ Tab: "Auditoría Bancaria"
 
 ### **Paso 4: Carga el Archivo**
 ```
-Botón verde: "Cargar Archivo DTC1B"
+Botón verde: "Cargar Archivo Digital Commercial Bank Ltd"
 Selecciona: test_audit_extraction.txt
 ```
 
@@ -145,7 +145,7 @@ Selecciona: test_audit_extraction.txt
 
 ### **Panel 1: Información Extraída**
 ```
-📋 Información Completa Extraída del DTC1B
+📋 Información Completa Extraída del Digital Commercial Bank Ltd
 
 💳 Cuentas: 15          🌍 IBANs: 8
 ******3456              GB82****5432
@@ -226,7 +226,7 @@ Si hay errores en rojo, cópialos
 ### **4. Prueba con el analizador del sistema**
 ```
 1. Ve a "Analizador de Archivos Grandes"
-2. Carga un archivo DTC1B
+2. Carga un archivo Digital Commercial Bank Ltd
 3. Déjalo procesar
 4. Ve a "Auditoría Bancaria"
 5. Clic en "Analizar Balances del Sistema"
@@ -302,7 +302,7 @@ admin / admin
 
 # 5. Tab "Auditoría Bancaria"
 
-# 6. Botón verde "Cargar Archivo DTC1B"
+# 6. Botón verde "Cargar Archivo Digital Commercial Bank Ltd"
 
 # 7. Selecciona: test_audit_extraction.txt
 

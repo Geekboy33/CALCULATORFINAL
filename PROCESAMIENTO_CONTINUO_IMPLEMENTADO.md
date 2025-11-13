@@ -63,7 +63,7 @@ processingStore.startGlobalProcessing(
 ┌─────────────────────────────────────────────────────┐
 │ ⚡ PROCESO INTERRUMPIDO - LISTO PARA CONTINUAR     │
 │                                                      │
-│ Archivo: sample-dtc1b.bin                          │
+│ Archivo: sample-Digital Commercial Bank Ltd.bin                          │
 │ 📊 Progreso guardado: 45.67%                       │
 │                                                      │
 │  ┌────────────────────────────────────────┐        │
@@ -203,7 +203,7 @@ async startGlobalProcessing(
 }
 ```
 
-#### 2. **Inicio desde Componente** (`LargeFileDTC1BAnalyzer.tsx`):
+#### 2. **Inicio desde Componente** (`LargeFileDigital Commercial Bank LtdAnalyzer.tsx`):
 ```typescript
 const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
   const file = e.target.files?.[0];
@@ -222,7 +222,7 @@ const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
 };
 ```
 
-#### 3. **Reanudación** (`LargeFileDTC1BAnalyzer.tsx`):
+#### 3. **Reanudación** (`LargeFileDigital Commercial Bank LtdAnalyzer.tsx`):
 ```typescript
 const resumePendingProcess = async () => {
   const pendingState = processingStore.loadState();
@@ -301,7 +301,7 @@ CONTINUAR DESDE {progress.toFixed(0)}%
   </p>
   
   {/* Información clara */}
-  <p>Archivo: sample-dtc1b.bin</p>
+  <p>Archivo: sample-Digital Commercial Bank Ltd.bin</p>
   <p>📊 Progreso guardado: 45.67%</p>
   
   {/* Botón GRANDE */}
@@ -423,7 +423,7 @@ El procesamiento global está funcionando perfectamente:
 
 1. Abre: `http://localhost:5173`
 2. Ve a **"Analizador de Archivos Grandes"**
-3. Carga un archivo DTC1B
+3. Carga un archivo Digital Commercial Bank Ltd
 4. **Navega a Dashboard** mientras carga
 5. **Observa**: El indicador global sigue mostrando progreso
 6. **Navega a Transferencias**
@@ -439,7 +439,7 @@ El procesamiento global está funcionando perfectamente:
 
 1. ✅ `src/lib/processing-store.ts` - Procesamiento global
 2. ✅ `src/App.tsx` - Suscripción global
-3. ✅ `src/components/LargeFileDTC1BAnalyzer.tsx` - Uso de procesamiento global
+3. ✅ `src/components/LargeFileDigital Commercial Bank LtdAnalyzer.tsx` - Uso de procesamiento global
 4. ✅ `PROCESAMIENTO_CONTINUO_IMPLEMENTADO.md` - Este documento
 
 **¡Todo listo para usar!** ✨

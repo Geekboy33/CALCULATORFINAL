@@ -3,18 +3,18 @@
 ## ✅ STATUS: IMPLEMENTED
 
 **Date:** 2025-11-13
-**Feature:** M2 Validation shows Custody Account balance instead of DTC1B total
+**Feature:** M2 Validation shows Custody Account balance instead of Digital Commercial Bank Ltd total
 **Status:** 🟢 PRODUCTION READY
 
 ---
 
 ## 1. Cambio Principal
 
-### ANTES: Balance del DTC1B General
+### ANTES: Balance del Digital Commercial Bank Ltd General
 
 ```
-═══ M2 VALIDATION (DTC1B) ═══
-Balance Before: USD 2,005,110.130  ← Total DTC1B (todas las divisas)
+═══ M2 VALIDATION (Digital Commercial Bank Ltd) ═══
+Balance Before: USD 2,005,110.130  ← Total Digital Commercial Bank Ltd (todas las divisas)
 Balance After: USD 2,004,110.130
 Deducted: USD 1,000.000
 Digital Signatures: ✅ YES - 1 verified
@@ -23,7 +23,7 @@ Source: Bank Audit Module
 ```
 
 **Problema:**
-- Mostraba el balance total del DTC1B
+- Mostraba el balance total del Digital Commercial Bank Ltd
 - No reflejaba el balance real de la cuenta custody seleccionada
 - Confusión sobre de dónde se debita el dinero
 
@@ -58,7 +58,7 @@ Source: Custody Account Balance         ← NUEVO: Fuente clarificada
 
 **ANTES:**
 ```typescript
-// Usaba balance total del DTC1B
+// Usaba balance total del Digital Commercial Bank Ltd
 const m2Data = iso20022Store.extractM2Balance();
 let m2BalanceBefore = m2Data.total;  // Total de todas las divisas M2
 
@@ -84,10 +84,10 @@ console.log('Custody Account Balance:', {
 
 **ANTES:**
 ```typescript
-// Validaba contra balance total DTC1B
+// Validaba contra balance total Digital Commercial Bank Ltd
 if (transferForm.amount > m2Data.total) {
   throw new Error(
-    `Insufficient M2 balance in DTC1B!\n` +
+    `Insufficient M2 balance in Digital Commercial Bank Ltd!\n` +
     `Requested: ${transferForm.amount}\n` +
     `Available M2: ${m2Data.total}`
   );
@@ -113,7 +113,7 @@ if (transferForm.amount > m2BalanceBefore) {
 
 **ANTES:**
 ```typescript
-// Calculaba y debitaba del DTC1B
+// Calculaba y debitaba del Digital Commercial Bank Ltd
 iso20022Store.deductFromM2Balance(
   transferForm.amount,
   transferForm.currency,
@@ -121,7 +121,7 @@ iso20022Store.deductFromM2Balance(
 );
 
 m2BalanceAfter = m2BalanceBefore - transferForm.amount;
-loadM2Balance();  // Recarga balance DTC1B
+loadM2Balance();  // Recarga balance Digital Commercial Bank Ltd
 ```
 
 **DESPUÉS:**
@@ -245,7 +245,7 @@ Source: Custody Account Balance               ← NUEVO
 ═══ ISO 20022 COMPLIANCE ═══
 Standard: pain.001.001.09 (Customer Credit Transfer)
 Classification: M2 Money Supply
-DTC1B Validated: ✅ YES
+Digital Commercial Bank Ltd Validated: ✅ YES
 ISO Message Generated: ✅ YES
 Digital Signatures Attached: ✅ YES (1 signatures)
 
@@ -255,7 +255,7 @@ API Response: Transfer completed successfully
 ✅ Balance deducted from Custody Account       ← ACTUALIZADO
 ✅ ISO 20022 XML generated
 ✅ Digital signatures verified and attached
-✅ DTC1B authenticity proof included
+✅ Digital Commercial Bank Ltd authenticity proof included
 ```
 
 ---
@@ -340,7 +340,7 @@ Cannot proceed with transfer.
   accountNumber: "ACC_001",
   balanceBefore: 50000,
   currency: "USD",
-  dtc1bTotal: 2005110.13
+  Digital Commercial Bank LtdTotal: 2005110.13
 }
 
 [API GLOBAL] 💰 Step 3: Calculating balance after deduction...
@@ -363,7 +363,7 @@ Cannot proceed with transfer.
 - ✅ Comprobante generado con balance custody
 - ✅ Cuenta custody debitada correctamente
 - ✅ Balance Before/After precisos
-- ✅ DTC1B mantiene su balance (no se debita)
+- ✅ Digital Commercial Bank Ltd mantiene su balance (no se debita)
 
 ---
 
@@ -373,11 +373,11 @@ Cannot proceed with transfer.
 
 | Aspecto | ANTES | DESPUÉS |
 |---------|-------|---------|
-| **Source** | DTC1B total | Cuenta custody específica |
-| **Balance Before** | Total M2 DTC1B | `account.availableBalance` |
+| **Source** | Digital Commercial Bank Ltd total | Cuenta custody específica |
+| **Balance Before** | Total M2 Digital Commercial Bank Ltd | `account.availableBalance` |
 | **Balance After** | Total M2 - monto | `account.availableBalance - monto` |
 | **Validación** | Contra M2 total | Contra balance custody |
-| **Débito** | DTC1B + custody | Solo custody |
+| **Débito** | Digital Commercial Bank Ltd + custody | Solo custody |
 
 ---
 
@@ -385,7 +385,7 @@ Cannot proceed with transfer.
 
 | Campo | ANTES | DESPUÉS |
 |-------|-------|---------|
-| **Título** | M2 VALIDATION (DTC1B) | M2 VALIDATION (CUSTODY ACCOUNT) |
+| **Título** | M2 VALIDATION (Digital Commercial Bank Ltd) | M2 VALIDATION (CUSTODY ACCOUNT) |
 | **Account** | ❌ No mostraba | ✅ Digital Wallet #1 |
 | **Account Number** | ❌ No mostraba | ✅ ACC_001 |
 | **Source** | Bank Audit Module | Custody Account Balance |
@@ -396,8 +396,8 @@ Cannot proceed with transfer.
 
 | Mensaje | ANTES | DESPUÉS |
 |---------|-------|---------|
-| **Success** | M2 balance deducted from DTC1B | Balance deducted from Custody Account |
-| **Location** | DTC1B storage | Custody account localStorage |
+| **Success** | M2 balance deducted from Digital Commercial Bank Ltd | Balance deducted from Custody Account |
+| **Location** | Digital Commercial Bank Ltd storage | Custody account localStorage |
 
 ---
 
@@ -425,7 +425,7 @@ Usuario entiende: "Ah, es el balance de mi cuenta seleccionada"
 
 **ANTES:**
 ```
-Balance mostrado: USD 2,005,110.130 (DTC1B total)
+Balance mostrado: USD 2,005,110.130 (Digital Commercial Bank Ltd total)
 Balance real cuenta: USD 50,000.000
 Diferencia: ❌ No coinciden
 ```
@@ -444,8 +444,8 @@ Diferencia: ✅ Coinciden perfectamente
 **ANTES:**
 ```
 Auditor pregunta: "¿De qué cuenta se debitó?"
-Comprobante dice: "M2 VALIDATION (DTC1B)"
-Auditor confundido: "¿DTC1B es la cuenta?"
+Comprobante dice: "M2 VALIDATION (Digital Commercial Bank Ltd)"
+Auditor confundido: "¿Digital Commercial Bank Ltd es la cuenta?"
 ```
 
 **DESPUÉS:**
@@ -466,7 +466,7 @@ Auditor satisfecho: "Perfecto, todo claro"
 **Comprobante ANTES:**
 ```
 Difícil rastrear a qué cuenta específica pertenece
-Solo dice "DTC1B"
+Solo dice "Digital Commercial Bank Ltd"
 ```
 
 **Comprobante DESPUÉS:**
@@ -511,7 +511,7 @@ m2BalanceAfter = m2BalanceBefore - amount;
 m2Validation: {
   m2BalanceBefore,
   m2BalanceAfter,
-  dtc1bSource: 'Bank Audit Module',
+  Digital Commercial Bank LtdSource: 'Bank Audit Module',
   digitalSignatures: signatures.length,
   signaturesVerified: verified
 }
@@ -520,7 +520,7 @@ m2Validation: {
 m2Validation: {
   m2BalanceBefore,
   m2BalanceAfter,
-  dtc1bSource: `Custody Account: ${account.accountName}`,
+  Digital Commercial Bank LtdSource: `Custody Account: ${account.accountName}`,
   digitalSignatures: signatures.length,
   signaturesVerified: verified
 }
@@ -529,7 +529,7 @@ m2Validation: {
 **Línea 522 - Comprobante TXT:**
 ```typescript
 // ANTES
-`=== M2 VALIDATION (DTC1B) ===\n` +
+`=== M2 VALIDATION (Digital Commercial Bank Ltd) ===\n` +
 `Balance Before: ${transferForm.currency} ${m2BalanceBefore}...\n` +
 `Source: Bank Audit Module\n`
 
@@ -549,7 +549,7 @@ m2Validation: {
 
 **ANTES:**
 ```javascript
-[API GLOBAL] 📊 Step 1: Validating M2 balance from DTC1B...
+[API GLOBAL] 📊 Step 1: Validating M2 balance from Digital Commercial Bank Ltd...
 [API GLOBAL] ✅ M2 Balance validated: {
   total: 2005110.13,
   currency: "USD",
@@ -565,7 +565,7 @@ m2Validation: {
   accountNumber: "ACC_001",
   balanceBefore: 50000,
   currency: "USD",
-  dtc1bTotal: 2005110.13
+  Digital Commercial Bank LtdTotal: 2005110.13
 }
 
 [API GLOBAL] 💰 Step 3: Calculating balance after deduction...
@@ -590,13 +590,13 @@ m2Validation: {
 m2Validation: {
   m2BalanceBefore: 2005110.13,
   m2BalanceAfter: 2004110.13,
-  dtc1bSource: 'Bank Audit Module'  // Source antiguo
+  Digital Commercial Bank LtdSource: 'Bank Audit Module'  // Source antiguo
 }
 ```
 
 **Al exportar comprobante individual:**
 ```
-═══ M2 VALIDATION (DTC1B) ═══
+═══ M2 VALIDATION (Digital Commercial Bank Ltd) ═══
 Balance Before: USD 2,005,110.130
 Balance After: USD 2,004,110.130
 Source: Bank Audit Module           ← Source antiguo se mantiene
@@ -611,13 +611,13 @@ Source: Bank Audit Module           ← Source antiguo se mantiene
 m2Validation: {
   m2BalanceBefore: 50000,
   m2BalanceAfter: 49000,
-  dtc1bSource: 'Custody Account: Digital Wallet #1'  // Source nuevo
+  Digital Commercial Bank LtdSource: 'Custody Account: Digital Wallet #1'  // Source nuevo
 }
 ```
 
 **Al exportar comprobante individual:**
 ```
-═══ M2 VALIDATION (DTC1B) ═══
+═══ M2 VALIDATION (Digital Commercial Bank Ltd) ═══
 Balance Before: USD 50,000.000
 Balance After: USD 49,000.000
 Source: Custody Account: Digital Wallet #1  ← Source nuevo
@@ -669,7 +669,7 @@ m2BalanceAfter = m2BalanceBefore - transferForm.amount;
 
 **4. Transfer Record (línea 450):**
 ```typescript
-dtc1bSource: `Custody Account: ${account.accountName}`
+Digital Commercial Bank LtdSource: `Custody Account: ${account.accountName}`
 ```
 
 **5. Comprobante TXT (línea 522):**

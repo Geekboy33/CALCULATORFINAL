@@ -30,23 +30,23 @@
 ```typescript
 // ANTES (App.tsx - MALO)
 import { AccountDashboard } from './components/AccountDashboard';
-import { DTC1BProcessor } from './components/DTC1BProcessor';
+import { Digital Commercial Bank LtdProcessor } from './components/Digital Commercial Bank LtdProcessor';
 import { TransferInterface } from './components/TransferInterface';
-import { LargeFileDTC1BAnalyzer } from './components/LargeFileDTC1BAnalyzer';
+import { LargeFileDigital Commercial Bank LtdAnalyzer } from './components/LargeFileDigital Commercial Bank LtdAnalyzer';
 // ...10 componentes más
 
 // DESPUÉS (BUENO)
 import { lazy, Suspense } from 'react';
 
 const AccountDashboard = lazy(() => import('./components/AccountDashboard'));
-const DTC1BProcessor = lazy(() => import('./components/DTC1BProcessor'));
+const Digital Commercial Bank LtdProcessor = lazy(() => import('./components/Digital Commercial Bank LtdProcessor'));
 const TransferInterface = lazy(() => import('./components/TransferInterface'));
-const LargeFileDTC1BAnalyzer = lazy(() => import('./components/LargeFileDTC1BAnalyzer'));
+const LargeFileDigital Commercial Bank LtdAnalyzer = lazy(() => import('./components/LargeFileDigital Commercial Bank LtdAnalyzer'));
 
 // En el render:
 <Suspense fallback={<LoadingSpinner />}>
   {activeTab === 'dashboard' && <AccountDashboard />}
-  {activeTab === 'processor' && <DTC1BProcessor />}
+  {activeTab === 'processor' && <Digital Commercial Bank LtdProcessor />}
   {activeTab === 'transfer' && <TransferInterface />}
 </Suspense>
 ```
@@ -98,7 +98,7 @@ export function getSupabaseClient(): SupabaseClient {
         },
         global: {
           headers: {
-            'x-application-name': 'dtc1b-analyzer'
+            'x-application-name': 'Digital Commercial Bank Ltd-analyzer'
           }
         }
       }
@@ -121,10 +121,10 @@ const supabase = getSupabaseClient();
 
 ### 3. **RE-RENDERS INNECESARIOS EN COMPONENTES GRANDES**
 
-**Problema:** Componentes como `LargeFileDTC1BAnalyzer` y `TransferInterface` tienen 13-21 hooks que causan re-renders en cascada.
+**Problema:** Componentes como `LargeFileDigital Commercial Bank LtdAnalyzer` y `TransferInterface` tienen 13-21 hooks que causan re-renders en cascada.
 
 ```typescript
-// LargeFileDTC1BAnalyzer.tsx - 13 estados
+// LargeFileDigital Commercial Bank LtdAnalyzer.tsx - 13 estados
 const [analysis, setAnalysis] = useState<StreamingAnalysisResult | null>(null);
 const [isProcessing, setIsProcessing] = useState(false);
 const [isPaused, setIsPaused] = useState(false);
@@ -509,9 +509,9 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       manifest: {
-        name: 'DTC1B Analyzer',
-        short_name: 'DTC1B',
-        description: 'Analizador de archivos DTC1B con transferencias',
+        name: 'Digital Commercial Bank Ltd Analyzer',
+        short_name: 'Digital Commercial Bank Ltd',
+        description: 'Analizador de archivos Digital Commercial Bank Ltd con transferencias',
         theme_color: '#00ff88',
         icons: [
           {
@@ -555,7 +555,7 @@ export default defineConfig({
 
 ### 10. **FALTA DE COMPRESIÓN DE DATOS**
 
-**Problema:** Archivos DTC1B grandes se guardan sin comprimir en IndexedDB.
+**Problema:** Archivos Digital Commercial Bank Ltd grandes se guardan sin comprimir en IndexedDB.
 
 ```typescript
 // processing-store.ts

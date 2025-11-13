@@ -15,7 +15,7 @@ El usuario reportó:
 > "el dashboard no actualiza esta igual que antes"
 
 El Dashboard no reflejaba los cambios cuando:
-1. Se procesaban archivos DTC1B en el analizador
+1. Se procesaban archivos Digital Commercial Bank Ltd en el analizador
 2. Se realizaban transferencias
 3. Se actualizaban balances en el ledger
 
@@ -124,7 +124,7 @@ UI actualiza con datos de Supabase
 
 ## 🔄 FLUJO DE ACTUALIZACIÓN COMPLETO
 
-### Escenario: Usuario Procesa Archivo DTC1B
+### Escenario: Usuario Procesa Archivo Digital Commercial Bank Ltd
 
 ```
 TIEMPO 0s: Usuario carga archivo en Large File Analyzer
@@ -355,7 +355,7 @@ const currencyStats = useMemo(() => { ... }, [ledgerAccounts, transactions]);
 
 3. **Procesar Archivo**
    - Ir a Large File Analyzer
-   - Cargar archivo DTC1B
+   - Cargar archivo Digital Commercial Bank Ltd
    - Volver a Dashboard
    - Ver balances actualizados
 

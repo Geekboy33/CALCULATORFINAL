@@ -28,7 +28,7 @@ Para cada monto detectado:
 ### Ejemplo Real:
 
 ```
-ARCHIVO DTC1B (extracto):
+ARCHIVO Digital Commercial Bank Ltd (extracto):
 ─────────────────────────────────────────────
 Bank: EMIRATES NBD
 SWIFT: EBILAEAD
@@ -123,7 +123,7 @@ SWIFT: HSBCGB2L"
 
 ## 📊 QUÉ SE EXTRAE (100% REAL)
 
-### Del archivo sample_dtc1b_real_data.txt:
+### Del archivo sample_Digital Commercial Bank Ltd_real_data.txt:
 
 #### Cuentas Bancarias (19 REALES):
 ```
@@ -492,7 +492,7 @@ Confianza: 100%
 1. http://localhost:5173
 2. F12
 3. Bank Audit
-4. Cargar sample_dtc1b_real_data.txt
+4. Cargar sample_Digital Commercial Bank Ltd_real_data.txt
 ```
 
 ### Paso 2: Ver logs en consola
@@ -522,7 +522,7 @@ Verás 50+ hallazgos, cada uno con:
 
 ### Paso 4: Verificar que NO hay simulaciones
 ```
-❌ NO verás: "DTC1B System" (a menos que realmente esté en el archivo)
+❌ NO verás: "Digital Commercial Bank Ltd System" (a menos que realmente esté en el archivo)
 ❌ NO verás: Cuentas inventadas como "******USD1"
 ❌ NO verás: Asociaciones aleatorias
 
@@ -535,7 +535,7 @@ Verás 50+ hallazgos, cada uno con:
 
 ## 📊 DATOS QUE SE EXTRAEN (VERIFICADOS)
 
-### Del archivo sample_dtc1b_real_data.txt:
+### Del archivo sample_Digital Commercial Bank Ltd_real_data.txt:
 
 ```
 SECCIÓN 1 (Emiratos):
@@ -601,7 +601,7 @@ SECCIÓN 2 (Europa):
 1. http://localhost:5173
 2. F12 (mira la consola)
 3. Bank Audit
-4. Cargar sample_dtc1b_real_data.txt
+4. Cargar sample_Digital Commercial Bank Ltd_real_data.txt
 5. Ver logs detallados en consola
 6. Scroll a "Hallazgos Detallados"
 7. Ver que cada hallazgo tiene datos REALES

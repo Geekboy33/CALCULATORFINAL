@@ -11,7 +11,7 @@ El balance total ya **NO es estático**. Ahora es **100% dinámico** y cambia en
 ### **Sistema de Sincronización en Tiempo Real**
 
 ```typescript
-// 1. El Analizador de Archivos Grandes procesa el DTC1B
+// 1. El Analizador de Archivos Grandes procesa el Digital Commercial Bank Ltd
 Progreso: 25% → 50% → 75% → 100%
 
 // 2. Bank Audit se suscribe al processingStore
@@ -100,7 +100,7 @@ USD al 100%: ACTUAL: $18,000,000
 ## 🔄 FLUJO DE ACTUALIZACIÓN
 
 ```
-PASO 1: Usuario carga archivo DTC1B en "Analizador de Archivos Grandes"
+PASO 1: Usuario carga archivo Digital Commercial Bank Ltd en "Analizador de Archivos Grandes"
   ↓
 PASO 2: Analizador inicia procesamiento
   Progreso: 0% → 10% → 20% → ... → 100%
@@ -253,7 +253,7 @@ PROYECTADO = $6,825,000 × (100/65) = $10,500,000
 ```
 1. Abre "Analizador de Archivos Grandes"
 
-2. Carga un archivo DTC1B grande (> 10 MB)
+2. Carga un archivo Digital Commercial Bank Ltd grande (> 10 MB)
 
 3. Mientras procesa (no esperes que termine):
    - Ve a "Auditoría Bancaria"
@@ -360,7 +360,7 @@ Interfaz Visual
 
 ```
 1. Abre "Analizador de Archivos Grandes"
-2. Carga un archivo DTC1B
+2. Carga un archivo Digital Commercial Bank Ltd
 3. Espera al 30%
 4. Ve a "Auditoría Bancaria"
 5. Clic "📊 VER INFORME COMPLETO"

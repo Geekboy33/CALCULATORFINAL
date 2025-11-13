@@ -40,7 +40,7 @@ Ctrl + F5
 
 ### **Paso 3: Carga el Archivo de Prueba**
 ```
-1. Botón verde "Cargar Archivo DTC1B"
+1. Botón verde "Cargar Archivo Digital Commercial Bank Ltd"
 2. Seleccionar: test_audit_extraction.txt
 3. ¡Esperar 2 segundos!
 ```
@@ -83,7 +83,7 @@ USD, EUR, GBP, CHF, CAD, AUD, JPY, CNY, INR, MXN, BRL, RUB, KRW, SGD, HKD
 ┌────────────────────────────────────────────────┐
 │ Auditoría Bancaria                             │
 │ ✓ 15 divisas detectadas                        │
-│ [Cargar DTC1B] [JSON] [Export] [Limpiar]      │
+│ [Cargar Digital Commercial Bank Ltd] [JSON] [Export] [Limpiar]      │
 └────────────────────────────────────────────────┘
 
 DATOS EXTRAÍDOS:
@@ -120,7 +120,7 @@ DATOS EXTRAÍDOS:
 🔬 Datos RAW - Análisis Forense (nuevo):
    Firma: 44 54 43 31 42 00 01 02...
    Hex: 44 54 43 31 42 00 01 02 55 53 44...
-   Text: DTC1B Bank Statement Account...
+   Text: Digital Commercial Bank Ltd Bank Statement Account...
 ```
 
 ---
@@ -224,7 +224,7 @@ Verifica que TODO funcione:
 - [ ] Abriste consola (F12)
 - [ ] Login exitoso
 - [ ] Tab "Auditoría Bancaria" visible
-- [ ] Botón verde "Cargar Archivo DTC1B" visible
+- [ ] Botón verde "Cargar Archivo Digital Commercial Bank Ltd" visible
 - [ ] Archivo test_audit_extraction.txt existe
 - [ ] Al cargar archivo, aparecen logs en consola
 - [ ] Panel "Datos Bancarios Detectados" es visible

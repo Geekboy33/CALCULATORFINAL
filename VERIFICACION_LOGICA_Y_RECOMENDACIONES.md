@@ -102,7 +102,7 @@ const extractRealContext = (offset, text, amt) => {
 ❌ NO asigna bancos al azar con %
 ❌ NO usa datos de ejemplo fijos
 ❌ NO crea asociaciones falsas
-❌ NO completa datos faltantes con "DTC1B System"
+❌ NO completa datos faltantes con "Digital Commercial Bank Ltd System"
 ```
 
 ### SÍ Hace (Solo Datos Reales):
@@ -227,7 +227,7 @@ Esto PRUEBA que no es simulación porque varía
 ### Verificación Manual (100% Confiable):
 
 ```
-PASO 1: Abre sample_dtc1b_real_data.txt en Notepad
+PASO 1: Abre sample_Digital Commercial Bank Ltd_real_data.txt en Notepad
 
 PASO 2: Busca (Ctrl+F): "Balance: USD 15,750,000"
 
@@ -310,7 +310,7 @@ Para comparación visual directa
 
 ```
 ┌──────────────────────────────────────────┐
-│ 1. Usuario carga archivo DTC1B           │
+│ 1. Usuario carga archivo Digital Commercial Bank Ltd           │
 ├──────────────────────────────────────────┤
 │ 2. Sistema lee bytes (real)              │
 │    ↓                                     │

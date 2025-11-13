@@ -29,7 +29,7 @@ Volver a imports directos (más estable para esta estructura):
 ```tsx
 // ✅ CORRECTO
 import { AccountDashboard } from './components/AccountDashboard';
-import { DTC1BProcessor } from './components/DTC1BProcessor';
+import { Digital Commercial Bank LtdProcessor } from './components/Digital Commercial Bank LtdProcessor';
 // ... etc
 ```
 

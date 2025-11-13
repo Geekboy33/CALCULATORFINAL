@@ -48,7 +48,7 @@ subscribe(listener: (data: T) => void): () => void {
 - ✅ Máscaras de seguridad para datos sensibles
 - ✅ Regeneración de API keys
 
-#### 4. **Procesamiento DTC1B**
+#### 4. **Procesamiento Digital Commercial Bank Ltd**
 - ✅ Análisis binario robusto
 - ✅ Múltiples métodos de detección
 - ✅ Procesamiento por chunks (optimizado para archivos grandes)
@@ -120,7 +120,7 @@ subscribe(listener: (data: T) => void): () => void {
 ```typescript
 - 15 cuentas pre-configuradas ✅
 - Sincronización con Supabase ✅
-- Actualización desde DTC1B ✅
+- Actualización desde Digital Commercial Bank Ltd ✅
 - Cálculo de estadísticas ✅
 ```
 
@@ -544,9 +544,9 @@ IndexedDB: No usado actualmente
 
 ## 💡 INNOVACIONES PROPUESTAS
 
-### 1. **DTC1B AI Assistant**
+### 1. **Digital Commercial Bank Ltd AI Assistant**
 ```typescript
-// Chat assistant que ayuda a interpretar datos DTC1B
+// Chat assistant que ayuda a interpretar datos Digital Commercial Bank Ltd
 interface AIAssistant {
   analyzeFile(file: File): Promise<Analysis>;
   explainTransaction(txId: string): Promise<string>;
@@ -621,7 +621,7 @@ interface EncryptionLayer {
 2. Stores con patrón Observer correcto
 3. Seguridad implementada (AES-256-GCM)
 4. Multi-divisa funcional
-5. Procesamiento DTC1B robusto
+5. Procesamiento Digital Commercial Bank Ltd robusto
 6. Persistencia dual (localStorage + Supabase)
 7. UI/UX profesional y coherente
 

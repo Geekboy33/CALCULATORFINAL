@@ -8,7 +8,7 @@
 - Tipografía monoespaciada
 - Diseño profesional bancario
 
-### ✅ **2. Muestra TODOS los Balances Internos del DTC1B**
+### ✅ **2. Muestra TODOS los Balances Internos del Digital Commercial Bank Ltd**
 - Ordenados por monto (mayor a menor)
 - Cada divisa con su desglose completo
 - Totales por categoría M0-M4
@@ -48,7 +48,7 @@
 
 ### **Paso 1: Procesa Datos**
 ```
-Opción A: Carga archivo DTC1B en "Auditoría Bancaria"
+Opción A: Carga archivo Digital Commercial Bank Ltd en "Auditoría Bancaria"
 Opción B: Usa "Analizador de Archivos Grandes" (se sincroniza auto)
 ```
 
@@ -74,7 +74,7 @@ Dentro del informe:
 
 ```
 ╔═══════════════════════════════════════════════╗
-║   INFORME DE AUDITORÍA BANCARIA DTC1B        ║
+║   INFORME DE AUDITORÍA BANCARIA Digital Commercial Bank Ltd        ║
 ║    BANK AUDIT COMPREHENSIVE REPORT            ║
 ╚═══════════════════════════════════════════════╝
 
@@ -202,7 +202,7 @@ Conforme ISO 27001 / AML / FATF
 
 ```
 ┌─────────────────────────────────────────────────┐
-│ INFORME DE AUDITORÍA BANCARIA DTC1B            │
+│ INFORME DE AUDITORÍA BANCARIA Digital Commercial Bank Ltd            │
 │ [Descargar TXT] [Imprimir] [Cerrar]           │
 ├─────────────────────────────────────────────────┤
 │                                                  │
@@ -298,7 +298,7 @@ El archivo descargado incluye:
 - ✅ Certificación bancaria
 - ✅ Timestamp y hash de verificación
 
-**Nombre del archivo**: `Informe_Auditoria_DTC1B_[timestamp].txt`
+**Nombre del archivo**: `Informe_Auditoria_Digital Commercial Bank Ltd_[timestamp].txt`
 
 ---
 
@@ -397,7 +397,7 @@ PROYECTADO 100%: $33,300,000.00
 ## ✅ TODO LO QUE PEDISTE
 
 - ✅ Informe similar a Black Screen
-- ✅ Todos los balances internos del DTC1B
+- ✅ Todos los balances internos del Digital Commercial Bank Ltd
 - ✅ Ordenado por balances (mayor a menor)
 - ✅ Detecta % de carga
 - ✅ Calcula proyección al 100%
@@ -427,7 +427,7 @@ PROYECTADO 100%: $33,300,000.00
 1. Recarga página (Ctrl+F5)
 2. Login (admin/admin)
 3. "Auditoría Bancaria"
-4. "Cargar Archivo DTC1B" → test_audit_extraction.txt
+4. "Cargar Archivo Digital Commercial Bank Ltd" → test_audit_extraction.txt
 5. Esperar 2 segundos
 6. Clic en "📊 VER INFORME COMPLETO"
 7. ✅ ¡VER INFORME BLACK SCREEN!

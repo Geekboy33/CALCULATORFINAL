@@ -57,7 +57,7 @@ https://github.com/TU-USUARIO/corebanking-system-v2
 ✅ Black Screen generator (FUNCIONAL)
 ✅ Sistema bilingüe (Español/English)
 ✅ Notificaciones toast modernas
-✅ DTC1B file processor
+✅ Digital Commercial Bank Ltd file processor
 ✅ Large file analyzer
 ✅ XCP B2B API
 ✅ Account Ledger

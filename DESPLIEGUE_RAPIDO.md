@@ -77,7 +77,7 @@ Después de desplegar:
 
 - 🔐 Sistema de Login
 - 💰 Dashboard con Ordenamiento (6 opciones)
-- 📊 Analizador DTC1B Avanzado
+- 📊 Analizador Digital Commercial Bank Ltd Avanzado
 - 💸 Sistema de Transferencias
 - 🌍 Multi-idioma (ES/EN)
 - 📱 100% Responsive

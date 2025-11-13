@@ -154,7 +154,7 @@ END;
 $$ LANGUAGE plpgsql;
 
 -- Comentarios para documentación
-COMMENT ON TABLE currency_balances IS 'Almacena balances de monedas extraídos de archivos DTC1B con sincronización entre dispositivos';
+COMMENT ON TABLE currency_balances IS 'Almacena balances de monedas extraídos de archivos Digital Commercial Bank Ltd con sincronización entre dispositivos';
 COMMENT ON COLUMN currency_balances.file_hash IS 'Hash SHA-256 del archivo para identificación única';
 COMMENT ON COLUMN currency_balances.amounts IS 'Array JSON de montos individuales para análisis detallado';
 COMMENT ON COLUMN currency_balances.status IS 'Estado del procesamiento: processing (en curso) o completed (finalizado)';

@@ -259,7 +259,7 @@ Con 100 hallazgos → ~25 visibles, scroll para 75 más
 
 ## ✅ RESULTADO
 
-### Con el archivo sample_dtc1b_real_data.txt:
+### Con el archivo sample_Digital Commercial Bank Ltd_real_data.txt:
 
 ```
 💳 Cuentas (19):
@@ -422,7 +422,7 @@ Tabla completa visible
 1. http://localhost:5173
 2. F12
 3. Bank Audit
-4. Cargar sample_dtc1b_real_data.txt
+4. Cargar sample_Digital Commercial Bank Ltd_real_data.txt
 5. Click [👁️ Vista Completa] (para ver datos completos)
 6. Scroll por todas las secciones
 ```
@@ -483,7 +483,7 @@ max-h-[1200px] /* 1200 píxeles = ~25 hallazgos detallados */
 
 ## ✅ CONFIRMACIÓN
 
-**Con estas alturas, para el archivo sample_dtc1b_real_data.txt:**
+**Con estas alturas, para el archivo sample_Digital Commercial Bank Ltd_real_data.txt:**
 
 ```
 Cuentas (19):     TODAS visibles ✅ (caben 40)

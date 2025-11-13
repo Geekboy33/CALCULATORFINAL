@@ -116,7 +116,7 @@ git push
 
 ### Módulos Principales:
 - ✅ Dashboard de Cuentas
-- ✅ Procesador DTC1B (archivos binarios)
+- ✅ Procesador Digital Commercial Bank Ltd (archivos binarios)
 - ✅ Binary Reader Avanzado
 - ✅ **Hex Viewer Pro** (nuevo y mejorado)
 - ✅ Interfaz de Transferencias

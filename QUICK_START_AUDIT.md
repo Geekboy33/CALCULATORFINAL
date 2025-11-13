@@ -6,19 +6,19 @@
 ```bash
 python generate_sample_audit_data.py
 ```
-✅ Crea 7 archivos de muestra en `./data/dtc1b/`
+✅ Crea 7 archivos de muestra en `./data/Digital Commercial Bank Ltd/`
 
 ### 2️⃣ Ejecutar Análisis
 ```bash
-python audit_dtc1b_mclassify.py
+python audit_Digital Commercial Bank Ltd_mclassify.py
 ```
-✅ Genera `audit_dtc1b_output_*.json` y `audit_dtc1b_aggregated_*.csv`
+✅ Genera `audit_Digital Commercial Bank Ltd_output_*.json` y `audit_Digital Commercial Bank Ltd_aggregated_*.csv`
 
 ### 3️⃣ Ver en la Web
 1. Abrir http://localhost:5173
 2. Login (admin/admin)
 3. Clic en **"Auditoría Bancaria"**
-4. Configurar ruta: `./data/dtc1b`
+4. Configurar ruta: `./data/Digital Commercial Bank Ltd`
 5. Clic en **"Iniciar Escaneo"**
 
 ---
@@ -51,7 +51,7 @@ python audit_dtc1b_mclassify.py
 │   │   └── AuditBankWindow.tsx          # ✨ Componente principal
 │   └── lib/
 │       └── i18n-core.ts                 # 📝 Traducciones actualizadas
-├── audit_dtc1b_mclassify.py             # 🔧 Script de procesamiento
+├── audit_Digital Commercial Bank Ltd_mclassify.py             # 🔧 Script de procesamiento
 ├── generate_sample_audit_data.py        # 🎲 Generador de muestras
 ├── requirements_audit.txt               # 📦 Dependencias opcionales
 ├── AUDIT_BANK_MODULE.md                 # 📚 Documentación completa

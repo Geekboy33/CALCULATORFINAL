@@ -2,7 +2,7 @@
 
 ## 🎉 ¡COMPLETADO CON ÉXITO!
 
-Se ha implementado un **sistema robusto de carga persistente** para el Analizador de Archivos Grandes DTC1B.
+Se ha implementado un **sistema robusto de carga persistente** para el Analizador de Archivos Grandes Digital Commercial Bank Ltd.
 
 ---
 
@@ -47,7 +47,7 @@ Se ha implementado un **sistema robusto de carga persistente** para el Analizado
 ## 🎮 Cómo Funciona
 
 ### Escenario 1: Uso Normal
-1. Seleccionas un archivo DTC1B grande
+1. Seleccionas un archivo Digital Commercial Bank Ltd grande
 2. Comienza la carga
 3. **Indicador global aparece** en la esquina
 4. **Puedes navegar libremente** a otros módulos
@@ -59,7 +59,7 @@ Se ha implementado un **sistema robusto de carga persistente** para el Analizado
 2. Se va la luz / cierras el navegador / crash
 3. Reabres la aplicación
 4. **Aparece alerta naranja**: "Proceso Pendiente Detectado"
-   - "sample-dtc1b.bin - 45.67% completado"
+   - "sample-Digital Commercial Bank Ltd.bin - 45.67% completado"
 5. Haces clic en **"Continuar"**
 6. **Reanuda desde el 45%** automáticamente
 7. Continúa hasta el 100%
@@ -83,7 +83,7 @@ Se ha implementado un **sistema robusto de carga persistente** para el Analizado
 
 ### Archivos Modificados:
 1. ✅ `src/App.tsx` - Integra el indicador global
-2. ✅ `src/components/LargeFileDTC1BAnalyzer.tsx` - Implementa persistencia
+2. ✅ `src/components/LargeFileDigital Commercial Bank LtdAnalyzer.tsx` - Implementa persistencia
 
 ---
 
@@ -95,7 +95,7 @@ Se ha implementado un **sistema robusto de carga persistente** para el Analizado
 │ ⚡ Procesando                   _    ✕   │
 ├──────────────────────────────────────────┤
 │ Archivo:                                 │
-│ sample-dtc1b-large.bin                   │
+│ sample-Digital Commercial Bank Ltd-large.bin                   │
 │                                          │
 │ Progreso                        45.67%   │
 │ ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░░░░░░░░░░░░          │
@@ -111,7 +111,7 @@ Se ha implementado un **sistema robusto de carga persistente** para el Analizado
 ```
 ┌────────────────────────────────────────────────┐
 │ ⚠️  Proceso Pendiente Detectado                │
-│ sample-dtc1b.bin - 45.67% completado           │
+│ sample-Digital Commercial Bank Ltd.bin - 45.67% completado           │
 │                                                │
 │            [Continuar]  [Cancelar]             │
 └────────────────────────────────────────────────┘
@@ -153,7 +153,7 @@ El servidor de desarrollo está corriendo en: **http://localhost:5173**
 ### Para Probar:
 1. Abre la aplicación
 2. Ve a **"Analizador de Archivos Grandes"**
-3. Selecciona un archivo DTC1B grande
+3. Selecciona un archivo Digital Commercial Bank Ltd grande
 4. Observa el **indicador global** en la esquina
 5. **Navega** a otro módulo → El indicador permanece
 6. Regresa y verifica que la carga continúa

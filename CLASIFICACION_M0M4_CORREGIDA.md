@@ -107,7 +107,7 @@ Tipo: Repos, bonos, instrumentos mayoristas
 
 ---
 
-## 💡 EJEMPLO REAL CON sample_dtc1b_real_data.txt
+## 💡 EJEMPLO REAL CON sample_Digital Commercial Bank Ltd_real_data.txt
 
 ### Archivo contiene estos montos (algunos ejemplos):
 
@@ -336,7 +336,7 @@ Hallazgos Detallados (50+ hallazgos)
 1. Abre: http://localhost:5173
 2. F12 (DevTools)
 3. Bank Audit
-4. Cargar sample_dtc1b_real_data.txt
+4. Cargar sample_Digital Commercial Bank Ltd_real_data.txt
 ```
 
 ### Paso 2: Ver consola
@@ -369,7 +369,7 @@ Cada uno con su clasificación M0-M4
 
 ## 📊 DISTRIBUCIÓN ESPERADA
 
-### Para el archivo sample_dtc1b_real_data.txt:
+### Para el archivo sample_Digital Commercial Bank Ltd_real_data.txt:
 
 ```
 Total de montos: 20+ individuales
@@ -496,7 +496,7 @@ extracted.amounts.forEach(amt => {
 
 3. **Carga el archivo:**
    ```
-   sample_dtc1b_real_data.txt
+   sample_Digital Commercial Bank Ltd_real_data.txt
    ```
 
 4. **Verifica en consola:**

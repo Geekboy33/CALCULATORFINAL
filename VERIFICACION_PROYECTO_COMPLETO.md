@@ -52,7 +52,7 @@
   - 15 monedas soportadas
   - Interfaz UI completa
 
-### ✅ 5. Large File DTC1B Analyzer
+### ✅ 5. Large File Digital Commercial Bank Ltd Analyzer
 - **Capacidad:** Archivos de cualquier tamaño
 - **Procesamiento:** Por bloques (10MB)
 - **Background:** Continuo sin bloquear UI
@@ -68,7 +68,7 @@
 - **Persistencia:** localStorage
 
 ### ✅ 7. Módulos Adicionales
-- ✅ DTC1B Processor
+- ✅ Digital Commercial Bank Ltd Processor
 - ✅ Transfer Interface
 - ✅ API Key Manager
 - ✅ Audit Log Viewer
@@ -313,7 +313,7 @@ Contraseña: DAES3334
 #### A. Code Splitting
 ```typescript
 // Lazy loading de componentes
-const LargeAnalyzer = lazy(() => import('./LargeFileDTC1BAnalyzer'));
+const LargeAnalyzer = lazy(() => import('./LargeFileDigital Commercial Bank LtdAnalyzer'));
 const XcpInterface = lazy(() => import('./XcpB2BInterface'));
 ```
 

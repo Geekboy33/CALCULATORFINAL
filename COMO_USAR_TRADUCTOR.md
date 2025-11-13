@@ -104,11 +104,11 @@ Día 2:
 ║    DAES Data and Exchange Settlement                  ║
 ╠═══════════════════════════════════════════════════════╣
 ║                                                        ║
-║ 📊 Analizador de Archivos Grandes DTC1B              ║
+║ 📊 Analizador de Archivos Grandes Digital Commercial Bank Ltd              ║
 ║    Procesamiento por bloques con extracción en       ║
 ║    tiempo real de balances por divisa                ║
 ║                                                        ║
-║ [Seleccionar Archivo DTC1B]                          ║
+║ [Seleccionar Archivo Digital Commercial Bank Ltd]                          ║
 ║ [Cargar Balances Guardados]                          ║
 ║                                                        ║
 ║ 💰 Cuentas Independientes por Moneda (15)            ║
@@ -117,7 +117,7 @@ Día 2:
 ║    12,345 transacciones | 15 monedas                 ║
 ║                                                        ║
 ╠═══════════════════════════════════════════════════════╣
-║ CoreBanking v1.0.0 • Análisis Forense DTC1B          ║
+║ CoreBanking v1.0.0 • Análisis Forense Digital Commercial Bank Ltd          ║
 ╚═══════════════════════════════════════════════════════╝
 ```
 
@@ -129,11 +129,11 @@ Día 2:
 ║    DAES Data and Exchange Settlement                  ║
 ╠═══════════════════════════════════════════════════════╣
 ║                                                        ║
-║ 📊 Large File DTC1B Analyzer                         ║
+║ 📊 Large File Digital Commercial Bank Ltd Analyzer                         ║
 ║    Block processing with real-time balance           ║
 ║    extraction by currency                            ║
 ║                                                        ║
-║ [Select DTC1B File]                                  ║
+║ [Select Digital Commercial Bank Ltd File]                                  ║
 ║ [Load Saved Balances]                                ║
 ║                                                        ║
 ║ 💰 Independent Accounts by Currency (15)             ║
@@ -142,7 +142,7 @@ Día 2:
 ║    12,345 transactions | 15 currencies               ║
 ║                                                        ║
 ╠═══════════════════════════════════════════════════════╣
-║ CoreBanking v1.0.0 • DTC1B Forensic Analysis          ║
+║ CoreBanking v1.0.0 • Digital Commercial Bank Ltd Forensic Analysis          ║
 ╚═══════════════════════════════════════════════════════╝
 ```
 

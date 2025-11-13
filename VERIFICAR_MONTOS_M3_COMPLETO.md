@@ -23,7 +23,7 @@ location.reload();
 ### PASO 3: Cargar archivo
 ```
 1. Bank Audit
-2. Cargar sample_dtc1b_real_data.txt
+2. Cargar sample_Digital Commercial Bank Ltd_real_data.txt
 ```
 
 ### PASO 4: LEER LA CONSOLA (F12)
@@ -144,7 +144,7 @@ SUMA TOTAL M3: $XX,XXX,XXX
 
 ## 📋 ARCHIVO vs M3
 
-### Abre sample_dtc1b_real_data.txt
+### Abre sample_Digital Commercial Bank Ltd_real_data.txt
 
 ### Busca montos entre $1M-$5M (equivalente):
 

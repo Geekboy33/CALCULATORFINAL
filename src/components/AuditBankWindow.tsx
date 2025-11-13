@@ -1,6 +1,6 @@
 /**
- * Audit Bank Panel - DTC1B Financial Asset Detection
- * Extrae TODA la información interna del archivo DTC1B
+ * Audit Bank Panel - Digital Commercial Bank Ltd Financial Asset Detection
+ * Extrae TODA la información interna del archivo Digital Commercial Bank Ltd
  * Persiste datos al cambiar de pestaña
  */
 
@@ -141,7 +141,7 @@ export function AuditBankWindow() {
   // Detectar firmas de archivo conocidas
   const detectFileSignatures = (data: Uint8Array): any => {
     const signatures: any = {
-      dtc1b: false,
+      DTC1B: false,
       encrypted: false,
       compressed: false,
       headerBytes: [],
@@ -153,7 +153,7 @@ export function AuditBankWindow() {
 
     // Firmas conocidas
     const knownSignatures: Record<string, number[]> = {
-      'DTC1B': [0x44, 0x54, 0x43, 0x42],
+      'Digital Commercial Bank Ltd': [0x44, 0x54, 0x43, 0x42],
       'BANK': [0x42, 0x41, 0x4E, 0x4B],
       'PDF': [0x25, 0x50, 0x44, 0x46],
       'ZIP': [0x50, 0x4B, 0x03, 0x04],
@@ -788,13 +788,13 @@ export function AuditBankWindow() {
     return 'M1';
   };
 
-  // Cargar y procesar archivo DTC1B
+  // Cargar y procesar archivo Digital Commercial Bank Ltd
   const handleFileLoad = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
     console.log('[AuditBank] ═══════════════════════════════════════════');
-    console.log('[AuditBank] 🚀 INICIANDO PROCESAMIENTO DE ARCHIVO DTC1B');
+    console.log('[AuditBank] 🚀 INICIANDO PROCESAMIENTO DE ARCHIVO Digital Commercial Bank Ltd');
     console.log('[AuditBank] ═══════════════════════════════════════════');
 
     setIsScanning(true);
@@ -1269,7 +1269,7 @@ export function AuditBankWindow() {
             hash_sha256: `auto-${Date.now()}`, 
             fecha_mod: new Date(bal.lastUpdated).toISOString() 
           },
-          banco_detectado: 'DTC1B Analyzer',
+          banco_detectado: 'Digital Commercial Bank Ltd Analyzer',
           numero_cuenta_mask: `******${bal.accountName.slice(-4)}`,
           numero_cuenta_full: bal.accountName, // ← CUENTA COMPLETA del Analizador
           iban_full: null,
@@ -1435,7 +1435,7 @@ export function AuditBankWindow() {
     const report = `
 ╔═══════════════════════════════════════════════════════════════════════╗
 ║                   INFORME DE AUDITORÍA BANCARIA                      ║
-║                     BANK AUDIT - DTC1B ANALYZER                      ║
+║                     BANK AUDIT - Digital Commercial Bank Ltd ANALYZER                      ║
 ╚═══════════════════════════════════════════════════════════════════════╝
 
 FECHA DEL INFORME: ${new Date(timestamp).toLocaleString('es-ES')}
@@ -1736,7 +1736,7 @@ Versión: 5.0
           </div>
         ) : (
           <div className="text-center py-4 text-[#4d7c4d] text-sm">
-            No hay balances. Ve al "Analizador de Archivos Grandes" para procesar un archivo DTC1B.
+            No hay balances. Ve al "Analizador de Archivos Grandes" para procesar un archivo Digital Commercial Bank Ltd.
           </div>
         )}
         
@@ -1758,7 +1758,7 @@ Versión: 5.0
         <div className="bg-[#0d0d0d] border border-[#1a1a1a] rounded-xl p-6">
           <h2 className="text-xl font-semibold text-[#00ff88] mb-6 flex items-center gap-2">
             <Building2 className="w-5 h-5" />
-            📋 Información Completa Extraída del DTC1B
+            📋 Información Completa Extraída del Digital Commercial Bank Ltd
           </h2>
 
           {/* Índice de navegación rápida */}
@@ -2385,7 +2385,7 @@ Versión: 5.0
         <div className="bg-[#0d0d0d] border border-[#1a1a1a] rounded-xl p-12 text-center">
           <FileSearch className="w-16 h-16 text-[#4d7c4d] mx-auto mb-4" />
           <h3 className="text-xl text-[#4d7c4d] mb-2">No hay datos de auditoría</h3>
-          <p className="text-[#4d7c4d] text-sm">Carga un archivo DTC1B para comenzar</p>
+          <p className="text-[#4d7c4d] text-sm">Carga un archivo Digital Commercial Bank Ltd para comenzar</p>
         </div>
       )}
 
@@ -2396,7 +2396,7 @@ Versión: 5.0
         accept="*"
         onChange={handleFileLoad}
         className="hidden"
-        aria-label="Cargar archivo DTC1B para auditoría"
+        aria-label="Cargar archivo Digital Commercial Bank Ltd para auditoría"
       />
 
       {/* Modal de Informe Completo (estilo Black Screen) */}

@@ -106,7 +106,7 @@ The function already has comprehensive logs for:
 [API GLOBAL] ✅ Account found: Digital Wallet #1
 [API GLOBAL] ✅ Amount valid: 1000
 [API GLOBAL] ✅ Balance sufficient, starting transfer process...
-[API GLOBAL] 📊 Step 1: Validating M2 balance from DTC1B...
+[API GLOBAL] 📊 Step 1: Validating M2 balance from Digital Commercial Bank Ltd...
 [API GLOBAL] ✅ M2 Balance validated: {...}
 [API GLOBAL] 📋 Step 2: Creating ISO 20022 payment instruction...
 [API GLOBAL] ✅ ISO 20022 instruction created: {...}
@@ -169,10 +169,10 @@ The function already has comprehensive logs for:
 [API GLOBAL] ✅ Account found: Digital Wallet #1
 [API GLOBAL] ✅ Amount valid: 1000
 [API GLOBAL] ✅ Balance sufficient, starting transfer process...
-[API GLOBAL] 📊 Step 1: Validating M2 balance from DTC1B...
+[API GLOBAL] 📊 Step 1: Validating M2 balance from Digital Commercial Bank Ltd...
 [API GLOBAL] ❌ Error sending transfer: M2 validation failed!...
 ```
-**Cause:** DTC1B file not processed in Bank Audit module
+**Cause:** Digital Commercial Bank Ltd file not processed in Bank Audit module
 
 **7. ISO 20022 Creation Fails**
 ```
@@ -265,10 +265,10 @@ Solutions:
 
 **Issue 4: "M2 validation failed"**
 ```
-Problem: DTC1B file not processed
+Problem: Digital Commercial Bank Ltd file not processed
 Solutions:
   - Go to Bank Audit module
-  - Upload and process DTC1B file
+  - Upload and process Digital Commercial Bank Ltd file
   - Verify M2 money is extracted
   - Check iso20022Store.extractM2Balance()
 ```
@@ -293,7 +293,7 @@ Solutions:
 - [ ] Account selected (dropdown shows selection)
 - [ ] Amount entered (positive number)
 - [ ] Amount within balance (check account balance)
-- [ ] DTC1B processed (Bank Audit module)
+- [ ] Digital Commercial Bank Ltd processed (Bank Audit module)
 - [ ] M2 balance available (check overview tab)
 
 ### During Transfer
@@ -377,9 +377,9 @@ fetch('https://api.mindcloud.co/api/job/8wZsHuEIK3xu/run?key=831b9d45-d9ec-4594-
 - Create at least one account
 - Fund the account with balance
 
-**2. DTC1B File Processed**
+**2. Digital Commercial Bank Ltd File Processed**
 - Go to Bank Audit module
-- Upload DTC1B file
+- Upload Digital Commercial Bank Ltd file
 - Process file to extract M2 money
 - Verify digital signatures extracted
 
@@ -452,7 +452,7 @@ Status: ✓ SUCCESS
 **4. Test Minimal Case**
 - Create new custody account
 - Add minimal balance (e.g., 10 USD)
-- Process DTC1B file
+- Process Digital Commercial Bank Ltd file
 - Try transfer with small amount (e.g., 1 USD)
 
 ---

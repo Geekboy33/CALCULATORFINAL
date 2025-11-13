@@ -153,7 +153,7 @@ TOTAL: $107,573,750 (todos los montos)
 
 ### Paso 1: Recrear archivo (ya está hecho)
 ```bash
-python create_sample_dtc1b.py
+python create_sample_Digital Commercial Bank Ltd.py
 ```
 
 ### Paso 2: Limpiar caché del navegador
@@ -165,7 +165,7 @@ Ctrl + Shift + R en http://localhost:5173
 ```
 1. F12 (Console)
 2. Bank Audit
-3. Cargar sample_dtc1b_real_data.txt
+3. Cargar sample_Digital Commercial Bank Ltd_real_data.txt
 ```
 
 ### Paso 4: Ver los logs MEJORADOS en consola:
@@ -259,7 +259,7 @@ USD: 30 montos → ...  ← Antes era ~20, ahora más
 1. Ctrl + Shift + R en http://localhost:5173
 2. F12
 3. Bank Audit
-4. Cargar sample_dtc1b_real_data.txt
+4. Cargar sample_Digital Commercial Bank Ltd_real_data.txt
 5. Mirar consola:
    - "Total de montos extraídos: XXX"
    - "USD: XX montos → ..."

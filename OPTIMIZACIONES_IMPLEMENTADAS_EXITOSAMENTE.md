@@ -31,12 +31,12 @@ DESPUÉS:
 #### 2. **Code Splitting Exitoso**
 ```
 ✅ AccountDashboard:         30.67 KB (solo carga cuando se usa)
-✅ LargeFileDTC1BAnalyzer:   28.20 KB (solo carga cuando se usa)
+✅ LargeFileDigital Commercial Bank LtdAnalyzer:   28.20 KB (solo carga cuando se usa)
 ✅ TransferInterface:        20.92 KB (solo carga cuando se usa)
 ✅ BankBlackScreen:          18.92 KB (solo carga cuando se usa)
 ✅ XcpB2BInterface:          18.03 KB (solo carga cuando se usa)
 ✅ EnhancedBinaryViewer:     54.35 KB (solo carga cuando se usa)
-✅ DTC1BProcessor:           11.11 KB (solo carga cuando se usa)
+✅ Digital Commercial Bank LtdProcessor:           11.11 KB (solo carga cuando se usa)
 ✅ AccountLedger:             9.78 KB (solo carga cuando se usa)
 ✅ AdvancedBinaryReader:      7.80 KB (solo carga cuando se usa)
 ✅ APIKeyManager:             7.53 KB (solo carga cuando se usa)
@@ -81,7 +81,7 @@ export function getSupabaseClient(): SupabaseClient {
         },
         global: {
           headers: {
-            'x-application-name': 'dtc1b-analyzer',
+            'x-application-name': 'Digital Commercial Bank Ltd-analyzer',
             'x-application-version': '1.0.0'
           }
         }
@@ -388,7 +388,7 @@ Las siguientes optimizaciones están documentadas pero NO implementadas aún:
 
 ### Alta Prioridad
 - [ ] Web Workers para procesamiento de archivos grandes
-- [ ] useReducer en LargeFileDTC1BAnalyzer (13 estados → 1 reducer)
+- [ ] useReducer en LargeFileDigital Commercial Bank LtdAnalyzer (13 estados → 1 reducer)
 - [ ] React.memo en componentes de lista
 
 ### Media Prioridad

@@ -73,7 +73,7 @@ class BankingStore {
 
   private loadFromLocalStorage() {
     try {
-      const storedFiles = localStorage.getItem('dtc1b_files');
+      const storedFiles = localStorage.getItem('Digital Commercial Bank Ltd_files');
       if (storedFiles) {
         const filesData = JSON.parse(storedFiles);
         filesData.forEach((fileData: any) => {
@@ -88,7 +88,7 @@ class BankingStore {
         });
       }
 
-      const storedAccounts = localStorage.getItem('dtc1b_accounts');
+      const storedAccounts = localStorage.getItem('Digital Commercial Bank Ltd_accounts');
       if (storedAccounts) {
         const accountsData = JSON.parse(storedAccounts);
         accountsData.forEach((acc: any) => {
@@ -111,14 +111,14 @@ class BankingStore {
         data: Array.from(file.data),
         createdAt: file.createdAt.toISOString()
       }));
-      localStorage.setItem('dtc1b_files', JSON.stringify(filesData));
+      localStorage.setItem('Digital Commercial Bank Ltd_files', JSON.stringify(filesData));
 
       const accountsData = Array.from(this.accounts.values()).map(acc => ({
         ...acc,
         balanceMinorUnits: acc.balanceMinorUnits.toString(),
         createdAt: acc.createdAt.toISOString()
       }));
-      localStorage.setItem('dtc1b_accounts', JSON.stringify(accountsData));
+      localStorage.setItem('Digital Commercial Bank Ltd_accounts', JSON.stringify(accountsData));
     } catch (error) {
       console.error('Error saving to localStorage:', error);
     }

@@ -13,7 +13,7 @@ El error de sintaxis con `<` ha sido corregido. El servidor debe recompilar auto
 ```
 1️⃣ Tab "Auditoría Bancaria"
 
-2️⃣ Botón verde "Cargar Archivo DTC1B"
+2️⃣ Botón verde "Cargar Archivo Digital Commercial Bank Ltd"
 
 3️⃣ Seleccionar: test_audit_extraction.txt
 
@@ -34,7 +34,7 @@ El error de sintaxis con `<` ha sido corregido. El servidor debe recompilar auto
 ```
 1️⃣ Tab "Analizador de Archivos Grandes"
 
-2️⃣ Cargar cualquier archivo DTC1B
+2️⃣ Cargar cualquier archivo Digital Commercial Bank Ltd
 
 3️⃣ Dejar procesar (puede tardar)
 
@@ -54,7 +54,7 @@ El error de sintaxis con `<` ha sido corregido. El servidor debe recompilar auto
 
 ```
 ╔═══════════════════════════════════════════╗
-║  INFORME DE AUDITORÍA BANCARIA DTC1B     ║
+║  INFORME DE AUDITORÍA BANCARIA Digital Commercial Bank Ltd     ║
 ╚═══════════════════════════════════════════╝
 
 [Descargar TXT] [Imprimir] [Cerrar]
@@ -195,7 +195,7 @@ Dentro del informe:
 ```
 1. Clic en botón "Descargar TXT"
 2. Se descarga archivo:
-   "Informe_Auditoria_DTC1B_[timestamp].txt"
+   "Informe_Auditoria_Digital Commercial Bank Ltd_[timestamp].txt"
 3. Abrir con cualquier editor de texto
 4. Ver informe completo organizado
 ```
@@ -245,7 +245,7 @@ Dentro del informe:
 
 4. Tab "Auditoría Bancaria"
 
-5. Botón verde "Cargar Archivo DTC1B"
+5. Botón verde "Cargar Archivo Digital Commercial Bank Ltd"
    → test_audit_extraction.txt
 
 6. Esperar 2 segundos

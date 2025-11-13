@@ -11,7 +11,7 @@ He creado un **sistema profesional de cuentas custodio** para tokenización bloc
 ### **1. Creación de Cuentas Custodio** ✅
 - ✅ Crear cuentas con nombre personalizado
 - ✅ Seleccionar divisa (USD, EUR, GBP, etc.)
-- ✅ Transferir fondos del sistema DTC1B
+- ✅ Transferir fondos del sistema Digital Commercial Bank Ltd
 - ✅ Asignar blockchain (Ethereum, BSC, Polygon, etc.)
 - ✅ Definir símbolo del token (USDT, EURT, etc.)
 
@@ -64,7 +64,7 @@ He creado un **sistema profesional de cuentas custodio** para tokenización bloc
 
 ```
 ┌──────────────────────────────────────────────┐
-│  Balances del Sistema DTC1B                  │
+│  Balances del Sistema Digital Commercial Bank Ltd                  │
 │  USD: 50M | EUR: 30M | GBP: 20M | ...       │
 └──────────────┬───────────────────────────────┘
                │

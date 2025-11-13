@@ -1,24 +1,24 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-SCRIPT DE PRUEBA PARA EL ANALIZADOR DTC1B
+SCRIPT DE PRUEBA PARA EL ANALIZADOR Digital Commercial Bank Ltd
 Demuestra cómo usar el analizador con archivos reales
 """
 
 import os
 import sys
-from analizador_dtc1b import DTCAnalyzer
+from analizador_Digital Commercial Bank Ltd import DTCAnalyzer
 
 def test_con_archivo_ejemplo():
-    """Probar el analizador con el archivo de ejemplo DTC1B"""
-    print("🧪 PRUEBA CON ARCHIVO DE EJEMPLO DTC1B")
+    """Probar el analizador con el archivo de ejemplo Digital Commercial Bank Ltd"""
+    print("🧪 PRUEBA CON ARCHIVO DE EJEMPLO Digital Commercial Bank Ltd")
     print("=" * 50)
 
     # Crear instancia del analizador
     analyzer = DTCAnalyzer()
 
     # Archivo de ejemplo que creamos anteriormente
-    test_file = "sample-dtc1b.bin"
+    test_file = "sample-Digital Commercial Bank Ltd.bin"
 
     if os.path.exists(test_file):
         print(f"✅ Archivo encontrado: {test_file}")
@@ -59,8 +59,8 @@ def crear_archivo_prueba():
     # Crear datos más complejos con patrones reales
     test_data = bytearray()
 
-    # Agregar cabecera DTC1B
-    test_data.extend(b'DTC1B')
+    # Agregar cabecera Digital Commercial Bank Ltd
+    test_data.extend(b'Digital Commercial Bank Ltd')
 
     # Agregar códigos bancarios simulados
     test_data.extend(b'HSBCUK')  # Código bancario HSBC UK
@@ -89,18 +89,18 @@ def crear_archivo_prueba():
         test_data.append(0x00)
 
     # Guardar archivo de prueba
-    with open('archivo_prueba_dtc1b.bin', 'wb') as f:
+    with open('archivo_prueba_Digital Commercial Bank Ltd.bin', 'wb') as f:
         f.write(test_data)
 
-    print(f"✅ Archivo de prueba creado: archivo_prueba_dtc1b.bin ({len(test_data)} bytes)")
+    print(f"✅ Archivo de prueba creado: archivo_prueba_Digital Commercial Bank Ltd.bin ({len(test_data)} bytes)")
 
     # Analizar el archivo creado
     analyzer = DTCAnalyzer()
-    data = analyzer.read_binary_file('archivo_prueba_dtc1b.bin')
+    data = analyzer.read_binary_file('archivo_prueba_Digital Commercial Bank Ltd.bin')
 
     if data:
-        print("🔍 Analizando archivo de prueba creado:"        analysis = analyzer.analyze_patterns(data, 'archivo_prueba_dtc1b.bin')
-        structured = analyzer.extract_structured_data(data, 'archivo_prueba_dtc1b.bin')
+        print("🔍 Analizando archivo de prueba creado:"        analysis = analyzer.analyze_patterns(data, 'archivo_prueba_Digital Commercial Bank Ltd.bin')
+        structured = analyzer.extract_structured_data(data, 'archivo_prueba_Digital Commercial Bank Ltd.bin')
 
         print(f"📊 Resultados del análisis:")
         print(f"   - Tamaño: {analysis['file_size']} bytes")
@@ -141,7 +141,7 @@ def comparar_con_analisis_web():
 
 def main():
     """Función principal de prueba"""
-    print("🚀 INICIANDO PRUEBAS DEL ANALIZADOR DTC1B")
+    print("🚀 INICIANDO PRUEBAS DEL ANALIZADOR Digital Commercial Bank Ltd")
     print("=" * 60)
 
     # Probar con archivo existente
@@ -155,9 +155,9 @@ def main():
 
     print("\n✅ PRUEBAS COMPLETADAS")
     print("📁 Revisa los archivos generados:")
-    print("   - sample-dtc1b.bin (archivo básico)")
-    print("   - archivo_prueba_dtc1b.bin (archivo avanzado)")
-    print("   - dtc1b_analysis_report.txt (reporte de análisis)")
+    print("   - sample-Digital Commercial Bank Ltd.bin (archivo básico)")
+    print("   - archivo_prueba_Digital Commercial Bank Ltd.bin (archivo avanzado)")
+    print("   - Digital Commercial Bank Ltd_analysis_report.txt (reporte de análisis)")
 
 if __name__ == "__main__":
     main()

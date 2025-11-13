@@ -1,4 +1,4 @@
-# 🎯 Análisis Completo del Sistema DTC1B
+# 🎯 Análisis Completo del Sistema Digital Commercial Bank Ltd
 
 ## ✅ Estado del Servidor
 
@@ -6,10 +6,10 @@
 
 ## 📊 Trabajo Completado
 
-### 1. Ingeniería Inversa del Archivo DTC1B (E:\1A\dtc1b)
+### 1. Ingeniería Inversa del Archivo Digital Commercial Bank Ltd (E:\1A\Digital Commercial Bank Ltd)
 
 ✅ **Archivo Analizado**: 
-- **Ruta**: `E:\1A\dtc1b`
+- **Ruta**: `E:\1A\Digital Commercial Bank Ltd`
 - **Tamaño**: 858,993,459,200 bytes (~800 GB)
 - **Última modificación**: 23 de agosto de 2023
 - **Magic Number**: `B0 42 33 79`
@@ -17,13 +17,13 @@
 - **Estado**: **Completamente Encriptado**
 
 ✅ **Reporte Generado**: 
-- Archivo: `DTC1B_REVERSE_ENGINEERING_REPORT.md`
+- Archivo: `Digital Commercial Bank Ltd_REVERSE_ENGINEERING_REPORT.md`
 - Incluye análisis detallado de estructura, entropía, patrones y recomendaciones
 
 ### 2. Componentes Creados
 
-#### 🔹 LargeFileDTC1BAnalyzer
-**Ubicación**: `src/components/LargeFileDTC1BAnalyzer.tsx`
+#### 🔹 LargeFileDigital Commercial Bank LtdAnalyzer
+**Ubicación**: `src/components/LargeFileDigital Commercial Bank LtdAnalyzer.tsx`
 
 **Características**:
 - ✅ Procesamiento por bloques (streaming) de archivos hasta 800 GB
@@ -49,11 +49,11 @@
 
 **Mejoras Implementadas**:
 - ✅ Detección universal de formatos de archivo
-- ✅ Análisis DTC1B específico mejorado
+- ✅ Análisis Digital Commercial Bank Ltd específico mejorado
 - ✅ Análisis de encriptación avanzado
 - ✅ Análisis forense completo
 - ✅ Exportación a JSON/CSV
-- ✅ Botón "Forzar Análisis DTC1B"
+- ✅ Botón "Forzar Análisis Digital Commercial Bank Ltd"
 - ✅ Sección de troubleshooting
 
 #### 🔹 EnhancedBinaryViewer
@@ -62,7 +62,7 @@
 **Características**:
 - ✅ Análisis forense profesional
 - ✅ Criptoanálisis avanzado
-- ✅ Detección de patrones DTC1B
+- ✅ Detección de patrones Digital Commercial Bank Ltd
 - ✅ Generación de archivos de ejemplo
 - ✅ Herramientas de brute-force
 - ✅ Exportación de reportes
@@ -75,13 +75,13 @@
 - Accesible desde la navegación principal
 
 ✅ **Dashboard Mejorado**:
-- Sección de herramientas avanzadas DTC1B
+- Sección de herramientas avanzadas Digital Commercial Bank Ltd
 - Botones de acceso rápido
 - Descarga de script Python incluida
 
 ### 4. Documentación Creada
 
-#### 📄 DTC1B_REVERSE_ENGINEERING_REPORT.md
+#### 📄 Digital Commercial Bank Ltd_REVERSE_ENGINEERING_REPORT.md
 Reporte completo de ingeniería inversa que incluye:
 - ✅ Información general del archivo
 - ✅ Análisis de estructura binaria
@@ -95,14 +95,14 @@ Reporte completo de ingeniería inversa que incluye:
 - ✅ Advertencias y conclusiones
 - ✅ Próximos pasos
 
-#### 📄 ANALISIS_DTC1B_COMPLETO.md (este archivo)
+#### 📄 ANALISIS_Digital Commercial Bank Ltd_COMPLETO.md (este archivo)
 Resumen de todo el trabajo realizado
 
 ## 🔐 Conclusiones del Análisis
 
-### Sobre el Archivo DTC1B en E:\1A
+### Sobre el Archivo Digital Commercial Bank Ltd en E:\1A
 
-1. **Formato**: DTC1B Propietario con firma `B0 42 33 79`
+1. **Formato**: Digital Commercial Bank Ltd Propietario con firma `B0 42 33 79`
 2. **Encriptación**: **SÍ - Fuertemente encriptado**
 3. **Algoritmo Probable**: AES-256-GCM
 4. **Entropía**: 7.9972/8.0 (prácticamente máxima)
@@ -140,13 +140,13 @@ Para desencriptar el archivo se necesita **UNO** de los siguientes:
 1. **Analizador Archivos Grandes**
    - Navegar a: http://localhost:5173
    - Click en pestaña "Analizador Archivos Grandes"
-   - Cargar archivo DTC1B
+   - Cargar archivo Digital Commercial Bank Ltd
    - Ver análisis en tiempo real
    - Exportar reporte
 
-2. **Analizador DTC1B Pro**
+2. **Analizador Digital Commercial Bank Ltd Pro**
    - Navegar a: http://localhost:5173
-   - Click en pestaña "Analizador DTC1B Pro"
+   - Click en pestaña "Analizador Digital Commercial Bank Ltd Pro"
    - Análisis forense completo
    - Herramientas de criptoanálisis
 
@@ -158,7 +158,7 @@ Para desencriptar el archivo se necesita **UNO** de los siguientes:
 
 ### Scripts Externos
 
-1. **analizador_dtc1b.py**
+1. **analizador_Digital Commercial Bank Ltd.py**
    - Análisis offline
    - Procesamiento por bloques
    - Generación de reportes detallados
@@ -176,8 +176,8 @@ http://localhost:5173
 2. Click en la pestaña "Analizador Archivos Grandes" (icono de Database)
 
 ### Paso 3: Cargar Archivo
-1. Click en "Seleccionar Archivo DTC1B"
-2. Navegar a `E:\1A\dtc1b`
+1. Click en "Seleccionar Archivo Digital Commercial Bank Ltd"
+2. Navegar a `E:\1A\Digital Commercial Bank Ltd`
 3. Seleccionar el archivo
 4. El análisis comenzará automáticamente
 
@@ -259,11 +259,11 @@ Todas las dependencias están instaladas y funcionando:
 ## 📊 Resumen Final
 
 ### Lo Que Sabemos:
-1. El archivo `E:\1A\dtc1b` está **completamente encriptado**
+1. El archivo `E:\1A\Digital Commercial Bank Ltd` está **completamente encriptado**
 2. El algoritmo es probablemente **AES-256-GCM**
 3. El tamaño es **800 GB** (requiere procesamiento especial)
 4. La entropía es **máxima** (7.9972/8.0)
-5. El magic number es **B0 42 33 79** (formato DTC1B propietario)
+5. El magic number es **B0 42 33 79** (formato Digital Commercial Bank Ltd propietario)
 
 ### Lo Que Necesitamos:
 1. **Username** del propietario del archivo
@@ -272,7 +272,7 @@ Todas las dependencias están instaladas y funcionando:
 
 ### Herramientas Disponibles:
 1. ✅ **Analizador de Archivos Grandes** (streaming para archivos masivos)
-2. ✅ **Analizador DTC1B Pro** (análisis forense y criptográfico)
+2. ✅ **Analizador Digital Commercial Bank Ltd Pro** (análisis forense y criptográfico)
 3. ✅ **Binary Reader Universal** (detección multi-formato)
 4. ✅ **Script Python** (análisis offline)
 5. ✅ **Reporte de Ingeniería Inversa** (documentación completa)
@@ -291,8 +291,8 @@ Todas las dependencias están instaladas y funcionando:
 Si tienes las credenciales del archivo o necesitas más información, puedes:
 
 1. Usar la aplicación web en http://localhost:5173
-2. Revisar el reporte completo en `DTC1B_REVERSE_ENGINEERING_REPORT.md`
-3. Ejecutar el script Python `analizador_dtc1b.py` para análisis offline
+2. Revisar el reporte completo en `Digital Commercial Bank Ltd_REVERSE_ENGINEERING_REPORT.md`
+3. Ejecutar el script Python `analizador_Digital Commercial Bank Ltd.py` para análisis offline
 
 ---
 

@@ -23,7 +23,7 @@
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │  📚 Account Ledger - Libro Mayor de Cuentas                │
-│  Actualización en tiempo real desde el Analizador DTC1B    │
+│  Actualización en tiempo real desde el Analizador Digital Commercial Bank Ltd    │
 ├─────────────────────────────────────────────────────────────┤
 │  [15 Cuentas] [12,345 Transacciones] [10:45:23 AM] [●Live]│
 ├─────────────────────────────────────────────────────────────┤
@@ -183,7 +183,7 @@ if (typeof requestIdleCallback !== 'undefined') {
 ```
 1. Usuario va a "Analizador Archivos Grandes"
    ↓
-2. Selecciona archivo DTC1B (ej: 5GB)
+2. Selecciona archivo Digital Commercial Bank Ltd (ej: 5GB)
    ↓
 3. Analizador inicia procesamiento
    ↓
@@ -268,7 +268,7 @@ Análisis NUNCA se detiene hasta completar
 
 ### **Modificados**:
 - 🔧 `src/App.tsx` - Agregada pestaña Ledger
-- 🔧 `src/components/LargeFileDTC1BAnalyzer.tsx` - Updates en tiempo real
+- 🔧 `src/components/LargeFileDigital Commercial Bank LtdAnalyzer.tsx` - Updates en tiempo real
 - 🔧 `src/components/XcpB2BInterface.tsx` - 15 divisas completas
 - 🔧 `src/lib/balances-store.ts` - Store reactivo (ya existía)
 
@@ -371,7 +371,7 @@ Nunca perdió tiempo ni progreso
 ### **Para Actualización en Tiempo Real**:
 ```
 1. Va a "Analizador Archivos Grandes"
-2. Selecciona archivo DTC1B
+2. Selecciona archivo Digital Commercial Bank Ltd
 3. Mientras procesa, cambia a "Ledger Cuentas"
 4. Observa las actualizaciones automáticas cada 100MB
 5. Punto azul pulsante = Actualizando AHORA

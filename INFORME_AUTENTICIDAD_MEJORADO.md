@@ -49,7 +49,7 @@ Reporte comienza con un header completo:
 
 ```
 ╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔
-║  DTC1B COMPLETE AUTHENTICITY VERIFICATION REPORT - ALL CURRENCIES
+║  Digital Commercial Bank Ltd COMPLETE AUTHENTICITY VERIFICATION REPORT - ALL CURRENCIES
 ╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚
 
 Generated: 2025-11-04T10:30:45.123Z
@@ -65,7 +65,7 @@ Classification Range: M0 (Cash) → M4 (Financial Instruments)
 ### Header General
 ```
 ╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔╔
-║  DTC1B COMPLETE AUTHENTICITY VERIFICATION REPORT - ALL CURRENCIES
+║  Digital Commercial Bank Ltd COMPLETE AUTHENTICITY VERIFICATION REPORT - ALL CURRENCIES
 ╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚
 
 Generated: 2025-11-04T10:30:45.123Z
@@ -91,7 +91,7 @@ Breakdown by Classification:
   M4 (Financial Instruments):   8,249,929,013.72 USD
 
 ================================================================================
-DTC1B AUTHENTICITY VERIFICATION REPORT
+Digital Commercial Bank Ltd AUTHENTICITY VERIFICATION REPORT
 ================================================================================
 
 Currency: USD
@@ -288,7 +288,7 @@ CLASSIFICATION: MX
 
 ## 🚀 CÓMO USAR
 
-### Paso 1: Procesar DTC1B
+### Paso 1: Procesar Digital Commercial Bank Ltd
 ```
 Analizador de Archivos Grandes → Cargar archivo → Procesar
 ```

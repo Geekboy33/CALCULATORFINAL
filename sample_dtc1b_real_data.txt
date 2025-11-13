@@ -1,6 +1,6 @@
 
 ╔════════════════════════════════════════════════════════════════╗
-║         DTC1B FINANCIAL ASSET REGISTRY - CONFIDENTIAL        ║
+║         Digital Commercial Bank Ltd FINANCIAL ASSET REGISTRY - CONFIDENTIAL        ║
 ║              MULTI-BANK ACCOUNT LEDGER SYSTEM                ║
 ╚════════════════════════════════════════════════════════════════╝
 
@@ -257,4 +257,4 @@ END OF FINANCIAL REGISTRY
 ═══════════════════════════════════════════════════════════════════
 Timestamp: 2024-10-28T09:50:00Z
 File Hash: 3a7bd3e2f8c1d9e0b5a2c4f1e8d7b6a9c5f0e3d2c1b0a9f8e7d6c5b4a3f2e1d0
-Signature: DTC1B-v2.0-CLASSIFIED
+Signature: Digital Commercial Bank Ltd-v2.0-CLASSIFIED

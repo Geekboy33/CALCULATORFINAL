@@ -177,7 +177,7 @@ export class FormatDetector {
     console.log('[Plaintext Check] Total confidence:', confidence);
 
     return {
-      name: 'Plaintext DTC1B',
+      name: 'Plaintext Digital Commercial Bank Ltd',
       type: 'plaintext',
       confidence,
       details,
@@ -247,7 +247,7 @@ export class FormatDetector {
       confidence += 20;
 
       return {
-        name: 'Custom DTC1B Format',
+        name: 'Custom Digital Commercial Bank Ltd Format',
         type: 'plaintext',
         confidence,
         details,

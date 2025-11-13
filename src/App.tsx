@@ -151,7 +151,7 @@ function App() {
               <div>
                 <h1 className="text-xl font-bold text-[#e0ffe0]">{t.headerTitle}</h1>
                 <p className="text-sm text-neon font-bold">{t.headerSubtitle}</p>
-                <p className="text-xs text-[#4d7c4d]">AES-256-GCM • DTC1B • HMAC-SHA256</p>
+                <p className="text-xs text-[#4d7c4d]">AES-256-GCM • Digital Commercial Bank Ltd • HMAC-SHA256</p>
               </div>
             </div>
 

@@ -9,7 +9,7 @@ He implementado **TODO** lo que solicitaste. El sistema **SÍ funciona**, solo n
 ## ✅ LO QUE ESTÁ IMPLEMENTADO (VERIFICADO)
 
 1. ✅ **Integración automática** Analizador ↔ Bank Audit
-2. ✅ **Extracción completa** de datos DTC1B (cuentas, IBANs, SWIFT, montos)
+2. ✅ **Extracción completa** de datos Digital Commercial Bank Ltd (cuentas, IBANs, SWIFT, montos)
 3. ✅ **Ingeniería inversa** profunda (decompilación binaria)
 4. ✅ **Clasificación M0-M4** de montos REALES
 5. ✅ **Vista completa** sin enmascarar
@@ -25,8 +25,8 @@ He implementado **TODO** lo que solicitaste. El sistema **SÍ funciona**, solo n
 ```bash
 # Terminal:
 cd "C:\Users\USER\Desktop\DAES ULTIMATE\DAES-ULTIMATE"
-del sample_dtc1b_real_data.txt
-python create_sample_dtc1b.py
+del sample_Digital Commercial Bank Ltd_real_data.txt
+python create_sample_Digital Commercial Bank Ltd.py
 ```
 
 ### PASO 2: Cierra TODO el navegador
@@ -60,8 +60,8 @@ Click en "Bank Audit" en el menú
 
 ### PASO 7: Cargar archivo
 ```
-Click "Cargar Archivo DTC1B"
-Selecciona: sample_dtc1b_real_data.txt
+Click "Cargar Archivo Digital Commercial Bank Ltd"
+Selecciona: sample_Digital Commercial Bank Ltd_real_data.txt
 ```
 
 ### PASO 8: VER CONSOLA (F12)
@@ -69,7 +69,7 @@ Selecciona: sample_dtc1b_real_data.txt
 Deberías ver INMEDIATAMENTE:
 
 [AuditBank] 🚀 INICIANDO PROCESAMIENTO...
-[AuditBank] 📁 Archivo: sample_dtc1b_real_data.txt
+[AuditBank] 📁 Archivo: sample_Digital Commercial Bank Ltd_real_data.txt
 ...
 [AuditBank] 💰 TOTALES:
   M0: $8,500 | 1 montos
@@ -101,11 +101,11 @@ M4: $62,845,250 ← Número > 0
 
 ```javascript
 // Ver qué hay en localStorage
-console.log('Audit data:', JSON.parse(localStorage.getItem('dtc1b_audit_data') || 'null'));
+console.log('Audit data:', JSON.parse(localStorage.getItem('Digital Commercial Bank Ltd_audit_data') || 'null'));
 
 // Si ves datos viejos, limpia:
-localStorage.removeItem('dtc1b_audit_data');
-localStorage.removeItem('dtc1b_analyzed_balances');
+localStorage.removeItem('Digital Commercial Bank Ltd_audit_data');
+localStorage.removeItem('Digital Commercial Bank Ltd_analyzed_balances');
 location.reload();
 
 // Luego carga el archivo de nuevo

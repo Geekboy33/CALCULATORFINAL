@@ -21,7 +21,7 @@ Ctrl + Shift + R en http://localhost:5173
 ```
 1. F12 (Console)
 2. Bank Audit
-3. Cargar: sample_dtc1b_real_data.txt
+3. Cargar: sample_Digital Commercial Bank Ltd_real_data.txt
 ```
 
 ### PASO 3: Ver LOGS en consola (F12)
@@ -96,7 +96,7 @@ Es NORMAL porque el Yen vale muy poco contra el dólar.
 
 ## ✅ VERIFICACIÓN CONTRA EL ARCHIVO
 
-### Abre sample_dtc1b_real_data.txt
+### Abre sample_Digital Commercial Bank Ltd_real_data.txt
 
 ### Busca esta sección (cerca del final):
 
@@ -153,7 +153,7 @@ TOTAL EQUIVALENT VALUE: USD $106,687,750.00
 
 ## ✅ CHECKLIST
 
-- [ ] Archivo cargado: sample_dtc1b_real_data.txt
+- [ ] Archivo cargado: sample_Digital Commercial Bank Ltd_real_data.txt
 - [ ] Consola muestra: "TOTALES REALES POR DIVISA"
 - [ ] USD: TOTAL 43,375,000 en consola
 - [ ] EUR: TOTAL 11,975,000 en consola

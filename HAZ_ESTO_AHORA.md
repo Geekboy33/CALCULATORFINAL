@@ -13,7 +13,7 @@ cd "C:\Users\USER\Desktop\DAES ULTIMATE\DAES-ULTIMATE"
 
 ### 3️⃣ Crea el archivo de prueba:
 ```bash
-python create_sample_dtc1b.py
+python create_sample_Digital Commercial Bank Ltd.py
 ```
 
 Deberías ver:
@@ -21,19 +21,19 @@ Deberías ver:
 ============================================================
   ARCHIVO DE PRUEBA CREADO EXITOSAMENTE
 ============================================================
-Archivo: sample_dtc1b_real_data.txt
+Archivo: sample_Digital Commercial Bank Ltd_real_data.txt
 ```
 
 ### 4️⃣ Verifica que el archivo existe:
 ```bash
-dir sample_dtc1b_real_data.txt
+dir sample_Digital Commercial Bank Ltd_real_data.txt
 ```
 
 Deberías ver el archivo listado.
 
 ### 5️⃣ Verifica que tiene datos:
 ```bash
-type sample_dtc1b_real_data.txt | findstr "Account" | findstr /N .
+type sample_Digital Commercial Bank Ltd_real_data.txt | findstr "Account" | findstr /N .
 ```
 
 Deberías ver 30+ líneas numeradas.
@@ -49,9 +49,9 @@ http://localhost:5173
 
 ### 9️⃣ Click en "Bank Audit" en el dashboard
 
-### 🔟 Click en "Cargar Archivo DTC1B" y selecciona:
+### 🔟 Click en "Cargar Archivo Digital Commercial Bank Ltd" y selecciona:
 ```
-sample_dtc1b_real_data.txt
+sample_Digital Commercial Bank Ltd_real_data.txt
 ```
 
 ---
@@ -62,15 +62,15 @@ Inmediatamente deberías ver:
 
 ```javascript
 [AuditBank] ═══════════════════════════════════════════
-[AuditBank] 🚀 INICIANDO PROCESAMIENTO DE ARCHIVO DTC1B
+[AuditBank] 🚀 INICIANDO PROCESAMIENTO DE ARCHIVO Digital Commercial Bank Ltd
 [AuditBank] ═══════════════════════════════════════════
-[AuditBank] 📁 Archivo: sample_dtc1b_real_data.txt
+[AuditBank] 📁 Archivo: sample_Digital Commercial Bank Ltd_real_data.txt
 [AuditBank] 📊 Tamaño: 8.XX KB
 [AuditBank] 📊 Bytes totales: 8,XXX
 [AuditBank] 📄 Primeros 500 caracteres:
 
 ╔════════════════════════════════════════════════════════════════╗
-║         DTC1B FINANCIAL ASSET REGISTRY - CONFIDENTIAL        ║
+║         Digital Commercial Bank Ltd FINANCIAL ASSET REGISTRY - CONFIDENTIAL        ║
 ║              MULTI-BANK ACCOUNT LEDGER SYSTEM                ║
 ╚════════════════════════════════════════════════════════════════╝
 ...
@@ -125,7 +125,7 @@ Y al hacer scroll:
 
 **Solución:**
 ```
-1. ¿Hiciste click en "Cargar Archivo DTC1B"?
+1. ¿Hiciste click en "Cargar Archivo Digital Commercial Bank Ltd"?
 2. ¿Seleccionaste el archivo correcto?
 3. ¿Estás en "Bank Audit" (no en otra pestaña)?
 ```
@@ -137,10 +137,10 @@ Y al hacer scroll:
 **Solución:**
 ```bash
 # Recrear el archivo
-python create_sample_dtc1b.py
+python create_sample_Digital Commercial Bank Ltd.py
 
 # Verificar contenido
-type sample_dtc1b_real_data.txt | more
+type sample_Digital Commercial Bank Ltd_real_data.txt | more
 ```
 
 ### Problema 3: Error rojo en consola
@@ -165,13 +165,13 @@ npm run dev
 
 # Terminal 2: Crear archivo
 cd "C:\Users\USER\Desktop\DAES ULTIMATE\DAES-ULTIMATE"
-python create_sample_dtc1b.py
+python create_sample_Digital Commercial Bank Ltd.py
 
 # Navegador:
 # 1. http://localhost:5173
 # 2. F12
 # 3. Bank Audit
-# 4. Cargar sample_dtc1b_real_data.txt
+# 4. Cargar sample_Digital Commercial Bank Ltd_real_data.txt
 # 5. Mirar consola
 
 # ✅ Deberías ver: "cuentas detectadas: 19"
@@ -186,8 +186,8 @@ Si después de hacer TODO esto aún no funciona, copia y pega en la consola:
 
 ```javascript
 // Ver si hay datos en localStorage
-console.log('Datos en audit store:', localStorage.getItem('dtc1b_audit_data'));
-console.log('Datos en balance store:', localStorage.getItem('dtc1b_analyzed_balances'));
+console.log('Datos en audit store:', localStorage.getItem('Digital Commercial Bank Ltd_audit_data'));
+console.log('Datos en balance store:', localStorage.getItem('Digital Commercial Bank Ltd_analyzed_balances'));
 ```
 
 ---

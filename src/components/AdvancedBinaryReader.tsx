@@ -20,7 +20,7 @@ interface BinaryAnalysisResult {
     isDTC1B: boolean;
     isEncrypted: boolean;
   };
-  dtc1bAnalysis: {
+  DTC1BAnalysis: {
     isValidDTC1B: boolean;
     confidence: number;
     transactions: DTC1BTransaction[];
@@ -142,13 +142,13 @@ export function AdvancedBinaryReader() {
       fileSize: data.length,
       fileHash,
       detectedFormat: {
-        name: isDTC1B ? 'DTC1B Banking Format' : 'Binary File',
+        name: isDTC1B ? 'Digital Commercial Bank Ltd Banking Format' : 'Binary File',
         confidence: isDTC1B ? 85 : 50,
         category: isDTC1B ? 'banking' : 'binary',
         isDTC1B,
         isEncrypted
       },
-      dtc1bAnalysis: {
+      DTC1BAnalysis: {
         isValidDTC1B: isDTC1B,
         confidence: isDTC1B ? 85 : 0,
         transactions,
@@ -228,7 +228,7 @@ export function AdvancedBinaryReader() {
             </div>
             <div>
               <h1 className="text-3xl font-bold text-white">Analizador Binario Universal</h1>
-              <p className="text-sm text-slate-400">Detección automática de formatos DTC1B</p>
+              <p className="text-sm text-slate-400">Detección automática de formatos Digital Commercial Bank Ltd</p>
             </div>
           </div>
         </div>
@@ -257,7 +257,7 @@ export function AdvancedBinaryReader() {
                   Cargar Archivo para Análisis
                 </p>
                 <p className="text-sm text-slate-400">
-                  Soporta archivos DTC1B, binarios y encriptados
+                  Soporta archivos Digital Commercial Bank Ltd, binarios y encriptados
                 </p>
               </div>
             </label>
@@ -300,18 +300,18 @@ export function AdvancedBinaryReader() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
               <div className="bg-[#0d0d0d] rounded-lg p-4 border border-[#1a1a1a]">
-                <p className="text-xs text-slate-400 mb-1">Estado DTC1B</p>
+                <p className="text-xs text-slate-400 mb-1">Estado Digital Commercial Bank Ltd</p>
                 <p className={`text-lg font-bold ${
-                  analysis.dtc1bAnalysis.isValidDTC1B ? 'text-green-400' : 'text-red-400'
+                  analysis.DTC1BAnalysis.isValidDTC1B ? 'text-green-400' : 'text-red-400'
                 }`}>
-                  {analysis.dtc1bAnalysis.isValidDTC1B ? '✅ Válido' : '❌ No Detectado'}
+                  {analysis.DTC1BAnalysis.isValidDTC1B ? '✅ Válido' : '❌ No Detectado'}
                 </p>
               </div>
 
               <div className="bg-[#0d0d0d] rounded-lg p-4 border border-[#1a1a1a]">
                 <p className="text-xs text-slate-400 mb-1">Transacciones</p>
                 <p className="text-2xl font-bold text-green-400">
-                  {analysis.dtc1bAnalysis.totalTransactions}
+                  {analysis.DTC1BAnalysis.totalTransactions}
                 </p>
               </div>
 
@@ -332,14 +332,14 @@ export function AdvancedBinaryReader() {
               </div>
             </div>
 
-            {analysis.dtc1bAnalysis.transactions.length > 0 && (
+            {analysis.DTC1BAnalysis.transactions.length > 0 && (
               <div className="bg-[#0d0d0d] rounded-xl border border-[#1a1a1a] p-6">
                 <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
                   <FileText className="w-5 h-5 text-green-400" />
-                  Transacciones DTC1B ({analysis.dtc1bAnalysis.totalTransactions})
+                  Transacciones Digital Commercial Bank Ltd ({analysis.DTC1BAnalysis.totalTransactions})
                 </h3>
                 <div className="space-y-4">
-                  {analysis.dtc1bAnalysis.transactions.map((tx, i) => (
+                  {analysis.DTC1BAnalysis.transactions.map((tx, i) => (
                     <div key={i} className="p-4 bg-black rounded-lg border border-[#1a1a1a]">
                       <div className="flex items-center justify-between">
                         <div>

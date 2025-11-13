@@ -4,7 +4,7 @@
 
 ### **✨ FUNCIONALIDAD COMPLETA DE EXTRACCIÓN DE DATOS**
 
-El módulo ahora extrae **AUTOMÁTICAMENTE** toda la información interna de archivos DTC1B:
+El módulo ahora extrae **AUTOMÁTICAMENTE** toda la información interna de archivos Digital Commercial Bank Ltd:
 
 ---
 
@@ -50,7 +50,7 @@ El módulo ahora extrae **AUTOMÁTICAMENTE** toda la información interna de arc
 2. **Método Binario**: Busca códigos ISO numéricos (840 = USD)
 
 ### **Combinación Inteligente**
-- Fusiona resultados del DTC1BParser + extracción manual
+- Fusiona resultados del Digital Commercial Bank LtdParser + extracción manual
 - Elimina duplicados
 - Maximiza cobertura de divisas
 
@@ -76,7 +76,7 @@ BRL: 986, RUB: 643, KRW: 410, SGD: 702, HKD: 344
 │  Auditoría Bancaria                          │
 │  ✓ 8 divisas detectadas en el sistema        │
 │                                               │
-│  [Cargar Archivo DTC1B] [Cargar Resultados]  │
+│  [Cargar Archivo Digital Commercial Bank Ltd] [Cargar Resultados]  │
 │  [Exportar JSON] [Exportar CSV]              │
 └──────────────────────────────────────────────┘
 ```
@@ -84,14 +84,14 @@ BRL: 986, RUB: 643, KRW: 410, SGD: 702, HKD: 344
 ### **Panel de Fuentes de Datos**
 ```
 ┌──────────────────────────────────────────────┐
-│  📊 Balances del Sistema DTC1B               │
+│  📊 Balances del Sistema Digital Commercial Bank Ltd               │
 │  Divisas: USD EUR GBP BRL AED CHF JPY CNY    │
 │  [Analizar Balances del Sistema]             │
 │                                               │
 │              ────── O ──────                  │
 │                                               │
-│  📁 Cargar Archivo DTC1B desde Disco         │
-│  [Seleccionar Archivo DTC1B]                 │
+│  📁 Cargar Archivo Digital Commercial Bank Ltd desde Disco         │
+│  [Seleccionar Archivo Digital Commercial Bank Ltd]                 │
 └──────────────────────────────────────────────┘
 ```
 
@@ -115,7 +115,7 @@ BRL: 986, RUB: 643, KRW: 410, SGD: 702, HKD: 344
 ### **Opción A: Analizar Balances del Sistema**
 ```
 1. Ve al "Analizador de Archivos Grandes"
-2. Carga un archivo DTC1B
+2. Carga un archivo Digital Commercial Bank Ltd
 3. Espera a que termine
 4. Ve a "Auditoría Bancaria"
 5. Clic en "Analizar Balances del Sistema"
@@ -125,7 +125,7 @@ BRL: 986, RUB: 643, KRW: 410, SGD: 702, HKD: 344
 ### **Opción B: Cargar Archivo Directo** (Recomendado)
 ```
 1. Ve a "Auditoría Bancaria"
-2. Clic en "Cargar Archivo DTC1B"
+2. Clic en "Cargar Archivo Digital Commercial Bank Ltd"
 3. Selecciona archivo (binario, texto, cualquiera)
 4. ✅ Ver extracción automática completa
 ```
@@ -140,7 +140,7 @@ BRL: 986, RUB: 643, KRW: 410, SGD: 702, HKD: 344
 3. ✅ `src/App.tsx` - Integración en navegación
 
 ### **Scripts Python** (Backend opcional)
-4. ✅ `audit_dtc1b_mclassify.py` - Procesamiento Python
+4. ✅ `audit_Digital Commercial Bank Ltd_mclassify.py` - Procesamiento Python
 5. ✅ `generate_sample_audit_data.py` - Generador de muestras
 
 ### **Testing**
@@ -150,7 +150,7 @@ BRL: 986, RUB: 643, KRW: 410, SGD: 702, HKD: 344
 7. ✅ `AUDIT_BANK_MODULE.md` - Documentación técnica
 8. ✅ `MODULO_AUDITORIA_COMPLETADO.md` - Resumen de implementación
 9. ✅ `MODULO_AUDITORIA_DATOS_REALES.md` - Datos reales
-10. ✅ `EXTRACCION_PROFUNDA_DTC1B.md` - Extracción profunda
+10. ✅ `EXTRACCION_PROFUNDA_Digital Commercial Bank Ltd.md` - Extracción profunda
 11. ✅ `FIX_VISUALIZACION_DATOS_EXTRAIDOS.md` - Fix aplicado
 12. ✅ `VERIFICACION_FUNCIONALIDAD_AUDITORIA.md` - Verificación
 13. ✅ `GUIA_RAPIDA_PRUEBA_AUDITORIA.md` - Guía de prueba
@@ -206,7 +206,7 @@ BRL: 986, RUB: 643, KRW: 410, SGD: 702, HKD: 344
 
 ### **Integración**
 - [x] Balance Store del sistema
-- [x] DTC1BParser original
+- [x] Digital Commercial Bank LtdParser original
 - [x] Soporte bilingüe ES/EN
 - [x] Navegación en menú principal
 - [x] Lazy loading
@@ -226,7 +226,7 @@ Ctrl + F5 en el navegador
 Tab "Auditoría Bancaria"
 
 # 3. Carga el archivo de prueba
-Clic en "Cargar Archivo DTC1B"
+Clic en "Cargar Archivo Digital Commercial Bank Ltd"
 → Selecciona: test_audit_extraction.txt
 → Ver resultados en 2 segundos
 
@@ -385,14 +385,14 @@ console.log('Estado de extractedData:', extractedData);
 
 **Guía rápida**: `GUIA_RAPIDA_PRUEBA_AUDITORIA.md`  
 **Verificación**: `VERIFICACION_FUNCIONALIDAD_AUDITORIA.md`  
-**Técnica**: `EXTRACCION_PROFUNDA_DTC1B.md`  
+**Técnica**: `EXTRACCION_PROFUNDA_Digital Commercial Bank Ltd.md`  
 **Completa**: `AUDIT_BANK_MODULE.md`  
 
 ---
 
 ## 🎉 **CONCLUSIÓN**
 
-El módulo de **Auditoría Bancaria DTC1B** está:
+El módulo de **Auditoría Bancaria Digital Commercial Bank Ltd** está:
 
 ✅ **100% funcional**  
 ✅ **Extrae datos reales** del sistema  

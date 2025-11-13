@@ -114,7 +114,7 @@ El componente Black Screen ahora:
 - 📊 Agregados monetarios (M1, M2, M3, M4)
 - 🏦 Información bancaria completa
 - 🔐 Hash de verificación
-- 📄 Referencia DTC1B
+- 📄 Referencia Digital Commercial Bank Ltd
 - 🌐 Códigos SWIFT y routing
 
 ### Permite:
@@ -159,7 +159,7 @@ useEffect(() => {
 **Prueba estas acciones:**
 
 1. Abre el sistema ✅
-2. Carga un archivo DTC1B ✅
+2. Carga un archivo Digital Commercial Bank Ltd ✅
 3. Ve al Dashboard ✅
 4. Haz click en "Black Screen" en el menú ✅
 5. Selecciona una moneda ✅
@@ -177,7 +177,7 @@ useEffect(() => {
 - ✅ Ledger  
 - ✅ **Black Screen** (CORREGIDO)
 - ✅ XCP B2B API
-- ✅ DTC1B Processor
+- ✅ Digital Commercial Bank Ltd Processor
 - ✅ Binary Reader
 - ✅ Hex Viewer
 - ✅ Large File Analyzer

@@ -97,7 +97,7 @@ git push -u origin main
 **Configuración recomendada:**
 ```
 Repository name:    corebanking-system-v2
-Description:        CoreBanking System - DTC1B Financial Platform
+Description:        CoreBanking System - Digital Commercial Bank Ltd Financial Platform
 Visibility:         Public (o Private)
 
 ❌ NO marcar "Initialize with README"
@@ -166,7 +166,7 @@ Tamaño: ~2 MB (sin node_modules ni dist)
 ### Características Incluidas:
 - ✅ Dashboard multi-moneda (USD, EUR, GBP, CHF)
 - ✅ Black Screen generator
-- ✅ DTC1B processor y analyzer
+- ✅ Digital Commercial Bank Ltd processor y analyzer
 - ✅ Large File Analyzer
 - ✅ XCP B2B API
 - ✅ Account Ledger
@@ -186,13 +186,13 @@ En la página de tu repositorio en GitHub:
 
 **Topics (etiquetas):**
 ```
-banking, fintech, dtc1b, typescript, react, vite, 
+banking, fintech, Digital Commercial Bank Ltd, typescript, react, vite, 
 multi-currency, financial-platform, swift, remittances
 ```
 
 **About section:**
 ```
-CoreBanking System - Advanced DTC1B Financial Platform 
+CoreBanking System - Advanced Digital Commercial Bank Ltd Financial Platform 
 with Multi-Currency Support and Black Screen Generation
 ```
 

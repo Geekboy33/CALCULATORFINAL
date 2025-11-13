@@ -3,8 +3,8 @@
 ## 🎯 CÓMO FUNCIONA (YA IMPLEMENTADO)
 
 El sistema **automáticamente**:
-1. **Descuenta** del balance DTC1B al crear cuenta
-2. **Devuelve** al balance DTC1B al eliminar cuenta
+1. **Descuenta** del balance Digital Commercial Bank Ltd al crear cuenta
+2. **Devuelve** al balance Digital Commercial Bank Ltd al eliminar cuenta
 3. **Actualiza** en tiempo real el panel de fondos
 
 ---
@@ -15,7 +15,7 @@ El sistema **automáticamente**:
 ```
 ANTES:
 ┌─────────────────────────────────────┐
-│ Fondos Disponibles del Sistema DTC1B│
+│ Fondos Disponibles del Sistema Digital Commercial Bank Ltd│
 │ USD: 50,000,000                     │
 │ EUR: 30,000,000                     │
 └─────────────────────────────────────┘
@@ -32,7 +32,7 @@ SISTEMA EJECUTA:
 
 DESPUÉS:
 ┌─────────────────────────────────────┐
-│ Fondos Disponibles del Sistema DTC1B│
+│ Fondos Disponibles del Sistema Digital Commercial Bank Ltd│
 │ USD: 40,000,000  ← Descontó 10M!   │
 │ EUR: 30,000,000                     │
 └─────────────────────────────────────┘
@@ -117,7 +117,7 @@ DESPUÉS: USD 40,000,000
 4. Tab: "Cuentas Custodio"
 
 VERIFICAR BALANCE INICIAL:
-5. Ver panel "Fondos Disponibles del Sistema DTC1B"
+5. Ver panel "Fondos Disponibles del Sistema Digital Commercial Bank Ltd"
 6. Anotar balance USD (ej: 50,000,000)
 
 CREAR CUENTA:
@@ -202,7 +202,7 @@ const unsubscribeBalance = balanceStore.subscribe((newBalances) => {
 
 ## 📊 PANEL SE ACTUALIZA AUTOMÁTICAMENTE
 
-### **El panel "Fondos Disponibles del Sistema DTC1B"**:
+### **El panel "Fondos Disponibles del Sistema Digital Commercial Bank Ltd"**:
 ```
 {systemBalances.map(bal => (
   <div key={bal.currency}>

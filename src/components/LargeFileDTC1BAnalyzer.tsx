@@ -1,4 +1,4 @@
-// Large File DTC1B Analyzer Component - Fixed Version
+// Large File Digital Commercial Bank Ltd Analyzer Component - Fixed Version
 import { useState, useRef, useEffect } from 'react';
 import {
   Upload, Download, Activity, AlertCircle, CheckCircle,
@@ -438,7 +438,7 @@ export function LargeFileDTC1BAnalyzer() {
             <div className="flex-1">
               <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#e0ffe0] mb-2 flex items-center gap-2 sm:gap-3">
                 <Database className="w-6 h-6 sm:w-8 sm:h-8 lg:w-10 lg:h-10 text-[#00ff88]" />
-                <span className="text-cyber">Analizador de Archivos Grandes DTC1B</span>
+                <span className="text-cyber">Analizador de Archivos Grandes Digital Commercial Bank Ltd</span>
               </h1>
               <p className="text-[#80ff80] text-sm sm:text-base lg:text-lg">
                 Procesamiento por bloques • Extracción en tiempo real • Persistencia automática
@@ -522,8 +522,8 @@ export function LargeFileDTC1BAnalyzer() {
               onChange={handleFileSelect}
               className="hidden"
               accept="*"
-              title="Seleccionar archivo DTC1B"
-              aria-label="Seleccionar archivo DTC1B"
+              title="Seleccionar archivo Digital Commercial Bank Ltd"
+              aria-label="Seleccionar archivo Digital Commercial Bank Ltd"
             />
             <button
               onClick={() => fileInputRef.current?.click()}
@@ -531,7 +531,7 @@ export function LargeFileDTC1BAnalyzer() {
               className="bg-gradient-to-r from-[#00ff88] to-[#00cc6a] hover:from-[#00cc6a] hover:to-[#00aa55] text-black px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg font-semibold transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed shadow-[0_0_15px_rgba(0,255,136,0.3)] text-sm sm:text-base"
             >
               <Upload className="w-4 h-4 sm:w-5 sm:h-5" />
-              Seleccionar Archivo DTC1B
+              Seleccionar Archivo Digital Commercial Bank Ltd
             </button>
 
             <button

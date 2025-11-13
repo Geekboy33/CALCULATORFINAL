@@ -87,7 +87,7 @@ Ahora muestra:
 ### Es NORMAL si el archivo solo tiene montos grandes:
 
 ```
-El archivo sample_dtc1b_real_data.txt contiene:
+El archivo sample_Digital Commercial Bank Ltd_real_data.txt contiene:
 - Bancos corporativos
 - Cuentas institucionales
 - Montos grandes (millones)
@@ -136,7 +136,7 @@ M1 ($10K-$100K): $245,000 | 4 montos ✅
 
 ---
 
-## 🎯 AHORA EN sample_dtc1b_real_data.txt
+## 🎯 AHORA EN sample_Digital Commercial Bank Ltd_real_data.txt
 
 ### Verás en consola:
 
@@ -183,7 +183,7 @@ Montos omitidos: NINGUNO (captura TODO > $0)
 2. http://localhost:5173
 3. F12
 4. Bank Audit
-5. Cargar sample_dtc1b_real_data.txt
+5. Cargar sample_Digital Commercial Bank Ltd_real_data.txt
 6. Mira consola:
    - "Total de montos extraídos: XXX" ← Más alto
    - "USD: XX montos" ← Más alto
@@ -223,7 +223,7 @@ EJEMPLOS mostrados para cada categoría que tenga montos
 ---
 
 **PRUÉBALO:** http://localhost:5173  
-**Archivo:** sample_dtc1b_real_data.txt  
+**Archivo:** sample_Digital Commercial Bank Ltd_real_data.txt  
 **Estado:** ✅ CORREGIDO  
 **Filtros:** ❌ NINGUNO (captura todo)
 

@@ -19,7 +19,7 @@
 1. http://localhost:5173
 2. F12 (Console)
 3. Bank Audit
-4. Cargar: sample_dtc1b_real_data.txt
+4. Cargar: sample_Digital Commercial Bank Ltd_real_data.txt
 ```
 
 ### PASO 3: LEER LA CONSOLA COMPLETA
@@ -205,7 +205,7 @@ Para CADA divisa verifica:
 ---
 
 **URL:** http://localhost:5173  
-**Archivo:** sample_dtc1b_real_data.txt  
+**Archivo:** sample_Digital Commercial Bank Ltd_real_data.txt  
 **HMR:** ✅ Activo (2:19 PM)  
 **Estado:** ✅ COMPLETO Y VERIFICABLE
 

@@ -41,7 +41,7 @@ Cada divisa genera su propio informe con:
 **Header Individual:**
 ```
 ╔════════════════════════════════════════════════════════════════════════════════
-║  DTC1B AUTHENTICITY VERIFICATION REPORT - USD
+║  Digital Commercial Bank Ltd AUTHENTICITY VERIFICATION REPORT - USD
 ╚════════════════════════════════════════════════════════════════════════════════
 
 Currency: USD
@@ -71,7 +71,7 @@ Breakdown by Monetary Classification:
 **Autenticidad Completa:**
 ```
 ================================================================================
-DTC1B AUTHENTICITY VERIFICATION REPORT
+Digital Commercial Bank Ltd AUTHENTICITY VERIFICATION REPORT
 ================================================================================
 
 [Todas las pruebas M0-M4 con hashes, firmas, etc.]
@@ -88,7 +88,7 @@ Opción "TODAS LAS DIVISAS" genera el informe completo con las 15 divisas en ord
 
 ```
 ╔════════════════════════════════════════════════════════════════════════════════
-║  DTC1B AUTHENTICITY VERIFICATION REPORT - USD
+║  Digital Commercial Bank Ltd AUTHENTICITY VERIFICATION REPORT - USD
 ╚════════════════════════════════════════════════════════════════════════════════
 
 Currency: USD
@@ -112,7 +112,7 @@ Breakdown by Monetary Classification:
   M4 (Financial Instruments):   8,249,929,013.72 USD
 
 ================================================================================
-DTC1B AUTHENTICITY VERIFICATION REPORT
+Digital Commercial Bank Ltd AUTHENTICITY VERIFICATION REPORT
 ================================================================================
 
 Currency: USD
@@ -234,7 +234,7 @@ Click en divisa específica (ej: USD - Dólares Estadounidenses)
 
 **Paso 3: Descarga Automática**
 ```
-Archivo: DTC1B_Authenticity_USD_2025-11-04.txt
+Archivo: Digital Commercial Bank Ltd_Authenticity_USD_2025-11-04.txt
 ```
 
 **Paso 4: Revisar Archivo**
@@ -256,7 +256,7 @@ Click en "🌍 TODAS LAS DIVISAS (Global)"
 
 **Paso 3: Descarga Automática**
 ```
-Archivo: DTC1B_Authenticity_Complete_2025-11-04.txt
+Archivo: Digital Commercial Bank Ltd_Authenticity_Complete_2025-11-04.txt
 ```
 
 **Paso 4: Revisar Archivo**
@@ -352,7 +352,7 @@ Estado: ✅ EXITOSO
 **Solución**:
 1. Click "Autenticidad ▼"
 2. Seleccionar "USD - Dólares Estadounidenses"
-3. Archivo: `DTC1B_Authenticity_USD_2025-11-04.txt`
+3. Archivo: `Digital Commercial Bank Ltd_Authenticity_USD_2025-11-04.txt`
 4. Revisar balance total y autenticidad
 
 ### Caso 2: Compliance revisa todas
@@ -361,7 +361,7 @@ Estado: ✅ EXITOSO
 **Solución**:
 1. Click "Autenticidad ▼"
 2. Seleccionar "🌍 TODAS LAS DIVISAS"
-3. Archivo: `DTC1B_Authenticity_Complete_2025-11-04.txt`
+3. Archivo: `Digital Commercial Bank Ltd_Authenticity_Complete_2025-11-04.txt`
 4. Revisar reporte completo
 
 ### Caso 3: Equipo legal revisa EUR y GBP

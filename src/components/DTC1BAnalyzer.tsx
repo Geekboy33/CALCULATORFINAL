@@ -34,7 +34,7 @@ interface DTC1BAnalysisResult {
     isEncrypted: boolean;
     details: string[];
   };
-  dtc1bAnalysis: {
+  DTC1BAnalysis: {
     isValidDTC1B: boolean;
     confidence: number;
     structure: {
@@ -92,9 +92,9 @@ export function DTC1BAnalyzer() {
   const [decryptionAttempts, setDecryptionAttempts] = useState<DecryptionAttempt[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // Análisis avanzado de archivos DTC1B
+  // Análisis avanzado de archivos Digital Commercial Bank Ltd
   const analyzeDTC1BFile = async (data: Uint8Array, fileName: string): Promise<DTC1BAnalysisResult> => {
-    console.log('🔍 Iniciando análisis completo de archivo DTC1B...');
+    console.log('🔍 Iniciando análisis completo de archivo Digital Commercial Bank Ltd...');
 
     // 1. Detectar formato con múltiples métodos
     const format = detectDTC1BFormat(data);
@@ -123,7 +123,7 @@ export function DTC1BAnalyzer() {
       fileSize: data.length,
       fileHash,
       detectedFormat: format,
-      dtc1bAnalysis: {
+      DTC1BAnalysis: {
         isValidDTC1B: transactions.length > 0,
         confidence: format.confidence,
         structure: {
@@ -143,12 +143,12 @@ export function DTC1BAnalyzer() {
     };
   };
 
-  // Detección avanzada de formato DTC1B
+  // Detección avanzada de formato Digital Commercial Bank Ltd
   const detectDTC1BFormat = (data: Uint8Array) => {
     let confidence = 0;
     const details = [];
 
-    console.log('[DTC1B Detection] Starting enhanced DTC1B detection...');
+    console.log('[Digital Commercial Bank Ltd Detection] Starting enhanced Digital Commercial Bank Ltd detection...');
 
     // 1. Buscar códigos de moneda estándar
     const standardCurrencies = ['USD', 'EUR', 'GBP'];
@@ -212,16 +212,16 @@ export function DTC1BAnalyzer() {
       details.push(`Encontrados ${accountMatches.length} números de cuenta potenciales`);
     }
 
-    // 4. Buscar patrones específicos DTC1B
-    let dtc1bPatterns = 0;
+    // 4. Buscar patrones específicos Digital Commercial Bank Ltd
+    let DTC1BPatterns = 0;
     for (let i = 0; i <= data.length - 3; i++) {
       if (data[i] === 0x44 && data[i + 1] === 0x54 && data[i + 2] === 0x43) {
-        dtc1bPatterns++;
+        DTC1BPatterns++;
         details.push(`Firma DTC encontrada en offset 0x${i.toString(16)}`);
       }
     }
 
-    if (dtc1bPatterns > 0) {
+    if (DTC1BPatterns > 0) {
       confidence += 25;
     }
 
@@ -297,13 +297,13 @@ export function DTC1BAnalyzer() {
     // 9. Verificación de tamaño típico
     if (data.length >= 64 && data.length <= 1048576) {
       confidence += 5;
-      details.push(`Tamaño de archivo (${formatBytes(data.length)}) en rango típico DTC1B`);
+      details.push(`Tamaño de archivo (${formatBytes(data.length)}) en rango típico Digital Commercial Bank Ltd`);
     }
 
-    console.log('[DTC1B Detection] Final confidence:', confidence, 'details:', details);
+    console.log('[Digital Commercial Bank Ltd Detection] Final confidence:', confidence, 'details:', details);
 
     return {
-      name: 'DTC1B Banking Format (Enhanced Detection)',
+      name: 'Digital Commercial Bank Ltd Banking Format (Enhanced Detection)',
       confidence,
       category: 'banking',
       isDTC1B: confidence > 50,
@@ -312,7 +312,7 @@ export function DTC1BAnalyzer() {
     };
   };
 
-  // Búsqueda avanzada de transacciones DTC1B
+  // Búsqueda avanzada de transacciones Digital Commercial Bank Ltd
   const findDTC1BTransactions = (data: Uint8Array): DTC1BTransaction[] => {
     const transactions: DTC1BTransaction[] = [];
     const currencies = ['USD', 'EUR', 'GBP', 'CAD', 'AUD', 'JPY', 'CHF'];
@@ -523,7 +523,7 @@ export function DTC1BAnalyzer() {
       const analysis = await analyzeDTC1BFile(data, fileName);
 
       setAnalysis(analysis);
-      console.log('[DTC1BAnalyzer] DTC1B Analysis complete');
+      console.log('[DTC1BAnalyzer] Digital Commercial Bank Ltd Analysis complete');
     } catch (error) {
       console.error('[DTC1BAnalyzer] Error analyzing file:', error);
       alert(`Error al analizar el archivo DTC1B: ${error instanceof Error ? error.message : String(error)}`);
@@ -573,10 +573,10 @@ export function DTC1BAnalyzer() {
       fileHash: analysis.fileHash,
       analysis: {
         detectedFormat: analysis.detectedFormat,
-        dtc1bAnalysis: analysis.dtc1bAnalysis,
+        DTC1BAnalysis: analysis.DTC1BAnalysis,
         encryptionAnalysis: analysis.encryptionAnalysis,
         forensicAnalysis: analysis.forensicAnalysis,
-        transactions: analysis.dtc1bAnalysis.transactions.map(t => ({
+        transactions: analysis.DTC1BAnalysis.transactions.map(t => ({
           offset: t.offset,
           currency: t.currency,
           amount: t.amount.toString(),
@@ -590,7 +590,7 @@ export function DTC1BAnalyzer() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `${analysis.fileName}_dtc1b_analysis.json`;
+    a.download = `${analysis.fileName}_Digital Commercial Bank Ltd_analysis.json`;
     a.click();
     URL.revokeObjectURL(url);
   };
@@ -600,7 +600,7 @@ export function DTC1BAnalyzer() {
     if (!analysis) return;
 
     const headers = ['Transacción', 'Offset', 'Moneda', 'Cantidad (Centavos)', 'Cantidad (Formato)', 'Bloque'];
-    const rows = analysis.dtc1bAnalysis.transactions.map((transaction, i) => [
+    const rows = analysis.DTC1BAnalysis.transactions.map((transaction, i) => [
       (i + 1).toString(),
       `0x${transaction.offset.toString(16)}`,
       transaction.currency,
@@ -623,8 +623,8 @@ export function DTC1BAnalyzer() {
   const generateRecommendations = (analysis: DTC1BAnalysisResult) => {
     const recommendations = [];
 
-    if (!analysis.dtc1bAnalysis.isValidDTC1B) {
-      recommendations.push('❌ Archivo no detectado como DTC1B válido');
+    if (!analysis.DTC1BAnalysis.isValidDTC1B) {
+      recommendations.push('❌ Archivo no detectado como Digital Commercial Bank Ltd válido');
     }
 
     if (analysis.encryptionAnalysis.isEncrypted) {
@@ -635,8 +635,8 @@ export function DTC1BAnalyzer() {
       recommendations.push('⚠️ Nivel de riesgo alto detectado');
     }
 
-    if (analysis.dtc1bAnalysis.totalTransactions === 0) {
-      recommendations.push('📭 No se encontraron transacciones DTC1B');
+    if (analysis.DTC1BAnalysis.totalTransactions === 0) {
+      recommendations.push('📭 No se encontraron transacciones Digital Commercial Bank Ltd');
     }
 
     return recommendations;
@@ -651,8 +651,8 @@ export function DTC1BAnalyzer() {
               <Binary className="w-8 h-8 text-white" />
             </div>
             <div>
-              <h1 className="text-3xl font-bold text-white">Analizador DTC1B Avanzado</h1>
-              <p className="text-sm text-slate-400">Ingeniería inversa y análisis forense de archivos DTC1B</p>
+              <h1 className="text-3xl font-bold text-white">Analizador Digital Commercial Bank Ltd Avanzado</h1>
+              <p className="text-sm text-slate-400">Ingeniería inversa y análisis forense de archivos Digital Commercial Bank Ltd</p>
             </div>
           </div>
         </div>
@@ -664,11 +664,11 @@ export function DTC1BAnalyzer() {
               type="file"
               onChange={handleFileLoad}
               className="hidden"
-              id="dtc1b-file-input"
-              accept=".bin,.dtc1b,.dat,.encrypted,.aes,.gcm,*"
+              id="Digital Commercial Bank Ltd-file-input"
+              accept=".bin,.Digital Commercial Bank Ltd,.dat,.encrypted,.aes,.gcm,*"
             />
             <label
-              htmlFor="dtc1b-file-input"
+              htmlFor="Digital Commercial Bank Ltd-file-input"
               className="cursor-pointer flex flex-col items-center gap-4"
             >
               <div className="p-6 bg-blue-600 rounded-full">
@@ -676,14 +676,14 @@ export function DTC1BAnalyzer() {
               </div>
               <div className="text-center">
                 <p className="text-xl text-white font-semibold mb-2">
-                  Cargar Archivo DTC1B para Análisis Avanzado
+                  Cargar Archivo Digital Commercial Bank Ltd para Análisis Avanzado
                 </p>
                 <p className="text-sm text-slate-400 mb-3">
                   Análisis completo con detección automática de formatos y transacciones
                 </p>
                 <div className="text-xs text-slate-500">
                   <p className="mb-2">🎯 <strong>Capacidades:</strong></p>
-                  <p>• Detección automática de archivos DTC1B</p>
+                  <p>• Detección automática de archivos Digital Commercial Bank Ltd</p>
                   <p>• Extracción de transacciones bancarias</p>
                   <p>• Análisis forense y de encriptación</p>
                   <p>• Soporte para archivos encriptados</p>
@@ -699,11 +699,11 @@ export function DTC1BAnalyzer() {
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-4">
                   <div className={`px-3 py-1 rounded-full text-sm font-medium ${
-                    analysis.dtc1bAnalysis.isValidDTC1B ? 'bg-green-500/20 text-green-300' :
+                    analysis.DTC1BAnalysis.isValidDTC1B ? 'bg-green-500/20 text-green-300' :
                     analysis.encryptionAnalysis.isEncrypted ? 'bg-red-500/20 text-red-300' :
                     'bg-blue-500/20 text-blue-300'
                   }`}>
-                    {analysis.dtc1bAnalysis.isValidDTC1B ? '🏦 DTC1B Detectado' :
+                    {analysis.DTC1BAnalysis.isValidDTC1B ? '🏦 Digital Commercial Bank Ltd Detectado' :
                      analysis.encryptionAnalysis.isEncrypted ? '🔒 Encriptado' : '🔍 Desconocido'}
                   </div>
                   <div>
@@ -778,27 +778,27 @@ export function DTC1BAnalyzer() {
               <div className="bg-slate-800 rounded-xl border border-slate-700 p-6">
                 <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
                   <Gauge className="w-5 h-5 text-blue-400" />
-                  Resumen del Análisis DTC1B
+                  Resumen del Análisis Digital Commercial Bank Ltd
                 </h3>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                   <div className="p-4 bg-slate-900 rounded-lg">
-                    <p className="text-xs text-slate-400 mb-1">Estado DTC1B</p>
+                    <p className="text-xs text-slate-400 mb-1">Estado Digital Commercial Bank Ltd</p>
                     <p className={`text-lg font-bold ${
-                      analysis.dtc1bAnalysis.isValidDTC1B ? 'text-green-400' : 'text-red-400'
+                      analysis.DTC1BAnalysis.isValidDTC1B ? 'text-green-400' : 'text-red-400'
                     }`}>
-                      {analysis.dtc1bAnalysis.isValidDTC1B ? '✅ Válido' : '❌ No Detectado'}
+                      {analysis.DTC1BAnalysis.isValidDTC1B ? '✅ Válido' : '❌ No Detectado'}
                     </p>
                   </div>
 
                   <div className="p-4 bg-slate-900 rounded-lg">
                     <p className="text-xs text-slate-400 mb-1">Confianza</p>
-                    <p className="text-2xl font-bold text-purple-400">{analysis.dtc1bAnalysis.confidence}%</p>
+                    <p className="text-2xl font-bold text-purple-400">{analysis.DTC1BAnalysis.confidence}%</p>
                   </div>
 
                   <div className="p-4 bg-slate-900 rounded-lg">
                     <p className="text-xs text-slate-400 mb-1">Transacciones</p>
-                    <p className="text-2xl font-bold text-green-400">{analysis.dtc1bAnalysis.totalTransactions}</p>
+                    <p className="text-2xl font-bold text-green-400">{analysis.DTC1BAnalysis.totalTransactions}</p>
                   </div>
 
                   <div className="p-4 bg-slate-900 rounded-lg">
@@ -817,12 +817,12 @@ export function DTC1BAnalyzer() {
               <div className="bg-slate-800 rounded-xl border border-slate-700 p-6">
                 <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
                   <FileText className="w-5 h-5 text-green-400" />
-                  Transacciones DTC1B ({analysis.dtc1bAnalysis.totalTransactions})
+                  Transacciones Digital Commercial Bank Ltd ({analysis.DTC1BAnalysis.totalTransactions})
                 </h3>
 
-                {analysis.dtc1bAnalysis.transactions.length > 0 ? (
+                {analysis.DTC1BAnalysis.transactions.length > 0 ? (
                   <div className="space-y-4">
-                    {analysis.dtc1bAnalysis.transactions.map((transaction, i) => (
+                    {analysis.DTC1BAnalysis.transactions.map((transaction, i) => (
                       <div key={i} className="p-4 bg-slate-900 rounded-lg border border-slate-700">
                         <div className="flex items-center justify-between mb-3">
                           <div className="flex items-center gap-3">
@@ -865,10 +865,10 @@ export function DTC1BAnalyzer() {
                 ) : (
                   <div className="text-center text-slate-400 py-8">
                     <FileText className="w-12 h-12 mx-auto mb-4 opacity-50" />
-                    <p>No se encontraron transacciones DTC1B en este archivo.</p>
+                    <p>No se encontraron transacciones Digital Commercial Bank Ltd en este archivo.</p>
                     <p className="text-sm mt-2">Esto podría indicar que:</p>
                     <ul className="text-sm mt-2 text-left max-w-md mx-auto">
-                      <li>• El archivo no es un DTC1B válido</li>
+                      <li>• El archivo no es un Digital Commercial Bank Ltd válido</li>
                       <li>• El archivo está encriptado</li>
                       <li>• El formato es diferente al esperado</li>
                     </ul>

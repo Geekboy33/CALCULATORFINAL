@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 '''
-ANALIZADOR DE ARCHIVOS BINARIOS DTC1B
+ANALIZADOR DE ARCHIVOS BINARIOS Digital Commercial Bank Ltd
 Codigo para leer, analizar y extraer datos de archivos binarios desencriptados
 '''
 
@@ -14,7 +14,7 @@ import json
 from datetime import datetime
 
 class DTCAnalyzer:
-    '''Analizador avanzado de archivos DTC1B'''
+    '''Analizador avanzado de archivos Digital Commercial Bank Ltd'''
 
     def __init__(self):
         self.patterns = {
@@ -174,7 +174,7 @@ class DTCAnalyzer:
     def generate_report(self, results):
         report = f'''
 {'='*80}
-REPORTE DE ANALISIS DTC1B - {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
+REPORTE DE ANALISIS Digital Commercial Bank Ltd - {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
 {'='*80}
 
 RESUMEN EJECUTIVO:
@@ -207,7 +207,7 @@ CHUNK {chunk}:
         return report
 
 def main():
-    print('INICIANDO ANALISIS DE ARCHIVOS DTC1B')
+    print('INICIANDO ANALISIS DE ARCHIVOS Digital Commercial Bank Ltd')
     print('=' * 60)
 
     analyzer = DTCAnalyzer()
@@ -215,11 +215,11 @@ def main():
 
     report = analyzer.generate_report(results)
 
-    with open('dtc1b_analysis_report.txt', 'w', encoding='utf-8') as f:
+    with open('Digital Commercial Bank Ltd_analysis_report.txt', 'w', encoding='utf-8') as f:
         f.write(report)
 
     print(report)
-    print('Reporte guardado en: dtc1b_analysis_report.txt')
+    print('Reporte guardado en: Digital Commercial Bank Ltd_analysis_report.txt')
 
 if __name__ == '__main__':
     main()

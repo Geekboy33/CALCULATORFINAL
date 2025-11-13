@@ -61,7 +61,7 @@ Extrae del CONTEXTO REAL:
 
 ## 📊 EJEMPLO REAL DEL ARCHIVO
 
-### En sample_dtc1b_real_data.txt hay:
+### En sample_Digital Commercial Bank Ltd_real_data.txt hay:
 
 ```
 Bank: JPMORGAN CHASE BANK N.A.
@@ -224,7 +224,7 @@ M4 para USD incluye: $15,750,000 (entre otros montos >$5M)
 
 ## 🎯 EJEMPLO COMPLETO REAL
 
-### Archivo: sample_dtc1b_real_data.txt
+### Archivo: sample_Digital Commercial Bank Ltd_real_data.txt
 
 ```
 Línea 50-60 (ejemplo):
@@ -367,7 +367,7 @@ Hallazgo #1:
 
 ### Señales de SIMULACIÓN (NO deberías ver):
 ```
-❌ Banco: "DTC1B System" en TODOS los hallazgos
+❌ Banco: "Digital Commercial Bank Ltd System" en TODOS los hallazgos
 ❌ Cuenta: "******USD1", "******EUR2" (números inventados)
 ❌ Confianza: Siempre 95% (debería variar)
 ❌ Evidencia: "Sistema de ejemplo" o "Datos de prueba"
@@ -422,7 +422,7 @@ M4: $62,845,250
 ### Para verificar que es real:
 
 ```
-1. Abre el archivo: sample_dtc1b_real_data.txt
+1. Abre el archivo: sample_Digital Commercial Bank Ltd_real_data.txt
 
 2. Busca un monto, por ejemplo:
    "Balance: USD 15,750,000.00"
@@ -513,7 +513,7 @@ TODO es extraíble y verificable contra el archivo original.
 ## 🚀 PRUÉBALO Y VERIFICA
 
 ```
-1. Carga: sample_dtc1b_real_data.txt
+1. Carga: sample_Digital Commercial Bank Ltd_real_data.txt
 2. Abre el archivo original en un editor
 3. Busca un monto: "USD 15,750,000"
 4. Lee el banco en el archivo: "JPMORGAN CHASE"

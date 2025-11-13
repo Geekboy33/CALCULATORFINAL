@@ -137,7 +137,7 @@ export function DTC1BProcessor() {
               <FileText className="w-6 h-6 text-white" />
             </div>
             <div>
-              <h2 className="text-xl font-bold text-white">DTC1B File Processor</h2>
+              <h2 className="text-xl font-bold text-white">Digital Commercial Bank Ltd File Processor</h2>
               <p className="text-sm text-slate-400">AES-256-GCM encryption and binary parsing</p>
             </div>
           </div>
@@ -159,7 +159,7 @@ export function DTC1BProcessor() {
                 type="file"
                 onChange={handleFileUpload}
                 className="hidden"
-                accept=".file,.bin,.dtc1b,.dat"
+                accept=".file,.bin,.Digital Commercial Bank Ltd,.dat"
               />
             </label>
           </div>

@@ -208,7 +208,7 @@ Es matemática, no un error.
 
 ## 📊 EJEMPLO CON DATOS DEL ARCHIVO
 
-### sample_dtc1b_real_data.txt contiene (del resumen):
+### sample_Digital Commercial Bank Ltd_real_data.txt contiene (del resumen):
 
 ```
 - USD: $43,375,000.00
@@ -242,7 +242,7 @@ TOTAL │      -       │$0 │$0 │$0 │ $43,842,500 │ $62,845,250 │$106
 
 ## ✅ VERIFICACIÓN PASO A PASO
 
-### 1. Abre el archivo sample_dtc1b_real_data.txt
+### 1. Abre el archivo sample_Digital Commercial Bank Ltd_real_data.txt
 
 ### 2. Busca la sección "Currency Distribution":
 
@@ -358,7 +358,7 @@ MXN (Pesos mexicanos):
 1. http://localhost:5173
 2. F12 (Console)
 3. Bank Audit
-4. Cargar: sample_dtc1b_real_data.txt
+4. Cargar: sample_Digital Commercial Bank Ltd_real_data.txt
 5. Scroll a "Totales por Divisa"
 6. Verifica la columna "Total" (nueva)
 7. Verifica la fila "TOTAL USD" (mejorada)
@@ -422,7 +422,7 @@ Fila TOTAL muestra totales en USD por M0-M4  ✅
 
 3. **Compara con el archivo:**
    ```
-   Abre sample_dtc1b_real_data.txt
+   Abre sample_Digital Commercial Bank Ltd_real_data.txt
    Busca "Currency Distribution:"
    Compara los números
    ```

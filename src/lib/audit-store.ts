@@ -117,7 +117,7 @@ interface AuditStoreData {
   filesProcessed: string[];
 }
 
-const STORAGE_KEY = 'dtc1b_audit_data';
+const STORAGE_KEY = 'Digital Commercial Bank Ltd_audit_data';
 
 class AuditStore {
   private listeners: Set<(data: AuditStoreData | null) => void> = new Set();

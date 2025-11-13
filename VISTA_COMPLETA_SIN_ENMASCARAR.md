@@ -12,7 +12,7 @@ Ahora puedes ver **TODA la información completa** sin enmascarar para verificac
 ```
 1. Abre: http://localhost:5173
 2. Ve a: Bank Audit
-3. Carga: sample_dtc1b_real_data.txt
+3. Carga: sample_Digital Commercial Bank Ltd_real_data.txt
 ```
 
 ### Paso 2: Activar Vista Completa
@@ -319,7 +319,7 @@ Investigar datos específicos del archivo
 ```
 Generar reporte con datos verificables
 
-1. Carga el archivo DTC1B
+1. Carga el archivo Digital Commercial Bank Ltd
 2. Activa Vista Completa 👁️
 3. Scroll por TODAS las secciones
 4. Verifica cada cuenta, IBAN, SWIFT
@@ -373,7 +373,7 @@ Generar reporte con datos verificables
 ### 1. Cargar archivo:
 ```
 http://localhost:5173 → Bank Audit
-Cargar: sample_dtc1b_real_data.txt
+Cargar: sample_Digital Commercial Bank Ltd_real_data.txt
 ```
 
 ### 2. Ver datos enmascarados (por defecto):
@@ -579,7 +579,7 @@ Con Vista Completa puedes:
 ```
 1. http://localhost:5173
 2. Bank Audit
-3. Cargar sample_dtc1b_real_data.txt
+3. Cargar sample_Digital Commercial Bank Ltd_real_data.txt
 4. Click en [🔒 Vista Enmascarada]
 5. ¡Ver TODO completo!
    - 19 cuentas COMPLETAS

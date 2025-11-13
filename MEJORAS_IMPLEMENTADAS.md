@@ -190,7 +190,7 @@ Componentes grandes cargados bajo demanda:
 
 ```tsx
 const AccountDashboard = lazy(() => import('./components/AccountDashboard'));
-const LargeFileDTC1BAnalyzer = lazy(() => import('./components/LargeFileDTC1BAnalyzer'));
+const LargeFileDigital Commercial Bank LtdAnalyzer = lazy(() => import('./components/LargeFileDigital Commercial Bank LtdAnalyzer'));
 // ... todos los componentes
 
 <Suspense fallback={<DashboardSkeleton />}>
@@ -297,7 +297,7 @@ En cualquier parte de tu código:
 import { toast } from './components/ui';
 
 // Después de una operación exitosa
-toast.success('File uploaded', 'sample-dtc1b.bin processed');
+toast.success('File uploaded', 'sample-Digital Commercial Bank Ltd.bin processed');
 
 // En caso de error
 toast.error('Upload failed', 'File format not supported');

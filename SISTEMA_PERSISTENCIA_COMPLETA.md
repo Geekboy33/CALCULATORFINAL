@@ -19,7 +19,7 @@ Se ha implementado un **sistema de persistencia completa** que cumple TODOS los 
 
 ```typescript
 // Nivel 1: localStorage (respaldo rápido local)
-localStorage.setItem('dtc1b_processing_state', JSON.stringify(state));
+localStorage.setItem('Digital Commercial Bank Ltd_processing_state', JSON.stringify(state));
 
 // Nivel 2: Supabase (persistencia remota en nube)
 await supabase.from('processing_state').upsert(state);
@@ -116,7 +116,7 @@ private async saveBalancesToSupabase(balances, progress, status) {
 ### 4. **Carga Automática de Balances al Reabrir**
 
 ```typescript
-// En LargeFileDTC1BAnalyzer.tsx
+// En LargeFileDigital Commercial Bank LtdAnalyzer.tsx
 useEffect(() => {
   const loadInitialData = async () => {
     // 1. Cargar desde localStorage primero

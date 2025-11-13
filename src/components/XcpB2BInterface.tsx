@@ -309,7 +309,7 @@ export function XcpB2BInterface() {
                 <Database className="w-6 h-6 text-green-400" />
                 <div>
                   <h3 className="text-xl font-bold text-white">Balances Disponibles</h3>
-                  <p className="text-sm text-[#80ff80]">Fondos cargados desde el analizador DTC1B</p>
+                  <p className="text-sm text-[#80ff80]">Fondos cargados desde el analizador Digital Commercial Bank Ltd</p>
                 </div>
               </div>
               <CheckCircle className="w-6 h-6 text-green-400" />
@@ -363,7 +363,7 @@ export function XcpB2BInterface() {
               <div className="bg-yellow-900/20 border border-yellow-500/30 rounded-lg p-4 flex items-start gap-3">
                 <AlertCircle className="w-5 h-5 text-yellow-400 flex-shrink-0 mt-0.5" />
                 <div className="text-sm text-yellow-300">
-                  No hay balances disponibles. Ve al <strong>Analizador de Archivos Grandes</strong> para cargar un archivo DTC1B.
+                  No hay balances disponibles. Ve al <strong>Analizador de Archivos Grandes</strong> para cargar un archivo Digital Commercial Bank Ltd.
                 </div>
               </div>
             )}

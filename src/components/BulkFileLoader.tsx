@@ -263,7 +263,7 @@ export function BulkFileLoader({ onFileLoaded }: FileLoaderProps) {
               <FolderOpen className="w-6 h-6 text-white" />
             </div>
             <div>
-              <h2 className="text-xl font-bold text-white">Carga de Archivos DTC1B</h2>
+              <h2 className="text-xl font-bold text-white">Carga de Archivos Digital Commercial Bank Ltd</h2>
               <p className="text-sm text-slate-400">Selecciona archivos desde tu disco local</p>
             </div>
           </div>
@@ -303,7 +303,7 @@ export function BulkFileLoader({ onFileLoaded }: FileLoaderProps) {
                     Escanear Carpeta
                   </p>
                   <p className="text-sm text-slate-400">
-                    Detecta automáticamente archivos DTC1B
+                    Detecta automáticamente archivos Digital Commercial Bank Ltd
                   </p>
                   <p className="text-xs text-slate-500 mt-1">
                     Recomendado: escanea toda una carpeta
@@ -317,7 +317,7 @@ export function BulkFileLoader({ onFileLoaded }: FileLoaderProps) {
                 ref={fileInputRef}
                 type="file"
                 onChange={handleFileSelect}
-                accept=".file,.bin,.dtc1b,.dat"
+                accept=".file,.bin,.Digital Commercial Bank Ltd,.dat"
                 className="hidden"
                 id="bulk-file-input"
                 multiple
@@ -334,7 +334,7 @@ export function BulkFileLoader({ onFileLoaded }: FileLoaderProps) {
                     Seleccionar Archivos
                   </p>
                   <p className="text-sm text-slate-400">
-                    Formatos: .file, .bin, .dtc1b, .dat
+                    Formatos: .file, .bin, .Digital Commercial Bank Ltd, .dat
                   </p>
                   <p className="text-xs text-slate-500 mt-1">
                     Selección manual de archivos
@@ -350,7 +350,7 @@ export function BulkFileLoader({ onFileLoaded }: FileLoaderProps) {
                 <Loader2 className="w-5 h-5 text-blue-400 animate-spin" />
                 <div>
                   <p className="text-blue-300 font-semibold">Escaneando carpeta...</p>
-                  <p className="text-xs text-blue-400">Analizando archivos y detectando formato DTC1B</p>
+                  <p className="text-xs text-blue-400">Analizando archivos y detectando formato Digital Commercial Bank Ltd</p>
                 </div>
               </div>
             </div>
@@ -476,7 +476,7 @@ export function BulkFileLoader({ onFileLoaded }: FileLoaderProps) {
                             <div className="text-slate-300">Matches: {filePreview.debugInfo.matchesFound}</div>
                             {filePreview.blocks === 0 && (
                               <div className="text-yellow-400 mt-1">
-                                El archivo no contiene patrones de moneda reconocibles en formato DTC1B
+                                El archivo no contiene patrones de moneda reconocibles en formato Digital Commercial Bank Ltd
                               </div>
                             )}
                           </div>
@@ -508,7 +508,7 @@ export function BulkFileLoader({ onFileLoaded }: FileLoaderProps) {
                     <AlertCircle className="w-5 h-5 text-red-400 flex-shrink-0" />
                     <div className="text-sm text-red-300">
                       <p className="font-semibold mb-1">No se pueden cargar los archivos</p>
-                      <p>Los archivos seleccionados no contienen datos DTC1B válidos. Verifica que:</p>
+                      <p>Los archivos seleccionados no contienen datos Digital Commercial Bank Ltd válidos. Verifica que:</p>
                       <ul className="list-disc ml-4 mt-1 space-y-1">
                         <li>Los archivos contengan códigos de moneda (USD, EUR, GBP)</li>
                         <li>Los datos estén en formato binario correcto</li>

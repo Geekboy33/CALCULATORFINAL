@@ -106,7 +106,7 @@ Estas configuraciones ya están en `netlify.toml`:
 Tu aplicación incluye:
 - 🔐 **Sistema de Login** con autenticación
 - 💰 **Dashboard de Cuentas** con ordenamiento dinámico
-- 📊 **Analizador DTC1B** avanzado
+- 📊 **Analizador Digital Commercial Bank Ltd** avanzado
 - 💸 **Sistema de Transferencias**
 - 🌍 **Multi-idioma** (Español/Inglés)
 - 🎨 **Diseño moderno** con tema oscuro

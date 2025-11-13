@@ -54,7 +54,7 @@ Busca y haz click en:
 
 **NO CONFUNDIR CON:**
 - ❌ "Analizador de Archivos Grandes"
-- ❌ "DTC1B Analyzer"
+- ❌ "Digital Commercial Bank Ltd Analyzer"
 - ❌ "Dashboard Bancario"
 
 ---
@@ -63,12 +63,12 @@ Busca y haz click en:
 
 1. **Click en el botón verde:**
    ```
-   "Cargar Archivo DTC1B"
+   "Cargar Archivo Digital Commercial Bank Ltd"
    ```
 
 2. **Selecciona el archivo:**
    ```
-   sample_dtc1b_real_data.txt
+   sample_Digital Commercial Bank Ltd_real_data.txt
    ```
 
 3. **Espera 2-3 segundos**
@@ -120,7 +120,7 @@ Busca y haz click en:
    - ✅ Solución: Ve a "Bank Audit" específicamente
 
 2. **No has cargado el archivo**
-   - ✅ Solución: Click en "Cargar Archivo DTC1B"
+   - ✅ Solución: Click en "Cargar Archivo Digital Commercial Bank Ltd"
 
 3. **El archivo no se cargó correctamente**
    - ✅ Solución: Revisa la consola (F12) para ver errores
@@ -136,7 +136,7 @@ Busca y haz click en:
 
 1. **¿Dice "cuentas: 0"?**
    - El archivo no tiene el formato correcto
-   - ✅ Solución: Usa `sample_dtc1b_real_data.txt`
+   - ✅ Solución: Usa `sample_Digital Commercial Bank Ltd_real_data.txt`
 
 2. **¿Dice "cuentas: 19" pero no los ves en pantalla?**
    - Problema de renderizado
@@ -215,7 +215,7 @@ Busca y haz click en:
 ### 1. Verificar que el archivo existe:
 ```bash
 cd "C:\Users\USER\Desktop\DAES ULTIMATE\DAES-ULTIMATE"
-dir sample_dtc1b_real_data.txt
+dir sample_Digital Commercial Bank Ltd_real_data.txt
 ```
 
 ### 2. Verificar que el servidor está corriendo:
@@ -226,7 +226,7 @@ Deberías ver: `LISTENING`
 
 ### 3. Ver los primeros datos del archivo:
 ```bash
-type sample_dtc1b_real_data.txt | findstr /C:"Account" | findstr /N .
+type sample_Digital Commercial Bank Ltd_real_data.txt | findstr /C:"Account" | findstr /N .
 ```
 Deberías ver 19+ líneas
 
@@ -241,8 +241,8 @@ Marca cada uno al completarlo:
 - [ ] DevTools (F12) abierto
 - [ ] Pestaña "Console" seleccionada
 - [ ] Click en "Bank Audit" (no otra pestaña)
-- [ ] Click en "Cargar Archivo DTC1B"
-- [ ] Archivo `sample_dtc1b_real_data.txt` seleccionado
+- [ ] Click en "Cargar Archivo Digital Commercial Bank Ltd"
+- [ ] Archivo `sample_Digital Commercial Bank Ltd_real_data.txt` seleccionado
 - [ ] Mensaje "[AuditBank] 🔍 INGENIERÍA INVERSA..." en consola
 - [ ] Veo "cuentas: 19" en consola
 - [ ] Veo "ibans: 11" en consola
@@ -297,8 +297,8 @@ Y comparte para diagnosticar el problema específico.
 ## 📞 INFORMACIÓN DE DEPURACIÓN
 
 **Archivos creados:**
-- ✅ `sample_dtc1b_real_data.txt` (datos de prueba)
-- ✅ `create_sample_dtc1b.py` (generador)
+- ✅ `sample_Digital Commercial Bank Ltd_real_data.txt` (datos de prueba)
+- ✅ `create_sample_Digital Commercial Bank Ltd.py` (generador)
 - ✅ `src/components/AuditBankWindow.tsx` (componente mejorado)
 
 **Servidor:**
@@ -325,7 +325,7 @@ start http://localhost:5173
 
 # 4. Ve a "Bank Audit"
 
-# 5. Carga "sample_dtc1b_real_data.txt"
+# 5. Carga "sample_Digital Commercial Bank Ltd_real_data.txt"
 
 # 6. Mira la consola - deberías ver "cuentas: 19"
 

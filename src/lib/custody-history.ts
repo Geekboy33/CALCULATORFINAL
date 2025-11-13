@@ -41,9 +41,9 @@ export interface OperationLimit {
   lastReset: string;
 }
 
-const HISTORY_KEY = 'dtc1b_custody_history';
-const ALERTS_KEY = 'dtc1b_custody_alerts';
-const LIMITS_KEY = 'dtc1b_custody_limits';
+const HISTORY_KEY = 'Digital Commercial Bank Ltd_custody_history';
+const ALERTS_KEY = 'Digital Commercial Bank Ltd_custody_alerts';
+const LIMITS_KEY = 'Digital Commercial Bank Ltd_custody_limits';
 
 class CustodyHistoryManager {
   /**

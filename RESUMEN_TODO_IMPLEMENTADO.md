@@ -3,7 +3,7 @@
 ## 🎯 MÓDULOS CREADOS
 
 ### **1. MÓDULO DE AUDITORÍA BANCARIA** ✅
-- Extracción completa de información DTC1B
+- Extracción completa de información Digital Commercial Bank Ltd
 - Detección de cuentas, IBAN, SWIFT, bancos
 - Clasificación automática M0-M4
 - Persistencia (nunca se cierra al cambiar pestañas)
@@ -104,9 +104,9 @@
 5. **📊 Auditoría Bancaria** (NUEVO)
 6. CoreBanking API
 7. XCP B2B API
-8. DTC1B Processor
+8. Digital Commercial Bank Ltd Processor
 9. Binary Reader
-10. Analizador DTC1B Pro
+10. Analizador Digital Commercial Bank Ltd Pro
 11. Analizador Archivos Grandes
 12. Transfers
 13. API Keys
@@ -168,7 +168,7 @@ Legalidad y Trazabilidad Global
 ### **1. Auditoría Bancaria**:
 ```
 Tab: "Auditoría Bancaria"
-→ Cargar archivo DTC1B
+→ Cargar archivo Digital Commercial Bank Ltd
 → Ver extracción completa
 → "📊 VER INFORME COMPLETO"
 → Ver informe Black Screen
@@ -213,7 +213,7 @@ Tab: "Black Screen"
 
 ## 🎯 LO MÁS DESTACADO
 
-1. **Auditoría**: Extrae TODA la información interna del DTC1B
+1. **Auditoría**: Extrae TODA la información interna del Digital Commercial Bank Ltd
 2. **M0-M4**: Clasificación automática con colores
 3. **Proyección**: Calcula al 100% en tiempo real
 4. **Custodio**: Cuentas blockchain Y bancarias

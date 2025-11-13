@@ -75,7 +75,7 @@ if (extracted.reverseEngineering) {
 ```
 ✅ src/components/AuditBankWindow.tsx - Corregido
 ✅ src/lib/audit-store.ts - Sin errores
-✅ dtc1b_advanced_reverse_engineer.py - Creado correctamente
+✅ Digital Commercial Bank Ltd_advanced_reverse_engineer.py - Creado correctamente
 ```
 
 ### Linter:
@@ -115,10 +115,10 @@ Abrir DevTools (F12) y verificar que NO haya errores de JavaScript en la consola
 ```bash
 # Crear archivo de prueba
 cd "C:\Users\USER\Desktop\DAES ULTIMATE\DAES-ULTIMATE"
-python dtc1b_advanced_reverse_engineer.py
+python Digital Commercial Bank Ltd_advanced_reverse_engineer.py
 ```
 
-Luego cargar el archivo `test_dtc1b_sample.bin` en la interfaz.
+Luego cargar el archivo `test_Digital Commercial Bank Ltd_sample.bin` en la interfaz.
 
 ---
 
@@ -127,7 +127,7 @@ Luego cargar el archivo `test_dtc1b_sample.bin` en la interfaz.
 ### ✅ Funcionalidades Implementadas:
 
 1. **Análisis de Firmas Binarias**
-   - Detecta tipos de archivo (DTC1B, BANK, etc.)
+   - Detecta tipos de archivo (Digital Commercial Bank Ltd, BANK, etc.)
    - Muestra header bytes
 
 2. **Decompilación de Campos Estructurados**

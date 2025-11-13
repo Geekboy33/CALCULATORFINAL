@@ -260,7 +260,7 @@ const Skeleton = () => (
 ```tsx
 // Lazy load componentes grandes
 const LargeAnalyzer = lazy(() => 
-  import('./components/LargeFileDTC1BAnalyzer')
+  import('./components/LargeFileDigital Commercial Bank LtdAnalyzer')
 );
 ```
 

@@ -110,7 +110,7 @@ blackScreenM1Description: 'Cash and demand deposits'
 - ✅ Modal del Black Screen traducido
 - ✅ Información del beneficiario traducida
 - ✅ Agregados monetarios M1, M2, M3, M4 traducidos
-- ✅ Información técnica DTC1B traducida
+- ✅ Información técnica Digital Commercial Bank Ltd traducida
 - ✅ Certificación bancaria traducida
 - ✅ Footer traducido
 - ✅ Función `handleDownload()` actualizada con traducciones
@@ -167,9 +167,9 @@ blackScreenM1Description: 'Cash and demand deposits'
    └─ M3 + Instrumentos negociables / M3 + Negotiable instruments...
 ```
 
-### **Información Técnica DTC1B**
+### **Información Técnica Digital Commercial Bank Ltd**
 ```typescript
-✅ Referencia DTC1B: "Referencia DTC1B" / "DTC1B Reference"
+✅ Referencia Digital Commercial Bank Ltd: "Referencia Digital Commercial Bank Ltd" / "Digital Commercial Bank Ltd Reference"
 ✅ Hash de Verificación: "Hash de Verificación" / "Verification Hash"
 ✅ Transacciones Procesadas: "Transacciones Procesadas" / "Transactions Processed"
 ✅ Fecha de Emisión: "Fecha de Emisión" / "Issue Date"

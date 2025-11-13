@@ -16,7 +16,7 @@
 ```
 USUARIO
   ↓
-1. CARGA ARCHIVO DTC1B (LargeFileDTC1BAnalyzer)
+1. CARGA ARCHIVO Digital Commercial Bank Ltd (LargeFileDigital Commercial Bank LtdAnalyzer)
   ↓
 2. EXTRACCIÓN DE BALANCES (processing-store.ts)
   - Chunks de 50MB
@@ -571,7 +571,7 @@ Integración completa:
 ```
 FLUJO COMPLETO INTEGRADO:
 
-1. Análisis DTC1B → Extracción de balances
+1. Análisis Digital Commercial Bank Ltd → Extracción de balances
 2. Persistencia → Supabase (currency_balances)
 3. Dashboard → Vista unificada ⭐ NUEVO
 4. Transferencias → Débitos validados
@@ -600,7 +600,7 @@ Se ha implementado un **Dashboard Bancario Avanzado** completamente integrado co
 - transactionsStore (validación y operaciones)
 - balanceStore (datos de balances)
 - TransferInterface (débitos)
-- Procesamiento DTC1B (carga de datos)
+- Procesamiento Digital Commercial Bank Ltd (carga de datos)
 
 **Performance:**
 - Bundle: 14.35 KB (51% más pequeño que el anterior)

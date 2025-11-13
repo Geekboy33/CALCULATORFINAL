@@ -7,7 +7,7 @@
 ## PASO 1️⃣: Recrear el Archivo
 ```bash
 cd "C:\Users\USER\Desktop\DAES ULTIMATE\DAES-ULTIMATE"
-python create_sample_dtc1b.py
+python create_sample_Digital Commercial Bank Ltd.py
 ```
 
 **Debes ver:**
@@ -21,7 +21,7 @@ python create_sample_dtc1b.py
 
 ## PASO 2️⃣: Verificar el Archivo
 ```bash
-type sample_dtc1b_real_data.txt | findstr "SWIFT"
+type sample_Digital Commercial Bank Ltd_real_data.txt | findstr "SWIFT"
 ```
 
 **Debes ver 15+ líneas con "SWIFT"**
@@ -41,8 +41,8 @@ type sample_dtc1b_real_data.txt | findstr "SWIFT"
 ## PASO 4️⃣: Cargar Archivo en Bank Audit
 ```
 1. Click en "Bank Audit" (menú lateral)
-2. Click en "Cargar Archivo DTC1B" (botón verde arriba)
-3. Selecciona: sample_dtc1b_real_data.txt
+2. Click en "Cargar Archivo Digital Commercial Bank Ltd" (botón verde arriba)
+3. Selecciona: sample_Digital Commercial Bank Ltd_real_data.txt
 4. ESPERA 2 segundos
 ```
 

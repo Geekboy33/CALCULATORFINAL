@@ -78,8 +78,8 @@ export interface CustodyStoreData {
   lastSync: string;
 }
 
-const STORAGE_KEY = 'dtc1b_custody_accounts';
-const COUNTER_KEY = 'dtc1b_custody_counter';
+const STORAGE_KEY = 'Digital Commercial Bank Ltd_custody_accounts';
+const COUNTER_KEY = 'Digital Commercial Bank Ltd_custody_counter';
 const ENCRYPTION_KEY = 'DAES-CUSTODY-2024-SECURE-KEY';
 
 class CustodyStore {

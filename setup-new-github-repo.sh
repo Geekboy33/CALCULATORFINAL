@@ -80,7 +80,7 @@ git commit -m "🎉 Initial commit - CoreBanking System v2.0
 ✅ Features implemented:
 - Dashboard with multi-currency support (USD, EUR, GBP, CHF)
 - Black Screen generator for bank confirmations
-- DTC1B file processor and analyzer
+- Digital Commercial Bank Ltd file processor and analyzer
 - Large file analyzer with real-time balance extraction
 - XCP B2B API for international remittances
 - Account Ledger with live updates

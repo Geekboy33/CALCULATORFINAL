@@ -3,7 +3,7 @@
 ## ✅ MÓDULOS CREADOS (2 COMPLETOS)
 
 ### **1. MÓDULO DE AUDITORÍA BANCARIA** 📊
-- Extracción completa de información DTC1B
+- Extracción completa de información Digital Commercial Bank Ltd
 - Detección de cuentas, IBAN, SWIFT, bancos
 - Clasificación automática M0-M4
 - Ingeniería inversa avanzada
@@ -142,9 +142,9 @@
 5. **📊 Auditoría Bancaria** (NUEVO)
 6. CoreBanking API
 7. XCP B2B API
-8. DTC1B Processor
+8. Digital Commercial Bank Ltd Processor
 9. Binary Reader
-10. Analizador DTC1B Pro
+10. Analizador Digital Commercial Bank Ltd Pro
 11. Analizador Archivos Grandes
 12. Transfers
 13. API Keys
@@ -174,7 +174,7 @@
 
 ### **Auditoría Bancaria**:
 ```
-✓ Extrae TODA la información del DTC1B
+✓ Extrae TODA la información del Digital Commercial Bank Ltd
 ✓ Detecta cuentas, IBAN, SWIFT automáticamente
 ✓ Clasifica en M0-M4 inteligentemente
 ✓ Proyecta balances al 100%
@@ -245,7 +245,7 @@ English: "Account #: DAES-BK-USD-1000012"
 
 AUDITORÍA:
 4. Tab "Auditoría Bancaria"
-5. Cargar archivo DTC1B
+5. Cargar archivo Digital Commercial Bank Ltd
 6. Ver extracción M0-M4
 7. "📊 VER INFORME COMPLETO"
 8. Cambiar idioma ES/EN

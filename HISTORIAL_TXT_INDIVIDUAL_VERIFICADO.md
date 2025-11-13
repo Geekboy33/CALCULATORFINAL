@@ -32,7 +32,7 @@ Cada transferencia en el historial ahora tiene su propio botón para descargar e
 
 **Para transferencias COMPLETED:**
 ```
-═══ M2 VALIDATION (DTC1B) ═══
+═══ M2 VALIDATION (Digital Commercial Bank Ltd) ═══
 Balance Before: USD 2,005,110.130
 Balance After: USD 2,004,110.130
 Deducted: USD 1,000.000
@@ -86,7 +86,7 @@ Account: 23890111
 Institution: APEX CAPITAL RESERVE BANK INC
 Currency: USD
 
-═══ M2 VALIDATION (DTC1B) ═══
+═══ M2 VALIDATION (Digital Commercial Bank Ltd) ═══
 Balance Before: USD 2,005,110.130
 Balance After: USD 2,004,110.130
 Deducted: USD 1,000.000
@@ -97,17 +97,17 @@ Source: Bank Audit Module
 ═══ ISO 20022 COMPLIANCE ═══
 Standard: pain.001.001.09 (Customer Credit Transfer)
 Classification: M2 Money Supply
-DTC1B Validated: ✅ YES
+Digital Commercial Bank Ltd Validated: ✅ YES
 ISO Message Generated: ✅ YES
 Digital Signatures Attached: ✅ YES (1 signatures)
 
 ═══ STATUS ═══
 Status: COMPLETED
 API Response: Transfer completed successfully
-✅ M2 balance deducted from DTC1B
+✅ M2 balance deducted from Digital Commercial Bank Ltd
 ✅ ISO 20022 XML generated
 ✅ Digital signatures verified and attached
-✅ DTC1B authenticity proof included
+✅ Digital Commercial Bank Ltd authenticity proof included
 ```
 
 ---
@@ -185,7 +185,7 @@ const isVerified = transfer.status === 'COMPLETED' || transfer.m2Validation.sign
 ```
 Digital Signatures: ✅ YES - 1 verified
 Signatures Verified: ✅ YES
-DTC1B Validated: ✅ YES
+Digital Commercial Bank Ltd Validated: ✅ YES
 ```
 
 **Razón:**
@@ -216,12 +216,12 @@ const signaturesCount = transfer.m2Validation.digitalSignatures || 1;
 ### Regla 3: ISO 20022 Compliance
 
 ```typescript
-DTC1B Validated: ${transfer.status === 'COMPLETED' ? '✅ YES' : '❌ NO'}
+Digital Commercial Bank Ltd Validated: ${transfer.status === 'COMPLETED' ? '✅ YES' : '❌ NO'}
 Digital Signatures Attached: ${transfer.status === 'COMPLETED' ? `✅ YES (${sigCount} signatures)` : '❌ NO'}
 ```
 
 **Para transfers COMPLETED:**
-- DTC1B Validated: ✅ YES
+- Digital Commercial Bank Ltd Validated: ✅ YES
 - Digital Signatures Attached: ✅ YES (1 signatures)
 - ISO Message Generated: ✅ YES
 
@@ -269,7 +269,7 @@ Downloads/
 ```
 ✅ Transfer COMPLETED!
 
-═══ M2 VALIDATION (DTC1B) ═══
+═══ M2 VALIDATION (Digital Commercial Bank Ltd) ═══
 Digital Signatures: ✅ YES - 1 verified
 Signatures Verified: ✅ YES
 ```
@@ -313,7 +313,7 @@ Signatures Verified: ✅ YES
    - ✅ Firmas verificadas
    - ✅ M2 balance validation
    - ✅ ISO 20022 compliance
-   - ✅ DTC1B validation
+   - ✅ Digital Commercial Bank Ltd validation
 
 ---
 
@@ -467,14 +467,14 @@ if (transfer.m2Validation) {
 
 | Campo | Valor COMPLETED | Valor FAILED |
 |-------|-----------------|--------------|
-| DTC1B Validated | ✅ YES | ❌ NO |
+| Digital Commercial Bank Ltd Validated | ✅ YES | ❌ NO |
 | ISO Message Generated | ✅ YES | ✅ YES |
 | Digital Signatures Attached | ✅ YES (X) | ❌ NO |
 
 **Lógica:**
 ```typescript
 if (transfer.iso20022) {
-  txtContent += `DTC1B Validated: ${transfer.status === 'COMPLETED' ? '✅ YES' : '❌ NO'}\n`;
+  txtContent += `Digital Commercial Bank Ltd Validated: ${transfer.status === 'COMPLETED' ? '✅ YES' : '❌ NO'}\n`;
   txtContent += `ISO Message Generated: ${transfer.iso20022.xmlGenerated ? '✅ YES' : '❌ NO'}\n`;
 
   const sigCount = transfer.m2Validation?.digitalSignatures || 1;
@@ -525,7 +525,7 @@ Transfer_TXN_1731492923456_K7M9P2X.txt
 ✅ Archivo descargado: Transfer_TXN_[...].txt
 ✅ Contiene: Digital Signatures: ✅ YES - 1 verified
 ✅ Contiene: Signatures Verified: ✅ YES
-✅ Contiene: DTC1B Validated: ✅ YES
+✅ Contiene: Digital Commercial Bank Ltd Validated: ✅ YES
 ```
 
 ---
@@ -650,7 +650,7 @@ const isVerified = transfer.status === 'COMPLETED' || transfer.m2Validation.sign
 - ✅ Source: Bank Audit Module
 
 **ISO 20022:**
-- ✅ DTC1B Validated: YES
+- ✅ Digital Commercial Bank Ltd Validated: YES
 - ✅ ISO Message Generated: YES
 - ✅ Digital Signatures Attached: YES (X signatures)
 

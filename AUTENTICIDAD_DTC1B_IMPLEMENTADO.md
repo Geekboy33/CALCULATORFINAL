@@ -1,4 +1,4 @@
-# ✅ Sistema de Autenticidad DTC1B - Implementado
+# ✅ Sistema de Autenticidad Digital Commercial Bank Ltd - Implementado
 
 **Fecha**: 2025-11-04
 **Build**: ✅ EXITOSO (6.52s)
@@ -9,7 +9,7 @@
 ## 🔐 SISTEMA DE VERIFICACIÓN DE AUTENTICIDAD
 
 ### ¿Qué es?
-Sistema avanzado que extrae y verifica códigos de autenticidad, hashes criptográficos y firmas digitales del archivo DTC1B para CERTIFICAR que cada balance M0-M4 representa DINERO REAL.
+Sistema avanzado que extrae y verifica códigos de autenticidad, hashes criptográficos y firmas digitales del archivo Digital Commercial Bank Ltd para CERTIFICAR que cada balance M0-M4 representa DINERO REAL.
 
 ---
 
@@ -76,7 +76,7 @@ Click → Genera reporte → Descarga automática
 
 ```
 ================================================================================
-DTC1B AUTHENTICITY VERIFICATION REPORT
+Digital Commercial Bank Ltd AUTHENTICITY VERIFICATION REPORT
 ================================================================================
 
 Currency: USD
@@ -196,7 +196,7 @@ function verifyChecksum(data: Uint8Array, offset: number): boolean {
 **Usuario**: Auditor financiero
 **Necesidad**: Verificar autenticidad de todos los balances
 **Solución**: 
-1. Procesar archivo DTC1B en Analizador
+1. Procesar archivo Digital Commercial Bank Ltd en Analizador
 2. Ir a Bank Audit → Ver Informe Completo
 3. Click en botón "Autenticidad"
 4. Descargar reporte completo con todas las pruebas
@@ -294,10 +294,10 @@ Currency: [CURRENCY_CODE]
 
 ## 🚀 CÓMO USAR
 
-### Paso 1: Cargar Archivo DTC1B
+### Paso 1: Cargar Archivo Digital Commercial Bank Ltd
 ```
 1. Ir a "Analizador de Archivos Grandes"
-2. Cargar archivo DTC1B
+2. Cargar archivo Digital Commercial Bank Ltd
 3. Esperar procesamiento completo
 ```
 
@@ -361,7 +361,7 @@ Warnings: 0
 
 ### Estado del Sistema
 ```
-Autenticidad DTC1B: ✅ 100% IMPLEMENTADO
+Autenticidad Digital Commercial Bank Ltd: ✅ 100% IMPLEMENTADO
 Extracción de Hashes: ✅ FUNCIONAL
 Firmas Digitales: ✅ DETECTADAS
 Códigos de Verificación: ✅ GENERADOS
@@ -418,4 +418,4 @@ Descarga de Reportes: ✅ OPERATIVA
 
 ---
 
-**Sistema de Autenticidad DTC1B**: ¡COMPLETADO CON ÉXITO! 🎉
+**Sistema de Autenticidad Digital Commercial Bank Ltd**: ¡COMPLETADO CON ÉXITO! 🎉

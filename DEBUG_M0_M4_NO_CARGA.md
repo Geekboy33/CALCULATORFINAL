@@ -15,9 +15,9 @@ F12 → Pestaña Console
 
 ### **Paso 2: Ve a "Auditoría Bancaria"**
 
-### **Paso 3: Carga un Archivo DTC1B**
+### **Paso 3: Carga un Archivo Digital Commercial Bank Ltd**
 ```
-Botón: "Cargar Archivo DTC1B"
+Botón: "Cargar Archivo Digital Commercial Bank Ltd"
 Selecciona: test_audit_extraction.txt
 ```
 
@@ -138,7 +138,7 @@ Si no tiene estas líneas, los montos no se detectarán.
 ### **Opción 3: Usa el Analizador del Sistema**
 ```
 1. Ve a "Analizador de Archivos Grandes"
-2. Carga un archivo DTC1B
+2. Carga un archivo Digital Commercial Bank Ltd
 3. Déjalo procesar completamente (100%)
 4. Ve a "Auditoría Bancaria"
 5. Los datos deberían sincronizarse automáticamente

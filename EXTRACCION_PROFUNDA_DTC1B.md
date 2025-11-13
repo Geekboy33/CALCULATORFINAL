@@ -1,8 +1,8 @@
-# 🔍 EXTRACCIÓN PROFUNDA DE DATOS DTC1B - COMPLETADO
+# 🔍 EXTRACCIÓN PROFUNDA DE DATOS Digital Commercial Bank Ltd - COMPLETADO
 
 ## 🎯 Nueva Funcionalidad Implementada
 
-El módulo de auditoría ahora **extrae y analiza TODA la información interna** del archivo DTC1B, incluyendo:
+El módulo de auditoría ahora **extrae y analiza TODA la información interna** del archivo Digital Commercial Bank Ltd, incluyendo:
 
 ✅ **Cuentas bancarias**  
 ✅ **Códigos IBAN**  
@@ -125,7 +125,7 @@ El módulo de auditoría ahora **extrae y analiza TODA la información interna**
 │  📊 Metadatos del Archivo                                   │
 │  ┌────────────────────────────────────────────────────┐    │
 │  │ Tamaño: 2,048.50 KB │ Bloques: 256 │ Entropía: 6.8│    │
-│  │ Encriptación: ✓ No detectada │ Archivo: sample.dtc1b   │
+│  │ Encriptación: ✓ No detectada │ Archivo: sample.Digital Commercial Bank Ltd   │
 │  └────────────────────────────────────────────────────┘    │
 └─────────────────────────────────────────────────────────────┘
 ```
@@ -223,7 +223,7 @@ const calculateEntropy = (data: Uint8Array): number => {
 
 ## 📈 Ejemplo de Extracción Completa
 
-### **Archivo de Entrada**: `sample_dtc1b.bin` (2.5 MB)
+### **Archivo de Entrada**: `sample_Digital Commercial Bank Ltd.bin` (2.5 MB)
 
 ### **Datos Extraídos**:
 
@@ -277,7 +277,7 @@ const calculateEntropy = (data: Uint8Array): number => {
   ],
   "metadata": {
     "fileSize": 2621440,
-    "fileName": "sample_dtc1b.bin",
+    "fileName": "sample_Digital Commercial Bank Ltd.bin",
     "blocksDetected": 256,
     "entropyLevel": 6.85,
     "hasEncryption": false
@@ -289,9 +289,9 @@ const calculateEntropy = (data: Uint8Array): number => {
 
 ```json
 {
-  "id_registro": "dtc1b-1735334567890-0",
+  "id_registro": "Digital Commercial Bank Ltd-1735334567890-0",
   "archivo": {
-    "ruta": "sample_dtc1b.bin",
+    "ruta": "sample_Digital Commercial Bank Ltd.bin",
     "hash_sha256": "file-2621440-1735334567890",
     "fecha_mod": "2024-12-27T20:32:47Z"
   },
@@ -302,7 +302,7 @@ const calculateEntropy = (data: Uint8Array): number => {
     "currency": "AED"
   },
   "classification": "M1",
-  "evidencia_fragmento": "DTC1B File: sample_dtc1b.bin | AED | Total: 1,500,000 | 12 blocks detected | Accounts: 123456789012, 00004432876543, 9876543210987654 | IBANs: GB82WEST12345698765432, DE89370400440532013000 | SWIFT: EBILAEAD, BRASBRRJ | Banks: Emirates NBD, Banco do Brasil",
+  "evidencia_fragmento": "Digital Commercial Bank Ltd File: sample_Digital Commercial Bank Ltd.bin | AED | Total: 1,500,000 | 12 blocks detected | Accounts: 123456789012, 00004432876543, 9876543210987654 | IBANs: GB82WEST12345698765432, DE89370400440532013000 | SWIFT: EBILAEAD, BRASBRRJ | Banks: Emirates NBD, Banco do Brasil",
   "score_confianza": 92,
   "timestamp_detectado": "2024-12-27T20:32:47Z"
 }
@@ -312,9 +312,9 @@ const calculateEntropy = (data: Uint8Array): number => {
 
 ## 🚀 Cómo Usar
 
-### **Paso 1: Cargar Archivo DTC1B**
+### **Paso 1: Cargar Archivo Digital Commercial Bank Ltd**
 1. Abrir módulo "Auditoría Bancaria"
-2. Clic en botón verde "Cargar Archivo DTC1B"
+2. Clic en botón verde "Cargar Archivo Digital Commercial Bank Ltd"
 3. Seleccionar archivo del disco
 
 ### **Paso 2: Ver Extracción Automática**

@@ -6,7 +6,7 @@
 ```
 http://localhost:5173
 Bank Audit
-Cargar sample_dtc1b_real_data.txt
+Cargar sample_Digital Commercial Bank Ltd_real_data.txt
 Esperar 2-3 segundos
 ```
 
@@ -52,7 +52,7 @@ Nombre: Informe_Auditoria_XXXXXXX.txt
 ```javascript
 // Copiar y pegar en Console (F12):
 
-const auditData = JSON.parse(localStorage.getItem('dtc1b_audit_data'));
+const auditData = JSON.parse(localStorage.getItem('Digital Commercial Bank Ltd_audit_data'));
 if (!auditData) {
   console.log('❌ No hay datos. Carga un archivo primero.');
 } else {

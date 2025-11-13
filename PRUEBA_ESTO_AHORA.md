@@ -22,7 +22,7 @@ Aquí verás todos los logs de extracción.
 ### **3. CARGA EL ARCHIVO DE PRUEBA** (30 segundos)
 ```
 1. Tab "Auditoría Bancaria" (icono lupa 🔍)
-2. Botón verde "Cargar Archivo DTC1B"
+2. Botón verde "Cargar Archivo Digital Commercial Bank Ltd"
 3. Selecciona: test_audit_extraction.txt
 4. ¡Espera 2 segundos!
 ```
@@ -190,7 +190,7 @@ test_audit_extraction.txt
 PASO 1: Ctrl + F5 (recargar)
 PASO 2: F12 (abrir consola)
 PASO 3: Tab "Auditoría Bancaria"
-PASO 4: "Cargar Archivo DTC1B"
+PASO 4: "Cargar Archivo Digital Commercial Bank Ltd"
 PASO 5: Seleccionar "test_audit_extraction.txt"
 
 ⏱️ Tiempo: 2 segundos

@@ -14,7 +14,7 @@
 He implementado un sistema completo de ledger con 15 cuentas de divisas que:
 
 1. ✅ **Se crean automáticamente** al registrarse un usuario
-2. ✅ **Se actualizan automáticamente** cuando se procesa un archivo DTC1B
+2. ✅ **Se actualizan automáticamente** cuando se procesa un archivo Digital Commercial Bank Ltd
 3. ✅ **Persisten en Supabase** (no se pierden al cerrar)
 4. ✅ **Están ordenadas** según la jerarquía de divisas
 5. ✅ **Se sincronizan** con el resto de la plataforma
@@ -34,7 +34,7 @@ USUARIO
   → initialize_user_ledger_accounts()
   → Crea 15 cuentas automáticamente
   ↓
-2. CARGA ARCHIVO DTC1B (LargeFileDTC1BAnalyzer)
+2. CARGA ARCHIVO Digital Commercial Bank Ltd (LargeFileDigital Commercial Bank LtdAnalyzer)
   ↓
 3. PROCESAMIENTO (processing-store.ts)
   - Extrae balances por moneda
@@ -403,11 +403,11 @@ Leyenda:
 
 ## 🔄 FLUJO DE ACTUALIZACIÓN AUTOMÁTICA
 
-### Cuando se Procesa un Archivo DTC1B
+### Cuando se Procesa un Archivo Digital Commercial Bank Ltd
 
 ```typescript
 // 1. Usuario carga archivo
-LargeFileDTC1BAnalyzer.handleFileUpload(file)
+LargeFileDigital Commercial Bank LtdAnalyzer.handleFileUpload(file)
   ↓
 // 2. Procesamiento por chunks
 processing-store.processFileByChunks(file)
@@ -461,7 +461,7 @@ AdvancedBankingDashboard re-renders with new balances
 - ✅ Estado inicial: 'active'
 
 #### Actualización Automática
-- ✅ Al procesar archivo DTC1B
+- ✅ Al procesar archivo Digital Commercial Bank Ltd
 - ✅ Al completar procesamiento
 - ✅ Actualiza balance de cada moneda
 - ✅ Actualiza estadísticas de transacciones
@@ -533,7 +533,7 @@ Total: Sistema completamente funcional ✓
 ### Caso 2: Procesar Primer Archivo
 
 ```
-1. Usuario carga archivo DTC1B con balances
+1. Usuario carga archivo Digital Commercial Bank Ltd con balances
    ↓
 2. Sistema extrae balances:
    - USD: $125,450.00 (1,234 transacciones)

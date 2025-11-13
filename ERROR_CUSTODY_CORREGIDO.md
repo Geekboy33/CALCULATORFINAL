@@ -64,7 +64,7 @@ El servidor debería estar iniciándose ahora en:
 │ Reservado: $0                               │
 │ Disponible: $0                              │
 ├────────────────────────────────────────────┤
-│ Fondos del Sistema DTC1B:                  │
+│ Fondos del Sistema Digital Commercial Bank Ltd:                  │
 │ [USD] [EUR] [GBP] ...                      │
 └────────────────────────────────────────────┘
 

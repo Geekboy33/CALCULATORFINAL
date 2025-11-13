@@ -82,7 +82,7 @@ TOTAL GENERAL: ~$107,096,250
 
 ### PASO 2: Verificar que tiene los nuevos datos
 ```bash
-type sample_dtc1b_real_data.txt | findstr /C:"8,500" /C:"65,000" /C:"85,000" /C:"250,000"
+type sample_Digital Commercial Bank Ltd_real_data.txt | findstr /C:"8,500" /C:"65,000" /C:"85,000" /C:"250,000"
 ```
 
 Deberías ver 4-5 líneas ✅
@@ -96,7 +96,7 @@ Ctrl + Shift + R en http://localhost:5173
 ```
 1. F12 (Console)
 2. Bank Audit
-3. Cargar: sample_dtc1b_real_data.txt
+3. Cargar: sample_Digital Commercial Bank Ltd_real_data.txt
 ```
 
 ### PASO 5: Ver logs en consola (F12)
@@ -195,7 +195,7 @@ TOTAL │      -      │$8,500│$150,000 │$407,500 │$43,842,500  │$62,84
 ```
 1. Ctrl + Shift + R (IMPORTANTE - limpiar caché)
 2. Bank Audit
-3. Cargar: sample_dtc1b_real_data.txt
+3. Cargar: sample_Digital Commercial Bank Ltd_real_data.txt
 4. Mirar consola (F12)
 ```
 

@@ -16,7 +16,7 @@ A professional-grade banking system with advanced binary file processing, encryp
 - **Audit Logging**: Complete transaction history with cryptographic integrity
 
 ### Advanced Binary Processing
-- **DTC1B File Parser**: Custom binary format processor for financial data
+- **Digital Commercial Bank Ltd File Parser**: Custom binary format processor for financial data
 - **Encryption Support**: AES-256-GCM encryption/decryption
 - **Format Detection**: Automatic detection of file formats and encryption
 - **Bulk Processing**: Handle multiple files simultaneously
@@ -98,7 +98,7 @@ corebanking-system/
 ├── src/
 │   ├── components/
 │   │   ├── AccountDashboard.tsx      # Account management
-│   │   ├── DTC1BProcessor.tsx        # Binary file processor
+│   │   ├── Digital Commercial Bank LtdProcessor.tsx        # Binary file processor
 │   │   ├── EnhancedBinaryViewer.tsx  # Advanced hex viewer
 │   │   ├── AdvancedBinaryReader.tsx  # Binary analysis tools
 │   │   ├── TransferInterface.tsx     # Money transfers
@@ -106,7 +106,7 @@ corebanking-system/
 │   │   └── AuditLogViewer.tsx        # Audit logs
 │   ├── lib/
 │   │   ├── crypto.ts                 # Cryptographic utilities
-│   │   ├── dtc1b-parser.ts          # Binary format parser
+│   │   ├── Digital Commercial Bank Ltd-parser.ts          # Binary format parser
 │   │   ├── format-detector.ts        # File format detection
 │   │   └── store.ts                  # State management
 │   ├── App.tsx                       # Main application
@@ -119,7 +119,7 @@ corebanking-system/
 
 ### Processing Binary Files
 
-1. Navigate to **DTC1B Processor**
+1. Navigate to **Digital Commercial Bank Ltd Processor**
 2. Load a binary file
 3. System automatically detects format and encryption
 4. For encrypted files, enter credentials:
@@ -173,7 +173,7 @@ npm run typecheck # TypeScript type checking
 
 ## File Format Support
 
-### DTC1B Format
+### Digital Commercial Bank Ltd Format
 Custom binary format for financial transactions:
 - Currency codes (ISO 4217)
 - Amount in minor units (BigInt)
@@ -181,7 +181,7 @@ Custom binary format for financial transactions:
 - Optional AES-GCM encryption
 
 ### Supported Formats
-- Plaintext DTC1B
+- Plaintext Digital Commercial Bank Ltd
 - AES-256-GCM encrypted
 - AES-256-CBC encrypted
 - GZIP compressed

@@ -1,8 +1,8 @@
-# Módulo de Auditoría Bancaria DTC1B
+# Módulo de Auditoría Bancaria Digital Commercial Bank Ltd
 
 ## Descripción General
 
-El módulo de **Auditoría Bancaria DTC1B** es un sistema completo de detección y clasificación automática de activos financieros que escanea archivos DTC1B y documentos financieros para extraer, clasificar y reportar información bancaria siguiendo los estándares monetarios M0-M4.
+El módulo de **Auditoría Bancaria Digital Commercial Bank Ltd** es un sistema completo de detección y clasificación automática de activos financieros que escanea archivos Digital Commercial Bank Ltd y documentos financieros para extraer, clasificar y reportar información bancaria siguiendo los estándares monetarios M0-M4.
 
 ## Características Principales
 
@@ -61,18 +61,18 @@ pip install python-docx openpyxl PyPDF2  # Opcional para PDF/DOCX/XLSX
 El sistema utiliza variables de entorno para la configuración:
 
 ```bash
-export DTC1B_DATA_PATH="./data/dtc1b"  # Ruta de escaneo
+export Digital Commercial Bank Ltd_DATA_PATH="./data/Digital Commercial Bank Ltd"  # Ruta de escaneo
 ```
 
 ### Ejecución del Script Backend
 
 ```bash
 # Ejecutar análisis completo
-python audit_dtc1b_mclassify.py
+python audit_Digital Commercial Bank Ltd_mclassify.py
 
 # Salidas generadas:
-# - audit_dtc1b_output_YYYYMMDD_HHMMSS.json
-# - audit_dtc1b_aggregated_YYYYMMDD_HHMMSS.csv
+# - audit_Digital Commercial Bank Ltd_output_YYYYMMDD_HHMMSS.json
+# - audit_Digital Commercial Bank Ltd_aggregated_YYYYMMDD_HHMMSS.csv
 ```
 
 ### Uso de la Interfaz Web
@@ -88,7 +88,7 @@ python audit_dtc1b_mclassify.py
    - Seleccionar tab **"Auditoría Bancaria"** / **"Bank Audit"**
 
 3. **Configurar y escanear**:
-   - Ingresar ruta de datos DTC1B
+   - Ingresar ruta de datos Digital Commercial Bank Ltd
    - Clic en **"Iniciar Escaneo"** / **"Start Scan"**
    - Ver progreso en tiempo real
 
@@ -188,7 +188,7 @@ elif "checking" in text or "current account" in text:
                  ▼
 ┌─────────────────────────────────────────────────┐
 │      Script Python (Backend Processing)          │
-│  - audit_dtc1b_mclassify.py                     │
+│  - audit_Digital Commercial Bank Ltd_mclassify.py                     │
 │  - Escaneo de archivos                           │
 │  - Extracción de entidades                       │
 │  - Clasificación M0-M4                           │
@@ -197,7 +197,7 @@ elif "checking" in text or "current account" in text:
                  │
                  ▼
 ┌─────────────────────────────────────────────────┐
-│           Archivos DTC1B / Documentos            │
+│           Archivos Digital Commercial Bank Ltd / Documentos            │
 │  - PDF, DOCX, XLSX, CSV, JSON, LOG, TXT         │
 │  - Extractos bancarios                           │
 │  - Certificados de depósito                      │
@@ -225,7 +225,7 @@ El módulo incluye soporte completo bilingüe **Español/Inglés**:
 
 ### Agregar Nuevos Bancos
 
-Editar `audit_dtc1b_mclassify.py`:
+Editar `audit_Digital Commercial Bank Ltd_mclassify.py`:
 
 ```python
 WHITELIST_BANKS = [
@@ -264,8 +264,8 @@ INSTITUTIONAL_THRESHOLD = 1_000_000  # Cambiar según necesidad
 - Verificar fondos disponibles
 - Clasificar activos por liquidez
 
-### 3. Análisis Forense DTC1B
-- Examinar archivos DTC1B históricos
+### 3. Análisis Forense Digital Commercial Bank Ltd
+- Examinar archivos Digital Commercial Bank Ltd históricos
 - Detectar patrones de fondos
 - Generar evidencias para auditoría
 
@@ -290,17 +290,17 @@ INSTITUTIONAL_THRESHOLD = 1_000_000  # Cambiar según necesidad
 
 ```bash
 # Verificar ruta
-ls -la ./data/dtc1b
+ls -la ./data/Digital Commercial Bank Ltd
 
 # Crear estructura si no existe
-mkdir -p ./data/dtc1b
+mkdir -p ./data/Digital Commercial Bank Ltd
 ```
 
 ### Errores de permisos
 
 ```bash
 # Dar permisos de lectura
-chmod -R 755 ./data/dtc1b
+chmod -R 755 ./data/Digital Commercial Bank Ltd
 ```
 
 ### Faltan librerías Python

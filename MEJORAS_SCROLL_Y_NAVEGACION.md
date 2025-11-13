@@ -269,7 +269,7 @@ shadow: 0 0 15px rgba(0, 255, 136, 0.8)
 ```
 1. Abre: http://localhost:5173
 2. Ve a: Bank Audit
-3. Carga: sample_dtc1b_real_data.txt
+3. Carga: sample_Digital Commercial Bank Ltd_real_data.txt
 4. O procesa en Analizador (sincronización automática)
 ```
 

@@ -22,7 +22,7 @@ Algunas partes del Dashboard no estaban traducidas y aparecían siempre en espa�
 ```typescript
 // Español
 dashboardWelcomeTitle: 'Bienvenido al Sistema CoreBanking'
-dashboardWelcomeMessage: 'Para comenzar, carga un archivo DTC1B desde tu disco local...'
+dashboardWelcomeMessage: 'Para comenzar, carga un archivo Digital Commercial Bank Ltd desde tu disco local...'
 dashboardOrGenerateSample: 'O Generar Archivo de Muestra'
 dashboardViewDashboard: 'Ver Dashboard'
 dashboardAccountsCount: 'accounts'
@@ -44,7 +44,7 @@ dashboardUnknownError: 'Error desconocido'
 ```typescript
 // Inglés
 dashboardWelcomeTitle: 'Welcome to CoreBanking System'
-dashboardWelcomeMessage: 'To get started, load a DTC1B file from your local disk...'
+dashboardWelcomeMessage: 'To get started, load a Digital Commercial Bank Ltd file from your local disk...'
 dashboardOrGenerateSample: 'Or Generate Sample File'
 dashboardViewDashboard: 'View Dashboard'
 dashboardAccountsCount: 'accounts'
@@ -95,7 +95,7 @@ toast.error(t.dashboardErrorProcessing, error.message);
 **Antes (hardcodeado en español):**
 ```tsx
 <h3>Bienvenido al Sistema CoreBanking</h3>
-<p>Para comenzar, carga un archivo DTC1B...</p>
+<p>Para comenzar, carga un archivo Digital Commercial Bank Ltd...</p>
 <button>O Generar Archivo de Muestra</button>
 <button>Ver Dashboard</button>
 <span>accounts</span>
@@ -261,7 +261,7 @@ Para verificar las traducciones:
 1. **Abrir la aplicación**
 2. **Seleccionar idioma Español** (selector en header)
 3. **Ir al Dashboard** - Ver todos los textos en español
-4. **Cargar un archivo DTC1B** - Ver notificaciones en español
+4. **Cargar un archivo Digital Commercial Bank Ltd** - Ver notificaciones en español
 5. **Cambiar a idioma Inglés**
 6. **Refrescar** - Ver todos los textos en inglés
 7. **Cargar otro archivo** - Ver notificaciones en inglés

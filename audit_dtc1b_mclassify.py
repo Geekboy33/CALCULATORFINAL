@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-DTC1B Audit Bank Panel - M-Classification System
-Detects and classifies financial assets from DTC1B files into M0-M4 categories
+Digital Commercial Bank Ltd Audit Bank Panel - M-Classification System
+Detects and classifies financial assets from Digital Commercial Bank Ltd files into M0-M4 categories
 Compliant with ISO 27001 / AML / FATF standards
 """
 
@@ -20,7 +20,7 @@ import uuid
 # =====================================================
 
 # Ruta raíz para escaneo (configurable)
-DATA_PATH = os.getenv('DTC1B_DATA_PATH', './data/dtc1b')
+DATA_PATH = os.getenv('Digital Commercial Bank Ltd_DATA_PATH', './data/Digital Commercial Bank Ltd')
 
 # Tasas de cambio (actualizar según necesidad)
 EXCHANGE_RATES = {
@@ -390,7 +390,7 @@ def export_csv(findings: List[AuditFinding], output_path: str):
 def main():
     """Función principal"""
     print("=" * 60)
-    print("DTC1B AUDIT BANK PANEL - M-Classification System")
+    print("Digital Commercial Bank Ltd AUDIT BANK PANEL - M-Classification System")
     print("=" * 60)
     print()
     
@@ -440,8 +440,8 @@ def main():
     
     # Exportar resultados
     timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-    json_output = f"audit_dtc1b_output_{timestamp}.json"
-    csv_output = f"audit_dtc1b_aggregated_{timestamp}.csv"
+    json_output = f"audit_Digital Commercial Bank Ltd_output_{timestamp}.json"
+    csv_output = f"audit_Digital Commercial Bank Ltd_aggregated_{timestamp}.csv"
     
     export_json(findings, json_output)
     export_csv(findings, csv_output)

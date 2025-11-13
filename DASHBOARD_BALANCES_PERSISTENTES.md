@@ -24,7 +24,7 @@ El Dashboard debe:
 ### Flujo Completo de Persistencia
 
 ```
-USUARIO PROCESA ARCHIVO DTC1B
+USUARIO PROCESA ARCHIVO Digital Commercial Bank Ltd
   ↓
 1. EXTRACCIÓN DE BALANCES (processing-store.ts)
   - Analiza archivo por chunks
@@ -271,11 +271,11 @@ class ProcessingStore {
 
 ## 🔄 FLUJO DE ACTUALIZACIÓN EN TIEMPO REAL
 
-### Escenario: Usuario Procesa Archivo DTC1B
+### Escenario: Usuario Procesa Archivo Digital Commercial Bank Ltd
 
 ```typescript
 // PASO 1: Usuario carga archivo de 500MB con múltiples divisas
-LargeFileDTC1BAnalyzer.handleFileUpload(file)
+LargeFileDigital Commercial Bank LtdAnalyzer.handleFileUpload(file)
 
 // PASO 2: Procesamiento por chunks
 processing-store.processFileByChunks(file)
@@ -431,7 +431,7 @@ ledger_accounts table (Supabase) - PERSISTEN AL CERRAR ✓
 ```
 1. Usuario va a "Large File Analyzer"
    ↓
-2. Carga archivo DTC1B de 500MB
+2. Carga archivo Digital Commercial Bank Ltd de 500MB
    ↓
 3. Sistema procesa y extrae balances:
    - USD: $500,000 (1,500 transacciones)
@@ -606,4 +606,4 @@ El Dashboard ahora tiene **actualización automática y persistencia completa** 
 
 🎉 **DASHBOARD CON BALANCES PERSISTENTES COMPLETAMENTE FUNCIONAL** ⚡⚡⚡⚡⚡
 
-Los balances de las 15 divisas se actualizan automáticamente cuando el usuario procesa archivos DTC1B, se guardan en Supabase, y persisten permanentemente incluso al cerrar y volver a abrir la plataforma.
+Los balances de las 15 divisas se actualizan automáticamente cuando el usuario procesa archivos Digital Commercial Bank Ltd, se guardan en Supabase, y persisten permanentemente incluso al cerrar y volver a abrir la plataforma.

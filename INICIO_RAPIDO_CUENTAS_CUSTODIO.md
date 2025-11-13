@@ -226,7 +226,7 @@ Al hacer clic en "Exportar" se descarga:
 ## ✅ FLUJO COMPLETO
 
 ```
-1. Sistema DTC1B tiene fondos:
+1. Sistema Digital Commercial Bank Ltd tiene fondos:
    USD: $50M, EUR: $30M, GBP: $20M
 
 2. Crear cuenta custodio:

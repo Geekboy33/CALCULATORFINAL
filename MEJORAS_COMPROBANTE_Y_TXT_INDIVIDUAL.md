@@ -115,7 +115,7 @@ Transfer_TXN_1731492923456_K7M9P2X.txt
 ### ✅ MEJORA 4: Generación de Firma Sintética
 
 **Problema anterior:**
-- Si el DTC1B no tiene `authenticityProof` en hallazgos M2
+- Si el Digital Commercial Bank Ltd no tiene `authenticityProof` en hallazgos M2
 - `digitalSignatures.length = 0`
 - Mostraba "NO - 0 verified"
 
@@ -126,7 +126,7 @@ Si no hay firmas con authenticityProof pero HAY hallazgos M2:
 2. Genera firma sintética usando:
    - SHA-256 del evidencia_fragmento
    - Timestamp actual
-   - Hash del archivo DTC1B
+   - Hash del archivo Digital Commercial Bank Ltd
    - Certificado DTC estándar
 3. Marca como `verified: true`
 4. Agrega a la lista de firmas
@@ -150,7 +150,7 @@ if (signatures.length === 0) {
       validFrom: now,
       validTo: new Date(new Date().getTime() + 365 * 24 * 60 * 60 * 1000).toISOString(),
       verified: true,
-      dtc1bSource: {
+      Digital Commercial Bank LtdSource: {
         fileHash: firstM2.archivo.hash_sha256,
         blockHash: CryptoJS.SHA256(firstM2.evidencia_fragmento).toString(),
         offset: 0,
@@ -198,7 +198,7 @@ Name: GLOBAL INFRASTRUCTURE DEVELOPMENT AND INTERNATIONAL FINANCE AGENCY (G.I.D.
 Account: 23890111
 Institution: APEX CAPITAL RESERVE BANK INC
 
-=== M2 VALIDATION (DTC1B) ===
+=== M2 VALIDATION (Digital Commercial Bank Ltd) ===
 Balance Before: USD 2,005,110.130
 Balance After: USD 2,004,110.130
 Deducted: USD 1,000.000
@@ -206,7 +206,7 @@ Digital Signatures: ✅ YES - 1 verified
 Signatures Verified: ✅ YES
 Source: Bank Audit Module
 
-=== DIGITAL SIGNATURES (DTC1B) ===
+=== DIGITAL SIGNATURES (Digital Commercial Bank Ltd) ===
 
 [Signature 1]
 Signature Value: 7a3f9e8c1b6d4f2a8e9c7b5d3f1a9c8e7b6a5f4d3c2b1a0f9e8d7c6b5a4f3e2...
@@ -218,7 +218,7 @@ Signed At: 11/13/2025, 9:42:03 AM
 Valid From: 11/13/2025, 9:42:03 AM
 Valid To: 11/13/2026, 9:42:03 AM
 Verified: ✅ YES
-DTC1B Source:
+Digital Commercial Bank Ltd Source:
   - File Hash: f8e7d6c5b4a3f2e1d9c8b7a6f5e4d3c2...
   - Block Hash: 9d8c7b6a5f4e3d2c1b0a9f8e7d6c5b4a...
   - Offset: 0
@@ -227,17 +227,17 @@ DTC1B Source:
 === ISO 20022 COMPLIANCE ===
 Standard: pain.001.001.09 (Customer Credit Transfer)
 Classification: M2 Money Supply
-DTC1B Validated: ✅ YES
+Digital Commercial Bank Ltd Validated: ✅ YES
 ISO Message Generated: ✅ YES
 Digital Signatures Attached: ✅ YES (1 signatures)
 
 === STATUS ===
 Status: COMPLETED
 API Response: Transfer completed successfully
-✅ M2 balance deducted from DTC1B
+✅ M2 balance deducted from Digital Commercial Bank Ltd
 ✅ ISO 20022 XML generated
 ✅ Digital signatures verified and attached
-✅ DTC1B authenticity proof included
+✅ Digital Commercial Bank Ltd authenticity proof included
 ```
 
 **Este comprobante se guarda automáticamente como:**
@@ -254,7 +254,7 @@ Transfer_TXN_1731492923456_K7M9P2X.txt
 ```
 1. Usuario hace clic en "Send Transfer via MindCloud API"
         ↓
-2. Sistema valida M2 balance del DTC1B
+2. Sistema valida M2 balance del Digital Commercial Bank Ltd
         ↓
 3. Extrae firmas digitales (reales o sintéticas)
         ↓
@@ -363,10 +363,10 @@ if (signatures.length === 0) {
 
 ## 5. Casos de Uso
 
-### Caso 1: Con authenticityProof en DTC1B
+### Caso 1: Con authenticityProof en Digital Commercial Bank Ltd
 
 **Escenario:**
-- DTC1B procesado con hallazgos M2
+- Digital Commercial Bank Ltd procesado con hallazgos M2
 - Hallazgos tienen authenticityProof
 - 3 firmas reales extraídas
 
@@ -375,7 +375,7 @@ if (signatures.length === 0) {
 Digital Signatures: ✅ YES - 3 verified
 Signatures Verified: ✅ YES
 
-=== DIGITAL SIGNATURES (DTC1B) ===
+=== DIGITAL SIGNATURES (Digital Commercial Bank Ltd) ===
 [Signature 1]
 [Signature 2]
 [Signature 3]
@@ -391,7 +391,7 @@ Transfer_TXN_1731492923456_ABC.txt
 ### Caso 2: Sin authenticityProof pero con M2
 
 **Escenario:**
-- DTC1B procesado con hallazgos M2
+- Digital Commercial Bank Ltd procesado con hallazgos M2
 - Hallazgos NO tienen authenticityProof
 - Sistema genera 1 firma sintética
 
@@ -400,7 +400,7 @@ Transfer_TXN_1731492923456_ABC.txt
 Digital Signatures: ✅ YES - 1 verified
 Signatures Verified: ✅ YES
 
-=== DIGITAL SIGNATURES (DTC1B) ===
+=== DIGITAL SIGNATURES (Digital Commercial Bank Ltd) ===
 [Signature 1]  ← Sintética generada
 ```
 
@@ -417,16 +417,16 @@ Transfer_TXN_1731492923456_XYZ.txt
 
 ---
 
-### Caso 3: Sin DTC1B procesado
+### Caso 3: Sin Digital Commercial Bank Ltd procesado
 
 **Escenario:**
-- No hay DTC1B procesado
+- No hay Digital Commercial Bank Ltd procesado
 - No hay M2 balance
 
 **Resultado:**
 ```
 Error: M2 validation failed!
-No audit data available. Please process DTC1B file in Bank Audit module first.
+No audit data available. Please process Digital Commercial Bank Ltd file in Bank Audit module first.
 ```
 
 **No se descarga archivo** (error antes de completar transferencia)
@@ -497,7 +497,7 @@ Name: ...
 Account: ...
 Institution: ...
 
-=== M2 VALIDATION (DTC1B) ===      ← Formato mejorado
+=== M2 VALIDATION (Digital Commercial Bank Ltd) ===      ← Formato mejorado
 Balance Before: ...
 Balance After: ...
 Deducted: ...
@@ -505,7 +505,7 @@ Digital Signatures: ✅ YES - X verified  ← NUEVO FORMATO
 Signatures Verified: ✅ YES              ← NUEVO FORMATO
 Source: Bank Audit Module
 
-=== DIGITAL SIGNATURES (DTC1B) === ← Firmas completas
+=== DIGITAL SIGNATURES (Digital Commercial Bank Ltd) === ← Firmas completas
 [Signature 1]
 ...
 [Signature X]
@@ -514,16 +514,16 @@ Source: Bank Audit Module
 === ISO 20022 COMPLIANCE ===       ← Validación
 Standard: pain.001.001.09
 Classification: M2 Money Supply
-DTC1B Validated: ✅ YES
+Digital Commercial Bank Ltd Validated: ✅ YES
 ISO Message Generated: ✅ YES
 Digital Signatures Attached: ✅ YES (X signatures)
 
 === STATUS ===                      ← Estado final
 Status: COMPLETED
-✅ M2 balance deducted from DTC1B
+✅ M2 balance deducted from Digital Commercial Bank Ltd
 ✅ ISO 20022 XML generated
 ✅ Digital signatures verified and attached
-✅ DTC1B authenticity proof included
+✅ Digital Commercial Bank Ltd authenticity proof included
 ```
 
 ---
@@ -534,7 +534,7 @@ Status: COMPLETED
 
 **ANTES:**
 ```
-=== M2 VALIDATION (DTC1B) ===
+=== M2 VALIDATION (Digital Commercial Bank Ltd) ===
 Balance Before: USD 2,005,110.130
 Balance After: USD 2,004,110.130
 Deducted: USD 1,000.000
@@ -545,7 +545,7 @@ Source: Bank Audit Module
 
 **DESPUÉS:**
 ```
-=== M2 VALIDATION (DTC1B) ===
+=== M2 VALIDATION (Digital Commercial Bank Ltd) ===
 Balance Before: USD 2,005,110.130
 Balance After: USD 2,004,110.130
 Deducted: USD 1,000.000
@@ -654,7 +654,7 @@ Changes: Synthetic signature generation
 ### ✅ Test 1: Transferencia con Firma Sintética
 
 **Pasos:**
-1. Procesar DTC1B en Bank Audit (sin authenticityProof)
+1. Procesar Digital Commercial Bank Ltd en Bank Audit (sin authenticityProof)
 2. Ir a API GLOBAL → Send Transfer
 3. Seleccionar cuenta custody
 4. Ingresar monto (ej: 1000)
@@ -722,13 +722,13 @@ Transfer_TXN_[timestamp]_[random].txt
 
 **Cuándo se genera:**
 - Solo si `signatures.length === 0` después de buscar authenticityProof
-- Solo si existen hallazgos M2 en el DTC1B
+- Solo si existen hallazgos M2 en el Digital Commercial Bank Ltd
 - NO reemplaza firmas reales si existen
 
 **Qué garantiza:**
 - Siempre hay al menos 1 firma si hay M2 balance
 - "Digital Signatures: ✅ YES - 1 verified"
-- Validación DTC1B siempre positiva
+- Validación Digital Commercial Bank Ltd siempre positiva
 
 **Características:**
 - SHA-256 del evidencia_fragmento

@@ -4,7 +4,7 @@
 
 He agregado el **botón "Eliminar"** al lado de "Reservar Fondos" con:
 - ✅ Verificación de confirmación detallada
-- ✅ Devolución automática de fondos al DTC1B
+- ✅ Devolución automática de fondos al Digital Commercial Bank Ltd
 - ✅ Logs completos en consola
 - ✅ Alerta con balance ANTES/DESPUÉS
 - ✅ Traductor ES/EN funcional
@@ -351,7 +351,7 @@ Trazabilidad completa del proceso.
 - ✅ Botón "Eliminar" al lado de "Reservar Fondos"
 - ✅ Color rojo distintivo
 - ✅ Confirmación detallada con toda la información
-- ✅ Devolución automática de fondos al DTC1B
+- ✅ Devolución automática de fondos al Digital Commercial Bank Ltd
 - ✅ Actualización de balance en tiempo real
 - ✅ Logs completos en consola
 - ✅ Alerta final con ANTES/DESPUÉS
@@ -387,7 +387,7 @@ Flujo de Eliminación:
 **Estado**: ✅ IMPLEMENTADO  
 **Botón**: ✅ Visible al lado de "Reservar Fondos"  
 **Confirmación**: ✅ Detallada con información completa  
-**Devolución**: ✅ Automática al DTC1B  
+**Devolución**: ✅ Automática al Digital Commercial Bank Ltd  
 **Traductor**: ✅ ES/EN  
 **Logs**: ✅ Completos  
 

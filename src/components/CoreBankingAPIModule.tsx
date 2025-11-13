@@ -1,6 +1,6 @@
 /**
  * CoreBanking API Module - DeVmindPay Integration
- * Módulo de API bancaria integrado con DAES DTC1B
+ * Módulo de API bancaria integrado con DAES Digital Commercial Bank Ltd
  * Posición: Al lado de Bank Audit en el dashboard
  */
 
@@ -162,7 +162,7 @@ export function CoreBankingAPIModule() {
             <ArrowRightLeft className="w-8 h-8" />
             CoreBanking API - DeVmindPay
           </h1>
-          <p className="text-[#4d7c4d] mt-2">Integración bancaria REST + Webhook para transferencias DTC1B</p>
+          <p className="text-[#4d7c4d] mt-2">Integración bancaria REST + Webhook para transferencias Digital Commercial Bank Ltd</p>
           {isConfigured && (
             <p className="text-xs text-green-400 mt-1">✓ API Configurada y lista</p>
           )}
@@ -468,7 +468,7 @@ export function CoreBankingAPIModule() {
 
           {/* Información de Integración */}
           <div className="bg-gradient-to-r from-cyan-500/10 to-blue-500/10 border border-cyan-500/30 rounded-xl p-6">
-            <h3 className="text-lg font-semibold text-cyan-400 mb-4">🔗 Integración con DAES DTC1B</h3>
+            <h3 className="text-lg font-semibold text-cyan-400 mb-4">🔗 Integración con DAES Digital Commercial Bank Ltd</h3>
             <div className="space-y-2 text-sm text-[#4d7c4d]">
               <p>✓ Conectado con balanceStore (ve balances disponibles arriba)</p>
               <p>✓ Usa tasas de cambio del sistema</p>
@@ -492,7 +492,7 @@ export function CoreBankingAPIModule() {
               <li>• Enviar transferencias bancarias vía API REST</li>
               <li>• Recibir notificaciones por webhook</li>
               <li>• Verificación HMAC SHA-256 de seguridad</li>
-              <li>• Integración con balances DTC1B</li>
+              <li>• Integración con balances Digital Commercial Bank Ltd</li>
               <li>• Seguimiento de estado de transacciones</li>
               <li>• Compatible con DeVmindPay y otros proveedores</li>
             </ul>

@@ -209,11 +209,11 @@ class BackupManager {
 
       // Restore data
       if (backupData.data.balances) {
-        localStorage.setItem('dtc1b_analyzed_balances', JSON.stringify(backupData.data.balances));
+        localStorage.setItem('Digital Commercial Bank Ltd_analyzed_balances', JSON.stringify(backupData.data.balances));
       }
 
       if (backupData.data.custody) {
-        localStorage.setItem('dtc1b_custody_accounts', JSON.stringify({
+        localStorage.setItem('Digital Commercial Bank Ltd_custody_accounts', JSON.stringify({
           accounts: backupData.data.custody,
           lastSync: new Date().toISOString()
         }));

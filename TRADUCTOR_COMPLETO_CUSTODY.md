@@ -37,8 +37,8 @@ English: Confirmed Reservations
 
 ### **Fondos del Sistema**:
 ```
-Español: Fondos Disponibles del Sistema DTC1B
-English: DTC1B System Available Funds
+Español: Fondos Disponibles del Sistema Digital Commercial Bank Ltd
+English: Digital Commercial Bank Ltd System Available Funds
 ```
 
 ### **Estado Vacío**:
@@ -97,7 +97,7 @@ Confirmed Reservations: 1
 
 ### **Fondos del Sistema**:
 ```
-DTC1B System Available Funds
+Digital Commercial Bank Ltd System Available Funds
 [USD: 50,000,000] [EUR: 30,000,000] ...
 ```
 
@@ -155,14 +155,14 @@ No hay cuentas...        → No custody accounts...
 
 MODO ESPAÑOL:
 4. Ver: "Cuentas Custodio - Tokenización Blockchain"
-5. Ver: "Fondos Disponibles del Sistema DTC1B"
+5. Ver: "Fondos Disponibles del Sistema Digital Commercial Bank Ltd"
 6. Ver: "Cuentas Totales", "Fondos Reservados", etc.
 7. Botón: "Crear Cuenta Custodio"
 
 CAMBIAR A INGLÉS:
 8. Selector idioma: EN
 9. ✅ Ver: "Custody Accounts - Blockchain Tokenization"
-10. ✅ Ver: "DTC1B System Available Funds"
+10. ✅ Ver: "Digital Commercial Bank Ltd System Available Funds"
 11. ✅ Ver: "Total Accounts", "Reserved Funds", etc.
 12. ✅ Botón: "Create Custody Account"
 
@@ -195,7 +195,7 @@ VOLVER A ESPAÑOL:
 ║ Fondos Disponibles: $9,990,000            ║
 ║ Reservas Confirmadas: 1                   ║
 ╠═══════════════════════════════════════════╣
-║ Fondos Disponibles del Sistema DTC1B     ║
+║ Fondos Disponibles del Sistema Digital Commercial Bank Ltd     ║
 ║ [USD] [EUR] [GBP]                         ║
 ╠═══════════════════════════════════════════╣
 ║ Cuenta: USD Stablecoin Reserve            ║
@@ -214,7 +214,7 @@ VOLVER A ESPAÑOL:
 ║ Available Funds: $9,990,000               ║
 ║ Confirmed Reservations: 1                 ║
 ╠═══════════════════════════════════════════╣
-║ DTC1B System Available Funds              ║
+║ Digital Commercial Bank Ltd System Available Funds              ║
 ║ [USD] [EUR] [GBP]                         ║
 ╠═══════════════════════════════════════════╣
 ║ Account: USD Stablecoin Reserve           ║
@@ -273,7 +273,7 @@ Ctrl + F5
 → Cambiar idioma a EN
 → ✅ Ver "Custody Accounts"
 → ✅ Ver "Total Accounts"
-→ ✅ Ver "DTC1B System Available Funds"
+→ ✅ Ver "Digital Commercial Bank Ltd System Available Funds"
 → ✅ TODO en inglés
 ```
 

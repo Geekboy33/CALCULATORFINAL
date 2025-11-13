@@ -23,7 +23,7 @@ Bank Audit
 
 ### 4️⃣ Carga:
 ```
-sample_dtc1b_real_data.txt
+sample_Digital Commercial Bank Ltd_real_data.txt
 ```
 
 ### 5️⃣ Mira la CONSOLA (F12):
@@ -89,7 +89,7 @@ Scroll abajo →
 ---
 
 **URL:** http://localhost:5173  
-**Archivo:** sample_dtc1b_real_data.txt  
+**Archivo:** sample_Digital Commercial Bank Ltd_real_data.txt  
 **Estado:** ✅ FUNCIONAL
 
 

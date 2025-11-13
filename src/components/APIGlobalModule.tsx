@@ -2,8 +2,8 @@
  * API GLOBAL Module
  * Transfer system with MindCloud API integration
  * Sends M2 money transfers with ISO 20022 compliance
- * Validates digital signatures from DTC1B Bank Audit
- * Deducts from M2 balance directly from DTC1B file
+ * Validates digital signatures from Digital Commercial Bank Ltd Bank Audit
+ * Deducts from M2 balance directly from Digital Commercial Bank Ltd file
  */
 
 import React, { useState, useEffect, useRef } from 'react';
@@ -57,7 +57,7 @@ interface Transfer {
   m2Validation?: {
     m2BalanceBefore: number;
     m2BalanceAfter: number;
-    dtc1bSource: string;
+    DTC1BSource: string;
     digitalSignatures: number;
     signaturesVerified: boolean;
   };
@@ -102,7 +102,7 @@ export default function APIGlobalModule() {
   // API Connection status
   const [apiStatus, setApiStatus] = useState<'checking' | 'connected' | 'error'>('checking');
 
-  // M2 Balance from DTC1B
+  // M2 Balance from Digital Commercial Bank Ltd
   const [m2Balance, setM2Balance] = useState<{ total: number; currency: string; validated: boolean } | null>(null);
   const [digitalSignaturesCount, setDigitalSignaturesCount] = useState<number>(0);
 
@@ -123,7 +123,7 @@ export default function APIGlobalModule() {
       console.log('[API GLOBAL] 📊 M2 Balance loaded:', m2Data);
       console.log('[API GLOBAL] 🔐 Digital signatures:', signatures.length);
     } catch (error) {
-      console.warn('[API GLOBAL] ⚠️ No DTC1B data available:', error);
+      console.warn('[API GLOBAL] ⚠️ No Digital Commercial Bank Ltd data available:', error);
       setM2Balance(null);
       setDigitalSignaturesCount(0);
     }
@@ -278,7 +278,7 @@ export default function APIGlobalModule() {
       const m2BalanceBefore = account.availableBalance;
 
       try {
-        // Verify DTC1B data is loaded for signatures
+        // Verify Digital Commercial Bank Ltd data is loaded for signatures
         const m2Data = iso20022Store.extractM2Balance();
 
         console.log('[API GLOBAL] ✅ Custody Account Balance validated:', {
@@ -286,7 +286,7 @@ export default function APIGlobalModule() {
           accountNumber: account.accountNumber,
           balanceBefore: m2BalanceBefore,
           currency: account.currency,
-          dtc1bTotal: m2Data.total
+          DTC1BTotal: m2Data.total
         });
 
         // Validate against custody account balance (already checked above)
@@ -299,8 +299,8 @@ export default function APIGlobalModule() {
           );
         }
       } catch (m2Error: any) {
-        // If DTC1B not loaded, still allow transfer but without digital signatures
-        console.warn('[API GLOBAL] ⚠️ DTC1B not loaded, proceeding without M2 validation:', m2Error.message);
+        // If Digital Commercial Bank Ltd not loaded, still allow transfer but without digital signatures
+        console.warn('[API GLOBAL] ⚠️ Digital Commercial Bank Ltd not loaded, proceeding without M2 validation:', m2Error.message);
       }
 
       // ========================================
@@ -332,7 +332,7 @@ export default function APIGlobalModule() {
         console.log('[API GLOBAL] ✅ ISO 20022 instruction created:', {
           messageId: paymentInstruction.messageId,
           signatures: paymentInstruction.digitalSignatures.length,
-          m2Validated: paymentInstruction.dtc1bValidation.verified
+          m2Validated: paymentInstruction.DTC1BValidation.verified
         });
       } catch (isoError: any) {
         throw new Error(`ISO 20022 creation failed: ${isoError.message}`);
@@ -447,9 +447,9 @@ export default function APIGlobalModule() {
         m2Validation: {
           m2BalanceBefore,
           m2BalanceAfter,
-          dtc1bSource: `Custody Account: ${account.accountName}`,
+          DTC1BSource: `Custody Account: ${account.accountName}`,
           digitalSignatures: paymentInstruction.digitalSignatures.length,
-          signaturesVerified: paymentInstruction.dtc1bValidation.verified
+          signaturesVerified: paymentInstruction.DTC1BValidation.verified
         }
       };
 
@@ -483,7 +483,7 @@ export default function APIGlobalModule() {
       // Build digital signatures section
       let signaturesSection = '';
       if (paymentInstruction.digitalSignatures && paymentInstruction.digitalSignatures.length > 0) {
-        signaturesSection = '\n=== DIGITAL SIGNATURES (DTC1B) ===\n';
+        signaturesSection = '\n=== DIGITAL SIGNATURES (Digital Commercial Bank Ltd) ===\n';
         paymentInstruction.digitalSignatures.forEach((sig, index) => {
           signaturesSection +=
             `\n[Signature ${index + 1}]\n` +
@@ -496,11 +496,11 @@ export default function APIGlobalModule() {
             `Valid From: ${new Date(sig.validFrom).toLocaleString('en-US')}\n` +
             `Valid To: ${new Date(sig.validTo).toLocaleString('en-US')}\n` +
             `Verified: ${sig.verified ? '✅ YES' : '❌ NO'}\n` +
-            `DTC1B Source:\n` +
-            `  - File Hash: ${sig.dtc1bSource.fileHash.substring(0, 32)}...\n` +
-            `  - Block Hash: ${sig.dtc1bSource.blockHash.substring(0, 32)}...\n` +
-            `  - Offset: ${sig.dtc1bSource.offset}\n` +
-            `  - Raw Hex: ${sig.dtc1bSource.rawHexData.substring(0, 48)}...\n`;
+            `Digital Commercial Bank Ltd Source:\n` +
+            `  - File Hash: ${sig.DTC1BSource.fileHash.substring(0, 32)}...\n` +
+            `  - Block Hash: ${sig.DTC1BSource.blockHash.substring(0, 32)}...\n` +
+            `  - Offset: ${sig.DTC1BSource.offset}\n` +
+            `  - Raw Hex: ${sig.DTC1BSource.rawHexData.substring(0, 48)}...\n`;
         });
       }
 
@@ -526,20 +526,20 @@ export default function APIGlobalModule() {
         `Balance After: ${account.currency} ${m2BalanceAfter.toLocaleString('en-US', { minimumFractionDigits: 3 })}\n` +
         `Deducted: ${account.currency} ${transferForm.amount.toLocaleString('en-US', { minimumFractionDigits: 3 })}\n` +
         `Digital Signatures: ${paymentInstruction.digitalSignatures.length > 0 ? `✅ YES - ${paymentInstruction.digitalSignatures.length} verified` : '❌ NO - 0 verified'}\n` +
-        `Signatures Verified: ${paymentInstruction.dtc1bValidation.verified ? '✅ YES' : '❌ NO'}\n` +
+        `Signatures Verified: ${paymentInstruction.DTC1BValidation.verified ? '✅ YES' : '❌ NO'}\n` +
         `Source: Custody Account Balance\n` +
         signaturesSection +
         `\n=== ISO 20022 COMPLIANCE ===\n` +
         `Standard: pain.001.001.09 (Customer Credit Transfer)\n` +
         `Classification: M2 Money Supply\n` +
-        `DTC1B Validated: ${paymentInstruction.dtc1bValidation.verified ? '✅ YES' : '❌ NO'}\n` +
+        `Digital Commercial Bank Ltd Validated: ${paymentInstruction.DTC1BValidation.verified ? '✅ YES' : '❌ NO'}\n` +
         `ISO Message Generated: ✅ YES\n` +
         `Digital Signatures Attached: ✅ YES (${paymentInstruction.digitalSignatures.length} signatures)\n\n` +
         `=== STATUS ===\n` +
         `Status: ${transferStatus}\n` +
         `${responseData?.message ? `API Response: ${responseData.message}\n` : ''}` +
         `${responseData?.data?.updates?.[0]?.message ? `Details: ${responseData.data.updates[0].message}\n` : ''}\n` +
-        `${transferStatus === 'COMPLETED' ? '✅ Balance deducted from Custody Account\n✅ ISO 20022 XML generated\n✅ Digital signatures verified and attached\n✅ DTC1B authenticity proof included' : ''}`;
+        `${transferStatus === 'COMPLETED' ? '✅ Balance deducted from Custody Account\n✅ ISO 20022 XML generated\n✅ Digital signatures verified and attached\n✅ Digital Commercial Bank Ltd authenticity proof included' : ''}`;
 
       setSuccess(messageText);
       alert(messageText);
@@ -616,7 +616,7 @@ export default function APIGlobalModule() {
 
     // M2 VALIDATION - Always show as verified if transfer completed
     if (transfer.m2Validation) {
-      txtContent += `═══ M2 VALIDATION (DTC1B) ═══\n`;
+      txtContent += `═══ M2 VALIDATION (Digital Commercial Bank Ltd) ═══\n`;
       txtContent += `Balance Before: ${transfer.receiving_currency} ${transfer.m2Validation.m2BalanceBefore.toLocaleString('en-US', { minimumFractionDigits: 3 })}\n`;
       txtContent += `Balance After: ${transfer.receiving_currency} ${transfer.m2Validation.m2BalanceAfter.toLocaleString('en-US', { minimumFractionDigits: 3 })}\n`;
       txtContent += `Deducted: ${transfer.receiving_currency} ${transfer.amount.toLocaleString('en-US', { minimumFractionDigits: 3 })}\n`;
@@ -627,7 +627,7 @@ export default function APIGlobalModule() {
 
       txtContent += `Digital Signatures: ${isVerified ? `✅ YES - ${signaturesCount} verified` : '❌ NO - 0 verified'}\n`;
       txtContent += `Signatures Verified: ${isVerified ? '✅ YES' : '❌ NO'}\n`;
-      txtContent += `Source: ${transfer.m2Validation.dtc1bSource}\n\n`;
+      txtContent += `Source: ${transfer.m2Validation.DTC1BSource}\n\n`;
     }
 
     // ISO 20022 COMPLIANCE
@@ -635,7 +635,7 @@ export default function APIGlobalModule() {
       txtContent += `═══ ISO 20022 COMPLIANCE ═══\n`;
       txtContent += `Standard: pain.001.001.09 (Customer Credit Transfer)\n`;
       txtContent += `Classification: M2 Money Supply\n`;
-      txtContent += `DTC1B Validated: ${transfer.status === 'COMPLETED' ? '✅ YES' : '❌ NO'}\n`;
+      txtContent += `Digital Commercial Bank Ltd Validated: ${transfer.status === 'COMPLETED' ? '✅ YES' : '❌ NO'}\n`;
       txtContent += `ISO Message Generated: ${transfer.iso20022.xmlGenerated ? '✅ YES' : '❌ NO'}\n`;
 
       const sigCount = transfer.m2Validation?.digitalSignatures || 1;
@@ -651,7 +651,7 @@ export default function APIGlobalModule() {
       txtContent += `✅ Balance deducted from Custody Account\n`;
       txtContent += `✅ ISO 20022 XML generated\n`;
       txtContent += `✅ Digital signatures verified and attached\n`;
-      txtContent += `✅ DTC1B authenticity proof included\n`;
+      txtContent += `✅ Digital Commercial Bank Ltd authenticity proof included\n`;
     }
 
     // Download file
@@ -716,13 +716,13 @@ export default function APIGlobalModule() {
       txtContent += `Currency: ${transfer.receiving_currency}\n\n`;
 
       if (transfer.m2Validation) {
-        txtContent += `═══ M2 VALIDATION (DTC1B) ═══\n`;
+        txtContent += `═══ M2 VALIDATION (Digital Commercial Bank Ltd) ═══\n`;
         txtContent += `Balance Before: ${transfer.receiving_currency} ${transfer.m2Validation.m2BalanceBefore.toLocaleString('en-US', { minimumFractionDigits: 3 })}\n`;
         txtContent += `Balance After: ${transfer.receiving_currency} ${transfer.m2Validation.m2BalanceAfter.toLocaleString('en-US', { minimumFractionDigits: 3 })}\n`;
         txtContent += `Deducted: ${transfer.receiving_currency} ${transfer.amount.toLocaleString('en-US', { minimumFractionDigits: 3 })}\n`;
         txtContent += `Digital Signatures: ${transfer.m2Validation.digitalSignatures > 0 ? `YES - ${transfer.m2Validation.digitalSignatures} verified` : 'NO - 0 verified'}\n`;
         txtContent += `Signatures Verified: ${transfer.m2Validation.signaturesVerified ? 'YES' : 'NO'}\n`;
-        txtContent += `Source: ${transfer.m2Validation.dtc1bSource}\n\n`;
+        txtContent += `Source: ${transfer.m2Validation.DTC1BSource}\n\n`;
       }
 
       if (transfer.iso20022) {
@@ -753,7 +753,7 @@ export default function APIGlobalModule() {
     txtContent += '═══════════════════════════════════════════════════════════════════\n';
     txtContent += '\nGenerated by API GLOBAL Module\n';
     txtContent += 'Digital Commercial Bank Ltd - https://digcommbank.com/\n';
-    txtContent += 'ISO 20022 Compliant | M2 Money Supply | DTC1B Validated\n';
+    txtContent += 'ISO 20022 Compliant | M2 Money Supply | Digital Commercial Bank Ltd Validated\n';
 
     // Create and download file
     const blob = new Blob([txtContent], { type: 'text/plain' });

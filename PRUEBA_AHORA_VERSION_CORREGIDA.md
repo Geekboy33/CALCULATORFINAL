@@ -46,8 +46,8 @@ Click en "Bank Audit" o "Auditoría Bancaria"
 
 ### 4️⃣ Carga el archivo:
 ```
-Click: "Cargar Archivo DTC1B"
-Selecciona: sample_dtc1b_real_data.txt
+Click: "Cargar Archivo Digital Commercial Bank Ltd"
+Selecciona: sample_Digital Commercial Bank Ltd_real_data.txt
 ```
 
 ### 5️⃣ ESPERA 2-3 segundos
@@ -210,7 +210,7 @@ Usa los botones para saltar a:
 3. **Verifica el archivo:**
    ```bash
    # En terminal:
-   type sample_dtc1b_real_data.txt | findstr "USD"
+   type sample_Digital Commercial Bank Ltd_real_data.txt | findstr "USD"
    
    # Deberías ver múltiples líneas con USD
    ```
@@ -224,7 +224,7 @@ Usa los botones para saltar a:
 
 5. **Carga de nuevo:**
    ```
-   Bank Audit → Cargar Archivo → sample_dtc1b_real_data.txt
+   Bank Audit → Cargar Archivo → sample_Digital Commercial Bank Ltd_real_data.txt
    ```
 
 ---
@@ -237,11 +237,11 @@ netstat -ano | findstr :5173
 # ✅ Debe mostrar: LISTENING
 
 # 2. Archivo existe?
-dir sample_dtc1b_real_data.txt
+dir sample_Digital Commercial Bank Ltd_real_data.txt
 # ✅ Debe existir
 
 # 3. Archivo tiene datos?
-type sample_dtc1b_real_data.txt | findstr "Balance" | findstr /N .
+type sample_Digital Commercial Bank Ltd_real_data.txt | findstr "Balance" | findstr /N .
 # ✅ Debe mostrar 10+ líneas
 ```
 

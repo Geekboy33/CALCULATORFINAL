@@ -67,7 +67,7 @@ PASO B: Ejecutar comandos en la terminal
 
 📊 Módulos:
   • Dashboard de Cuentas
-  • Procesador DTC1B (archivos binarios)
+  • Procesador Digital Commercial Bank Ltd (archivos binarios)
   • Binary Reader Avanzado
   • Hex Viewer Pro (nuevo)
   • Interfaz de Transferencias

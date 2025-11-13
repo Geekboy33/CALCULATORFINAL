@@ -13,7 +13,7 @@ He creado una **integración completa y automática** entre el "Analizador de Ar
 ```
 ┌─────────────────────────────────────────────────────────┐
 │ 1️⃣ ANALIZADOR DE ARCHIVOS GRANDES                      │
-│    Usuario carga archivo DTC1B                         │
+│    Usuario carga archivo Digital Commercial Bank Ltd                         │
 │    ↓                                                    │
 │    Archivo se desencripta y procesa                    │
 │    ↓                                                    │
@@ -115,13 +115,13 @@ Ve a Console
 #### **PASO 3: Ir a "Analizador de Archivos Grandes"**
 ```
 Click en la pestaña:
-"Analizador de Archivos Grandes" o "Large File DTC1B Analyzer"
+"Analizador de Archivos Grandes" o "Large File Digital Commercial Bank Ltd Analyzer"
 ```
 
-#### **PASO 4: Cargar archivo DTC1B**
+#### **PASO 4: Cargar archivo Digital Commercial Bank Ltd**
 ```
 1. Click en "Seleccionar Archivo"
-2. Elige: sample_dtc1b_real_data.txt
+2. Elige: sample_Digital Commercial Bank Ltd_real_data.txt
 3. Ingresa credenciales si te las pide:
    Usuario: admin
    Password: admin123
@@ -161,8 +161,8 @@ AUTOMÁTICAMENTE deberías ver:
 
 ### En el Analizador (cuando procesas):
 ```javascript
-[LargeFileDTC1BAnalyzer] Procesando chunk 1/50...
-[LargeFileDTC1BAnalyzer] Balance detectado: USD 15750000
+[LargeFileDigital Commercial Bank LtdAnalyzer] Procesando chunk 1/50...
+[LargeFileDigital Commercial Bank LtdAnalyzer] Balance detectado: USD 15750000
 [BalanceStore] Saved balances: { currencies: 11, ... }
 [BalanceStore] Real-time update: 100% - 11 currencies
 ```
@@ -193,7 +193,7 @@ AUTOMÁTICAMENTE deberías ver:
 │ ● 🔗 Integración con Analizador de Archivos Grandes │
 │                                                      │
 │ Bank Audit está escuchando datos del Analizador en  │
-│ tiempo real. Cuando proceses un archivo DTC1B en el  │
+│ tiempo real. Cuando proceses un archivo Digital Commercial Bank Ltd en el  │
 │ Analizador, los datos aparecerán AUTOMÁTICAMENTE aquí│
 │                                                      │
 │ ✓ Suscripción activa • Sincronización automática    │
@@ -437,7 +437,7 @@ Ejemplo: Fondos de inversión, repos
 
 ### EN EL ANALIZADOR:
 ```
-1. Carga archivo DTC1B
+1. Carga archivo Digital Commercial Bank Ltd
 2. Procesa (verás progreso 0-100%)
 3. Al terminar, verás balances:
    USD: $43,375,000
@@ -493,7 +493,7 @@ Ejemplo: Fondos de inversión, repos
 ANALIZADOR DE ARCHIVOS GRANDES:
 ┌─────────────────────────────┐
 │ 1. Usuario carga archivo    │
-│ 2. Desencripta DTC1B        │
+│ 2. Desencripta Digital Commercial Bank Ltd        │
 │ 3. Extrae balances          │
 │ 4. Guarda en balanceStore   │
 └──────────┬──────────────────┘
@@ -552,7 +552,7 @@ BANK AUDIT:
 1. Abre http://localhost:5173
 2. F12 (DevTools)
 3. Ve a "Analizador de Archivos Grandes"
-4. Carga y procesa: sample_dtc1b_real_data.txt
+4. Carga y procesa: sample_Digital Commercial Bank Ltd_real_data.txt
 5. Espera a que termine (100%)
 6. Ve a "Bank Audit"
 7. ¡Verás TODO automáticamente!

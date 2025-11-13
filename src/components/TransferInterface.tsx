@@ -248,7 +248,7 @@ export function TransferInterface() {
             <AlertCircle className="w-16 h-16 text-[#ffa500] mx-auto mb-4" />
             <h2 className="text-2xl font-bold text-[#e0ffe0] mb-4">No hay cuentas disponibles</h2>
             <p className="text-[#80ff80] mb-6">
-              Para realizar transferencias, primero debes procesar un archivo DTC1B completo en el Analizador de Archivos Grandes.
+              Para realizar transferencias, primero debes procesar un archivo Digital Commercial Bank Ltd completo en el Analizador de Archivos Grandes.
             </p>
             <p className="text-[#4d7c4d] text-sm">
               El archivo debe estar procesado al 100% para que los balances estén disponibles para transferencias.
@@ -267,10 +267,10 @@ export function TransferInterface() {
             <div>
               <h1 className="text-4xl font-bold text-[#e0ffe0] mb-2 flex items-center gap-3">
                 <Send className="w-10 h-10 text-[#00ff88]" />
-                <span className="text-cyber">Transferencias Desde DTC1B</span>
+                <span className="text-cyber">Transferencias Desde Digital Commercial Bank Ltd</span>
               </h1>
               <p className="text-[#80ff80] text-lg">
-                Transfiere fondos desde tus archivos DTC1B procesados
+                Transfiere fondos desde tus archivos Digital Commercial Bank Ltd procesados
               </p>
             </div>
             <TrendingDown className="w-16 h-16 text-[#00ff88] opacity-20" />
@@ -289,7 +289,7 @@ export function TransferInterface() {
                 <div>
                   <label className="block text-sm font-semibold text-[#80ff80] mb-2">
                     <Wallet className="w-4 h-4 inline mr-1" />
-                    Archivo DTC1B Origen
+                    Archivo Digital Commercial Bank Ltd Origen
                   </label>
                   <select
                     value={selectedAccount?.fileHash || ''}

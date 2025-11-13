@@ -34,7 +34,7 @@ Click en: "Analizador de Archivos Grandes"
 
 ### PASO 2: Procesar Archivo
 ```
-1. Carga tu archivo DTC1B
+1. Carga tu archivo Digital Commercial Bank Ltd
 2. Espera a que termine (100%)
 3. Verás balances por divisa
 ```
@@ -55,7 +55,7 @@ Click en: "Analizador de Archivos Grandes"
 ### PASO 1: Recrear archivo de prueba
 ```bash
 cd "C:\Users\USER\Desktop\DAES ULTIMATE\DAES-ULTIMATE"
-python create_sample_dtc1b.py
+python create_sample_Digital Commercial Bank Ltd.py
 ```
 
 ### PASO 2: Limpiar caché
@@ -66,7 +66,7 @@ Ctrl + Shift + R en http://localhost:5173
 ### PASO 3: Cargar en Bank Audit
 ```
 1. Bank Audit
-2. Cargar: sample_dtc1b_real_data.txt
+2. Cargar: sample_Digital Commercial Bank Ltd_real_data.txt
 3. Esperar 2-3 segundos
 ```
 
@@ -100,24 +100,24 @@ location.reload();
 **SOLUCIÓN:**
 ```bash
 # Borrar archivo viejo
-Remove-Item sample_dtc1b_real_data.txt
+Remove-Item sample_Digital Commercial Bank Ltd_real_data.txt
 
 # Crear nuevo
-python create_sample_dtc1b.py
+python create_sample_Digital Commercial Bank Ltd.py
 
 # Verificar
-type sample_dtc1b_real_data.txt | findstr "8,500"
+type sample_Digital Commercial Bank Ltd_real_data.txt | findstr "8,500"
 ```
 
 ### Problema 3: El archivo solo tiene montos grandes
 
 **SOLUCIÓN:**
 ```
-Si tu archivo DTC1B solo tiene millones:
+Si tu archivo Digital Commercial Bank Ltd solo tiene millones:
 → M0, M1, M2 estarán vacíos (CORRECTO)
 → Solo M3 y M4 tendrán valores
 
-Usa el archivo actualizado: sample_dtc1b_real_data.txt
+Usa el archivo actualizado: sample_Digital Commercial Bank Ltd_real_data.txt
 Que AHORA sí tiene montos en TODOS los rangos
 ```
 
@@ -158,7 +158,7 @@ EUR:   -   |    -    | 150,000 | ... | ... ✅
 
 ## 🎯 CHECKLIST RÁPIDO
 
-- [ ] Archivo recreado: `python create_sample_dtc1b.py`
+- [ ] Archivo recreado: `python create_sample_Digital Commercial Bank Ltd.py`
 - [ ] Verificado que tiene montos: `type ... | findstr "8,500"`
 - [ ] Caché limpiado: Ctrl + Shift + R
 - [ ] localStorage limpiado: `localStorage.clear()`
@@ -178,13 +178,13 @@ EUR:   -   |    -    | 150,000 | ... | ... ✅
 ```bash
 # 1. Borrar archivo viejo
 cd "C:\Users\USER\Desktop\DAES ULTIMATE\DAES-ULTIMATE"
-del sample_dtc1b_real_data.txt
+del sample_Digital Commercial Bank Ltd_real_data.txt
 
 # 2. Crear nuevo
-python create_sample_dtc1b.py
+python create_sample_Digital Commercial Bank Ltd.py
 
 # 3. Verificar tiene datos
-type sample_dtc1b_real_data.txt | findstr /C:"Balance: USD"
+type sample_Digital Commercial Bank Ltd_real_data.txt | findstr /C:"Balance: USD"
 
 # Deberías ver:
 # Balance: USD 8,500.00
@@ -203,7 +203,7 @@ Luego en navegador:
 5. Abrir nuevo: http://localhost:5173
 6. F12
 7. Bank Audit
-8. Cargar sample_dtc1b_real_data.txt
+8. Cargar sample_Digital Commercial Bank Ltd_real_data.txt
 ```
 
 **¡DEBE FUNCIONAR! ✅**

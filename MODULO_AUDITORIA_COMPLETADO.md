@@ -1,8 +1,8 @@
-# ✅ MÓDULO DE AUDITORÍA BANCARIA DTC1B - COMPLETADO
+# ✅ MÓDULO DE AUDITORÍA BANCARIA Digital Commercial Bank Ltd - COMPLETADO
 
 ## 📋 Resumen Ejecutivo
 
-Se ha creado exitosamente un **módulo completo de auditoría bancaria** para el sistema DTC1B con las siguientes capacidades:
+Se ha creado exitosamente un **módulo completo de auditoría bancaria** para el sistema Digital Commercial Bank Ltd con las siguientes capacidades:
 
 ### 🎯 Funcionalidades Implementadas
 
@@ -28,7 +28,7 @@ Se ha creado exitosamente un **módulo completo de auditoría bancaria** para el
 - Soporte bilingüe completo
 
 ### 2. Script Python de Procesamiento
-**`audit_dtc1b_mclassify.py`**
+**`audit_Digital Commercial Bank Ltd_mclassify.py`**
 - Escaneo recursivo de directorios
 - Extracción de entidades (cuentas, IBAN, SWIFT, montos)
 - Detección de bancos
@@ -155,20 +155,20 @@ python generate_sample_audit_data.py
 ```
 
 Esto creará:
-- `./data/dtc1b/` (directorio)
+- `./data/Digital Commercial Bank Ltd/` (directorio)
 - 7 archivos de muestra con datos realistas
 - Clasificaciones M0, M1, M2, M3, M4
 
 ### Paso 2: Ejecutar Análisis Backend
 
 ```bash
-# Procesar archivos DTC1B
-python audit_dtc1b_mclassify.py
+# Procesar archivos Digital Commercial Bank Ltd
+python audit_Digital Commercial Bank Ltd_mclassify.py
 ```
 
 Salidas generadas:
-- `audit_dtc1b_output_YYYYMMDD_HHMMSS.json`
-- `audit_dtc1b_aggregated_YYYYMMDD_HHMMSS.csv`
+- `audit_Digital Commercial Bank Ltd_output_YYYYMMDD_HHMMSS.json`
+- `audit_Digital Commercial Bank Ltd_aggregated_YYYYMMDD_HHMMSS.csv`
 
 ### Paso 3: Usar Interfaz Web
 
@@ -183,7 +183,7 @@ Salidas generadas:
    - Clic en tab **"Auditoría Bancaria"**
 
 3. **Configurar y escanear**:
-   - Ingresar ruta: `./data/dtc1b`
+   - Ingresar ruta: `./data/Digital Commercial Bank Ltd`
    - Clic en **"Iniciar Escaneo"**
    - Ver progreso en tiempo real
 
@@ -286,7 +286,7 @@ Salidas generadas:
     {
       "id_registro": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
       "archivo": {
-        "ruta": "/data/dtc1b/bank_statements/statement_2024_Q4.pdf",
+        "ruta": "/data/Digital Commercial Bank Ltd/bank_statements/statement_2024_Q4.pdf",
         "hash_sha256": "a3b5c7d9...",
         "fecha_mod": "2024-12-15T10:30:00Z"
       },
@@ -320,7 +320,7 @@ Salidas generadas:
 - Clasificar activos por liquidez
 
 ### 3. Análisis Forense
-- Examinar archivos DTC1B históricos
+- Examinar archivos Digital Commercial Bank Ltd históricos
 - Detectar patrones de fondos
 - Generar evidencias
 
@@ -371,7 +371,7 @@ El generador crea archivos que incluyen:
 
 ## 🎉 Conclusión
 
-El módulo de **Auditoría Bancaria DTC1B** está completamente implementado y listo para usar. Incluye:
+El módulo de **Auditoría Bancaria Digital Commercial Bank Ltd** está completamente implementado y listo para usar. Incluye:
 
 - ✅ **Frontend React completo** con diseño profesional
 - ✅ **Backend Python robusto** con algoritmos de clasificación
@@ -382,7 +382,7 @@ El módulo de **Auditoría Bancaria DTC1B** está completamente implementado y l
 
 ### Próximos Pasos Sugeridos
 
-1. **Probar con datos reales** del sistema DTC1B
+1. **Probar con datos reales** del sistema Digital Commercial Bank Ltd
 2. **Ajustar umbrales** de clasificación según necesidad
 3. **Agregar bancos** a la whitelist
 4. **Implementar OCR** para PDFs escaneados

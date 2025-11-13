@@ -13,12 +13,12 @@ Abre la consola de desarrollador
 ### 3️⃣ **CLICK EN "BANK AUDIT"**
 En el menú lateral o superior
 
-### 4️⃣ **CLICK EN "CARGAR ARCHIVO DTC1B"**
+### 4️⃣ **CLICK EN "CARGAR ARCHIVO Digital Commercial Bank Ltd"**
 Botón verde
 
 ### 5️⃣ **SELECCIONA EL ARCHIVO**
 ```
-sample_dtc1b_real_data.txt
+sample_Digital Commercial Bank Ltd_real_data.txt
 ```
 
 ### 6️⃣ **MIRA LA CONSOLA (F12)**
@@ -79,7 +79,7 @@ Verás:
 
 ### **Problema 2: Dice "cuentas: 0"**
 ```
-✅ Carga el archivo correcto: sample_dtc1b_real_data.txt
+✅ Carga el archivo correcto: sample_Digital Commercial Bank Ltd_real_data.txt
 ✅ NO uses otro archivo
 ```
 
@@ -149,7 +149,7 @@ TCP    0.0.0.0:5173    LISTENING
 ## 🎯 RESUMEN DE 3 LÍNEAS:
 
 1. **Abre** http://localhost:5173 → **Bank Audit** → **F12**
-2. **Carga** sample_dtc1b_real_data.txt
+2. **Carga** sample_Digital Commercial Bank Ltd_real_data.txt
 3. **Verás** 19 cuentas, 11 IBANs, 15 SWIFT, 18 bancos, 50+ montos, M0-M4
 
 **¡SI VES LOS NÚMEROS Y LAS LISTAS: FUNCIONA! ✅**
@@ -157,7 +157,7 @@ TCP    0.0.0.0:5173    LISTENING
 ---
 
 **Servidor:** ✅ CORRIENDO (http://localhost:5173)  
-**Archivo:** ✅ CREADO (sample_dtc1b_real_data.txt)  
+**Archivo:** ✅ CREADO (sample_Digital Commercial Bank Ltd_real_data.txt)  
 **Código:** ✅ ACTUALIZADO (HMR: 10:01 AM)  
 **Estado:** ✅ OPERATIVO  
 

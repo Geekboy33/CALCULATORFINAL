@@ -12,8 +12,8 @@ Características:
 - Resumen de actividad reciente
 - Indicadores de seguridad
 
-### 2. Procesador DTC1B
-**Ubicación**: `src/components/DTC1BProcessor.tsx`
+### 2. Procesador Digital Commercial Bank Ltd
+**Ubicación**: `src/components/Digital Commercial Bank LtdProcessor.tsx`
 
 Características:
 - Lectura de archivos binarios personalizados
@@ -30,7 +30,7 @@ Características:
 Características:
 - Análisis profundo de archivos binarios
 - Detección de patrones de moneda
-- Extracción de bloques DTC1B
+- Extracción de bloques Digital Commercial Bank Ltd
 - Visualización hexadecimal
 - Estadísticas detalladas:
   - Conteo por moneda
@@ -167,8 +167,8 @@ Funciones:
 - `deriveKeyFromPassword()`: PBKDF2 key derivation
 - `decryptWithPassword()`: Desencriptación con contraseña
 
-### DTC1B Parser
-**Ubicación**: `src/lib/dtc1b-parser.ts`
+### Digital Commercial Bank Ltd Parser
+**Ubicación**: `src/lib/Digital Commercial Bank Ltd-parser.ts`
 
 Funciones:
 - `findCurrencyMatches()`: Encuentra códigos de moneda
@@ -187,8 +187,8 @@ Detecta:
 - AES-256-CBC encriptado
 - GZIP comprimido
 - ZIP comprimido
-- Plaintext DTC1B
-- Formato personalizado DTC1B
+- Plaintext Digital Commercial Bank Ltd
+- Formato personalizado Digital Commercial Bank Ltd
 - Calcula entropía y confianza
 - Extrae headers, IV, tags de autenticación
 
@@ -255,7 +255,7 @@ Características:
 ## Extensibilidad
 
 ### Agregar Nuevas Monedas
-1. Actualizar `ISO_CURRENCIES` en `dtc1b-parser.ts`
+1. Actualizar `ISO_CURRENCIES` en `Digital Commercial Bank Ltd-parser.ts`
 2. Agregar código numérico a `ISO_NUMERIC_CODES`
 3. Actualizar interfaz en componentes
 

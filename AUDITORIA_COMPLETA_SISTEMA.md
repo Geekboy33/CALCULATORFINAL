@@ -128,7 +128,7 @@ const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
    - Suspense boundaries correctamente implementados
 
 3. **Procesamiento Asíncrono**
-   - Web Workers para análisis DTC1B
+   - Web Workers para análisis Digital Commercial Bank Ltd
    - Procesamiento por chunks de archivos grandes
    - No bloquea el hilo principal
 
@@ -287,7 +287,7 @@ describe('BalanceStore', () => {
   it('should save and load balances', () => {
     const mockData = {
       balances: [{ currency: 'USD', totalAmount: 1000, /* ... */ }],
-      fileName: 'test.dtc1b',
+      fileName: 'test.Digital Commercial Bank Ltd',
       fileSize: 1024,
       totalTransactions: 10,
       lastScanDate: new Date().toISOString()
@@ -305,7 +305,7 @@ describe('BalanceStore', () => {
 1. ✅ Stores críticos (balances, ledger, custody)
 2. ✅ Utilidades de conversión y formato
 3. ✅ Lógica de autenticación
-4. ✅ Parsers DTC1B
+4. ✅ Parsers Digital Commercial Bank Ltd
 5. ⚪ Componentes UI (menos crítico)
 
 ---

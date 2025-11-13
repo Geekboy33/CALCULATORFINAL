@@ -78,7 +78,7 @@ Verás en eventos:
 
 ```
 ANALIZADOR
-   ↓ Procesa DTC1B
+   ↓ Procesa Digital Commercial Bank Ltd
    ↓ Extrae balances
    
 BANK AUDIT
@@ -100,7 +100,7 @@ COREBANKING API ⭐
 
 ```
 ✅ Interfaz visual moderna
-✅ Integrado con balances DTC1B
+✅ Integrado con balances Digital Commercial Bank Ltd
 ✅ Autocompletado desde sistema
 ✅ Estados de transacciones
 ✅ Simulación de webhooks
@@ -130,7 +130,7 @@ CoreBanking API
 
 **Estado:** ✅ IMPLEMENTADO  
 **Ubicación:** Al lado de Bank Audit  
-**Integrado:** Con sistema DTC1B  
+**Integrado:** Con sistema Digital Commercial Bank Ltd  
 **HMR:** ✅ Activo
 
 

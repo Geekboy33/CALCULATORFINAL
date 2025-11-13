@@ -31,8 +31,8 @@ Si necesitas crear un nuevo repositorio:
    - https://github.com/new
 
 2. **Crear repositorio:**
-   - Nombre: `dtc1b-banking-platform` (o el que prefieras)
-   - Descripción: "Advanced DTC1B file analyzer with banking dashboard"
+   - Nombre: `Digital Commercial Bank Ltd-banking-platform` (o el que prefieras)
+   - Descripción: "Advanced Digital Commercial Bank Ltd file analyzer with banking dashboard"
    - Público o Privado (tu elección)
    - ❌ NO marcar "Initialize with README"
    - Crear repositorio
@@ -81,7 +81,7 @@ Branch: main
 ```
 src/components/
   ├── AdvancedBankingDashboard.tsx  ← Dashboard actualizado
-  ├── LargeFileDTC1BAnalyzer.tsx
+  ├── LargeFileDigital Commercial Bank LtdAnalyzer.tsx
   ├── TransferInterface.tsx
   ├── AccountLedger.tsx
   ├── BankBlackScreen.tsx

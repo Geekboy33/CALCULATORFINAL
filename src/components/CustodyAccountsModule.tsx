@@ -699,7 +699,7 @@ Hash de Documento: ${Math.random().toString(36).substring(2, 15).toUpperCase()}
       {systemBalances.length > 0 && (
         <div className="bg-[#0d0d0d] border border-[#1a1a1a] rounded-xl p-6">
           <h2 className="text-xl font-semibold text-[#00ff88] mb-4">
-            {language === 'es' ? 'Fondos Disponibles del Sistema DTC1B' : 'DTC1B System Available Funds'}
+            {language === 'es' ? 'Fondos Disponibles del Sistema Digital Commercial Bank Ltd' : 'Digital Commercial Bank Ltd System Available Funds'}
           </h2>
           <div className="grid grid-cols-3 md:grid-cols-5 gap-3">
             {systemBalances.map(bal => (

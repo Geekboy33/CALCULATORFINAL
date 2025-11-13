@@ -44,7 +44,7 @@ El archivo `.gitignore` ya está configurado correctamente para excluir:
 3. **Configurar el Repositorio**
    ```
    Repository name: corebanking-system-v2
-   Description: CoreBanking System - DTC1B Financial Platform with Multi-Currency Support
+   Description: CoreBanking System - Digital Commercial Bank Ltd Financial Platform with Multi-Currency Support
    Visibility: ✓ Public (o Private según prefieras)
    
    ❌ NO marcar "Initialize with README"
@@ -86,7 +86,7 @@ git commit -m "🎉 Initial commit - CoreBanking System v2.0
 ✅ Features implemented:
 - Dashboard with multi-currency support (USD, EUR, GBP, CHF)
 - Black Screen generator for bank confirmations
-- DTC1B file processor and analyzer
+- Digital Commercial Bank Ltd file processor and analyzer
 - Large file analyzer with real-time balance extraction
 - XCP B2B API for international remittances
 - Account Ledger with live updates
@@ -201,7 +201,7 @@ En la página del repositorio, click en el ícono de configuración (⚙️) jun
 
 ```
 Topics sugeridos:
-banking, fintech, dtc1b, typescript, react, vite, 
+banking, fintech, Digital Commercial Bank Ltd, typescript, react, vite, 
 multi-currency, financial-platform, blockchain, 
 black-screen, swift, remittances
 ```
@@ -209,7 +209,7 @@ black-screen, swift, remittances
 ### 6.2 Actualizar Description
 
 ```
-CoreBanking System - Advanced DTC1B Financial Platform with Multi-Currency Support, Black Screen Generation, and International Remittances via XCP B2B API
+CoreBanking System - Advanced Digital Commercial Bank Ltd Financial Platform with Multi-Currency Support, Black Screen Generation, and International Remittances via XCP B2B API
 ```
 
 ### 6.3 Configurar GitHub Pages (Opcional)
@@ -264,12 +264,12 @@ corebanking-system-v2/
 │   │   ├── BankBlackScreen.tsx
 │   │   ├── AccountLedger.tsx
 │   │   ├── XcpB2BInterface.tsx
-│   │   ├── LargeFileDTC1BAnalyzer.tsx
+│   │   ├── LargeFileDigital Commercial Bank LtdAnalyzer.tsx
 │   │   └── ... (más componentes)
 │   │
 │   ├── lib/                 # Librerías y utilidades
 │   │   ├── i18n-core.ts     # Sistema de traducciones
-│   │   ├── dtc1b-parser.ts  # Parser DTC1B
+│   │   ├── Digital Commercial Bank Ltd-parser.ts  # Parser Digital Commercial Bank Ltd
 │   │   ├── balances-store.ts
 │   │   ├── store.ts
 │   │   └── crypto.ts

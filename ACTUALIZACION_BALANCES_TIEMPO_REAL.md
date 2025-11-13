@@ -125,7 +125,7 @@ await new Promise(resolve => setTimeout(resolve, 0));
 ```
 ┌──────────────────────────────────────────┐
 │  Large File Analyzer                     │
-│  (Procesando archivo DTC1B)              │
+│  (Procesando archivo Digital Commercial Bank Ltd)              │
 │                                          │
 │  Chunk 1 → Chunk 2 → Chunk 3 → ...      │
 └─────────────┬────────────────────────────┘
@@ -188,7 +188,7 @@ await new Promise(resolve => setTimeout(resolve, 0));
 ### Test 1: Actualización en Tiempo Real
 1. Abre la aplicación en http://localhost:5173
 2. Ve a **Large File Analyzer**
-3. Carga un archivo DTC1B grande (>1GB)
+3. Carga un archivo Digital Commercial Bank Ltd grande (>1GB)
 4. **INMEDIATAMENTE** cambia a **Account Ledger**
 5. Observa cómo los balances se actualizan EN VIVO
 6. Verás el indicador "🔄 Actualizando en vivo..." parpadeando

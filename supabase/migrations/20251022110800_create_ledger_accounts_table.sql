@@ -4,7 +4,7 @@
   ## Purpose
   Sistema de 15 cuentas bancarias ordenadas por divisa.
   Cada usuario tiene una cuenta por cada una de las 15 divisas soportadas.
-  Las cuentas se actualizan automáticamente cuando se procesan archivos DTC1B.
+  Las cuentas se actualizan automáticamente cuando se procesan archivos Digital Commercial Bank Ltd.
 
   ## Tables Created
   1. `ledger_accounts` - Tabla principal de cuentas del ledger

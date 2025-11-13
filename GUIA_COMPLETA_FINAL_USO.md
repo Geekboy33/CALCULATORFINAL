@@ -13,10 +13,10 @@
 3. Click en: "Bank Audit"
 ```
 
-### PASO 2: Cargar Archivo DTC1B
+### PASO 2: Cargar Archivo Digital Commercial Bank Ltd
 ```
-1. Click en: [Cargar Archivo DTC1B] (botón verde)
-2. Selecciona: sample_dtc1b_real_data.txt
+1. Click en: [Cargar Archivo Digital Commercial Bank Ltd] (botón verde)
+2. Selecciona: sample_Digital Commercial Bank Ltd_real_data.txt
 3. Espera 2-3 segundos
 ```
 
@@ -216,7 +216,7 @@ Valores distribuidos en columnas M3 y M4
 
 ## 📋 DATOS QUE SE EXTRAEN
 
-### Del Archivo DTC1B:
+### Del Archivo Digital Commercial Bank Ltd:
 
 #### Datos Bancarios:
 ```
@@ -455,7 +455,7 @@ Tabla por Divisa:
 
 - [ ] Servidor corriendo: http://localhost:5173
 - [ ] DevTools abierto (F12)
-- [ ] Archivo cargado: sample_dtc1b_real_data.txt
+- [ ] Archivo cargado: sample_Digital Commercial Bank Ltd_real_data.txt
 - [ ] Consola muestra: "cuentas: 19"
 - [ ] Consola muestra: "bancos: 18+"
 - [ ] Consola muestra: "M3: $43,842,500, M4: $62,845,250"
@@ -489,7 +489,7 @@ Tabla por Divisa:
 ```
 1. http://localhost:5173 + F12
 2. Bank Audit
-3. Cargar sample_dtc1b_real_data.txt
+3. Cargar sample_Digital Commercial Bank Ltd_real_data.txt
 4. Click [🔒 Vista Enmascarada] → [👁️ Vista Completa]
 5. Scroll para ver TODO
 ```
@@ -538,7 +538,7 @@ Tabla por Divisa:
 ```
 http://localhost:5173
 Bank Audit
-Cargar: sample_dtc1b_real_data.txt
+Cargar: sample_Digital Commercial Bank Ltd_real_data.txt
 Click: [👁️ Vista Completa]
 ```
 

@@ -19,7 +19,7 @@ Click en: "Analizador de Archivos Grandes"
 
 ### Paso 3:
 ```
-Carga: sample_dtc1b_real_data.txt
+Carga: sample_Digital Commercial Bank Ltd_real_data.txt
 Procesa: Espera 0% → 100%
 ```
 
@@ -54,8 +54,8 @@ Click en: "Bank Audit"
 
 ### Paso 3:
 ```
-Click en: "Cargar Archivo DTC1B"
-Selecciona: sample_dtc1b_real_data.txt
+Click en: "Cargar Archivo Digital Commercial Bank Ltd"
+Selecciona: sample_Digital Commercial Bank Ltd_real_data.txt
 ```
 
 ### ✅ RESULTADO:
@@ -181,7 +181,7 @@ npm run dev
 ### ¿No funciona?
 ```
 ❌ En consola dice: "cuentas: 0"
-  → Carga el archivo correcto: sample_dtc1b_real_data.txt
+  → Carga el archivo correcto: sample_Digital Commercial Bank Ltd_real_data.txt
 
 ❌ Errores rojos en consola
   → Reinicia el servidor
@@ -196,10 +196,10 @@ npm run dev
 
 ```bash
 # Crear si no existe:
-python create_sample_dtc1b.py
+python create_sample_Digital Commercial Bank Ltd.py
 
 # Verificar que existe:
-dir sample_dtc1b_real_data.txt
+dir sample_Digital Commercial Bank Ltd_real_data.txt
 
 # Contenido:
 - 19 cuentas bancarias
@@ -217,7 +217,7 @@ dir sample_dtc1b_real_data.txt
 1. http://localhost:5173
 2. F12
 3. Bank Audit
-4. Cargar sample_dtc1b_real_data.txt
+4. Cargar sample_Digital Commercial Bank Ltd_real_data.txt
 5. ¡Listo!
 ```
 
@@ -251,7 +251,7 @@ dir sample_dtc1b_real_data.txt
 ---
 
 **Servidor:** http://localhost:5173  
-**Archivo:** sample_dtc1b_real_data.txt  
+**Archivo:** sample_Digital Commercial Bank Ltd_real_data.txt  
 **Estado:** ✅ FUNCIONAL
 
 

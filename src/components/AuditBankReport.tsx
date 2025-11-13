@@ -94,7 +94,7 @@ export function AuditBankReport({ results, extractedData, progress = 100, onClos
 
   const texts = {
     es: {
-      title: 'INFORME DE AUDITORÍA BANCARIA DTC1B',
+      title: 'INFORME DE AUDITORÍA BANCARIA Digital Commercial Bank Ltd',
       subtitle: 'BANK AUDIT COMPREHENSIVE REPORT',
       confidential: 'DOCUMENTO CONFIDENCIAL - SOLO PARA USO BANCARIO AUTORIZADO',
       summary: 'RESUMEN EJECUTIVO',
@@ -135,7 +135,7 @@ export function AuditBankReport({ results, extractedData, progress = 100, onClos
       generatedBy: 'Generado por',
     },
     en: {
-      title: 'DTC1B BANK AUDIT REPORT',
+      title: 'Digital Commercial Bank Ltd BANK AUDIT REPORT',
       subtitle: 'COMPREHENSIVE BANKING AUDIT',
       confidential: 'CONFIDENTIAL DOCUMENT - FOR AUTHORIZED BANKING USE ONLY',
       summary: 'EXECUTIVE SUMMARY',
@@ -335,7 +335,7 @@ Hash: ${Math.random().toString(36).substring(2, 15).toUpperCase()}
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `Informe_Auditoria_DTC1B_${Date.now()}.txt`;
+    a.download = `Informe_Auditoria_Digital Commercial Bank Ltd_${Date.now()}.txt`;
     a.click();
     URL.revokeObjectURL(url);
   };
@@ -385,7 +385,7 @@ Hash: ${Math.random().toString(36).substring(2, 15).toUpperCase()}
     // Generar header individual
     let report = '';
     report += '╔'.repeat(80) + '\n';
-    report += `║  DTC1B AUTHENTICITY VERIFICATION REPORT - ${currency}\n`;
+    report += `║  Digital Commercial Bank Ltd AUTHENTICITY VERIFICATION REPORT - ${currency}\n`;
     report += '╚'.repeat(80) + '\n\n';
     report += `Currency: ${currency}\n`;
     report += `Currency Name: ${getCurrencyName(currency, language)}\n`;
@@ -425,7 +425,7 @@ Hash: ${Math.random().toString(36).substring(2, 15).toUpperCase()}
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    link.download = `DTC1B_Authenticity_${currency}_${new Date().toISOString().split('T')[0]}.txt`;
+    link.download = `Digital Commercial Bank Ltd_Authenticity_${currency}_${new Date().toISOString().split('T')[0]}.txt`;
     link.click();
     URL.revokeObjectURL(url);
   };
@@ -443,7 +443,7 @@ Hash: ${Math.random().toString(36).substring(2, 15).toUpperCase()}
     // Generar header del reporte completo
     let fullReport = '';
     fullReport += '╔'.repeat(80) + '\n';
-    fullReport += '║  DTC1B COMPLETE AUTHENTICITY VERIFICATION REPORT - ALL CURRENCIES\n';
+    fullReport += '║  Digital Commercial Bank Ltd COMPLETE AUTHENTICITY VERIFICATION REPORT - ALL CURRENCIES\n';
     fullReport += '╚'.repeat(80) + '\n\n';
     fullReport += `Generated: ${new Date().toISOString()}\n`;
     fullReport += `Report Type: Multi-Currency Cryptographic Authentication\n`;
@@ -530,7 +530,7 @@ Hash: ${Math.random().toString(36).substring(2, 15).toUpperCase()}
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    link.download = `DTC1B_Authenticity_Complete_${new Date().toISOString().split('T')[0]}.txt`;
+    link.download = `Digital Commercial Bank Ltd_Authenticity_Complete_${new Date().toISOString().split('T')[0]}.txt`;
     link.click();
     URL.revokeObjectURL(url);
   };

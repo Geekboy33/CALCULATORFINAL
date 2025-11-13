@@ -25,13 +25,13 @@ TODO implementado y listo para probar:
    Ctrl + F5
 ```
 
-### **PASO 1: PROCESAR ARCHIVO DTC1B**
+### **PASO 1: PROCESAR ARCHIVO Digital Commercial Bank Ltd**
 ```
 4. Login: admin / admin
 
 5. Tab: "Analizador de Archivos Grandes"
 
-6. Cargar cualquier archivo DTC1B
+6. Cargar cualquier archivo Digital Commercial Bank Ltd
    (o generar archivo de muestra)
    
 7. Esperar a que termine (100%)
@@ -267,7 +267,7 @@ Solución:
 ## ✅ CHECKLIST DE VERIFICACIÓN
 
 - [ ] Servidor corriendo en http://localhost:5174
-- [ ] Archivo DTC1B procesado en Analizador
+- [ ] Archivo Digital Commercial Bank Ltd procesado en Analizador
 - [ ] Balances visibles en Ledger
 - [ ] Balance USD anotado (ANTES)
 - [ ] Cuenta custodio creada exitosamente

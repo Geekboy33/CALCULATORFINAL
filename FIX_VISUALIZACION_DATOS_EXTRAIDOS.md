@@ -2,7 +2,7 @@
 
 ## 🐛 Problema Identificado
 
-El panel de "Datos Bancarios Detectados" **NO se mostraba** después de cargar un archivo DTC1B, aunque la extracción de datos se ejecutaba correctamente.
+El panel de "Datos Bancarios Detectados" **NO se mostraba** después de cargar un archivo Digital Commercial Bank Ltd, aunque la extracción de datos se ejecutaba correctamente.
 
 ### Causa Root
 
@@ -112,9 +112,9 @@ console.log('[AuditBank] ============================================');
 F12 → Pestaña Console
 ```
 
-### Paso 2: Cargar Archivo DTC1B
+### Paso 2: Cargar Archivo Digital Commercial Bank Ltd
 1. Ir a "Auditoría Bancaria"
-2. Clic en botón verde "Cargar Archivo DTC1B"
+2. Clic en botón verde "Cargar Archivo Digital Commercial Bank Ltd"
 3. Seleccionar cualquier archivo
 
 ### Paso 3: Verificar Logs
@@ -122,7 +122,7 @@ Deberías ver en consola:
 ```
 [AuditBank] ============================================
 [AuditBank] INICIANDO EXTRACCIÓN PROFUNDA DE DATOS
-[AuditBank] Archivo: sample.dtc1b | 2048.50 KB
+[AuditBank] Archivo: sample.Digital Commercial Bank Ltd | 2048.50 KB
 [AuditBank] ============================================
 [AuditBank] ✅ EXTRACCIÓN COMPLETADA:
 [AuditBank] - Cuentas bancarias: 15
@@ -185,7 +185,7 @@ Ahora el panel de "Datos Bancarios Detectados" se muestra **SIEMPRE** que se car
 
 ## 🔍 Verificación de Funcionamiento
 
-### Caso 1: Archivo DTC1B Normal
+### Caso 1: Archivo Digital Commercial Bank Ltd Normal
 - ✅ Panel de datos extraídos: **SE MUESTRA**
 - ✅ Panel de clasificación M0-M4: **SE MUESTRA**
 - ✅ Totales agregados: **SE MUESTRAN**
@@ -237,7 +237,7 @@ Ahora cada componente se renderiza **independientemente**.
 
 ## 🎉 **¡FIX COMPLETADO Y PROBADO!**
 
-El módulo ahora muestra **TODOS los datos extraídos** del archivo DTC1B, incluyendo:
+El módulo ahora muestra **TODOS los datos extraídos** del archivo Digital Commercial Bank Ltd, incluyendo:
 
 - ✅ Cuentas bancarias (enmascaradas)
 - ✅ Códigos IBAN (enmascarados)

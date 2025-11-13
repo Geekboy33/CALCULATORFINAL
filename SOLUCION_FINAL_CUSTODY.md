@@ -38,7 +38,7 @@ const { t, language } = useLanguage();
 ### **Paso 1: Limpiar localStorage**
 ```javascript
 // En consola del navegador (F12):
-localStorage.removeItem('dtc1b_custody_accounts');
+localStorage.removeItem('Digital Commercial Bank Ltd_custody_accounts');
 location.reload();
 ```
 
@@ -72,7 +72,7 @@ Botón: "Crear Cuenta Custodio"
 │ 📊 Cuentas: 0 | 🔒 Reservado: $0           │
 │ 🔓 Disponible: $0 | ✓ Confirmadas: 0      │
 ├────────────────────────────────────────────┤
-│ Fondos del Sistema DTC1B:                  │
+│ Fondos del Sistema Digital Commercial Bank Ltd:                  │
 │ [USD: XXX] [EUR: XXX] ...                  │
 ├────────────────────────────────────────────┤
 │ No hay cuentas custodio                    │
@@ -92,7 +92,7 @@ Botón: "Crear Cuenta Custodio"
 ### **LIMPIA DATOS VIEJOS**:
 ```javascript
 // En consola (F12):
-localStorage.removeItem('dtc1b_custody_accounts');
+localStorage.removeItem('Digital Commercial Bank Ltd_custody_accounts');
 ```
 
 Esto elimina cuentas antiguas que no tienen los campos nuevos.
@@ -116,7 +116,7 @@ location.reload();
 
 **Error**: "Cannot read property 'accountType' of undefined"
 ```
-Solución: localStorage.removeItem('dtc1b_custody_accounts');
+Solución: localStorage.removeItem('Digital Commercial Bank Ltd_custody_accounts');
 ```
 
 **Error**: "language is not defined"
@@ -151,7 +151,7 @@ Solución: Problema de importación, recarga servidor
 2️⃣ F12 → Console
 
 3️⃣ Ejecuta:
-   localStorage.removeItem('dtc1b_custody_accounts');
+   localStorage.removeItem('Digital Commercial Bank Ltd_custody_accounts');
    location.reload();
 
 4️⃣ Login: admin / admin

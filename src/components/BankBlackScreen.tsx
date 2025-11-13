@@ -21,7 +21,7 @@ interface BlackScreenData {
   totalLiquid: number;
   transactionCount: number;
   verificationHash: string;
-  dtc1bReference: string;
+  DTC1BReference: string;
   swiftCode: string;
   routingNumber: string;
   issueDate: Date;
@@ -67,8 +67,8 @@ export function BankBlackScreen() {
     // Generar hash de verificación
     const verificationHash = generateVerificationHash(balance.currency, totalAmount, balance.transactionCount);
     
-    // Generar DTC1B reference
-    const dtc1bReference = `DTC1B-${balance.currency}-${Date.now().toString(36).toUpperCase()}-${Math.random().toString(36).substring(2, 8).toUpperCase()}`;
+    // Generar Digital Commercial Bank Ltd reference
+    const DTC1BReference = `Digital Commercial Bank Ltd-${balance.currency}-${Date.now().toString(36).toUpperCase()}-${Math.random().toString(36).substring(2, 8).toUpperCase()}`;
 
     // SWIFT code DAES
     const swiftCode = `DAES${balance.currency}XX`;
@@ -92,7 +92,7 @@ export function BankBlackScreen() {
       totalLiquid: totalAmount,
       transactionCount: balance.transactionCount,
       verificationHash,
-      dtc1bReference,
+      DTC1BReference,
       swiftCode,
       routingNumber,
       issueDate,
@@ -184,7 +184,7 @@ ${t.blackScreenVerifiedBalance}:     ${formatCurrency(blackScreenData.totalLiqui
 
 ${t.blackScreenTechnicalInfo}
 ────────────────────────────────────────────────────────────────
-${t.blackScreenDtcReference}:     ${blackScreenData.dtc1bReference}
+${t.blackScreenDtcReference}:     ${blackScreenData.DTC1BReference}
 ${t.blackScreenVerificationHash}: ${blackScreenData.verificationHash}
 ${t.blackScreenTransactionsProcessed}:        ${blackScreenData.transactionCount.toLocaleString()}
 ${t.blackScreenIssueDate}:     ${blackScreenData.issueDate.toLocaleString()}
@@ -229,7 +229,7 @@ ${t.blackScreenDigitallySigned}:  ${new Date().toISOString()}
               {t.blackScreenSubtitle}
             </p>
             <p className="text-[#4d7c4d] text-sm mt-1">
-              MT799/MT999 Compliant • DTC1B Verified • SWIFT Compatible
+              MT799/MT999 Compliant • Digital Commercial Bank Ltd Verified • SWIFT Compatible
             </p>
           </div>
           <div className="flex items-center gap-3">
@@ -478,7 +478,7 @@ ${t.blackScreenDigitallySigned}:  ${new Date().toISOString()}
                 <div className="grid grid-cols-2 gap-4 text-sm">
                   <div>
                     <span className="text-[#80ff80]">{t.blackScreenDtcReference}:</span>
-                    <div className="text-[#e0ffe0] font-mono font-bold">{blackScreenData.dtc1bReference}</div>
+                    <div className="text-[#e0ffe0] font-mono font-bold">{blackScreenData.DTC1BReference}</div>
                   </div>
                   <div>
                     <span className="text-[#80ff80]">{t.blackScreenVerificationHash}:</span>

@@ -9,7 +9,7 @@ Se ha implementado un **sistema completo de ingeniería inversa avanzada** en el
 ## 🎯 LO QUE SE HA IMPLEMENTADO
 
 ### 1. **Sistema de Decompilación Binaria** 🔬
-- ✅ Análisis de firmas de archivo (DTC1B, PDF, ZIP, GZIP, etc.)
+- ✅ Análisis de firmas de archivo (Digital Commercial Bank Ltd, PDF, ZIP, GZIP, etc.)
 - ✅ Decompilación de campos estructurados (uint32, float32, float64)
 - ✅ Extracción de valores numéricos del binario
 - ✅ Identificación de tipos de datos automática
@@ -55,7 +55,7 @@ Nivel de confianza automático (0-100%) basado en:
 - ✅ Diseño con bordes neón y gradientes
 
 ### 7. **Script Python Independiente** 🐍
-- ✅ Archivo: `dtc1b_advanced_reverse_engineer.py`
+- ✅ Archivo: `Digital Commercial Bank Ltd_advanced_reverse_engineer.py`
 - ✅ Análisis completo desde línea de comandos
 - ✅ Exportación a JSON y TXT
 - ✅ Reportes detallados con recomendaciones
@@ -65,7 +65,7 @@ Nivel de confianza automático (0-100%) basado en:
 ## 📁 ARCHIVOS CREADOS/MODIFICADOS
 
 ### ✅ Nuevos Archivos:
-1. **`dtc1b_advanced_reverse_engineer.py`** (532 líneas)
+1. **`Digital Commercial Bank Ltd_advanced_reverse_engineer.py`** (532 líneas)
    - Sistema completo de ingeniería inversa en Python
    - 4 clases principales con métodos avanzados
    - Exportación de reportes JSON y TXT
@@ -99,7 +99,7 @@ Nivel de confianza automático (0-100%) basado en:
 ```
 1. Abre el navegador en: http://localhost:5173
 2. Ve a la pestaña "Bank Audit"
-3. Click en "Cargar Archivo DTC1B"
+3. Click en "Cargar Archivo Digital Commercial Bank Ltd"
 4. Selecciona tu archivo binario
 5. ¡Espera el análisis automático!
 6. Revisa la sección "Ingeniería Inversa - Análisis Profundo"
@@ -107,12 +107,12 @@ Nivel de confianza automático (0-100%) basado en:
 
 ### Desde Python:
 ```bash
-python dtc1b_advanced_reverse_engineer.py archivo_dtc1b.bin
+python Digital Commercial Bank Ltd_advanced_reverse_engineer.py archivo_Digital Commercial Bank Ltd.bin
 ```
 
 **Salida:**
-- `dtc1b_reverse_engineering_YYYYMMDD_HHMMSS.txt` - Reporte legible
-- `dtc1b_reverse_engineering_YYYYMMDD_HHMMSS.json` - Datos completos
+- `Digital Commercial Bank Ltd_reverse_engineering_YYYYMMDD_HHMMSS.txt` - Reporte legible
+- `Digital Commercial Bank Ltd_reverse_engineering_YYYYMMDD_HHMMSS.json` - Datos completos
 
 ---
 
@@ -120,13 +120,13 @@ python dtc1b_advanced_reverse_engineer.py archivo_dtc1b.bin
 
 ### Entrada:
 ```
-Archivo: sample_dtc1b.bin (512 KB)
+Archivo: sample_Digital Commercial Bank Ltd.bin (512 KB)
 ```
 
 ### Salida:
 ```
 🔬 FIRMAS DETECTADAS:
-   - DTC1B
+   - Digital Commercial Bank Ltd
    - BANK
 
 📊 CAMPOS BINARIOS DECOMPILADOS: 47
@@ -170,7 +170,7 @@ Archivo: sample_dtc1b.bin (512 KB)
 ├─────────────────────────────────────────────────────────┤
 │                                                         │
 │ 🔐 Firmas Detectadas:                                  │
-│   [DTC1B]  [BANK]  [ZIP]                               │
+│   [Digital Commercial Bank Ltd]  [BANK]  [ZIP]                               │
 │   Header: 0x44 0x54 0x43 0x42 0x00 0x00 0x30 0x39     │
 │                                                         │
 │ 📊 Campos Binarios Decompilados: 47                    │
@@ -219,7 +219,7 @@ El sistema genera logs detallados en la consola del navegador:
 [AuditBank] 🔍 INGENIERÍA INVERSA PROFUNDA INICIADA
 [AuditBank] 🧬 Decompilando estructuras binarias...
 [AuditBank] 🔬 Analizando firma del archivo...
-[AuditBank] ✓ Firmas detectadas: DTC1B, BANK
+[AuditBank] ✓ Firmas detectadas: Digital Commercial Bank Ltd, BANK
 [AuditBank] 📊 Decompilando campos estructurados...
 [AuditBank] ✓ Campos binarios encontrados: 47
 [AuditBank] 🔐 Detectando hashes y claves...
@@ -283,7 +283,7 @@ El sistema genera logs detallados en la consola del navegador:
 
 ### 1. Auditoría Bancaria
 ```
-Escenario: Analizar archivo DTC1B de un banco
+Escenario: Analizar archivo Digital Commercial Bank Ltd de un banco
 Resultado: Extracción completa de cuentas, montos y clasificación M0-M4
 Tiempo: ~1 segundo
 ```
@@ -328,15 +328,15 @@ Tiempo: ~1.5 segundos
 ### Paso 3: Crear Archivo de Prueba
 ```python
 # Ejecutar el script Python para crear archivo de prueba
-python dtc1b_advanced_reverse_engineer.py
+python Digital Commercial Bank Ltd_advanced_reverse_engineer.py
 
-# Esto creará: test_dtc1b_sample.bin
+# Esto creará: test_Digital Commercial Bank Ltd_sample.bin
 ```
 
 ### Paso 4: Cargar y Analizar
 ```
-1. Click en "Cargar Archivo DTC1B"
-2. Selecciona "test_dtc1b_sample.bin"
+1. Click en "Cargar Archivo Digital Commercial Bank Ltd"
+2. Selecciona "test_Digital Commercial Bank Ltd_sample.bin"
 3. Espera 1-2 segundos
 4. ¡Revisa los resultados!
 ```
@@ -392,7 +392,7 @@ python dtc1b_advanced_reverse_engineer.py
 - [x] Documentación completa
 
 ### Archivos:
-- [x] `dtc1b_advanced_reverse_engineer.py` (532 líneas)
+- [x] `Digital Commercial Bank Ltd_advanced_reverse_engineer.py` (532 líneas)
 - [x] `AuditBankWindow.tsx` (modificado, +157 líneas)
 - [x] `audit-store.ts` (modificado, +23 líneas)
 - [x] `MODULO_INGENIERIA_INVERSA_COMPLETO.md` (500+ líneas)
@@ -443,7 +443,7 @@ El **Sistema de Ingeniería Inversa Avanzada** está **100% COMPLETO** y **FUNCI
 
 ## 🚀 ¡LISTO PARA USAR!
 
-El sistema está completamente operativo y listo para analizar archivos DTC1B con capacidades de ingeniería inversa de nivel profesional.
+El sistema está completamente operativo y listo para analizar archivos Digital Commercial Bank Ltd con capacidades de ingeniería inversa de nivel profesional.
 
 **Todo está implementado, documentado y funcional. ¡Disfruta del análisis profundo! 🧬**
 

@@ -49,7 +49,7 @@
 
 ```
 ╔═══════════════════════════════════════════╗
-║  INFORME DE AUDITORÍA BANCARIA DTC1B     ║
+║  INFORME DE AUDITORÍA BANCARIA Digital Commercial Bank Ltd     ║
 ║  BANK AUDIT COMPREHENSIVE REPORT          ║
 ╚═══════════════════════════════════════════╝
 
@@ -159,14 +159,14 @@ Generado por: DAES ULTIMATE
 ## 🌍 TRADUCTOR FUNCIONAL
 
 ### **Español (ES)**:
-- INFORME DE AUDITORÍA BANCARIA DTC1B
+- INFORME DE AUDITORÍA BANCARIA Digital Commercial Bank Ltd
 - RESUMEN EJECUTIVO
 - DEPÓSITOS A LA VISTA
 - En Proceso de Certificación
 - etc.
 
 ### **English (EN)**:
-- DTC1B BANK AUDIT REPORT
+- Digital Commercial Bank Ltd BANK AUDIT REPORT
 - EXECUTIVE SUMMARY
 - DEMAND DEPOSITS
 - Certification in Progress
@@ -235,7 +235,7 @@ Objetivo: Prevención de lavado de dinero
 
 ### **Paso 1: Procesa Datos**
 ```
-Opción A: "Auditoría Bancaria" → Cargar archivo DTC1B
+Opción A: "Auditoría Bancaria" → Cargar archivo Digital Commercial Bank Ltd
 Opción B: "Analizador de Archivos Grandes" (se sincroniza auto)
 ```
 
@@ -262,7 +262,7 @@ Dentro del informe:
 Incluye TODO en formato texto:
 ```
 ╔════════════════════════════════╗
-║  INFORME DE AUDITORÍA DTC1B   ║
+║  INFORME DE AUDITORÍA Digital Commercial Bank Ltd   ║
 ╚════════════════════════════════╝
 
 DOCUMENTO CONFIDENCIAL

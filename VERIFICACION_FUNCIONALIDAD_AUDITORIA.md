@@ -3,11 +3,11 @@
 ## 🔧 MEJORAS IMPLEMENTADAS
 
 ### **Problema Identificado**
-El sistema solo detectaba **3 divisas** (USD, EUR, GBP) porque el `DTC1BParser` original está limitado a esas divisas.
+El sistema solo detectaba **3 divisas** (USD, EUR, GBP) porque el `Digital Commercial Bank LtdParser` original está limitado a esas divisas.
 
 ### **Solución Implementada**
 ✅ **Doble extracción** que combina:
-1. **DTC1BParser** (divisas binarias)
+1. **Digital Commercial Bank LtdParser** (divisas binarias)
 2. **Extracción manual** (15 divisas en texto y binario)
 
 ---
@@ -42,7 +42,7 @@ El sistema solo detectaba **3 divisas** (USD, EUR, GBP) porque el `DTC1BParser` 
 El sistema ahora:
 - ✅ Ejecuta **ambos** métodos de extracción
 - ✅ **Combina** resultados eliminando duplicados
-- ✅ Detecta divisas que el DTC1BParser no reconoce
+- ✅ Detecta divisas que el Digital Commercial Bank LtdParser no reconoce
 - ✅ Aumenta la cobertura de **3 a 15 divisas**
 
 ---
@@ -78,7 +78,7 @@ Al cargar un archivo, verás en la consola (F12):
 ```
 ============================================
 INICIANDO EXTRACCIÓN PROFUNDA DE DATOS
-Archivo: sample.dtc1b | 2048.50 KB
+Archivo: sample.Digital Commercial Bank Ltd | 2048.50 KB
 ============================================
 
 [AuditBank] Extraction complete: {
@@ -101,13 +101,13 @@ Archivo: sample.dtc1b | 2048.50 KB
 - Archivo encriptado: ✓ NO
 ============================================
 
-[AuditBank] Bloques parseados del DTC1BParser: 12
+[AuditBank] Bloques parseados del Digital Commercial Bank LtdParser: 12
 [AuditBank] Montos extraídos manualmente: 256
 
 [AuditBank] ✅ Divisas combinadas detectadas: 8
 [AuditBank] Divisas: USD, EUR, GBP, BRL, AED, CHF, HKD, JPY
 
-[AuditBank] DTC1B file processed: { total_hallazgos: 8, ... }
+[AuditBank] Digital Commercial Bank Ltd file processed: { total_hallazgos: 8, ... }
 ```
 
 ---
@@ -133,12 +133,12 @@ Presiona F12
 → Pestaña "Console"
 ```
 
-### **Paso 4: Cargar un Archivo DTC1B**
+### **Paso 4: Cargar un Archivo Digital Commercial Bank Ltd**
 
 #### **Opción A: Usar Archivo del Sistema**
 ```
 1. Ve primero a "Analizador de Archivos Grandes"
-2. Carga un archivo DTC1B (cualquiera)
+2. Carga un archivo Digital Commercial Bank Ltd (cualquiera)
 3. Déjalo procesar completamente
 4. Regresa a "Auditoría Bancaria"
 5. Clic en "Analizar Balances del Sistema"
@@ -147,7 +147,7 @@ Presiona F12
 #### **Opción B: Cargar Archivo Directo**
 ```
 1. En "Auditoría Bancaria"
-2. Clic en botón verde "Cargar Archivo DTC1B"
+2. Clic en botón verde "Cargar Archivo Digital Commercial Bank Ltd"
 3. Selecciona cualquier archivo del disco
 ```
 
@@ -157,7 +157,7 @@ Deberías ver:
 ```
 [AuditBank] ============================================
 [AuditBank] INICIANDO EXTRACCIÓN PROFUNDA DE DATOS
-[AuditBank] Archivo: tu_archivo.dtc1b | XXXXX KB
+[AuditBank] Archivo: tu_archivo.Digital Commercial Bank Ltd | XXXXX KB
 [AuditBank] ============================================
 [AuditBank] ✅ EXTRACCIÓN COMPLETADA:
 [AuditBank] - Cuentas bancarias: X
@@ -168,7 +168,7 @@ Deberías ver:
 [AuditBank] - Entropía del archivo: X.XX
 [AuditBank] - Archivo encriptado: ✓ NO (o 🔒 SÍ)
 [AuditBank] ============================================
-[AuditBank] Bloques parseados del DTC1BParser: X
+[AuditBank] Bloques parseados del Digital Commercial Bank LtdParser: X
 [AuditBank] Montos extraídos manualmente: X
 [AuditBank] ✅ Divisas combinadas detectadas: X
 [AuditBank] Divisas: USD, EUR, GBP, ...
@@ -220,7 +220,7 @@ Deberías ver aparecer:
 
 **Solución**: ✅ YA RESUELTO
 - La nueva versión detecta las 15 divisas
-- Combina DTC1BParser + extracción manual
+- Combina Digital Commercial Bank LtdParser + extracción manual
 - Busca en formato texto Y binario
 
 ### **Problema 3: No detecta cuentas bancarias**
@@ -252,7 +252,7 @@ Deberías ver aparecer:
 - [ ] El servidor está corriendo en http://localhost:5173
 - [ ] Puedes hacer login (admin/admin)
 - [ ] Aparece el tab "Auditoría Bancaria"
-- [ ] El botón verde "Cargar Archivo DTC1B" es visible
+- [ ] El botón verde "Cargar Archivo Digital Commercial Bank Ltd" es visible
 
 ### **Carga de Archivos**
 - [ ] Al hacer clic, se abre selector de archivos
@@ -287,7 +287,7 @@ Deberías ver aparecer:
 ```javascript
 [AuditBank] ============================================
 [AuditBank] INICIANDO EXTRACCIÓN PROFUNDA DE DATOS
-[AuditBank] Archivo: sample.dtc1b | 2048.50 KB
+[AuditBank] Archivo: sample.Digital Commercial Bank Ltd | 2048.50 KB
 [AuditBank] ============================================
 [AuditBank] Extraction complete: {
   accounts: 15,
@@ -307,11 +307,11 @@ Deberías ver aparecer:
 [AuditBank] - Entropía del archivo: 6.85
 [AuditBank] - Archivo encriptado: ✓ NO
 [AuditBank] ============================================
-[AuditBank] Bloques parseados del DTC1BParser: 12
+[AuditBank] Bloques parseados del Digital Commercial Bank LtdParser: 12
 [AuditBank] Montos extraídos manualmente: 256
 [AuditBank] ✅ Divisas combinadas detectadas: 8
 [AuditBank] Divisas: USD, EUR, GBP, BRL, AED, CHF, HKD, JPY
-[AuditBank] DTC1B file processed: {
+[AuditBank] Digital Commercial Bank Ltd file processed: {
   resumen: { total_hallazgos: 8, fecha: "2024-12-27..." },
   agregados: [...],
   hallazgos: [...]
@@ -354,7 +354,7 @@ Deberías ver aparecer:
 │  ┌──────────────────────────────────────────────────┐  │
 │  │ Tamaño: 2,048 KB │ Bloques: 256 │ Entropía: 6.85│  │
 │  │ Encriptación: ✓ No detectada                      │  │
-│  │ Archivo: sample.dtc1b                             │  │
+│  │ Archivo: sample.Digital Commercial Bank Ltd                             │  │
 │  └──────────────────────────────────────────────────┘  │
 └─────────────────────────────────────────────────────────┘
 ```
@@ -450,7 +450,7 @@ Entropía 7.92 → 🔒 Encriptado
    - Buscar divisas en binario (códigos ISO)
    - Calcular entropía
    ↓
-4. PARSER DTC1B:
+4. PARSER Digital Commercial Bank Ltd:
    - Bloques binarios
    - USD, EUR, GBP
    ↓
@@ -480,11 +480,11 @@ Entropía 7.92 → 🔒 Encriptado
 
 ## 🔍 CASOS DE PRUEBA
 
-### **Caso 1: Archivo DTC1B Normal**
+### **Caso 1: Archivo Digital Commercial Bank Ltd Normal**
 **Entrada**: Archivo con USD, EUR, GBP
 
 **Esperado**:
-- ✅ DTC1BParser detecta 3 divisas
+- ✅ Digital Commercial Bank LtdParser detecta 3 divisas
 - ✅ Extracción manual detecta 3+ divisas
 - ✅ Panel muestra todos los datos
 - ✅ Clasificación M0-M4 funciona
@@ -493,7 +493,7 @@ Entropía 7.92 → 🔒 Encriptado
 **Entrada**: Archivo con todas las divisas
 
 **Esperado**:
-- ✅ DTC1BParser detecta 3 divisas (USD, EUR, GBP)
+- ✅ Digital Commercial Bank LtdParser detecta 3 divisas (USD, EUR, GBP)
 - ✅ Extracción manual detecta 15 divisas
 - ✅ Combinación resulta en 15 divisas
 - ✅ Panel muestra todas
@@ -502,7 +502,7 @@ Entropía 7.92 → 🔒 Encriptado
 **Entrada**: Archivo TXT con extracto bancario
 
 **Esperado**:
-- ❌ DTC1BParser no detecta bloques binarios
+- ❌ Digital Commercial Bank LtdParser no detecta bloques binarios
 - ✅ Extracción manual detecta cuentas, IBANs, montos
 - ✅ Panel muestra datos extraídos
 - ⚠️ Clasificación M0-M4 basada en extracción manual
@@ -511,7 +511,7 @@ Entropía 7.92 → 🔒 Encriptado
 **Entrada**: Archivo binario encriptado
 
 **Esperado**:
-- ❌ DTC1BParser no detecta bloques
+- ❌ Digital Commercial Bank LtdParser no detecta bloques
 - ❌ Extracción manual no encuentra patrones
 - ✅ Metadatos se muestran
 - 🔒 Entropía > 7.5 → "Encriptación detectada"
@@ -525,7 +525,7 @@ Deberías ver en pantalla:
 
 1. **Header**:
    - "✓ X divisas detectadas en el sistema"
-   - Botón verde "Cargar Archivo DTC1B"
+   - Botón verde "Cargar Archivo Digital Commercial Bank Ltd"
 
 2. **Panel de Fuentes de Datos**:
    - Balances del sistema (si hay)
@@ -575,8 +575,8 @@ admin / admin
 Clic en el tab
 
 # 5. Cargar archivo
-Clic en "Cargar Archivo DTC1B"
-Selecciona CUALQUIER archivo (DTC1B, TXT, incluso un PDF)
+Clic en "Cargar Archivo Digital Commercial Bank Ltd"
+Selecciona CUALQUIER archivo (Digital Commercial Bank Ltd, TXT, incluso un PDF)
 
 # 6. Ver consola
 Deberías ver los logs de extracción

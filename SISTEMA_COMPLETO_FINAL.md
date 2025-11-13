@@ -90,7 +90,7 @@ Incluye:
 ### Para Depurar M1 USD:
 
 ```
-1. python create_sample_dtc1b.py
+1. python create_sample_Digital Commercial Bank Ltd.py
 2. Ctrl + Shift + R en navegador
 3. localStorage.clear() en consola
 4. Bank Audit → Cargar archivo
@@ -163,7 +163,7 @@ Incluye:
 1. http://localhost:5173
 2. F12
 3. Bank Audit
-4. Cargar sample_dtc1b_real_data.txt
+4. Cargar sample_Digital Commercial Bank Ltd_real_data.txt
 5. Mirar consola: [AuditBank] 🔍 USD M1: 150000
 6. Click: [📄 Informe Completo]
 7. Abrir archivo descargado
@@ -196,7 +196,7 @@ USD M1: 150,000  ✅
 ## 🎉 ¡SISTEMA 100% COMPLETO!
 
 **TODO lo solicitado implementado:**
-- ✅ Extracción completa DTC1B
+- ✅ Extracción completa Digital Commercial Bank Ltd
 - ✅ Ingeniería inversa
 - ✅ Clasificación M0-M4
 - ✅ Integración automática

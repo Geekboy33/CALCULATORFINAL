@@ -70,7 +70,7 @@ He agregado un **panel destacado** al final de la lista de cuentas que permite c
 ╠════════════════════════════════════════╣
 ║ Cuentas: 3 | Reservado: $1M | etc.   ║
 ╠════════════════════════════════════════╣
-║ Fondos del Sistema DTC1B              ║
+║ Fondos del Sistema Digital Commercial Bank Ltd              ║
 ║ [USD] [EUR] [GBP]                     ║
 ╠════════════════════════════════════════╣
 ║ 🌐 USD Stablecoin Reserve             ║

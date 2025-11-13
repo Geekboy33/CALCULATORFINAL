@@ -88,14 +88,14 @@
    - Estilos de navegación
    - Animaciones suaves
 
-4. **`dtc1b_advanced_reverse_engineer.py`** (532 líneas)
+4. **`Digital Commercial Bank Ltd_advanced_reverse_engineer.py`** (532 líneas)
    - Sistema completo de ingeniería inversa en Python
    - Exportación a JSON y TXT
 
-5. **`create_sample_dtc1b.py`** (270 líneas)
+5. **`create_sample_Digital Commercial Bank Ltd.py`** (270 líneas)
    - Generador de archivo de prueba con datos reales
 
-6. **`sample_dtc1b_real_data.txt`** (CREADO)
+6. **`sample_Digital Commercial Bank Ltd_real_data.txt`** (CREADO)
    - 19 cuentas bancarias
    - 11 códigos IBAN
    - 15 códigos SWIFT/BIC
@@ -192,7 +192,7 @@ Características:
 
 ## 📊 DATOS QUE SE EXTRAEN Y MUESTRAN
 
-### Del archivo DTC1B se extrae:
+### Del archivo Digital Commercial Bank Ltd se extrae:
 
 #### Datos Bancarios:
 ```
@@ -255,7 +255,7 @@ Características:
 1. http://localhost:5173
 2. F12
 3. "Analizador de Archivos Grandes"
-4. Carga: sample_dtc1b_real_data.txt
+4. Carga: sample_Digital Commercial Bank Ltd_real_data.txt
 5. Procesa: 0% → 100%
 6. "Bank Audit"
 7. ¡Todo aparece automáticamente!
@@ -266,8 +266,8 @@ Características:
 1. http://localhost:5173
 2. F12
 3. "Bank Audit"
-4. "Cargar Archivo DTC1B"
-5. sample_dtc1b_real_data.txt
+4. "Cargar Archivo Digital Commercial Bank Ltd"
+5. sample_Digital Commercial Bank Ltd_real_data.txt
 6. ¡Ver todo en 2 segundos!
 ```
 
@@ -421,8 +421,8 @@ Cada lista tiene:
 - **+300 líneas** en AuditBankWindow.tsx
 - **+100 líneas** en audit-store.ts
 - **+45 líneas** en index.css
-- **532 líneas** en dtc1b_advanced_reverse_engineer.py
-- **270 líneas** en create_sample_dtc1b.py
+- **532 líneas** en Digital Commercial Bank Ltd_advanced_reverse_engineer.py
+- **270 líneas** en create_sample_Digital Commercial Bank Ltd.py
 - **Total: ~1,250 líneas** de código nuevo
 
 ### Funcionalidades:
@@ -480,7 +480,7 @@ Cada lista tiene:
 
 4. **Carga:**
    ```
-   sample_dtc1b_real_data.txt
+   sample_Digital Commercial Bank Ltd_real_data.txt
    ```
 
 5. **Verifica:**
@@ -582,9 +582,9 @@ Cada lista tiene:
 - [x] AuditBankWindow.tsx actualizado
 - [x] audit-store.ts actualizado
 - [x] index.css actualizado
-- [x] dtc1b_advanced_reverse_engineer.py creado
-- [x] create_sample_dtc1b.py creado
-- [x] sample_dtc1b_real_data.txt creado
+- [x] Digital Commercial Bank Ltd_advanced_reverse_engineer.py creado
+- [x] create_sample_Digital Commercial Bank Ltd.py creado
+- [x] sample_Digital Commercial Bank Ltd_real_data.txt creado
 - [x] 10 documentos de guía creados
 
 ### Testing:
@@ -602,7 +602,7 @@ Cada lista tiene:
 ## 🎉 ¡SISTEMA 100% COMPLETO!
 
 **TODAS las solicitudes implementadas:**
-1. ✅ Módulo Bank Audit con capacidad de extracción DTC1B
+1. ✅ Módulo Bank Audit con capacidad de extracción Digital Commercial Bank Ltd
 2. ✅ Decompilación de datos internos binarios
 3. ✅ Procesamiento completo del binario
 4. ✅ Extracción de toda la información real
@@ -631,7 +631,7 @@ http://localhost:5173
 
 **Carga:**
 ```
-sample_dtc1b_real_data.txt
+sample_Digital Commercial Bank Ltd_real_data.txt
 ```
 
 **¡Disfruta de la extracción completa con navegación mejorada! 🎉**

@@ -1,8 +1,8 @@
-# Sistema de Carga Persistente - Analizador DTC1B
+# Sistema de Carga Persistente - Analizador Digital Commercial Bank Ltd
 
 ## 🎯 Descripción General
 
-Se ha implementado un sistema robusto de carga persistente para el **Analizador de Archivos Grandes DTC1B** que garantiza que:
+Se ha implementado un sistema robusto de carga persistente para el **Analizador de Archivos Grandes Digital Commercial Bank Ltd** que garantiza que:
 
 1. ✅ El estado de carga se mantiene al navegar entre módulos
 2. ✅ El progreso se guarda automáticamente cada chunk procesado
@@ -81,7 +81,7 @@ interface ProcessingState {
 
 ---
 
-### 3. **Analizador Actualizado** (`src/components/LargeFileDTC1BAnalyzer.tsx`)
+### 3. **Analizador Actualizado** (`src/components/LargeFileDigital Commercial Bank LtdAnalyzer.tsx`)
 
 **Nuevas Funcionalidades:**
 
@@ -185,7 +185,7 @@ Esto asegura que esté visible en todos los módulos de la aplicación.
 ## 🎮 Flujo de Usuario
 
 ### Escenario 1: Primera Carga
-1. Usuario selecciona archivo DTC1B grande
+1. Usuario selecciona archivo Digital Commercial Bank Ltd grande
 2. Comienza el procesamiento
 3. **Indicador global aparece** mostrando progreso
 4. Usuario puede **navegar libremente** entre módulos
@@ -224,7 +224,7 @@ Esto asegura que esté visible en todos los módulos de la aplicación.
 ## 💾 Persistencia de Datos
 
 ### localStorage
-**Key**: `dtc1b_processing_state`
+**Key**: `Digital Commercial Bank Ltd_processing_state`
 
 **Contiene:**
 - Metadata del proceso
@@ -235,7 +235,7 @@ Esto asegura que esté visible en todos los módulos de la aplicación.
 **Tamaño**: ~50KB máximo
 
 ### IndexedDB
-**Database**: `DTC1BProcessing`
+**Database**: `Digital Commercial Bank LtdProcessing`
 **Store**: `fileData`
 
 **Contiene:**
@@ -258,7 +258,7 @@ Esto asegura que esté visible en todos los módulos de la aplicación.
                       │
                       ▼
 ┌─────────────────────────────────────────────────────────────┐
-│         LargeFileDTC1BAnalyzer.analyzeFileLarge()           │
+│         LargeFileDigital Commercial Bank LtdAnalyzer.analyzeFileLarge()           │
 │  • Inicia processingStore                                   │
 │  • Guarda archivo en IndexedDB                              │
 └─────────────────────┬───────────────────────────────────────┘
@@ -387,7 +387,7 @@ Esto asegura que esté visible en todos los módulos de la aplicación.
 │ ⚡ Procesando                   _    ✕   │
 ├──────────────────────────────────────────┤
 │ Archivo:                                 │
-│ sample-dtc1b-large.bin                   │
+│ sample-Digital Commercial Bank Ltd-large.bin                   │
 │                                          │
 │ Progreso                        45.67%   │
 │ ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░░░░░░░░░░░░          │
@@ -410,7 +410,7 @@ Esto asegura que esté visible en todos los módulos de la aplicación.
 ```
 ┌────────────────────────────────────────────────┐
 │ ⚠️  Proceso Pendiente Detectado                │
-│ sample-dtc1b.bin - 45.67% completado           │
+│ sample-Digital Commercial Bank Ltd.bin - 45.67% completado           │
 │                                                │
 │            [Continuar]  [Cancelar]             │
 └────────────────────────────────────────────────┘
@@ -538,7 +538,7 @@ Esto permite que múltiples componentes reaccionen a cambios en el estado sin ac
 
 ## ✨ Conclusión
 
-El sistema de carga persistente implementado convierte el **Analizador de Archivos Grandes DTC1B** en una herramienta profesional y robusta que:
+El sistema de carga persistente implementado convierte el **Analizador de Archivos Grandes Digital Commercial Bank Ltd** en una herramienta profesional y robusta que:
 
 1. ✅ **Nunca pierde progreso**
 2. ✅ **Funciona en toda la aplicación**

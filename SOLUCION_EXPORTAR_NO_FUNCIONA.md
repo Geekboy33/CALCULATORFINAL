@@ -75,7 +75,7 @@ Copia el mensaje de error completo
 
 ```javascript
 // Copiar y pegar en Console:
-const data = localStorage.getItem('dtc1b_audit_data');
+const data = localStorage.getItem('Digital Commercial Bank Ltd_audit_data');
 if (data) {
   const blob = new Blob([data], { type: 'text/plain' });
   const url = URL.createObjectURL(blob);
@@ -97,7 +97,7 @@ if (data) {
 
 ```javascript
 // Verificar:
-const audit = JSON.parse(localStorage.getItem('dtc1b_audit_data') || '{}');
+const audit = JSON.parse(localStorage.getItem('Digital Commercial Bank Ltd_audit_data') || '{}');
 console.log('Resultados:', audit.results ? 'SÍ' : 'NO');
 console.log('Datos extraídos:', audit.extractedData ? 'SÍ' : 'NO');
 
@@ -113,7 +113,7 @@ console.log('Datos extraídos:', audit.extractedData ? 'SÍ' : 'NO');
 
 ```javascript
 // Copiar y pegar en Console (F12):
-const auditData = JSON.parse(localStorage.getItem('dtc1b_audit_data'));
+const auditData = JSON.parse(localStorage.getItem('Digital Commercial Bank Ltd_audit_data'));
 const report = JSON.stringify(auditData, null, 2);
 const blob = new Blob([report], { type: 'text/plain' });
 const url = URL.createObjectURL(blob);

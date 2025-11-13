@@ -185,7 +185,7 @@ loadAuditData(): AuditStoreData | null
   },
   extractedData: {...},
   lastAuditDate: "2025-11-13T...",
-  filesProcessed: ["dtc1b_sample.txt"]
+  filesProcessed: ["Digital Commercial Bank Ltd_sample.txt"]
 }
 ```
 
@@ -250,26 +250,26 @@ auditStore.saveAuditData(
 
 ## 6. Testing
 
-### Test Case 1: Sin DTC1B Procesado
+### Test Case 1: Sin Digital Commercial Bank Ltd Procesado
 
 **Acción:**
-1. No procesar archivo DTC1B
+1. No procesar archivo Digital Commercial Bank Ltd
 2. Intentar enviar transferencia
 
 **Resultado Esperado:**
 ```
 Error: M2 validation failed!
-No audit data available. Please process DTC1B file in Bank Audit module first.
+No audit data available. Please process Digital Commercial Bank Ltd file in Bank Audit module first.
 ```
 
 **Status:** ✅ Funciona correctamente
 
 ---
 
-### Test Case 2: Con DTC1B Procesado
+### Test Case 2: Con Digital Commercial Bank Ltd Procesado
 
 **Acción:**
-1. Procesar archivo DTC1B en Bank Audit
+1. Procesar archivo Digital Commercial Bank Ltd en Bank Audit
 2. Verificar M2 balance existe
 3. Intentar enviar transferencia
 
@@ -279,7 +279,7 @@ No audit data available. Please process DTC1B file in Bank Audit module first.
 [API GLOBAL] ✅ Account found: Digital Wallet #1
 [API GLOBAL] ✅ Amount valid: 1000
 [API GLOBAL] ✅ Balance sufficient, starting transfer process...
-[API GLOBAL] 📊 Step 1: Validating M2 balance from DTC1B...
+[API GLOBAL] 📊 Step 1: Validating M2 balance from Digital Commercial Bank Ltd...
 [ISO20022] 📊 Extracted M2 balance: USD 9,876,543.210
 [API GLOBAL] ✅ M2 Balance validated: {...}
 [API GLOBAL] 📋 Step 2: Creating ISO 20022 payment instruction...
@@ -339,7 +339,7 @@ Status: ✓ SUCCESS
 
 ```
 ✅ Antes del error:
-[API GLOBAL] 📊 Step 1: Validating M2 balance from DTC1B...
+[API GLOBAL] 📊 Step 1: Validating M2 balance from Digital Commercial Bank Ltd...
 
 ❌ Error anterior:
 Error: auditStore.getResults is not a function
@@ -353,7 +353,7 @@ Error: auditStore.getResults is not a function
 
 **Pasos:**
 1. ✅ Ve a Bank Audit
-2. ✅ Sube archivo DTC1B
+2. ✅ Sube archivo Digital Commercial Bank Ltd
 3. ✅ Procesa archivo (ver M0-M4 balances)
 4. ✅ Ve a API GLOBAL → Send Transfer
 5. ✅ Selecciona cuenta custody
@@ -468,7 +468,7 @@ interface AuditStore {
 
 **Resultado:**
 - ✅ Transferencias funcionan correctamente
-- ✅ M2 balance se valida desde DTC1B
+- ✅ M2 balance se valida desde Digital Commercial Bank Ltd
 - ✅ Balance se deduce correctamente
 - ✅ Datos se persisten correctamente
 

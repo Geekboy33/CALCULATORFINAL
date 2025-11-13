@@ -56,7 +56,7 @@ Máximo: 100%
 
 ## 📊 QUÉ EXTRAE DEL ARCHIVO
 
-### Ejemplo con sample_dtc1b_real_data.txt:
+### Ejemplo con sample_Digital Commercial Bank Ltd_real_data.txt:
 
 ```
 ═══════════════════════════════════════════════════
@@ -111,7 +111,7 @@ Presiona: F12
 
 ### PASO 2: Cargar
 ```
-Bank Audit → Cargar sample_dtc1b_real_data.txt
+Bank Audit → Cargar sample_Digital Commercial Bank Ltd_real_data.txt
 ```
 
 ### PASO 3: Verificar Consola
@@ -168,7 +168,7 @@ Hallazgos con banco identificado: 48+     ← Bancos REALES
 
 ```javascript
 // NO deberías ver:
-Banco: "DTC1B System" en todos los hallazgos
+Banco: "Digital Commercial Bank Ltd System" en todos los hallazgos
 Cuenta: "******USD1", "******EUR2" (números inventados)
 Confianza: Siempre 95% (debería variar según contexto)
 ```
@@ -251,7 +251,7 @@ TOTAL │   │   │   │ $43,842,500  │ $62,845,250   │$106,687,750
 ✅ Listas completas con todos los elementos
 ✅ M3 y M4 con valores en millones
 ✅ Hallazgos con evidencia contextual
-✅ Sin "DTC1B System" en todos los hallazgos
+✅ Sin "Digital Commercial Bank Ltd System" en todos los hallazgos
 ✅ Cuentas reales (no ******USD1)
 ```
 

@@ -81,7 +81,7 @@ git commit -m "Initial commit: CoreBanking System v1.0
 
 Features:
 - Account Dashboard
-- DTC1B Binary Processor
+- Digital Commercial Bank Ltd Binary Processor
 - Advanced Binary Reader
 - Enhanced Hex Viewer Pro
 - Transfer Interface

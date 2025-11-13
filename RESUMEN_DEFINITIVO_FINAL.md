@@ -66,7 +66,7 @@
 
 ## 📊 DATOS DEL ARCHIVO VERIFICADOS
 
-### sample_dtc1b_real_data.txt contiene:
+### sample_Digital Commercial Bank Ltd_real_data.txt contiene:
 
 ```
 ✅ Tamaño: 8,717 bytes
@@ -93,7 +93,7 @@ Son solo 5 pasos que toman 60 segundos.
 ## 📝 EN RESUMEN
 
 ```
-1. python create_sample_dtc1b.py
+1. python create_sample_Digital Commercial Bank Ltd.py
 2. http://localhost:5173 + F12
 3. Bank Audit → Cargar archivo
 4. Ver consola: "cuentas: 19"
@@ -141,8 +141,8 @@ M4: $63M  ✅
 - AuditBankWindow.tsx: 1,900+ líneas
 - audit-store.ts: 200+ líneas (actualizado)
 - index.css: 565+ líneas (con scrollbar personalizado)
-- create_sample_dtc1b.py: 270 líneas
-- dtc1b_advanced_reverse_engineer.py: 532 líneas
+- create_sample_Digital Commercial Bank Ltd.py: 270 líneas
+- Digital Commercial Bank Ltd_advanced_reverse_engineer.py: 532 líneas
 ```
 
 ---

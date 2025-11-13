@@ -11,12 +11,12 @@ He añadido logs específicos para ver EXACTAMENTE qué montos USD se detectan y
 ### PASO 1: Recrear archivo
 ```bash
 cd "C:\Users\USER\Desktop\DAES ULTIMATE\DAES-ULTIMATE"
-python create_sample_dtc1b.py
+python create_sample_Digital Commercial Bank Ltd.py
 ```
 
 ### PASO 2: Verificar que tiene los montos M1
 ```bash
-type sample_dtc1b_real_data.txt | findstr /C:"Balance: USD 65,000" /C:"Balance: USD 85,000"
+type sample_Digital Commercial Bank Ltd_real_data.txt | findstr /C:"Balance: USD 65,000" /C:"Balance: USD 85,000"
 ```
 
 Deberías ver:
@@ -53,8 +53,8 @@ Click en "Bank Audit"
 
 ### PASO 7: Cargar archivo
 ```
-Click "Cargar Archivo DTC1B"
-Selecciona: sample_dtc1b_real_data.txt
+Click "Cargar Archivo Digital Commercial Bank Ltd"
+Selecciona: sample_Digital Commercial Bank Ltd_real_data.txt
 ```
 
 ### PASO 8: LEER LA CONSOLA (F12)
@@ -121,10 +121,10 @@ Busca estos mensajes NUEVOS:
 
 ```bash
 # Ver el archivo completo
-type sample_dtc1b_real_data.txt | more
+type sample_Digital Commercial Bank Ltd_real_data.txt | more
 
 # Buscar específicamente
-type sample_dtc1b_real_data.txt | findstr "65,000"
+type sample_Digital Commercial Bank Ltd_real_data.txt | findstr "65,000"
 ```
 
 ---
@@ -179,14 +179,14 @@ Solución:
 
 ```bash
 # Verificar archivo
-type sample_dtc1b_real_data.txt | findstr /C:"65,000" /C:"85,000"
+type sample_Digital Commercial Bank Ltd_real_data.txt | findstr /C:"65,000" /C:"85,000"
 
 # Debe mostrar:
 Balance: USD 65,000.00
 Balance: USD 85,000.00
 
 # Si NO aparece:
-python create_sample_dtc1b.py
+python create_sample_Digital Commercial Bank Ltd.py
 
 # Luego verifica de nuevo
 ```
@@ -199,7 +199,7 @@ python create_sample_dtc1b.py
 
 ```javascript
 // Ver datos en memoria
-const auditData = JSON.parse(localStorage.getItem('dtc1b_audit_data') || '{}');
+const auditData = JSON.parse(localStorage.getItem('Digital Commercial Bank Ltd_audit_data') || '{}');
 console.log('Agregados:', auditData.results?.agregados);
 
 // Si ves USD M1 con valor > 0 pero la tabla muestra "-":

@@ -88,7 +88,7 @@ const { t } = useLanguage();
 | Texto Hardcodeado | Reemplazado por |
 |-------------------|-----------------|
 | `"Account Ledger - Libro Mayor de Cuentas"` | `{t.ledgerTitle}` |
-| `"Actualización en tiempo real desde el Analizador DTC1B"` | `{t.ledgerSubtitle}` |
+| `"Actualización en tiempo real desde el Analizador Digital Commercial Bank Ltd"` | `{t.ledgerSubtitle}` |
 | `"Refrescar"` | `{t.refresh}` |
 | `"Actualizando..."` | `{t.ledgerUpdating}` |
 | `"Total Cuentas"` | `{t.ledgerTotalAccounts}` |
@@ -130,7 +130,7 @@ const { t } = useLanguage();
 ```
 ┌─────────────────────────────────────────────────────┐
 │ Account Ledger - General Ledger                    │
-│ Real-time updates from DTC1B Analyzer              │
+│ Real-time updates from Digital Commercial Bank Ltd Analyzer              │
 │                                                      │
 │ Total Accounts: 0                                   │
 │ of 15 currencies                                    │
@@ -194,7 +194,7 @@ Deberías ver:
 Si otros componentes todavía muestran textos en español cuando cambias a inglés, necesitan el mismo tratamiento:
 
 1. **XcpB2BInterface.tsx** - Si tiene textos hardcodeados
-2. **LargeFileDTC1BAnalyzer.tsx** - Si tiene textos hardcodeados  
+2. **LargeFileDigital Commercial Bank LtdAnalyzer.tsx** - Si tiene textos hardcodeados  
 3. Otros componentes con textos hardcodeados
 
 **Para corregirlos**, seguir el mismo proceso:

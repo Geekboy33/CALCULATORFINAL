@@ -1,11 +1,11 @@
-# ✅ SISTEMA DE TRANSFERENCIAS DESDE DTC1B IMPLEMENTADO
+# ✅ SISTEMA DE TRANSFERENCIAS DESDE Digital Commercial Bank Ltd IMPLEMENTADO
 
 ## 🎯 RESUMEN EJECUTIVO
 
 Se ha implementado un **sistema completo de transferencias** que permite:
 
 1. ✅ **Balances guardados permanentemente** al completar carga (100%)
-2. ✅ **Selección de archivo DTC1B origen** para transferencias
+2. ✅ **Selección de archivo Digital Commercial Bank Ltd origen** para transferencias
 3. ✅ **Extracción de balance actual** con descuento automático
 4. ✅ **Transferencias entre cuentas** con validación de fondos
 5. ✅ **Descuento automático del balance** al transferir
@@ -16,13 +16,13 @@ Se ha implementado un **sistema completo de transferencias** que permite:
 
 ## 🗄️ ARQUITECTURA DE BASE DE DATOS
 
-### Tabla 1: `currency_balances` (Balances de Archivos DTC1B)
+### Tabla 1: `currency_balances` (Balances de Archivos Digital Commercial Bank Ltd)
 
 ```sql
 CREATE TABLE currency_balances (
   id uuid PRIMARY KEY,
   user_id uuid NOT NULL,
-  file_hash text NOT NULL,           -- Hash único del archivo DTC1B
+  file_hash text NOT NULL,           -- Hash único del archivo Digital Commercial Bank Ltd
   file_name text NOT NULL,            -- Nombre del archivo
   file_size bigint NOT NULL,
   currency text NOT NULL,             -- USD, EUR, GBP, etc
@@ -39,7 +39,7 @@ CREATE TABLE currency_balances (
 );
 ```
 
-**Propósito:** Almacenar los balances iniciales extraídos de archivos DTC1B completados
+**Propósito:** Almacenar los balances iniciales extraídos de archivos Digital Commercial Bank Ltd completados
 
 ---
 
@@ -49,7 +49,7 @@ CREATE TABLE currency_balances (
 CREATE TABLE transactions_history (
   id uuid PRIMARY KEY,
   user_id uuid NOT NULL,
-  file_hash text NOT NULL,            -- Archivo DTC1B origen
+  file_hash text NOT NULL,            -- Archivo Digital Commercial Bank Ltd origen
   file_name text NOT NULL,
   transaction_type text NOT NULL,     -- 'debit' o 'credit'
   currency text NOT NULL,
@@ -70,7 +70,7 @@ CREATE TABLE transactions_history (
 );
 ```
 
-**Propósito:** Registro inmutable de cada transferencia (débito/crédito) vinculada a un archivo DTC1B
+**Propósito:** Registro inmutable de cada transferencia (débito/crédito) vinculada a un archivo Digital Commercial Bank Ltd
 
 ---
 
@@ -240,7 +240,7 @@ export interface FileAccount {
 
 #### 1. `getAvailableAccounts(): Promise<FileAccount[]>`
 
-Carga todos los archivos DTC1B completados (100%) disponibles para transferencias:
+Carga todos los archivos Digital Commercial Bank Ltd completados (100%) disponibles para transferencias:
 
 ```typescript
 async getAvailableAccounts(): Promise<FileAccount[]> {
@@ -319,7 +319,7 @@ async getCurrentBalance(fileHash: string, currency: string): Promise<number> {
 
 **Ejemplo:**
 ```javascript
-// Balance inicial en DTC1B: $1,000,000
+// Balance inicial en Digital Commercial Bank Ltd: $1,000,000
 await getCurrentBalance("abc123", "USD");
 // → $985,000 (descontadas 3 transferencias de $5K cada una)
 ```
@@ -619,7 +619,7 @@ export function TransferInterface() {
 
 ## 🔄 FLUJO COMPLETO DE USUARIO
 
-### Paso 1: Procesar Archivo DTC1B (100%)
+### Paso 1: Procesar Archivo Digital Commercial Bank Ltd (100%)
 
 ```
 Usuario → Analizador de Archivos Grandes
@@ -869,7 +869,7 @@ CREATE POLICY "System can update transaction status"
 - ✅ Usuario A NO puede ver transacciones de Usuario B
 - ✅ Usuario A NO puede gastar balances de Usuario B
 - ✅ Usuario A NO puede modificar transacciones de Usuario B
-- ✅ Cada usuario solo accede a sus archivos DTC1B
+- ✅ Cada usuario solo accede a sus archivos Digital Commercial Bank Ltd
 
 ---
 
@@ -882,14 +882,14 @@ CREATE POLICY "System can update transaction status"
 - [x] Función `validate_sufficient_funds` implementada
 - [x] Función `get_file_transactions_summary` implementada
 - [x] Módulo `transactions-store.ts` completo
-- [x] `getAvailableAccounts()` carga archivos DTC1B
+- [x] `getAvailableAccounts()` carga archivos Digital Commercial Bank Ltd
 - [x] `getCurrentBalance()` calcula balance con descuentos
 - [x] `validateSufficientFunds()` valida antes de transferir
 - [x] `createDebitTransaction()` registra débito
 - [x] `updateTransactionStatus()` actualiza estado
 - [x] `getTransactionHistory()` carga historial
 - [x] TransferInterface con selección de cuenta
-- [x] Dropdown de archivos DTC1B origen
+- [x] Dropdown de archivos Digital Commercial Bank Ltd origen
 - [x] Dropdown de monedas con balance actual
 - [x] Validación en tiempo real de fondos
 - [x] Resumen de transferencia antes de ejecutar
@@ -907,7 +907,7 @@ CREATE POLICY "System can update transaction status"
 
 El sistema ahora tiene **GESTIÓN COMPLETA DE TRANSFERENCIAS**:
 
-1. ✅ **Archivos DTC1B procesados** se convierten en cuentas transferibles
+1. ✅ **Archivos Digital Commercial Bank Ltd procesados** se convierten en cuentas transferibles
 2. ✅ **Balances iniciales** guardados permanentemente en Supabase
 3. ✅ **Balance actual** calculado en tiempo real (inicial - débitos + créditos)
 4. ✅ **Validación automática** de fondos suficientes
@@ -918,7 +918,7 @@ El sistema ahora tiene **GESTIÓN COMPLETA DE TRANSFERENCIAS**:
 9. ✅ **Seguridad RLS** a nivel de base de datos
 
 **El usuario puede:**
-- Procesar archivo DTC1B hasta 100%
+- Procesar archivo Digital Commercial Bank Ltd hasta 100%
 - Ir a Transferencias
 - Seleccionar archivo origen
 - Elegir moneda (USD, EUR, GBP, etc)

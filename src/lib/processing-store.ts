@@ -25,7 +25,7 @@ export interface ProcessingState {
 }
 
 class ProcessingStore {
-  private static STORAGE_KEY = 'dtc1b_processing_state';
+  private static STORAGE_KEY = 'Digital Commercial Bank Ltd_processing_state';
   private static SAVE_INTERVAL_MS = 5000;
   private listeners: Array<(state: ProcessingState | null) => void> = [];
   private currentState: ProcessingState | null = null;

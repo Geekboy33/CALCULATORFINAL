@@ -79,7 +79,7 @@ Source: Custody Account Balance
 ═══ ISO 20022 COMPLIANCE ═══
 Standard: pain.001.001.09 (Customer Credit Transfer)
 Classification: M2 Money Supply
-DTC1B Validated: ✅ YES
+Digital Commercial Bank Ltd Validated: ✅ YES
 ISO Message Generated: ✅ YES
 Digital Signatures Attached: ✅ YES (1 signatures)
 
@@ -89,7 +89,7 @@ API Response: Transfer completed successfully
 ✅ Balance deducted from Custody Account
 ✅ ISO 20022 XML generated
 ✅ Digital signatures verified and attached
-✅ DTC1B authenticity proof included
+✅ Digital Commercial Bank Ltd authenticity proof included
 ```
 
 ### Ventajas
@@ -173,7 +173,7 @@ El historial de transferencias ahora tiene scroll vertical automático cuando ha
 
 ### Feature Implementada
 
-El M2 Validation ahora muestra y debita el balance REAL de la cuenta Custody seleccionada, no el total del DTC1B.
+El M2 Validation ahora muestra y debita el balance REAL de la cuenta Custody seleccionada, no el total del Digital Commercial Bank Ltd.
 
 ### Cambios Realizados
 
@@ -181,7 +181,7 @@ El M2 Validation ahora muestra y debita el balance REAL de la cuenta Custody sel
 ```typescript
 // ANTES
 const m2Data = iso20022Store.extractM2Balance();
-m2BalanceBefore = m2Data.total;  // Total DTC1B
+m2BalanceBefore = m2Data.total;  // Total Digital Commercial Bank Ltd
 
 // DESPUÉS
 const m2BalanceBefore = account.availableBalance;  // Cuenta custody real
@@ -202,16 +202,16 @@ m2BalanceAfter = m2BalanceBefore - amount;
 **Transfer Record (línea 450):**
 ```typescript
 // ANTES
-dtc1bSource: 'Bank Audit Module'
+Digital Commercial Bank LtdSource: 'Bank Audit Module'
 
 // DESPUÉS
-dtc1bSource: `Custody Account: ${account.accountName}`
+Digital Commercial Bank LtdSource: `Custody Account: ${account.accountName}`
 ```
 
 **Comprobante (línea 522):**
 ```typescript
 // ANTES
-`=== M2 VALIDATION (DTC1B) ===\n`
+`=== M2 VALIDATION (Digital Commercial Bank Ltd) ===\n`
 
 // DESPUÉS
 `=== M2 VALIDATION (CUSTODY ACCOUNT) ===\n` +
@@ -223,8 +223,8 @@ dtc1bSource: `Custody Account: ${account.accountName}`
 
 **ANTES:**
 ```
-═══ M2 VALIDATION (DTC1B) ═══
-Balance Before: USD 2,005,110.130  ← Total DTC1B
+═══ M2 VALIDATION (Digital Commercial Bank Ltd) ═══
+Balance Before: USD 2,005,110.130  ← Total Digital Commercial Bank Ltd
 Balance After: USD 2,004,110.130
 Source: Bank Audit Module
 ```
@@ -348,7 +348,7 @@ const sendWithRetry = async (maxRetries = 3) => {
 - Línea 1194: Agregado scroll vertical con clases CSS
 - Línea 1237-1247: Botón "Download Receipt (TXT)" en cada transferencia
 - Línea 278: Balance Before usa `account.availableBalance`
-- Línea 411: Balance After calculado sin debitar DTC1B
+- Línea 411: Balance After calculado sin debitar Digital Commercial Bank Ltd
 - Línea 450: Source actualizado a `Custody Account: ${account.accountName}`
 - Línea 522-530: Comprobante con nombre y número de cuenta
 - Línea 542: Status message actualizado

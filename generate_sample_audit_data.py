@@ -10,7 +10,7 @@ from datetime import datetime, timedelta
 import random
 
 # Configuración
-OUTPUT_DIR = "./data/dtc1b"
+OUTPUT_DIR = "./data/Digital Commercial Bank Ltd"
 SAMPLE_FILES = [
     "bank_statements/emirates_nbd_statement_2024.txt",
     "bank_statements/banco_brasil_extract_q4.txt",
@@ -347,7 +347,7 @@ def generate_wire_transfer_log():
 def main():
     """Función principal"""
     print("=" * 70)
-    print("   DTC1B AUDIT BANK MODULE - SAMPLE DATA GENERATOR")
+    print("   Digital Commercial Bank Ltd AUDIT BANK MODULE - SAMPLE DATA GENERATOR")
     print("=" * 70)
     print()
     
@@ -418,8 +418,8 @@ def main():
     print("=" * 70)
     print()
     print("Próximos pasos:")
-    print("1. Ejecutar: python audit_dtc1b_mclassify.py")
-    print("2. Revisar resultados en: audit_dtc1b_output_*.json")
+    print("1. Ejecutar: python audit_Digital Commercial Bank Ltd_mclassify.py")
+    print("2. Revisar resultados en: audit_Digital Commercial Bank Ltd_output_*.json")
     print("3. Abrir interfaz web y cargar resultados")
     print()
 

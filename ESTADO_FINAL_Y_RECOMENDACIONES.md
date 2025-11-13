@@ -165,7 +165,7 @@ Ya implementado parcialmente, pero podrías añadir:
 ### Lo que tienes AHORA:
 
 ```
-✅ Extracción completa de datos DTC1B
+✅ Extracción completa de datos Digital Commercial Bank Ltd
 ✅ Ingeniería inversa profunda
 ✅ Clasificación M0-M4 con valores reales
 ✅ Asociaciones basadas en contexto
@@ -189,7 +189,7 @@ Ya implementado parcialmente, pero podrías añadir:
 1. http://localhost:5173
 2. F12 (Console)
 3. Bank Audit
-4. Cargar: sample_dtc1b_real_data.txt
+4. Cargar: sample_Digital Commercial Bank Ltd_real_data.txt
 5. Ver consola: "cuentas: 19, ibans: 11..."
 6. Ver pantalla: [19] [11] [15] [18+] [50+]
 7. Click: [👁️ Vista Completa]
@@ -310,7 +310,7 @@ Hallazgos con datos del contexto    ✅
 ---
 
 **Servidor:** ✅ http://localhost:5173  
-**Archivo:** ✅ sample_dtc1b_real_data.txt (recién creado)  
+**Archivo:** ✅ sample_Digital Commercial Bank Ltd_real_data.txt (recién creado)  
 **Estado:** ✅ 100% FUNCIONAL  
 **Simulaciones:** ❌ NINGUNA  
 **Lógica:** ✅ VERIFICADA  

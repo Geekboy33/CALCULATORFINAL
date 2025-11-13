@@ -50,7 +50,7 @@ export function FileLoader({ onFileLoaded }: FileLoaderProps) {
         const blocks = DTC1BParser.parseBlocks(data, file.name);
 
         if (blocks.length === 0) {
-          setError('No se detectaron bloques de moneda válidos en el archivo. Asegúrate de que sea un archivo DTC1B con datos de USD, EUR o GBP.');
+          setError('No se detectaron bloques de moneda válidos en el archivo. Asegúrate de que sea un archivo Digital Commercial Bank Ltd con datos de USD, EUR o GBP.');
           setPreview(null);
           setLoading(false);
           return;
@@ -141,7 +141,7 @@ export function FileLoader({ onFileLoaded }: FileLoaderProps) {
             <FileText className="w-6 h-6 text-white" />
           </div>
           <div>
-            <h2 className="text-xl font-bold text-white">Cargar Archivo DTC1B</h2>
+            <h2 className="text-xl font-bold text-white">Cargar Archivo Digital Commercial Bank Ltd</h2>
             <p className="text-sm text-slate-400">Selecciona un archivo binario desde tu disco local</p>
           </div>
         </div>
@@ -152,7 +152,7 @@ export function FileLoader({ onFileLoaded }: FileLoaderProps) {
               ref={fileInputRef}
               type="file"
               onChange={handleFileSelect}
-              accept=".file,.bin,.dtc1b,.dat"
+              accept=".file,.bin,.Digital Commercial Bank Ltd,.dat"
               className="hidden"
               id="file-input"
             />
@@ -168,7 +168,7 @@ export function FileLoader({ onFileLoaded }: FileLoaderProps) {
                   Click para seleccionar archivo
                 </p>
                 <p className="text-sm text-slate-400">
-                  Formatos soportados: .file, .bin, .dtc1b, .dat
+                  Formatos soportados: .file, .bin, .Digital Commercial Bank Ltd, .dat
                 </p>
               </div>
             </label>

@@ -4,8 +4,8 @@
   1. Nueva Tabla `transactions_history`
     - `id` (uuid, primary key) - ID único de la transacción
     - `user_id` (uuid) - Usuario que realiza la transacción
-    - `file_hash` (text) - Hash del archivo DTC1B origen
-    - `file_name` (text) - Nombre del archivo DTC1B
+    - `file_hash` (text) - Hash del archivo Digital Commercial Bank Ltd origen
+    - `file_name` (text) - Nombre del archivo Digital Commercial Bank Ltd
     - `transaction_type` (text) - Tipo: 'debit' (débito) o 'credit' (crédito)
     - `currency` (text) - Moneda de la transacción
     - `amount` (numeric) - Monto de la transacción
@@ -218,7 +218,7 @@ END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
 
 -- Comentarios para documentación
-COMMENT ON TABLE transactions_history IS 'Historial inmutable de todas las transacciones (débitos y créditos) vinculadas a archivos DTC1B';
+COMMENT ON TABLE transactions_history IS 'Historial inmutable de todas las transacciones (débitos y créditos) vinculadas a archivos Digital Commercial Bank Ltd';
 COMMENT ON COLUMN transactions_history.transaction_type IS 'Tipo de transacción: debit (salida de fondos) o credit (entrada de fondos)';
 COMMENT ON COLUMN transactions_history.balance_before IS 'Balance de la cuenta ANTES de ejecutar la transacción';
 COMMENT ON COLUMN transactions_history.balance_after IS 'Balance de la cuenta DESPUÉS de ejecutar la transacción';

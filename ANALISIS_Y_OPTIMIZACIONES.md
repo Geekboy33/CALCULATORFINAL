@@ -273,7 +273,7 @@ IndexedDB puede fallar por:
 ```typescript
 async saveFileDataToIndexedDB(fileData: ArrayBuffer): Promise<boolean> {
   return new Promise((resolve) => {
-    const request = indexedDB.open('DTC1BProcessing', 1);
+    const request = indexedDB.open('Digital Commercial Bank LtdProcessing', 1);
 
     request.onerror = () => {
       console.error('[ProcessingStore] IndexedDB error:', request.error);

@@ -202,14 +202,14 @@ const { t } = useLanguage();
 │ [Dashboard] [Ledger Cuentas] [API XCP B2B] ...        │
 ├─────────────────────────────────────────────────────────┤
 │                                                          │
-│ 📊 Analizador de Archivos Grandes DTC1B                │
+│ 📊 Analizador de Archivos Grandes Digital Commercial Bank Ltd                │
 │    Procesamiento por bloques con extracción...         │
 │                                                          │
-│ [Seleccionar Archivo DTC1B] [Cargar Balances...]       │
+│ [Seleccionar Archivo Digital Commercial Bank Ltd] [Cargar Balances...]       │
 │                                                          │
 ├─────────────────────────────────────────────────────────┤
 │ CoreBanking v1.0.0 • ISO 4217 Compliant • PCI-DSS     │
-│ Análisis Forense DTC1B                                  │
+│ Análisis Forense Digital Commercial Bank Ltd                                  │
 └─────────────────────────────────────────────────────────┘
 ```
 
@@ -222,14 +222,14 @@ const { t } = useLanguage();
 │ [Dashboard] [Account Ledger] [XCP B2B API] ...        │
 ├─────────────────────────────────────────────────────────┤
 │                                                          │
-│ 📊 Large File DTC1B Analyzer                           │
+│ 📊 Large File Digital Commercial Bank Ltd Analyzer                           │
 │    Block processing with real-time balance...          │
 │                                                          │
-│ [Select DTC1B File] [Load Saved Balances]             │
+│ [Select Digital Commercial Bank Ltd File] [Load Saved Balances]             │
 │                                                          │
 ├─────────────────────────────────────────────────────────┤
 │ CoreBanking v1.0.0 • ISO 4217 Compliant • PCI-DSS     │
-│ DTC1B Forensic Analysis                                 │
+│ Digital Commercial Bank Ltd Forensic Analysis                                 │
 └─────────────────────────────────────────────────────────┘
 ```
 
@@ -281,7 +281,7 @@ const { t } = useLanguage();
 - ✅ `App.tsx` - Header, footer, navegación
 - ✅ `AccountLedger.tsx` - Preparado para traducción
 - ✅ `XcpB2BInterface.tsx` - Preparado para traducción
-- ✅ `LargeFileDTC1BAnalyzer.tsx` - Preparado para traducción
+- ✅ `LargeFileDigital Commercial Bank LtdAnalyzer.tsx` - Preparado para traducción
 
 **Nota**: Los componentes individuales se traducirán progresivamente. La infraestructura está completa y lista para uso.
 
@@ -305,7 +305,7 @@ const { t } = useLanguage();
    - Navegación: "Dashboard" → "Dashboard" (ya está en inglés)
    - "Ledger Cuentas" → "Account Ledger"
    - "Analizador Archivos Grandes" → "Large File Analyzer"
-   - Footer: "Análisis Forense DTC1B" → "DTC1B Forensic Analysis"
+   - Footer: "Análisis Forense Digital Commercial Bank Ltd" → "Digital Commercial Bank Ltd Forensic Analysis"
    - ↓
 4. Preferencia guardada en localStorage
    - ↓

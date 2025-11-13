@@ -2,7 +2,7 @@
 
 ## 🎉 ¡COMPLETADO CON ÉXITO!
 
-El módulo de auditoría bancaria ahora **extrae y organiza automáticamente TODA la información interna** de los archivos DTC1B.
+El módulo de auditoría bancaria ahora **extrae y organiza automáticamente TODA la información interna** de los archivos Digital Commercial Bank Ltd.
 
 ---
 
@@ -114,7 +114,7 @@ Estado: ✓ No detectada (archivo legible)
 ### **Método Simple (3 Pasos)**
 
 1. **Abrir módulo** "Auditoría Bancaria"
-2. **Clic** en botón verde "Cargar Archivo DTC1B"
+2. **Clic** en botón verde "Cargar Archivo Digital Commercial Bank Ltd"
 3. **Seleccionar** archivo del disco
 
 **¡Eso es todo!** El sistema automáticamente:
@@ -156,7 +156,7 @@ Estado: ✓ No detectada (archivo legible)
 | **Cuentas bancarias** | ❌ No extraía | ✅ 15+ detectadas |
 | **Códigos IBAN** | ❌ No detectaba | ✅ 8+ extraídos |
 | **Códigos SWIFT** | ❌ No identificaba | ✅ 6+ identificados |
-| **Bancos** | ❌ Solo "DTC1B Parser" | ✅ 22 bancos reconocidos |
+| **Bancos** | ❌ Solo "Digital Commercial Bank Ltd Parser" | ✅ 22 bancos reconocidos |
 | **Evidencias** | ❌ Básicas | ✅ Completas con todos los datos |
 | **Metadatos** | ❌ Solo tamaño | ✅ Tamaño + entropía + encriptación |
 | **Seguridad** | ❌ Valores expuestos | ✅ Enmascaramiento automático |
@@ -264,7 +264,7 @@ Estado: ✓ No detectada (archivo legible)
 
 **Header**:
 - Indicador de divisas detectadas
-- Botón verde "Cargar Archivo DTC1B"
+- Botón verde "Cargar Archivo Digital Commercial Bank Ltd"
 - Botones de exportación JSON/CSV
 
 **Panel Principal**:
@@ -306,7 +306,7 @@ Estado: ✓ No detectada (archivo legible)
 
 ### **Archivos Creados**
 
-1. **`EXTRACCION_PROFUNDA_DTC1B.md`** (11 KB)
+1. **`EXTRACCION_PROFUNDA_Digital Commercial Bank Ltd.md`** (11 KB)
    - Documentación técnica completa
    - Algoritmos explicados
    - Ejemplos de código
@@ -330,7 +330,7 @@ Estado: ✓ No detectada (archivo legible)
 1. **Servidor corriendo**: http://localhost:5173
 2. **Login**: admin / admin
 3. **Módulo**: Tab "Auditoría Bancaria"
-4. **Botón verde**: "Cargar Archivo DTC1B"
+4. **Botón verde**: "Cargar Archivo Digital Commercial Bank Ltd"
 
 ### **Prueba Ahora Mismo**
 
@@ -341,8 +341,8 @@ Estado: ✓ No detectada (archivo legible)
 1. Abrir: http://localhost:5173
 2. Login: admin / admin
 3. Clic en: "Auditoría Bancaria"
-4. Clic en: "Cargar Archivo DTC1B"
-5. Seleccionar cualquier archivo DTC1B
+4. Clic en: "Cargar Archivo Digital Commercial Bank Ltd"
+5. Seleccionar cualquier archivo Digital Commercial Bank Ltd
 6. ¡Ver la magia! 🎩✨
 ```
 
@@ -364,7 +364,7 @@ El sistema muestra logs detallados:
   entropy: 6.85,
   encrypted: false
 }
-[AuditBank] DTC1B file processed: { total_hallazgos: 8, ... }
+[AuditBank] Digital Commercial Bank Ltd file processed: { total_hallazgos: 8, ... }
 ```
 
 ### **Debugging**

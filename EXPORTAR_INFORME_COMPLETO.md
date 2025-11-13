@@ -20,7 +20,7 @@ Ahora puedes exportar un **INFORME COMPLETO** en archivo TXT con:
 ```
 1. http://localhost:5173
 2. Bank Audit
-3. Cargar archivo DTC1B
+3. Cargar archivo Digital Commercial Bank Ltd
 4. Esperar a que procese
 ```
 
@@ -62,7 +62,7 @@ Abre el archivo .txt con Notepad o cualquier editor
 ```
 ╔═══════════════════════════════════════════════╗
 ║       INFORME DE AUDITORÍA BANCARIA          ║
-║         BANK AUDIT - DTC1B ANALYZER          ║
+║         BANK AUDIT - Digital Commercial Bank Ltd ANALYZER          ║
 ╚═══════════════════════════════════════════════╝
 
 1. RESUMEN EJECUTIVO
@@ -223,7 +223,7 @@ Informe legible con:
 ╚═══════════════════════════════════════════════╝
 
 FECHA: 28/10/2025 14:30:00
-ARCHIVO: sample_dtc1b_real_data.txt
+ARCHIVO: sample_Digital Commercial Bank Ltd_real_data.txt
 
 RESUMEN:
 - 24 cuentas bancarias

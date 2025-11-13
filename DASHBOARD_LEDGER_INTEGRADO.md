@@ -6,7 +6,7 @@
 
 #### 1. **Integración con Ledger de Cuentas**
 - El Dashboard ahora carga automáticamente las 15 cuentas del Ledger (todas las divisas soportadas)
-- Las cuentas se sincronizan automáticamente cuando se procesan archivos DTC1B
+- Las cuentas se sincronizan automáticamente cuando se procesan archivos Digital Commercial Bank Ltd
 - Persistencia completa de saldos en Supabase
 
 #### 2. **Conversión Multi-Divisa**
@@ -52,7 +52,7 @@
 ### Flujo de Funcionamiento
 
 ```
-1. Usuario carga archivo DTC1B
+1. Usuario carga archivo Digital Commercial Bank Ltd
    ↓
 2. Analizador extrae balances por divisa
    ↓
@@ -172,7 +172,7 @@ npm run build
 
 - Las tasas de cambio son aproximadas y deben actualizarse periódicamente
 - Los saldos persisten en Supabase incluso si se cierra el navegador
-- La sincronización es automática al cargar archivos DTC1B
+- La sincronización es automática al cargar archivos Digital Commercial Bank Ltd
 - El sistema soporta todas las divisas de SUPPORTED_CURRENCIES
 
 ---

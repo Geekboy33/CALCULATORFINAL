@@ -28,7 +28,7 @@ interface NotificationsStoreData {
   unreadCount: number;
 }
 
-const STORAGE_KEY = 'dtc1b_notifications';
+const STORAGE_KEY = 'Digital Commercial Bank Ltd_notifications';
 const MAX_NOTIFICATIONS = 100;
 
 class NotificationsStore {

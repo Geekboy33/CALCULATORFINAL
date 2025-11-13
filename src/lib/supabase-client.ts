@@ -20,7 +20,7 @@ export function getSupabaseClient(): SupabaseClient | null {
       },
       global: {
         headers: {
-          'x-application-name': 'dtc1b-analyzer',
+          'x-application-name': 'Digital Commercial Bank Ltd-analyzer',
           'x-application-version': '1.0.0'
         }
       },

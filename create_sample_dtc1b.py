@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Generador de archivo DTC1B con DATOS BANCARIOS REALES
+Generador de archivo Digital Commercial Bank Ltd con DATOS BANCARIOS REALES
 Para probar el sistema de ingeniería inversa
 """
 
@@ -10,7 +10,7 @@ def create_sample_file():
     
     content = """
 ╔════════════════════════════════════════════════════════════════╗
-║         DTC1B FINANCIAL ASSET REGISTRY - CONFIDENTIAL        ║
+║         Digital Commercial Bank Ltd FINANCIAL ASSET REGISTRY - CONFIDENTIAL        ║
 ║              MULTI-BANK ACCOUNT LEDGER SYSTEM                ║
 ╚════════════════════════════════════════════════════════════════╝
 
@@ -267,11 +267,11 @@ END OF FINANCIAL REGISTRY
 ═══════════════════════════════════════════════════════════════════
 Timestamp: 2024-10-28T09:50:00Z
 File Hash: 3a7bd3e2f8c1d9e0b5a2c4f1e8d7b6a9c5f0e3d2c1b0a9f8e7d6c5b4a3f2e1d0
-Signature: DTC1B-v2.0-CLASSIFIED
+Signature: Digital Commercial Bank Ltd-v2.0-CLASSIFIED
 """
     
     # Escribir archivo
-    filename = "sample_dtc1b_real_data.txt"
+    filename = "sample_Digital Commercial Bank Ltd_real_data.txt"
     with open(filename, 'w', encoding='utf-8') as f:
         f.write(content)
     

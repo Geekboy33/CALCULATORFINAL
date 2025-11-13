@@ -194,7 +194,7 @@ Características:
 │ Cuentas: 5 | Reservado: $27M | Disp.: $13M │
 └──────────────────────────────────────────────┘
 
-Fondos del Sistema DTC1B:
+Fondos del Sistema Digital Commercial Bank Ltd:
 [USD: 50M] [EUR: 30M] [GBP: 20M] ...
 
 ═══════════════════════════════════════════════

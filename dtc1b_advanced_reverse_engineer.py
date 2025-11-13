@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-DTC1B ADVANCED REVERSE ENGINEERING SYSTEM
-Sistema de Ingeniería Inversa Avanzado para Análisis Profundo de Archivos DTC1B
+Digital Commercial Bank Ltd ADVANCED REVERSE ENGINEERING SYSTEM
+Sistema de Ingeniería Inversa Avanzado para Análisis Profundo de Archivos Digital Commercial Bank Ltd
 Capacidades: Decompilación, Detección de Patrones, Extracción Binaria, Interpretación de Estructuras
 """
 
@@ -24,7 +24,7 @@ class BinaryDecompiler:
     def __init__(self):
         self.structure_signatures = {
             # Firmas conocidas de archivos financieros
-            b'DTCB': 'DTC1B_BINARY',
+            b'DTCB': 'Digital Commercial Bank Ltd_BINARY',
             b'BANK': 'BANKING_STRUCTURE',
             b'ACCN': 'ACCOUNT_RECORD',
             b'TRNS': 'TRANSACTION_RECORD',
@@ -369,8 +369,8 @@ class StructureInterpreter:
         
         return comparisons > 0 and (matches / comparisons) > 0.3
 
-class DTC1BReverseEngineer:
-    """Sistema principal de ingeniería inversa DTC1B"""
+class Digital Commercial Bank LtdReverseEngineer:
+    """Sistema principal de ingeniería inversa Digital Commercial Bank Ltd"""
     
     def __init__(self):
         self.decompiler = BinaryDecompiler()
@@ -572,7 +572,7 @@ class DTC1BReverseEngineer:
         """Formatear reporte legible"""
         report = f"""
 {'='*80}
-REPORTE DE INGENIERÍA INVERSA DTC1B
+REPORTE DE INGENIERÍA INVERSA Digital Commercial Bank Ltd
 {'='*80}
 Fecha: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
 Archivo: {results['file_info']['path']}
@@ -640,17 +640,17 @@ def main():
     
     print("""
 ╔═══════════════════════════════════════════════════════════════════════╗
-║     DTC1B ADVANCED REVERSE ENGINEERING SYSTEM                        ║
+║     Digital Commercial Bank Ltd ADVANCED REVERSE ENGINEERING SYSTEM                        ║
 ║     Sistema de Ingeniería Inversa y Análisis Profundo               ║
 ╚═══════════════════════════════════════════════════════════════════════╝
 """)
     
     if len(sys.argv) < 2:
-        print("Uso: python dtc1b_advanced_reverse_engineer.py <archivo_dtc1b>")
+        print("Uso: python Digital Commercial Bank Ltd_advanced_reverse_engineer.py <archivo_Digital Commercial Bank Ltd>")
         print("\nCreando archivo de prueba...")
         
         # Crear archivo de prueba
-        test_file = "test_dtc1b_sample.bin"
+        test_file = "test_Digital Commercial Bank Ltd_sample.bin"
         with open(test_file, 'wb') as f:
             # Header
             f.write(b'DTCB')
@@ -680,12 +680,12 @@ def main():
         file_path = sys.argv[1]
     
     # Ejecutar análisis
-    engineer = DTC1BReverseEngineer()
+    engineer = Digital Commercial Bank LtdReverseEngineer()
     results = engineer.full_analysis(file_path)
     
     # Exportar reporte
     timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-    report_path = f"dtc1b_reverse_engineering_{timestamp}.txt"
+    report_path = f"Digital Commercial Bank Ltd_reverse_engineering_{timestamp}.txt"
     engineer.export_report(results, report_path)
     
     print("\n✅ Análisis completado exitosamente")

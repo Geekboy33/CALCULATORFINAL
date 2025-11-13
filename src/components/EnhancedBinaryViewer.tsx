@@ -13,7 +13,7 @@ import { DTC1BParser } from '../lib/dtc1b-parser';
 type ViewMode = 'hex' | 'ascii' | 'binary' | 'decimal' | 'octal' | 'mixed';
 type Endianness = 'big' | 'little';
 type DataType = 'uint8' | 'uint16' | 'uint32' | 'int8' | 'int16' | 'int32' | 'float32' | 'float64';
-type AnalysisMode = 'basic' | 'forensic' | 'cryptanalysis' | 'pattern' | 'dtc1b';
+type AnalysisMode = 'basic' | 'forensic' | 'cryptanalysis' | 'pattern' | 'Digital Commercial Bank Ltd';
 
 interface Selection {
   start: number;
@@ -100,7 +100,7 @@ export function EnhancedBinaryViewer() {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [bruteForceProgress, setBruteForceProgress] = useState(0);
   const [bruteForceResults, setBruteForceResults] = useState<Array<{password: string, success: boolean, time: number}>>([]);
-  const [dtc1bAnalysis, setDtc1bAnalysis] = useState<any>(null);
+  const [DTC1BAnalysis, setDTC1BAnalysis] = useState<any>(null);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const viewerRef = useRef<HTMLDivElement>(null);
@@ -331,8 +331,8 @@ export function EnhancedBinaryViewer() {
     setIsAnalyzing(true);
     try {
       const analysis = await performDTC1BAnalysis(fileData);
-      setDtc1bAnalysis(analysis);
-      setAnalysisMode('dtc1b');
+      setDTC1BAnalysis(analysis);
+      setAnalysisMode('Digital Commercial Bank Ltd');
     } catch (error) {
       alert(`Error en análisis DTC1B: ${error instanceof Error ? error.message : 'Error desconocido'}`);
     } finally {
@@ -350,7 +350,7 @@ export function EnhancedBinaryViewer() {
   };
 
   const performAdvancedDTC1BAnalysis = (data: Uint8Array) => {
-    // Implementación avanzada del analizador DTC1B basada en el código Python
+    // Implementación avanzada del analizador Digital Commercial Bank Ltd basada en el código Python
     const patterns = {
       bank_codes: /[A-Z]{6}/g,
       account_numbers: /\d{8,20}/g,
@@ -411,7 +411,7 @@ export function EnhancedBinaryViewer() {
 
     // Análisis de estructura básica
     const analysis = {
-      fileSignature: `DTC1B-${data.length}-${Array.from(data.slice(0, 4)).map(b => b.toString(16)).join('')}`,
+      fileSignature: `Digital Commercial Bank Ltd-${data.length}-${Array.from(data.slice(0, 4)).map(b => b.toString(16)).join('')}`,
       blocks: [] as BlockInfo[],
       currencyMatches: [] as Array<{ name: string; code: number[]; positions: number[] }>,
       structure: {
@@ -550,35 +550,35 @@ export function EnhancedBinaryViewer() {
   };
 
   const exportDTC1BAnalysisReport = () => {
-    if (!dtc1bAnalysis) return;
+    if (!DTC1BAnalysis) return;
 
     const report = {
       timestamp: new Date().toISOString(),
       file_analysis: {
         filename: fileName,
-        file_size: dtc1bAnalysis.extracted_data.metadata.file_size,
-        signature: dtc1bAnalysis.fileSignature,
-        entropy: dtc1bAnalysis.structure.entropy
+        file_size: DTC1BAnalysis.extracted_data.metadata.file_size,
+        signature: DTC1BAnalysis.fileSignature,
+        entropy: DTC1BAnalysis.structure.entropy
       },
-      patterns_found: dtc1bAnalysis.patterns_found,
-      extracted_data: dtc1bAnalysis.extracted_data,
-      currency_matches: dtc1bAnalysis.currencyMatches,
-      blocks_structure: dtc1bAnalysis.blocks,
-      analysis_summary: dtc1bAnalysis.analysis_summary,
+      patterns_found: DTC1BAnalysis.patterns_found,
+      extracted_data: DTC1BAnalysis.extracted_data,
+      currency_matches: DTC1BAnalysis.currencyMatches,
+      blocks_structure: DTC1BAnalysis.blocks,
+      analysis_summary: DTC1BAnalysis.analysis_summary,
       security_assessment: {
-        encryption_status: dtc1bAnalysis.analysis_summary.security_assessment,
-        data_quality: dtc1bAnalysis.analysis_summary.data_quality_score,
-        risk_level: dtc1bAnalysis.analysis_summary.security_assessment === 'plaintext_unencrypted' ? 'high' :
-                   dtc1bAnalysis.analysis_summary.security_assessment === 'likely_encrypted' ? 'medium' : 'low'
+        encryption_status: DTC1BAnalysis.analysis_summary.security_assessment,
+        data_quality: DTC1BAnalysis.analysis_summary.data_quality_score,
+        risk_level: DTC1BAnalysis.analysis_summary.security_assessment === 'plaintext_unencrypted' ? 'high' :
+                   DTC1BAnalysis.analysis_summary.security_assessment === 'likely_encrypted' ? 'medium' : 'low'
       },
-      recommendations: dtc1bAnalysis.analysis_summary.recommendations
+      recommendations: DTC1BAnalysis.analysis_summary.recommendations
     };
 
     const blob = new Blob([JSON.stringify(report, null, 2)], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `dtc1b_analysis_${fileName}_${new Date().toISOString().slice(0, 10)}.json`;
+    a.download = `Digital Commercial Bank Ltd_analysis_${fileName}_${new Date().toISOString().slice(0, 10)}.json`;
     a.click();
     URL.revokeObjectURL(url);
   };
@@ -604,7 +604,7 @@ export function EnhancedBinaryViewer() {
         const suspiciousPatterns = findSuspiciousPatterns(data);
 
         resolve({
-          fileSignature: `DTC1B-${data.length}-${Array.from(data.slice(0, 4)).map(b => b.toString(16)).join('')}`,
+          fileSignature: `Digital Commercial Bank Ltd-${data.length}-${Array.from(data.slice(0, 4)).map(b => b.toString(16)).join('')}`,
           entropyDistribution,
           byteFrequency,
           potentialKeys,
@@ -1077,7 +1077,7 @@ export function EnhancedBinaryViewer() {
             </div>
             <div>
               <h1 className="text-3xl font-bold text-white">Enhanced Binary Viewer Pro</h1>
-              <p className="text-sm text-slate-400">Professional forensic and cryptographic analysis with DTC1B reverse engineering</p>
+              <p className="text-sm text-slate-400">Professional forensic and cryptographic analysis with Digital Commercial Bank Ltd reverse engineering</p>
             </div>
           </div>
 
@@ -1109,7 +1109,7 @@ export function EnhancedBinaryViewer() {
               onChange={handleFileLoad}
               className="hidden"
               id="file-input"
-              accept=".bin,.dtc1b,.file,.dat,.hex"
+              accept=".bin,.Digital Commercial Bank Ltd,.file,.dat,.hex"
             />
             <label htmlFor="file-input" className="cursor-pointer flex flex-col items-center gap-4">
               <div className="p-8 bg-gradient-to-br from-blue-600 to-blue-700 rounded-2xl shadow-xl">
@@ -1118,7 +1118,7 @@ export function EnhancedBinaryViewer() {
               <div className="text-center">
                 <p className="text-xl font-semibold text-white mb-2">Cargar Archivo Binario</p>
                 <p className="text-slate-400 mb-4">Click para seleccionar o arrastra un archivo aquí</p>
-                <p className="text-sm text-slate-500 mb-4">Formatos soportados: .bin, .dtc1b, .file, .dat, .hex</p>
+                <p className="text-sm text-slate-500 mb-4">Formatos soportados: .bin, .Digital Commercial Bank Ltd, .file, .dat, .hex</p>
               </div>
             </label>
 
@@ -1162,7 +1162,7 @@ export function EnhancedBinaryViewer() {
                 <p><strong>Contraseña:</strong> <code className="bg-slate-600 px-1 rounded">1a2b3c4d5e</code></p>
               </div>
               <p className="text-xs text-slate-500 mt-2">
-                Estas credenciales funcionan con archivos DTC1B encriptados con AES-256-GCM
+                Estas credenciales funcionan con archivos Digital Commercial Bank Ltd encriptados con AES-256-GCM
               </p>
             </div>
           </div>
@@ -1353,12 +1353,12 @@ export function EnhancedBinaryViewer() {
                       onClick={analyzeDTC1BStructure}
                       disabled={isAnalyzing}
                       className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-                        analysisMode === 'dtc1b'
+                        analysisMode === 'Digital Commercial Bank Ltd'
                           ? 'bg-orange-600 text-white'
                           : 'bg-slate-700 text-slate-300 hover:bg-slate-600'
                       }`}
                     >
-                      {isAnalyzing ? 'Analizando...' : 'DTC1B'}
+                      {isAnalyzing ? 'Analizando...' : 'Digital Commercial Bank Ltd'}
                     </button>
                   </div>
                 </div>
@@ -1629,12 +1629,12 @@ export function EnhancedBinaryViewer() {
                   </div>
                 )}
 
-                {/* Análisis DTC1B */}
-                {analysisMode === 'dtc1b' && dtc1bAnalysis && (
+                {/* Análisis Digital Commercial Bank Ltd */}
+                {analysisMode === 'Digital Commercial Bank Ltd' && DTC1BAnalysis && (
                   <div className="bg-[#0d0d0d] rounded-xl border border-[#1a1a1a] p-6">
                     <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
                       <Database className="w-5 h-5 text-orange-400" />
-                      Ingeniería Inversa DTC1B - Análisis Avanzado
+                      Ingeniería Inversa Digital Commercial Bank Ltd - Análisis Avanzado
                     </h3>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -1644,23 +1644,23 @@ export function EnhancedBinaryViewer() {
                         <div className="space-y-3">
                           <div className="bg-slate-700/50 rounded-lg p-4">
                             <p className="text-sm text-slate-400 mb-1">Firma del Archivo</p>
-                            <p className="font-mono text-green-400">{dtc1bAnalysis.fileSignature}</p>
+                            <p className="font-mono text-green-400">{DTC1BAnalysis.fileSignature}</p>
                           </div>
 
                           <div className="bg-slate-700/50 rounded-lg p-4">
                             <p className="text-sm text-slate-400 mb-1">Estructura</p>
                             <div className="text-white text-sm space-y-1">
-                              <p>• Tamaño de bloque: {dtc1bAnalysis.structure.blockSize} bytes</p>
-                              <p>• Total de bloques: {dtc1bAnalysis.structure.totalBlocks}</p>
-                              <p>• Entropía: {dtc1bAnalysis.structure.entropy.toFixed(3)}</p>
+                              <p>• Tamaño de bloque: {DTC1BAnalysis.structure.blockSize} bytes</p>
+                              <p>• Total de bloques: {DTC1BAnalysis.structure.totalBlocks}</p>
+                              <p>• Entropía: {DTC1BAnalysis.structure.entropy.toFixed(3)}</p>
                             </div>
                           </div>
 
                           <div className="bg-slate-700/50 rounded-lg p-4">
                             <p className="text-sm text-slate-400 mb-1">Metadatos</p>
                             <div className="text-white text-sm space-y-1 font-mono">
-                              <p>Primeros bytes: {dtc1bAnalysis.extracted_data.metadata.first_bytes}</p>
-                              <p>Últimos bytes: {dtc1bAnalysis.extracted_data.metadata.last_bytes}</p>
+                              <p>Primeros bytes: {DTC1BAnalysis.extracted_data.metadata.first_bytes}</p>
+                              <p>Últimos bytes: {DTC1BAnalysis.extracted_data.metadata.last_bytes}</p>
                             </div>
                           </div>
                         </div>
@@ -1669,10 +1669,10 @@ export function EnhancedBinaryViewer() {
                         <div className="mt-6 p-4 bg-slate-700/30 rounded-lg">
                           <h5 className="text-sm font-semibold text-white mb-2">Resumen de Análisis</h5>
                           <div className="text-sm text-slate-300 space-y-1">
-                            <p>• Patrones encontrados: {dtc1bAnalysis.analysis_summary.total_patterns_found}</p>
-                            <p>• Instituciones detectadas: {dtc1bAnalysis.analysis_summary.institutions_detected}</p>
-                            <p>• Calidad de datos: {dtc1bAnalysis.analysis_summary.data_quality_score}%</p>
-                            <p>• Evaluación de seguridad: {dtc1bAnalysis.analysis_summary.security_assessment}</p>
+                            <p>• Patrones encontrados: {DTC1BAnalysis.analysis_summary.total_patterns_found}</p>
+                            <p>• Instituciones detectadas: {DTC1BAnalysis.analysis_summary.institutions_detected}</p>
+                            <p>• Calidad de datos: {DTC1BAnalysis.analysis_summary.data_quality_score}%</p>
+                            <p>• Evaluación de seguridad: {DTC1BAnalysis.analysis_summary.security_assessment}</p>
                           </div>
                         </div>
                       </div>
@@ -1681,11 +1681,11 @@ export function EnhancedBinaryViewer() {
                       <div>
                         <h4 className="text-lg font-semibold text-white mb-3">💰 Datos Financieros</h4>
 
-                        {dtc1bAnalysis.extracted_data.institutions.length > 0 && (
+                        {DTC1BAnalysis.extracted_data.institutions.length > 0 && (
                           <div className="mb-4">
                             <p className="text-sm text-slate-400 mb-2">Instituciones Financieras</p>
                             <div className="flex flex-wrap gap-2">
-                              {dtc1bAnalysis.extracted_data.institutions.map((institution: string, i: number) => (
+                              {DTC1BAnalysis.extracted_data.institutions.map((institution: string, i: number) => (
                                 <span key={i} className="px-2 py-1 bg-blue-500/20 text-blue-300 rounded text-xs">
                                   {institution}
                                 </span>
@@ -1694,44 +1694,44 @@ export function EnhancedBinaryViewer() {
                           </div>
                         )}
 
-                        {dtc1bAnalysis.extracted_data.bank_codes.length > 0 && (
+                        {DTC1BAnalysis.extracted_data.bank_codes.length > 0 && (
                           <div className="mb-4">
                             <p className="text-sm text-slate-400 mb-2">Códigos Bancarios</p>
                             <div className="space-y-1">
-                              {dtc1bAnalysis.extracted_data.bank_codes.slice(0, 3).map((code: string, i: number) => (
+                              {DTC1BAnalysis.extracted_data.bank_codes.slice(0, 3).map((code: string, i: number) => (
                                 <div key={i} className="font-mono text-green-400 text-sm">{code}</div>
                               ))}
                             </div>
                           </div>
                         )}
 
-                        {dtc1bAnalysis.extracted_data.swift_codes.length > 0 && (
+                        {DTC1BAnalysis.extracted_data.swift_codes.length > 0 && (
                           <div className="mb-4">
                             <p className="text-sm text-slate-400 mb-2">Códigos SWIFT</p>
                             <div className="space-y-1">
-                              {dtc1bAnalysis.extracted_data.swift_codes.map((code: string, i: number) => (
+                              {DTC1BAnalysis.extracted_data.swift_codes.map((code: string, i: number) => (
                                 <div key={i} className="font-mono text-purple-400 text-sm">{code}</div>
                               ))}
                             </div>
                           </div>
                         )}
 
-                        {dtc1bAnalysis.extracted_data.currency_amounts.length > 0 && (
+                        {DTC1BAnalysis.extracted_data.currency_amounts.length > 0 && (
                           <div className="mb-4">
                             <p className="text-sm text-slate-400 mb-2">Montos en Moneda</p>
                             <div className="space-y-1">
-                              {dtc1bAnalysis.extracted_data.currency_amounts.map((amount: string, i: number) => (
+                              {DTC1BAnalysis.extracted_data.currency_amounts.map((amount: string, i: number) => (
                                 <div key={i} className="font-mono text-yellow-400 text-sm">{amount}</div>
                               ))}
                             </div>
                           </div>
                         )}
 
-                        {Object.keys(dtc1bAnalysis.potential_data.financial_keywords).length > 0 && (
+                        {Object.keys(DTC1BAnalysis.potential_data.financial_keywords).length > 0 && (
                           <div className="mb-4">
                             <p className="text-sm text-slate-400 mb-2">Palabras Clave Financieras</p>
                             <div className="flex flex-wrap gap-1">
-                              {Object.entries(dtc1bAnalysis.potential_data.financial_keywords).slice(0, 8).map(([keyword, count]: [string, number]) => (
+                              {Object.entries(DTC1BAnalysis.potential_data.financial_keywords).slice(0, 8).map(([keyword, count]: [string, number]) => (
                                 <span key={keyword} className="px-2 py-1 bg-green-500/20 text-green-300 rounded text-xs">
                                   {keyword} ({count})
                                 </span>
@@ -1745,10 +1745,10 @@ export function EnhancedBinaryViewer() {
                       <div>
                         <h4 className="text-lg font-semibold text-white mb-3">🔍 Patrones Detectados</h4>
 
-                        {Object.keys(dtc1bAnalysis.patterns_found).length > 0 && (
+                        {Object.keys(DTC1BAnalysis.patterns_found).length > 0 && (
                           <div className="mb-4">
                             <div className="space-y-2 max-h-32 overflow-y-auto">
-                              {Object.entries(dtc1bAnalysis.patterns_found).map(([patternName, patternData]: [string, any]) => (
+                              {Object.entries(DTC1BAnalysis.patterns_found).map(([patternName, patternData]: [string, any]) => (
                                 <div key={patternName} className="bg-slate-700/30 rounded p-2">
                                   <div className="flex justify-between items-center">
                                     <span className="text-white text-sm capitalize">
@@ -1769,7 +1769,7 @@ export function EnhancedBinaryViewer() {
 
                         <h4 className="text-lg font-semibold text-white mb-3">📦 Bloques de Transacciones</h4>
                         <div className="space-y-2 max-h-48 overflow-y-auto">
-                          {dtc1bAnalysis.currencyMatches.map((currency: any, i: number) => (
+                          {DTC1BAnalysis.currencyMatches.map((currency: any, i: number) => (
                             <div key={i} className="bg-green-500/10 border border-green-500/30 rounded-lg p-3">
                               <div className="flex items-center justify-between mb-2">
                                 <div>
@@ -1792,7 +1792,7 @@ export function EnhancedBinaryViewer() {
                     <div className="mt-6 p-4 bg-slate-700/30 rounded-lg">
                       <h4 className="text-sm font-semibold text-white mb-2">💡 Recomendaciones</h4>
                       <div className="text-sm text-slate-300 space-y-1">
-                        {dtc1bAnalysis.analysis_summary.recommendations.map((rec: string, i: number) => (
+                        {DTC1BAnalysis.analysis_summary.recommendations.map((rec: string, i: number) => (
                           <p key={i}>{rec}</p>
                         ))}
                       </div>
@@ -1810,13 +1810,13 @@ export function EnhancedBinaryViewer() {
                         </button>
                       </div>
                       <div className="text-sm text-slate-300 space-y-1">
-                        <p>• ✅ <strong>Formato identificado:</strong> DTC1B (Datos Transaccionales de CoreBanking)</p>
+                        <p>• ✅ <strong>Formato identificado:</strong> Digital Commercial Bank Ltd (Datos Transaccionales de CoreBanking)</p>
                         <p>• ✅ <strong>Estructura de bloques:</strong> Cada bloque de 128 bytes contiene una transacción</p>
                         <p>• ✅ <strong>Códigos de moneda:</strong> USD, EUR, GBP con cantidades en centavos (Big Endian)</p>
                         <p>• ✅ <strong>Formato de datos:</strong> Código de moneda (3 bytes) + Cantidad (8 bytes)</p>
                         <p>• ✅ <strong>Estado de seguridad:</strong> Archivo NO encriptado, datos legibles directamente</p>
-                        <p>• ✅ <strong>Transacciones encontradas:</strong> {dtc1bAnalysis.currencyMatches.length} transacciones válidas detectadas</p>
-                        <p>• ✅ <strong>Calidad de análisis:</strong> {dtc1bAnalysis.analysis_summary.data_quality_score}% precisión en detección</p>
+                        <p>• ✅ <strong>Transacciones encontradas:</strong> {DTC1BAnalysis.currencyMatches.length} transacciones válidas detectadas</p>
+                        <p>• ✅ <strong>Calidad de análisis:</strong> {DTC1BAnalysis.analysis_summary.data_quality_score}% precisión en detección</p>
                       </div>
                     </div>
                   </div>

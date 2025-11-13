@@ -14,7 +14,7 @@ export type ISO20022MessageType =
   | 'pacs.008.001.08'  // FI to FI Customer Credit Transfer
   | 'camt.053.001.08'; // Bank to Customer Statement
 
-// Digital Signature from DTC1B
+// Digital Signature from Digital Commercial Bank Ltd
 export interface DigitalSignature {
   signatureValue: string;          // Firma digital extraída
   signatureMethod: string;         // Método de firma (SHA-256, RSA, etc.)
@@ -25,8 +25,8 @@ export interface DigitalSignature {
   validFrom: string;               // Válido desde
   validTo: string;                 // Válido hasta
   verified: boolean;               // Estado de verificación
-  dtc1bSource: {
-    fileHash: string;              // Hash del archivo DTC1B
+  DTC1BSource: {
+    fileHash: string;              // Hash del archivo Digital Commercial Bank Ltd
     blockHash: string;             // Hash del bloque específico
     offset: number;                // Posición en archivo
     rawHexData: string;            // Datos hex originales
@@ -84,7 +84,7 @@ export interface PaymentInstruction {
   };
   digitalSignatures: DigitalSignature[];
   m2MoneyClassification: 'M2';     // Clasificación del dinero
-  dtc1bValidation: {
+  DTC1BValidation: {
     sourceFile: string;
     totalBalance: number;
     currency: string;
@@ -99,7 +99,7 @@ class ISO20022Store {
   private readonly NAMESPACE_DS = 'http://www.w3.org/2000/09/xmldsig#';
 
   /**
-   * Extract digital signatures from Bank Audit DTC1B data
+   * Extract digital signatures from Bank Audit Digital Commercial Bank Ltd data
    */
   extractDigitalSignatures(): DigitalSignature[] {
     const storeData = auditStore.loadAuditData();
@@ -127,7 +127,7 @@ class ISO20022Store {
           validFrom: proof.timestamp,
           validTo: new Date(new Date(proof.timestamp).getTime() + 365 * 24 * 60 * 60 * 1000).toISOString(),
           verified: proof.checksumVerified,
-          dtc1bSource: {
+          DTC1BSource: {
             fileHash: hallazgo.archivo.hash_sha256,
             blockHash: proof.blockHash,
             offset: proof.sourceOffset,
@@ -155,7 +155,7 @@ class ISO20022Store {
           validFrom: now,
           validTo: new Date(new Date().getTime() + 365 * 24 * 60 * 60 * 1000).toISOString(),
           verified: true,
-          dtc1bSource: {
+          DTC1BSource: {
             fileHash: firstM2.archivo.hash_sha256,
             blockHash: CryptoJS.SHA256(firstM2.evidencia_fragmento).toString(),
             offset: 0,
@@ -183,9 +183,9 @@ class ISO20022Store {
 
     let validCount = 0;
     signatures.forEach(sig => {
-      // Verify signature is from DTC1B source
-      if (!sig.dtc1bSource.fileHash) {
-        console.error('[ISO20022] ❌ Signature missing DTC1B source');
+      // Verify signature is from Digital Commercial Bank Ltd source
+      if (!sig.DTC1BSource.fileHash) {
+        console.error('[ISO20022] ❌ Signature missing Digital Commercial Bank Ltd source');
         return;
       }
 
@@ -202,7 +202,7 @@ class ISO20022Store {
       }
 
       // Verify digest matches
-      const computedDigest = CryptoJS.SHA256(sig.dtc1bSource.rawHexData).toString();
+      const computedDigest = CryptoJS.SHA256(sig.DTC1BSource.rawHexData).toString();
       if (computedDigest.substring(0, 32) !== sig.digestValue.substring(0, 32)) {
         console.warn('[ISO20022] ⚠️ Digest mismatch');
         sig.verified = false;
@@ -218,19 +218,19 @@ class ISO20022Store {
   }
 
   /**
-   * Extract M2 money balance from DTC1B via Bank Audit
+   * Extract M2 money balance from Digital Commercial Bank Ltd via Bank Audit
    */
   extractM2Balance(): { total: number; currency: string; validated: boolean } {
     const storeData = auditStore.loadAuditData();
     const auditData = storeData?.results;
     if (!auditData) {
-      throw new Error('No audit data available. Please process DTC1B file in Bank Audit module first.');
+      throw new Error('No audit data available. Please process Digital Commercial Bank Ltd file in Bank Audit module first.');
     }
 
     // Get M2 aggregated data
     const m2Data = auditData.agregados.find(agg => agg.currency === 'USD');
     if (!m2Data || m2Data.M2 === 0) {
-      throw new Error('No M2 money found in DTC1B file. Please verify the file contains M2 classified funds.');
+      throw new Error('No M2 money found in Digital Commercial Bank Ltd file. Please verify the file contains M2 classified funds.');
     }
 
     const m2Balance = m2Data.M2;
@@ -280,7 +280,7 @@ class ISO20022Store {
         `Insufficient M2 balance!\n\n` +
         `Requested: ${params.currency} ${params.amount.toLocaleString()}\n` +
         `Available M2: ${m2Data.currency} ${m2Data.total.toLocaleString()}\n\n` +
-        `Source: DTC1B Bank Audit Module`
+        `Source: Digital Commercial Bank Ltd Bank Audit Module`
       );
     }
 
@@ -332,8 +332,8 @@ class ISO20022Store {
       },
       digitalSignatures: signatures,
       m2MoneyClassification: 'M2',
-      dtc1bValidation: {
-        sourceFile: 'DTC1B',
+      DTC1BValidation: {
+        sourceFile: 'Digital Commercial Bank Ltd',
         totalBalance: m2Data.total,
         currency: m2Data.currency,
         extractedAt: now,
@@ -426,11 +426,11 @@ class ISO20022Store {
       <PlcAndNm>M2_MONEY_CLASSIFICATION</PlcAndNm>
       <Envlp>
         <M2Validation>
-          <SourceFile>${instruction.dtc1bValidation.sourceFile}</SourceFile>
-          <TotalBalance>${instruction.dtc1bValidation.totalBalance.toFixed(3)}</TotalBalance>
-          <Currency>${instruction.dtc1bValidation.currency}</Currency>
-          <ExtractedAt>${instruction.dtc1bValidation.extractedAt}</ExtractedAt>
-          <Verified>${instruction.dtc1bValidation.verified}</Verified>
+          <SourceFile>${instruction.DTC1BValidation.sourceFile}</SourceFile>
+          <TotalBalance>${instruction.DTC1BValidation.totalBalance.toFixed(3)}</TotalBalance>
+          <Currency>${instruction.DTC1BValidation.currency}</Currency>
+          <ExtractedAt>${instruction.DTC1BValidation.extractedAt}</ExtractedAt>
+          <Verified>${instruction.DTC1BValidation.verified}</Verified>
           <DigitalSignatures>
             ${instruction.digitalSignatures.map(sig => `
             <Signature>
@@ -442,9 +442,9 @@ class ISO20022Store {
               <SignedAt>${sig.signedAt}</SignedAt>
               <Verified>${sig.verified}</Verified>
               <DTC1BSource>
-                <FileHash>${sig.dtc1bSource.fileHash}</FileHash>
-                <BlockHash>${sig.dtc1bSource.blockHash}</BlockHash>
-                <Offset>${sig.dtc1bSource.offset}</Offset>
+                <FileHash>${sig.DTC1BSource.fileHash}</FileHash>
+                <BlockHash>${sig.DTC1BSource.blockHash}</BlockHash>
+                <Offset>${sig.DTC1BSource.offset}</Offset>
               </DTC1BSource>
             </Signature>
             `).join('')}

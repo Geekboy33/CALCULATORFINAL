@@ -201,7 +201,7 @@ Crear #7 - Banking USD:     DAES-BK-USD-1000002
 ## 🔐 ALMACENAMIENTO DE CONTADORES
 
 ```javascript
-// En localStorage: 'dtc1b_custody_counter'
+// En localStorage: 'Digital Commercial Bank Ltd_custody_counter'
 {
   "BC_USD": 1000003,  // Próximo: DAES-BC-USD-1000003
   "BC_EUR": 1000002,  // Próximo: DAES-BC-EUR-1000002

@@ -110,10 +110,10 @@ Dependencias transitivas: 210
 
 ### **Módulos principales compilados:**
 - ✅ Dashboard Bancario Avanzado (16.20 KB)
-- ✅ Analizador DTC1B Grande (28.74 KB)
+- ✅ Analizador Digital Commercial Bank Ltd Grande (28.74 KB)
 - ✅ Visor Binario Mejorado (54.37 KB)
 - ✅ Interfaz XCP B2B (17.78 KB)
-- ✅ Procesador DTC1B (11.11 KB)
+- ✅ Procesador Digital Commercial Bank Ltd (11.11 KB)
 - ✅ Sistema de Transferencias (14.51 KB)
 - ✅ Ledger de Cuentas (9.78 KB)
 - ✅ Pantalla Negra Bancaria (18.92 KB)

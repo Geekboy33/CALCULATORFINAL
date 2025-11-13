@@ -126,7 +126,7 @@ Ahora verás en la consola (F12) **CADA DIVISA con su desglose completo**.
 2. http://localhost:5173
 3. F12 (Console)
 4. Bank Audit
-5. Cargar: sample_dtc1b_real_data.txt
+5. Cargar: sample_Digital Commercial Bank Ltd_real_data.txt
 6. LEE LA CONSOLA COMPLETA
 ```
 
@@ -145,7 +145,7 @@ Ahora verás en la consola (F12) **CADA DIVISA con su desglose completo**.
 
 ## ✅ VERIFICACIÓN CONTRA ARCHIVO
 
-### Abre sample_dtc1b_real_data.txt
+### Abre sample_Digital Commercial Bank Ltd_real_data.txt
 
 ### Busca "Currency Distribution:":
 

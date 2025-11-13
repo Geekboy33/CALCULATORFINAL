@@ -7,12 +7,12 @@
 ## PASO 1: Terminal
 ```bash
 cd "C:\Users\USER\Desktop\DAES ULTIMATE\DAES-ULTIMATE"
-python create_sample_dtc1b.py
+python create_sample_Digital Commercial Bank Ltd.py
 ```
 
 ## PASO 2: Verificar
 ```bash
-type sample_dtc1b_real_data.txt | findstr "65,000"
+type sample_Digital Commercial Bank Ltd_real_data.txt | findstr "65,000"
 ```
 
 Debes ver: `Balance: USD 65,000.00`
@@ -36,7 +36,7 @@ location.reload();
 ## PASO 5: Cargar
 ```
 1. Bank Audit
-2. Cargar sample_dtc1b_real_data.txt
+2. Cargar sample_Digital Commercial Bank Ltd_real_data.txt
 ```
 
 ## PASO 6: LEER CONSOLA (F12)

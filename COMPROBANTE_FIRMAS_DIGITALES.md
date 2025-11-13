@@ -14,11 +14,11 @@
 
 El comprobante de transferencia ahora incluye:
 
-1. ✅ **DTC1B Validated: YES** (cuando hay firmas)
+1. ✅ **Digital Commercial Bank Ltd Validated: YES** (cuando hay firmas)
 2. ✅ **Sección completa de firmas digitales**
-3. ✅ **Detalles de cada firma extraída del DTC1B**
+3. ✅ **Detalles de cada firma extraída del Digital Commercial Bank Ltd**
 4. ✅ **Verificación individual de cada firma**
-5. ✅ **Información de origen DTC1B**
+5. ✅ **Información de origen Digital Commercial Bank Ltd**
 
 ---
 
@@ -47,15 +47,15 @@ Account: 23890111
 Institution: APEX CAPITAL RESERVE BANK INC
 BIC: APEXCAUS
 
-=== M2 VALIDATION (DTC1B) ===
+=== M2 VALIDATION (Digital Commercial Bank Ltd) ===
 Balance Before: USD 9,876,543.210
 Balance After: USD 9,875,543.210
 Deducted: USD 1,000.000
 Digital Signatures Extracted: 3
 All Signatures Verified: ✅ YES
-Source: Bank Audit Module (DTC1B)
+Source: Bank Audit Module (Digital Commercial Bank Ltd)
 
-=== DIGITAL SIGNATURES (DTC1B) ===
+=== DIGITAL SIGNATURES (Digital Commercial Bank Ltd) ===
 
 [Signature 1]
 Signature Value: a7f3d9c8e1b4f2a6d8e9c7b5a3f1d9c8e7b6a5f4d3c2b1a9f8e7d6c5b4a3f2...
@@ -67,7 +67,7 @@ Signed At: 11/13/2025, 9:15:23 AM
 Valid From: 11/13/2025, 9:15:23 AM
 Valid To: 11/13/2026, 9:15:23 AM
 Verified: ✅ YES
-DTC1B Source:
+Digital Commercial Bank Ltd Source:
   - File Hash: 7f9e3c8a1b5d2f4a9c7e6b3d1f8a5c9e...
   - Block Hash: 3e8f1c9a7b5d2f4a6c8e9b7d5f3a1c8e...
   - Offset: 1024
@@ -83,7 +83,7 @@ Signed At: 11/13/2025, 9:15:23 AM
 Valid From: 11/13/2025, 9:15:23 AM
 Valid To: 11/13/2026, 9:15:23 AM
 Verified: ✅ YES
-DTC1B Source:
+Digital Commercial Bank Ltd Source:
   - File Hash: 7f9e3c8a1b5d2f4a9c7e6b3d1f8a5c9e...
   - Block Hash: 2d7f0c8a6b4d1f3a5c7e8b6d4f2a0c7e...
   - Offset: 2048
@@ -99,7 +99,7 @@ Signed At: 11/13/2025, 9:15:23 AM
 Valid From: 11/13/2025, 9:15:23 AM
 Valid To: 11/13/2026, 9:15:23 AM
 Verified: ✅ YES
-DTC1B Source:
+Digital Commercial Bank Ltd Source:
   - File Hash: 7f9e3c8a1b5d2f4a9c7e6b3d1f8a5c9e...
   - Block Hash: 1c6f9b7a5d3f1a4c6e8b9d7f5c3a1e8b...
   - Offset: 3072
@@ -108,17 +108,17 @@ DTC1B Source:
 === ISO 20022 COMPLIANCE ===
 Standard: pain.001.001.09 (Customer Credit Transfer)
 Classification: M2 Money Supply
-DTC1B Validated: ✅ YES
+Digital Commercial Bank Ltd Validated: ✅ YES
 ISO Message Generated: ✅ YES
 Digital Signatures Attached: ✅ YES (3 signatures)
 
 === STATUS ===
 Status: COMPLETED
 API Response: Transfer completed successfully
-✅ M2 balance deducted from DTC1B
+✅ M2 balance deducted from Digital Commercial Bank Ltd
 ✅ ISO 20022 XML generated
 ✅ Digital signatures verified and attached
-✅ DTC1B authenticity proof included
+✅ Digital Commercial Bank Ltd authenticity proof included
 ```
 
 ---
@@ -135,7 +135,7 @@ API Response: Transfer completed successfully
 // Build digital signatures section
 let signaturesSection = '';
 if (paymentInstruction.digitalSignatures && paymentInstruction.digitalSignatures.length > 0) {
-  signaturesSection = '\n=== DIGITAL SIGNATURES (DTC1B) ===\n';
+  signaturesSection = '\n=== DIGITAL SIGNATURES (Digital Commercial Bank Ltd) ===\n';
   paymentInstruction.digitalSignatures.forEach((sig, index) => {
     signaturesSection +=
       `\n[Signature ${index + 1}]\n` +
@@ -148,11 +148,11 @@ if (paymentInstruction.digitalSignatures && paymentInstruction.digitalSignatures
       `Valid From: ${new Date(sig.validFrom).toLocaleString('en-US')}\n` +
       `Valid To: ${new Date(sig.validTo).toLocaleString('en-US')}\n` +
       `Verified: ${sig.verified ? '✅ YES' : '❌ NO'}\n` +
-      `DTC1B Source:\n` +
-      `  - File Hash: ${sig.dtc1bSource.fileHash.substring(0, 32)}...\n` +
-      `  - Block Hash: ${sig.dtc1bSource.blockHash.substring(0, 32)}...\n` +
-      `  - Offset: ${sig.dtc1bSource.offset}\n` +
-      `  - Raw Hex: ${sig.dtc1bSource.rawHexData.substring(0, 48)}...\n`;
+      `Digital Commercial Bank Ltd Source:\n` +
+      `  - File Hash: ${sig.Digital Commercial Bank LtdSource.fileHash.substring(0, 32)}...\n` +
+      `  - Block Hash: ${sig.Digital Commercial Bank LtdSource.blockHash.substring(0, 32)}...\n` +
+      `  - Offset: ${sig.Digital Commercial Bank LtdSource.offset}\n` +
+      `  - Raw Hex: ${sig.Digital Commercial Bank LtdSource.rawHexData.substring(0, 48)}...\n`;
   });
 }
 ```
@@ -160,13 +160,13 @@ if (paymentInstruction.digitalSignatures && paymentInstruction.digitalSignatures
 ### Sección M2 Validation Mejorada
 
 ```typescript
-`=== M2 VALIDATION (DTC1B) ===\n` +
+`=== M2 VALIDATION (Digital Commercial Bank Ltd) ===\n` +
 `Balance Before: ${transferForm.currency} ${m2BalanceBefore.toLocaleString('en-US', { minimumFractionDigits: 3 })}\n` +
 `Balance After: ${transferForm.currency} ${m2BalanceAfter.toLocaleString('en-US', { minimumFractionDigits: 3 })}\n` +
 `Deducted: ${transferForm.currency} ${transferForm.amount.toLocaleString('en-US', { minimumFractionDigits: 3 })}\n` +
 `Digital Signatures Extracted: ${paymentInstruction.digitalSignatures.length}\n` +
-`All Signatures Verified: ${paymentInstruction.dtc1bValidation.verified ? '✅ YES' : '❌ NO'}\n` +
-`Source: Bank Audit Module (DTC1B)\n` +
+`All Signatures Verified: ${paymentInstruction.Digital Commercial Bank LtdValidation.verified ? '✅ YES' : '❌ NO'}\n` +
+`Source: Bank Audit Module (Digital Commercial Bank Ltd)\n` +
 signaturesSection
 ```
 
@@ -176,7 +176,7 @@ signaturesSection
 `\n=== ISO 20022 COMPLIANCE ===\n` +
 `Standard: pain.001.001.09 (Customer Credit Transfer)\n` +
 `Classification: M2 Money Supply\n` +
-`DTC1B Validated: ${paymentInstruction.dtc1bValidation.verified ? '✅ YES' : '❌ NO'}\n` +
+`Digital Commercial Bank Ltd Validated: ${paymentInstruction.Digital Commercial Bank LtdValidation.verified ? '✅ YES' : '❌ NO'}\n` +
 `ISO Message Generated: ✅ YES\n` +
 `Digital Signatures Attached: ✅ YES (${paymentInstruction.digitalSignatures.length} signatures)\n\n`
 ```
@@ -198,7 +198,7 @@ interface DigitalSignature {
   validFrom: string;               // Válido desde
   validTo: string;                 // Válido hasta (1 año)
   verified: boolean;               // ✅ YES / ❌ NO
-  dtc1bSource: {
+  Digital Commercial Bank LtdSource: {
     fileHash: string;              // Hash SHA-256 del archivo
     blockHash: string;             // Hash del bloque específico
     offset: number;                // Posición en archivo (bytes)
@@ -220,7 +220,7 @@ interface DigitalSignature {
 | **Valid From** | Inicio de validez | "11/13/2025, 9:15:23 AM" |
 | **Valid To** | Fin de validez (1 año) | "11/13/2026, 9:15:23 AM" |
 | **Verified** | Estado de verificación | "✅ YES" o "❌ NO" |
-| **File Hash** | Hash del archivo DTC1B | SHA-256 (primeros 32 chars) |
+| **File Hash** | Hash del archivo Digital Commercial Bank Ltd | SHA-256 (primeros 32 chars) |
 | **Block Hash** | Hash del bloque específico | SHA-256 (primeros 32 chars) |
 | **Offset** | Posición en archivo | Número de bytes |
 | **Raw Hex** | Datos hex originales | Hex (primeros 48 chars) |
@@ -231,7 +231,7 @@ interface DigitalSignature {
 
 ### Extracción desde Bank Audit
 
-Las firmas se extraen del archivo DTC1B procesado en Bank Audit:
+Las firmas se extraen del archivo Digital Commercial Bank Ltd procesado en Bank Audit:
 
 ```typescript
 // En iso20022-store.ts
@@ -255,7 +255,7 @@ extractDigitalSignatures(): DigitalSignature[] {
         validFrom: proof.timestamp,
         validTo: new Date(new Date(proof.timestamp).getTime() + 365 * 24 * 60 * 60 * 1000).toISOString(),
         verified: proof.checksumVerified,
-        dtc1bSource: {
+        Digital Commercial Bank LtdSource: {
           fileHash: hallazgo.archivo.hash_sha256,
           blockHash: proof.blockHash,
           offset: proof.sourceOffset,
@@ -271,7 +271,7 @@ extractDigitalSignatures(): DigitalSignature[] {
 ### Flujo de Datos
 
 ```
-1. Usuario sube DTC1B en Bank Audit
+1. Usuario sube Digital Commercial Bank Ltd en Bank Audit
         ↓
 2. Sistema procesa archivo
         ↓
@@ -308,12 +308,12 @@ verified: proof.checksumVerified  // ✅ YES si checksum válido
 
 ### Verificación Global
 
-Todas las firmas deben verificar para DTC1B Validated:
+Todas las firmas deben verificar para Digital Commercial Bank Ltd Validated:
 
 ```typescript
 const validated = signatures.every(sig => sig.verified);
 
-dtc1bValidation: {
+Digital Commercial Bank LtdValidation: {
   verified: validated,  // ✅ YES solo si TODAS verifican
   // ...
 }
@@ -329,7 +329,7 @@ All Signatures Verified: ✅ YES
 
 **ISO 20022 Compliance:**
 ```
-DTC1B Validated: ✅ YES
+Digital Commercial Bank Ltd Validated: ✅ YES
 ISO Message Generated: ✅ YES
 Digital Signatures Attached: ✅ YES (3 signatures)
 ```
@@ -337,7 +337,7 @@ Digital Signatures Attached: ✅ YES (3 signatures)
 **STATUS:**
 ```
 ✅ Digital signatures verified and attached
-✅ DTC1B authenticity proof included
+✅ Digital Commercial Bank Ltd authenticity proof included
 ```
 
 ---
@@ -347,17 +347,17 @@ Digital Signatures Attached: ✅ YES (3 signatures)
 ### Caso 1: Con Firmas Digitales
 
 **Condición:**
-- Archivo DTC1B procesado
+- Archivo Digital Commercial Bank Ltd procesado
 - Hallazgos M2 con authenticityProof
 - Firmas verificadas
 
 **Comprobante:**
 ```
-=== M2 VALIDATION (DTC1B) ===
+=== M2 VALIDATION (Digital Commercial Bank Ltd) ===
 Digital Signatures Extracted: 3
 All Signatures Verified: ✅ YES
 
-=== DIGITAL SIGNATURES (DTC1B) ===
+=== DIGITAL SIGNATURES (Digital Commercial Bank Ltd) ===
 [Signature 1]
 Verified: ✅ YES
 ...
@@ -369,7 +369,7 @@ Verified: ✅ YES
 ...
 
 === ISO 20022 COMPLIANCE ===
-DTC1B Validated: ✅ YES
+Digital Commercial Bank Ltd Validated: ✅ YES
 Digital Signatures Attached: ✅ YES (3 signatures)
 ```
 
@@ -378,20 +378,20 @@ Digital Signatures Attached: ✅ YES (3 signatures)
 ### Caso 2: Sin Firmas Digitales
 
 **Condición:**
-- Archivo DTC1B procesado
+- Archivo Digital Commercial Bank Ltd procesado
 - Sin hallazgos M2 con authenticityProof
 - 0 firmas extraídas
 
 **Comprobante:**
 ```
-=== M2 VALIDATION (DTC1B) ===
+=== M2 VALIDATION (Digital Commercial Bank Ltd) ===
 Digital Signatures Extracted: 0
 All Signatures Verified: ❌ NO
 
 (No se muestra sección de firmas)
 
 === ISO 20022 COMPLIANCE ===
-DTC1B Validated: ❌ NO
+Digital Commercial Bank Ltd Validated: ❌ NO
 Digital Signatures Attached: ✅ YES (0 signatures)
 ```
 
@@ -405,11 +405,11 @@ Digital Signatures Attached: ✅ YES (0 signatures)
 
 **Comprobante:**
 ```
-=== M2 VALIDATION (DTC1B) ===
+=== M2 VALIDATION (Digital Commercial Bank Ltd) ===
 Digital Signatures Extracted: 3
 All Signatures Verified: ❌ NO
 
-=== DIGITAL SIGNATURES (DTC1B) ===
+=== DIGITAL SIGNATURES (Digital Commercial Bank Ltd) ===
 [Signature 1]
 Verified: ✅ YES
 ...
@@ -421,7 +421,7 @@ Verified: ❌ NO
 ...
 
 === ISO 20022 COMPLIANCE ===
-DTC1B Validated: ❌ NO
+Digital Commercial Bank Ltd Validated: ❌ NO
 Digital Signatures Attached: ✅ YES (3 signatures)
 ```
 
@@ -468,9 +468,9 @@ const transfer: Transfer = {
   m2Validation: {
     m2BalanceBefore,
     m2BalanceAfter,
-    dtc1bSource: 'Bank Audit Module',
+    Digital Commercial Bank LtdSource: 'Bank Audit Module',
     digitalSignatures: paymentInstruction.digitalSignatures.length,
-    signaturesVerified: paymentInstruction.dtc1bValidation.verified
+    signaturesVerified: paymentInstruction.Digital Commercial Bank LtdValidation.verified
   }
 };
 
@@ -513,15 +513,15 @@ Account: 23890111
 Institution: APEX CAPITAL RESERVE BANK INC
 BIC: APEXCAUS
 
-=== M2 VALIDATION (DTC1B) ===
+=== M2 VALIDATION (Digital Commercial Bank Ltd) ===
 Balance Before: USD 125,876,543.210
 Balance After: USD 125,826,543.210
 Deducted: USD 50,000.000
 Digital Signatures Extracted: 3
 All Signatures Verified: ✅ YES
-Source: Bank Audit Module (DTC1B)
+Source: Bank Audit Module (Digital Commercial Bank Ltd)
 
-=== DIGITAL SIGNATURES (DTC1B) ===
+=== DIGITAL SIGNATURES (Digital Commercial Bank Ltd) ===
 
 [Signature 1]
 Signature Value: 7a3f9e8c1b6d4f2a8e9c7b5d3f1a9c8e7b6a5f4d3c2b1a0f9e8d7c6b5a4f3e2...
@@ -533,7 +533,7 @@ Signed At: 11/13/2025, 9:42:03 AM
 Valid From: 11/13/2025, 9:42:03 AM
 Valid To: 11/13/2026, 9:42:03 AM
 Verified: ✅ YES
-DTC1B Source:
+Digital Commercial Bank Ltd Source:
   - File Hash: f8e7d6c5b4a3f2e1d9c8b7a6f5e4d3c2...
   - Block Hash: 9d8c7b6a5f4e3d2c1b0a9f8e7d6c5b4a...
   - Offset: 4096
@@ -549,7 +549,7 @@ Signed At: 11/13/2025, 9:42:03 AM
 Valid From: 11/13/2025, 9:42:03 AM
 Valid To: 11/13/2026, 9:42:03 AM
 Verified: ✅ YES
-DTC1B Source:
+Digital Commercial Bank Ltd Source:
   - File Hash: f8e7d6c5b4a3f2e1d9c8b7a6f5e4d3c2...
   - Block Hash: 8c7b6a5f4e3d2c1b0a9f8e7d6c5b4a3f...
   - Offset: 8192
@@ -565,7 +565,7 @@ Signed At: 11/13/2025, 9:42:03 AM
 Valid From: 11/13/2025, 9:42:03 AM
 Valid To: 11/13/2026, 9:42:03 AM
 Verified: ✅ YES
-DTC1B Source:
+Digital Commercial Bank Ltd Source:
   - File Hash: f8e7d6c5b4a3f2e1d9c8b7a6f5e4d3c2...
   - Block Hash: 7b6a5f4e3d2c1b0a9f8e7d6c5b4a3f2e...
   - Offset: 12288
@@ -574,7 +574,7 @@ DTC1B Source:
 === ISO 20022 COMPLIANCE ===
 Standard: pain.001.001.09 (Customer Credit Transfer)
 Classification: M2 Money Supply
-DTC1B Validated: ✅ YES
+Digital Commercial Bank Ltd Validated: ✅ YES
 ISO Message Generated: ✅ YES
 Digital Signatures Attached: ✅ YES (3 signatures)
 
@@ -582,10 +582,10 @@ Digital Signatures Attached: ✅ YES (3 signatures)
 Status: COMPLETED
 API Response: Transfer processed successfully
 Details: Funds transferred to recipient account
-✅ M2 balance deducted from DTC1B
+✅ M2 balance deducted from Digital Commercial Bank Ltd
 ✅ ISO 20022 XML generated
 ✅ Digital signatures verified and attached
-✅ DTC1B authenticity proof included
+✅ Digital Commercial Bank Ltd authenticity proof included
 ```
 
 ---
@@ -608,7 +608,7 @@ Status: ✓ SUCCESS
 **Added:**
 - Digital signatures section builder
 - Individual signature formatting
-- DTC1B source information display
+- Digital Commercial Bank Ltd source information display
 - Enhanced M2 validation section
 - Enhanced ISO 20022 compliance section
 - Additional status indicators
@@ -625,11 +625,11 @@ Status: ✓ SUCCESS
 ### ✅ COMPROBANTE MEJORADO
 
 **Nuevas características:**
-- ✅ "DTC1B Validated: YES" prominente
+- ✅ "Digital Commercial Bank Ltd Validated: YES" prominente
 - ✅ Sección completa de firmas digitales
 - ✅ Detalles de cada firma (método, issuer, serial, etc.)
 - ✅ Estado de verificación individual por firma
-- ✅ Información de origen DTC1B (hash, offset, hex)
+- ✅ Información de origen Digital Commercial Bank Ltd (hash, offset, hex)
 - ✅ Confirmación de firmas adjuntas en ISO 20022
 - ✅ Indicadores visuales (✅/❌) claros
 
@@ -639,7 +639,7 @@ Status: ✓ SUCCESS
 - ✅ Fuente de datos (Bank Audit Module)
 
 **ISO 20022 mejorado:**
-- ✅ Estado DTC1B Validated
+- ✅ Estado Digital Commercial Bank Ltd Validated
 - ✅ Confirmación mensaje ISO generado
 - ✅ Confirmación firmas adjuntas con cantidad
 

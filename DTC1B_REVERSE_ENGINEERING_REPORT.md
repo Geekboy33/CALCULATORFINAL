@@ -1,8 +1,8 @@
-# 🔬 Informe de Ingeniería Inversa - Archivo DTC1B
+# 🔬 Informe de Ingeniería Inversa - Archivo Digital Commercial Bank Ltd
 
 ## 📊 Información General del Archivo
 
-- **Ubicación**: `E:\1A\dtc1b`
+- **Ubicación**: `E:\1A\Digital Commercial Bank Ltd`
 - **Tamaño**: 858,993,459,200 bytes (~800 GB)
 - **Última Modificación**: 23 de agosto de 2023, 17:25:45
 - **Extensión**: Ninguna (archivo sin extensión)
@@ -14,7 +14,7 @@
 Bytes 0-3: B0 42 33 79
 ```
 - **Interpretación**: Este no es un magic number estándar conocido
-- **Hipótesis**: Formato propietario DTC1B con firma personalizada
+- **Hipótesis**: Formato propietario Digital Commercial Bank Ltd con firma personalizada
 
 ### Primeros 64 bytes (Hex):
 ```
@@ -140,7 +140,7 @@ Archivo Total: 800 GB
 ```powershell
 # Leer primeros 256 bytes para análisis detallado
 $header = New-Object byte[] 256
-$stream = [System.IO.File]::OpenRead("E:\1A\dtc1b")
+$stream = [System.IO.File]::OpenRead("E:\1A\Digital Commercial Bank Ltd")
 $stream.Read($header, 0, 256)
 $stream.Close()
 ```
@@ -189,7 +189,7 @@ $stream.Close()
 
 ## 📝 Conclusiones
 
-1. **Formato**: DTC1B propietario con firma `B0 42 33 79`
+1. **Formato**: Digital Commercial Bank Ltd propietario con firma `B0 42 33 79`
 2. **Estado**: Completamente encriptado con alta entropía
 3. **Algoritmo Probable**: AES-256-GCM
 4. **Requisitos**: Username + Password del propietario, o clave AES directa
@@ -204,13 +204,13 @@ $stream.Close()
    - Visualización hexadecimal
    - Búsqueda de patrones
 
-2. **Analizador DTC1B Pro** (`EnhancedBinaryViewer.tsx`)
+2. **Analizador Digital Commercial Bank Ltd Pro** (`EnhancedBinaryViewer.tsx`)
    - Análisis forense
    - Criptoanálisis
-   - Detección de estructuras DTC1B
+   - Detección de estructuras Digital Commercial Bank Ltd
    - Exportación de reportes
 
-3. **Script Python** (`analizador_dtc1b.py`)
+3. **Script Python** (`analizador_Digital Commercial Bank Ltd.py`)
    - Análisis offline
    - Procesamiento por bloques
    - Generación de reportes detallados
@@ -226,7 +226,7 @@ $stream.Close()
 ---
 
 **Fecha del Reporte**: 15 de octubre de 2025  
-**Analizado por**: Sistema de Ingeniería Inversa DTC1B Pro  
+**Analizado por**: Sistema de Ingeniería Inversa Digital Commercial Bank Ltd Pro  
 **Versión**: 2.0
 
 

@@ -48,7 +48,7 @@ CoreBanking DAES v2.2
 │   ├── Account Ledger ★ NEW
 │   ├── XCP B2B API ★ NEW
 │   ├── Large File Analyzer (mejorado)
-│   ├── DTC1B Processors
+│   ├── Digital Commercial Bank Ltd Processors
 │   ├── Binary Readers
 │   └── Management (Transfers, API Keys, Audit)
 │
@@ -75,7 +75,7 @@ CoreBanking DAES v2.2
     ├── AES-256-GCM Encryption
     ├── HMAC-SHA256 Signing
     ├── mTLS (Mutual TLS)
-    └── DTC1B Forensic Analysis
+    └── Digital Commercial Bank Ltd Forensic Analysis
 ```
 
 ---
@@ -197,7 +197,7 @@ CoreBanking DAES v2.2
 │                                                      │
 │  [Large File Analyzer]                              │
 │         ↓                                            │
-│  Procesa archivo DTC1B                              │
+│  Procesa archivo Digital Commercial Bank Ltd                              │
 │         ↓                                            │
 │  Cada 100MB procesados:                             │
 │         ↓                                            │
@@ -234,7 +234,7 @@ CoreBanking DAES v2.2
 ┌─────────────────────────────────────────────────────────────┐
 │ 💼 CoreBanking System          🌍 [🇪🇸 ES] [🇺🇸 EN]  [Status]│
 │    DAES Data and Exchange Settlement                        │
-│    AES-256-GCM • DTC1B • HMAC-SHA256                       │
+│    AES-256-GCM • Digital Commercial Bank Ltd • HMAC-SHA256                       │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -250,7 +250,7 @@ CoreBanking DAES v2.2
 ┌─────────────────────────────────────────────────────────────┐
 │ CoreBanking v1.0.0 • ISO 4217 • PCI-DSS                    │
 │ Multi-Currency: USD • EUR • GBP • CHF                      │
-│ Encryption: AES-256-GCM • DTC1B Forensic Analysis          │
+│ Encryption: AES-256-GCM • Digital Commercial Bank Ltd Forensic Analysis          │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -310,7 +310,7 @@ CoreBanking DAES v2.2
 
 5. Data Encryption
    ├── AES-256-GCM
-   ├── DTC1B format
+   ├── Digital Commercial Bank Ltd format
    └── Forensic analysis
 ```
 
@@ -350,7 +350,7 @@ npm run dev
 
 ### **3. Analizar Archivo Grande**:
 - Ve a "Analizador Archivos Grandes"
-- Selecciona archivo DTC1B
+- Selecciona archivo Digital Commercial Bank Ltd
 - Espera o cambia de pestaña (sigue procesando)
 - Ve a "Ledger Cuentas" para ver actualización en vivo
 
@@ -373,7 +373,7 @@ npm run dev
 
 ### **Caso 1: Banco Internacional**
 ```
-Banco recibe archivo DTC1B de 10GB
+Banco recibe archivo Digital Commercial Bank Ltd de 10GB
 ↓
 Analiza con el sistema (30 min)
 ↓
@@ -390,7 +390,7 @@ Todo rastreado y auditable
 ```
 Empresa maneja USD, EUR, GBP, CHF, JPY
 ↓
-Carga archivos DTC1B diarios
+Carga archivos Digital Commercial Bank Ltd diarios
 ↓
 Ledger actualiza balances en tiempo real
 ↓

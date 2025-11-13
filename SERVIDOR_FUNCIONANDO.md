@@ -14,7 +14,7 @@
 ## 🔧 Problemas Solucionados
 
 ### 1. Funciones Duplicadas Eliminadas
-- ❌ `detectDTC1BFormat` estaba declarada 2 veces
+- ❌ `detectDigital Commercial Bank LtdFormat` estaba declarada 2 veces
 - ❌ `performForensicAnalysis` estaba declarada 2 veces
 - ❌ `calculateEntropy` estaba declarada 2 veces
 
@@ -37,9 +37,9 @@ http://localhost:5173
 ### Componentes Disponibles
 
 1. **📊 Dashboard** - Panel principal con información general
-2. **📁 DTC1B Processor** - Procesador de archivos DTC1B
+2. **📁 Digital Commercial Bank Ltd Processor** - Procesador de archivos Digital Commercial Bank Ltd
 3. **🔍 Binary Reader** - Lector binario universal
-4. **🔬 Analizador DTC1B Pro** - Análisis forense avanzado
+4. **🔬 Analizador Digital Commercial Bank Ltd Pro** - Análisis forense avanzado
 5. **💾 Analizador Archivos Grandes** ⭐ NUEVO
    - Procesa archivos hasta 800 GB
    - Análisis por bloques (streaming)
@@ -47,10 +47,10 @@ http://localhost:5173
 
 ---
 
-## 📊 Archivo DTC1B Analizado
+## 📊 Archivo Digital Commercial Bank Ltd Analizado
 
 ### Información del Archivo
-- **Ubicación**: `E:\1A\dtc1b`
+- **Ubicación**: `E:\1A\Digital Commercial Bank Ltd`
 - **Tamaño**: 800 GB (858,993,459,200 bytes)
 - **Magic Number**: `B0 42 33 79`
 - **Entropía**: 7.9972/8.0 (MÁXIMA)
@@ -77,7 +77,7 @@ Opción 2: Clave Directa
 ## 📄 Documentación Generada
 
 ### 1. Reporte de Ingeniería Inversa
-**Archivo**: `DTC1B_REVERSE_ENGINEERING_REPORT.md`
+**Archivo**: `Digital Commercial Bank Ltd_REVERSE_ENGINEERING_REPORT.md`
 
 Contiene:
 - ✅ Análisis de estructura binaria
@@ -89,7 +89,7 @@ Contiene:
 - ✅ Próximos pasos
 
 ### 2. Análisis Completo
-**Archivo**: `ANALISIS_DTC1B_COMPLETO.md`
+**Archivo**: `ANALISIS_Digital Commercial Bank Ltd_COMPLETO.md`
 
 Contiene:
 - ✅ Estado del servidor
@@ -105,7 +105,7 @@ Contiene:
 ### Para Analizar Archivos Pequeños/Medianos (< 100 MB)
 
 1. Abrir http://localhost:5173
-2. Ir a **"Binary Reader"** o **"Analizador DTC1B Pro"**
+2. Ir a **"Binary Reader"** o **"Analizador Digital Commercial Bank Ltd Pro"**
 3. Cargar el archivo
 4. Ver análisis automático
 
@@ -178,7 +178,7 @@ netstat -ano | findstr ":5173"
 - ✅ Detecta automáticamente más de 50 formatos de archivo
 - ✅ PDF, ZIP, JPEG, PNG, MP3, ELF, RTF, XML, JSON
 - ✅ Archivos encriptados (AES-GCM, AES-CBC)
-- ✅ Formatos propietarios (DTC1B)
+- ✅ Formatos propietarios (Digital Commercial Bank Ltd)
 
 ### Análisis Forense
 - ✅ Cálculo de entropía
@@ -187,7 +187,7 @@ netstat -ano | findstr ":5173"
 - ✅ Firma digital del archivo
 - ✅ Nivel de riesgo
 
-### Análisis DTC1B Específico
+### Análisis Digital Commercial Bank Ltd Específico
 - ✅ Detección de códigos de moneda (USD, EUR, GBP, CAD, AUD, JPY, CHF)
 - ✅ Búsqueda de transacciones
 - ✅ Análisis de bloques de 128 bytes
@@ -206,7 +206,7 @@ netstat -ano | findstr ":5173"
 
 1. **Warnings de TypeScript**: Hay algunos warnings menores (variables no usadas, estilos inline) pero **NO AFECTAN** el funcionamiento. El código compila y ejecuta correctamente.
 
-2. **Tamaño del Archivo DTC1B**: El archivo de 800 GB es extremadamente grande. Usar el componente **"Analizador Archivos Grandes"** que procesa por bloques.
+2. **Tamaño del Archivo Digital Commercial Bank Ltd**: El archivo de 800 GB es extremadamente grande. Usar el componente **"Analizador Archivos Grandes"** que procesa por bloques.
 
 3. **Encriptación**: El archivo está completamente encriptado. Se necesitan credenciales válidas para desencriptarlo.
 
@@ -222,7 +222,7 @@ netstat -ano | findstr ":5173"
 - [x] Todos los componentes disponibles
 - [x] Navegador abierto automáticamente
 - [x] Documentación completa generada
-- [x] Análisis del archivo DTC1B completado
+- [x] Análisis del archivo Digital Commercial Bank Ltd completado
 
 ---
 
@@ -230,10 +230,10 @@ netstat -ano | findstr ":5173"
 
 1. **Navegar a** http://localhost:5173 (debería abrirse automáticamente)
 2. **Explorar** los diferentes componentes disponibles
-3. **Cargar** el archivo DTC1B desde `E:\1A\dtc1b` usando "Analizador Archivos Grandes"
+3. **Cargar** el archivo Digital Commercial Bank Ltd desde `E:\1A\Digital Commercial Bank Ltd` usando "Analizador Archivos Grandes"
 4. **Revisar** los reportes generados:
-   - `DTC1B_REVERSE_ENGINEERING_REPORT.md`
-   - `ANALISIS_DTC1B_COMPLETO.md`
+   - `Digital Commercial Bank Ltd_REVERSE_ENGINEERING_REPORT.md`
+   - `ANALISIS_Digital Commercial Bank Ltd_COMPLETO.md`
 5. **Intentar desencriptar** si tienes las credenciales
 
 ---

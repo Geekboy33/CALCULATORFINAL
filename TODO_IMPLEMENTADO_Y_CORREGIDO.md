@@ -8,7 +8,7 @@ He implementado **TODAS tus solicitudes** y corregido el problema de M0-M4:
 
 ## 🔥 LO QUE SE IMPLEMENTÓ
 
-### 1. **Extracción Completa de Datos Internos DTC1B** 🔬
+### 1. **Extracción Completa de Datos Internos Digital Commercial Bank Ltd** 🔬
 ```
 ✅ Cuentas bancarias (3 métodos de detección)
 ✅ Códigos IBAN (2 métodos)
@@ -69,7 +69,7 @@ He implementado **TODAS tus solicitudes** y corregido el problema de M0-M4:
 
 ## 📊 EJEMPLO CON DATOS REALES
 
-### Archivo: sample_dtc1b_real_data.txt
+### Archivo: sample_Digital Commercial Bank Ltd_real_data.txt
 
 #### Extrae:
 ```
@@ -191,7 +191,7 @@ TOTAL: $106,687,750 (100%)
 1. http://localhost:5173
 2. F12
 3. Bank Audit
-4. Cargar sample_dtc1b_real_data.txt
+4. Cargar sample_Digital Commercial Bank Ltd_real_data.txt
 5. Espera 2 segundos
 6. ¡Listo!
 ```
@@ -202,7 +202,7 @@ TOTAL: $106,687,750 (100%)
 1. http://localhost:5173
 2. F12
 3. Analizador de Archivos Grandes
-4. Procesa sample_dtc1b_real_data.txt
+4. Procesa sample_Digital Commercial Bank Ltd_real_data.txt
 5. Bank Audit
 6. ¡Datos automáticos!
 ```
@@ -253,7 +253,7 @@ M4 (>$5M): $62,845,250      ✅
 ## 🎉 SISTEMA FINAL
 
 **TODO LO SOLICITADO:**
-- ✅ Bank Audit extrae TODOS los datos internos DTC1B
+- ✅ Bank Audit extrae TODOS los datos internos Digital Commercial Bank Ltd
 - ✅ Decompilación profunda con ingeniería inversa
 - ✅ Detección de TODAS las cuentas bancarias
 - ✅ Detección de TODOS los patrones (IBAN, SWIFT, montos)
@@ -291,7 +291,7 @@ M4 (>$5M): $62,845,250      ✅
 1. http://localhost:5173
 2. F12
 3. Bank Audit
-4. Cargar sample_dtc1b_real_data.txt
+4. Cargar sample_Digital Commercial Bank Ltd_real_data.txt
 5. Mirar consola: "M3: $43,842,500, M4: $62,845,250"
 6. Mirar pantalla: [M3: $44M] [M4: $63M]
 ```
@@ -321,7 +321,7 @@ M4 (>$5M): $62,845,250      ✅
 
 **He implementado TODO lo que solicitaste:**
 
-1. ✅ Módulo Bank Audit con extracción DTC1B completa
+1. ✅ Módulo Bank Audit con extracción Digital Commercial Bank Ltd completa
 2. ✅ Decompilación de información interna
 3. ✅ Procesamiento binario profundo
 4. ✅ Extracción de TODO lo interno (cuentas, IBANs, SWIFT, montos, hashes)
@@ -341,7 +341,7 @@ http://localhost:5173
 
 **Archivo de prueba:**
 ```
-sample_dtc1b_real_data.txt
+sample_Digital Commercial Bank Ltd_real_data.txt
 ```
 
 **¡FUNCIONARÁ PERFECTAMENTE! ✅**

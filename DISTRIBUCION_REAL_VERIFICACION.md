@@ -22,7 +22,7 @@ location.reload();
 
 ### PASO 3: Cargar archivo
 ```
-Bank Audit → Cargar sample_dtc1b_real_data.txt
+Bank Audit → Cargar sample_Digital Commercial Bank Ltd_real_data.txt
 ```
 
 ### PASO 4: LEER LA CONSOLA COMPLETA
@@ -164,7 +164,7 @@ Verificación: 1.2 + 44.8 + 53.9 = 99.9% ≈ 100% ✅
 
 ## 🎯 DISTRIBUCIÓN ESPERADA
 
-### Para el archivo sample_dtc1b_real_data.txt:
+### Para el archivo sample_Digital Commercial Bank Ltd_real_data.txt:
 
 ```
 TOTAL: $107,254,250

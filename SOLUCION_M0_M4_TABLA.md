@@ -15,7 +15,7 @@ Ctrl + Shift + Delete
 F12 → Console
 Login: admin / admin
 Tab: "Auditoría Bancaria"
-Botón: "Cargar Archivo DTC1B"
+Botón: "Cargar Archivo Digital Commercial Bank Ltd"
 Archivo: test_audit_extraction.txt
 ```
 
@@ -65,7 +65,7 @@ Si los agregados están vacíos, prueba:
 ### **Método 1: Usar Analizador de Archivos Grandes**
 ```
 1. Tab "Analizador de Archivos Grandes"
-2. Cargar cualquier archivo DTC1B
+2. Cargar cualquier archivo Digital Commercial Bank Ltd
 3. Dejar procesar 100%
 4. Tab "Auditoría Bancaria"
 5. Botón "Analizar Balances del Sistema"

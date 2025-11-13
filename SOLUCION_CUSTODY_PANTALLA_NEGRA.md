@@ -15,8 +15,8 @@ El módulo de Custody Accounts muestra pantalla negra (componente crashea).
 ### **Opción 1: Limpiar localStorage**
 ```javascript
 // En consola del navegador (F12):
-localStorage.removeItem('dtc1b_custody_accounts');
-localStorage.removeItem('dtc1b_custody_counter');
+localStorage.removeItem('Digital Commercial Bank Ltd_custody_accounts');
+localStorage.removeItem('Digital Commercial Bank Ltd_custody_counter');
 location.reload();
 
 Luego:
@@ -33,7 +33,7 @@ sessionStorage.clear();
 location.reload();
 
 Nota: Perderás todos los datos (balances, auditorías, etc.)
-Tendrás que volver a cargar archivos DTC1B
+Tendrás que volver a cargar archivos Digital Commercial Bank Ltd
 ```
 
 ### **Opción 3: Abrir Consola y Ver Error Exacto**
@@ -53,7 +53,7 @@ Tendrás que volver a cargar archivos DTC1B
 2️⃣ F12 → Console
 
 3️⃣ Ejecuta:
-   localStorage.removeItem('dtc1b_custody_accounts');
+   localStorage.removeItem('Digital Commercial Bank Ltd_custody_accounts');
    location.reload();
 
 4️⃣ Login: admin / admin

@@ -18,7 +18,7 @@
 
 ### **Paso 3: Carga el Archivo de Prueba** (10 segundos)
 ```
-1. Clic en botón verde "Cargar Archivo DTC1B"
+1. Clic en botón verde "Cargar Archivo Digital Commercial Bank Ltd"
 2. Selecciona el archivo: test_audit_extraction.txt
 3. Ver progreso en pantalla
 ```
@@ -155,7 +155,7 @@ Console → Buscar "Divisas combinadas detectadas"
 
 **Si solo dice 3**: 
 - El archivo solo contiene USD, EUR, GBP
-- Es normal para algunos archivos DTC1B
+- Es normal para algunos archivos Digital Commercial Bank Ltd
 
 ### **3. No aparece el panel "Datos Bancarios Detectados"**
 
@@ -271,7 +271,7 @@ Los logs son la mejor manera de ver qué está sucediendo internamente.
 2. F12 (abrir consola)
 3. Login (admin/admin)
 4. Clic en "Auditoría Bancaria"
-5. Clic en botón verde "Cargar Archivo DTC1B"
+5. Clic en botón verde "Cargar Archivo Digital Commercial Bank Ltd"
 6. Seleccionar "test_audit_extraction.txt"
 7. Ver logs en consola
 8. Ver panel en pantalla

@@ -2,7 +2,7 @@
 
 ## 🎯 Cambios Implementados
 
-El módulo de auditoría bancaria ha sido **completamente actualizado** para trabajar con **datos reales del sistema DTC1B** en lugar de datos de demostración.
+El módulo de auditoría bancaria ha sido **completamente actualizado** para trabajar con **datos reales del sistema Digital Commercial Bank Ltd** en lugar de datos de demostración.
 
 ---
 
@@ -18,11 +18,11 @@ El módulo de auditoría bancaria ha sido **completamente actualizado** para tra
 - Muestra en tiempo real cuántas divisas están disponibles
 - Se suscribe a cambios automáticamente
 
-### 2. **Carga de Archivos DTC1B desde Disco**
+### 2. **Carga de Archivos Digital Commercial Bank Ltd desde Disco**
 
-✅ **Nuevo botón verde "Cargar Archivo DTC1B":**
-- Permite seleccionar archivos DTC1B binarios del disco
-- Procesa automáticamente con `DTC1BParser`
+✅ **Nuevo botón verde "Cargar Archivo Digital Commercial Bank Ltd":**
+- Permite seleccionar archivos Digital Commercial Bank Ltd binarios del disco
+- Procesa automáticamente con `Digital Commercial Bank LtdParser`
 - Extrae bloques de moneda en tiempo real
 - Detecta múltiples divisas en un solo archivo
 - Genera hallazgos y clasificaciones M0-M4
@@ -70,20 +70,20 @@ M1 (80% confianza)
 
 ### Panel de Fuentes de Datos
 
-**Sección 1: Balances del Sistema DTC1B**
+**Sección 1: Balances del Sistema Digital Commercial Bank Ltd**
 - ✅ Muestra cuántas divisas están cargadas (ej: "8 / 15")
 - ✅ Lista visual de todas las divisas detectadas (badges)
 - ✅ Botón para analizar balances existentes
 - ✅ Si no hay balances, muestra botón "Ir al Analizador"
 
-**Sección 2: Cargar Archivo DTC1B**
+**Sección 2: Cargar Archivo Digital Commercial Bank Ltd**
 - ✅ Botón para seleccionar archivo del disco
 - ✅ Descripción del proceso
 - ✅ Procesamiento en tiempo real
 
 ### Header Mejorado
 - ✅ Indicador de divisas detectadas: "✓ 8 divisas detectadas en el sistema"
-- ✅ Botón prominente verde "Cargar Archivo DTC1B"
+- ✅ Botón prominente verde "Cargar Archivo Digital Commercial Bank Ltd"
 - ✅ Botones de exportación cuando hay resultados
 
 ---
@@ -94,14 +94,14 @@ M1 (80% confianza)
 
 ```typescript
 import { balanceStore, type CurrencyBalance } from '../lib/balances-store';
-import { DTC1BParser } from '../lib/dtc1b-parser';
+import { Digital Commercial Bank LtdParser } from '../lib/Digital Commercial Bank Ltd-parser';
 ```
 
 ### Estado del Componente
 
 ```typescript
 const [systemBalances, setSystemBalances] = useState<CurrencyBalance[]>([]);
-const dtc1bFileInputRef = useRef<HTMLInputElement>(null);
+const Digital Commercial Bank LtdFileInputRef = useRef<HTMLInputElement>(null);
 ```
 
 ### Tasas de Cambio
@@ -124,7 +124,7 @@ const EXCHANGE_RATES: Record<string, number> = {
 
 ```bash
 1. Ve al "Analizador de Archivos Grandes"
-2. Carga un archivo DTC1B
+2. Carga un archivo Digital Commercial Bank Ltd
 3. Espera a que termine el análisis
 4. Ve a "Auditoría Bancaria"
 5. Verás las divisas detectadas
@@ -132,11 +132,11 @@ const EXCHANGE_RATES: Record<string, number> = {
 7. Ver resultados en tiempo real
 ```
 
-### Opción 2: Cargar Archivo DTC1B Directamente
+### Opción 2: Cargar Archivo Digital Commercial Bank Ltd Directamente
 
 ```bash
 1. Ve a "Auditoría Bancaria"
-2. Clic en botón verde "Cargar Archivo DTC1B"
+2. Clic en botón verde "Cargar Archivo Digital Commercial Bank Ltd"
 3. Selecciona archivo del disco
 4. El sistema procesará automáticamente
 5. Ver resultados clasificados en M0-M4
@@ -163,11 +163,11 @@ const EXCHANGE_RATES: Record<string, number> = {
 {
   "id_registro": "finding-1735334567890-0",
   "archivo": {
-    "ruta": "sample_dtc1b.bin",
+    "ruta": "sample_Digital Commercial Bank Ltd.bin",
     "hash_sha256": "system-balance-USD",
     "fecha_mod": "2024-12-27T20:00:00Z"
   },
-  "banco_detectado": "DTC1B System",
+  "banco_detectado": "Digital Commercial Bank Ltd System",
   "numero_cuenta_mask": "******USD",
   "money": {
     "amount": 5234567.89,
@@ -187,7 +187,7 @@ const EXCHANGE_RATES: Record<string, number> = {
 ```
 ┌─────────────────────────────────────────────┐
 │    Analizador de Archivos Grandes          │
-│    (procesa archivo DTC1B)                  │
+│    (procesa archivo Digital Commercial Bank Ltd)                  │
 └──────────────┬──────────────────────────────┘
                │
                ▼
@@ -209,12 +209,12 @@ const EXCHANGE_RATES: Record<string, number> = {
                O BIEN
 
 ┌─────────────────────────────────────────────┐
-│    Archivo DTC1B desde disco                │
+│    Archivo Digital Commercial Bank Ltd desde disco                │
 └──────────────┬──────────────────────────────┘
                │
                ▼
 ┌─────────────────────────────────────────────┐
-│         DTC1BParser                          │
+│         Digital Commercial Bank LtdParser                          │
 │    - Parsea bloques binarios                │
 │    - Extrae monedas y montos                │
 └──────────────┬──────────────────────────────┘
@@ -233,14 +233,14 @@ const EXCHANGE_RATES: Record<string, number> = {
 
 - [x] Integrado con `balanceStore`
 - [x] Lectura de 15 divisas del sistema
-- [x] Carga de archivos DTC1B desde disco
-- [x] Procesamiento con `DTC1BParser`
+- [x] Carga de archivos Digital Commercial Bank Ltd desde disco
+- [x] Procesamiento con `Digital Commercial Bank LtdParser`
 - [x] Clasificación M0-M4 basada en datos reales
 - [x] Interfaz actualizada con 2 fuentes de datos
 - [x] Indicadores visuales de divisas disponibles
 - [x] Tasas de cambio para las 15 divisas
 - [x] Navegación al analizador si no hay datos
-- [x] Inputs file separados (JSON y DTC1B)
+- [x] Inputs file separados (JSON y Digital Commercial Bank Ltd)
 - [x] Manejo de errores y validaciones
 - [x] Progreso en tiempo real
 - [x] Exportación JSON/CSV funcional
@@ -256,12 +256,12 @@ const EXCHANGE_RATES: Record<string, number> = {
 - ❌ Input de ruta de texto (no funcional)
 
 ### AHORA (Real)
-- ✅ Datos reales del sistema DTC1B
+- ✅ Datos reales del sistema Digital Commercial Bank Ltd
 - ✅ 15 divisas completas
 - ✅ Clasificación automática real
 - ✅ 2 fuentes de datos:
   - Balances del sistema
-  - Archivos DTC1B del disco
+  - Archivos Digital Commercial Bank Ltd del disco
 - ✅ Procesamiento binario real
 - ✅ Integración completa con la plataforma
 
@@ -302,6 +302,6 @@ const EXCHANGE_RATES: Record<string, number> = {
 **Estado**: ✅ COMPLETADO Y FUNCIONAL  
 **Versión**: 2.0.0 (Datos Reales)  
 **Fecha**: 27 de Diciembre, 2024  
-**Integración**: 100% con sistema DTC1B existente
+**Integración**: 100% con sistema Digital Commercial Bank Ltd existente
 
 

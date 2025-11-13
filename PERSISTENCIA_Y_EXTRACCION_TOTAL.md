@@ -31,7 +31,7 @@ auditStore.saveAuditData(resultados, extracted);
 
 ### **2. EXTRACCIÓN TOTAL DE INFORMACIÓN** ✅
 
-Ahora se extrae **ABSOLUTAMENTE TODO** del archivo DTC1B:
+Ahora se extrae **ABSOLUTAMENTE TODO** del archivo Digital Commercial Bank Ltd:
 
 #### **Datos Bancarios Básicos**:
 - ✅ Cuentas bancarias (8-22 dígitos)
@@ -101,7 +101,7 @@ rawData: {
   hexSample: "44 54 43 31 42 00 01 02 03 04 ...",
   
   // Muestra de texto (primeros 500 caracteres)
-  textSample: "DTC1B\x00\x01\x02Bank Statement..."
+  textSample: "Digital Commercial Bank Ltd\x00\x01\x02Bank Statement..."
 }
 ```
 
@@ -148,7 +148,7 @@ rawData: {
 │ 44 54 43 31 42 00 01 02 55 53 44 00 ...   │
 │                                             │
 │ Muestra de Texto (500 caracteres):         │
-│ DTC1B Bank Statement                       │
+│ Digital Commercial Bank Ltd Bank Statement                       │
 │ Account: 1234567890123456                  │
 │ IBAN: GB82WEST12345698765432               │
 │ ...                                         │
@@ -227,7 +227,7 @@ rawData: {
 ### **Test Avanzado**:
 
 ```
-1. Carga un archivo DTC1B
+1. Carga un archivo Digital Commercial Bank Ltd
 2. Ver resultados completos
 3. Recarga la página (F5)
 4. Login nuevamente
@@ -257,7 +257,7 @@ rawData: {
                ▼
 ┌─────────────────────────────────────┐
 │  localStorage                        │
-│  Key: 'dtc1b_audit_data'            │
+│  Key: 'Digital Commercial Bank Ltd_audit_data'            │
 │  Value: {                           │
 │    results: {...},                  │
 │    extractedData: {...},            │
@@ -293,7 +293,7 @@ Primeros 16 bytes en hexadecimal:
 
 Útil para:
 - Identificar tipo de archivo
-- Detectar formato DTC1B
+- Detectar formato Digital Commercial Bank Ltd
 - Verificar integridad
 ```
 
@@ -313,7 +313,7 @@ E8 03 00 00 45 55 52 00 00 00 00 03 D2 04 00 00
 ### **Muestra de Texto**
 ```
 Primeros 500 caracteres convertidos a UTF-8:
-DTC1B
+Digital Commercial Bank Ltd
 Bank Statement - Emirates NBD
 Account Number: 1234567890123456
 IBAN: GB82WEST12345698765432
@@ -355,7 +355,7 @@ IBAN: GB82WEST12345698765432
 ```
 PASO 1: Carga archivo
 - Tab "Auditoría Bancaria"
-- "Cargar Archivo DTC1B"
+- "Cargar Archivo Digital Commercial Bank Ltd"
 - Seleccionar test_audit_extraction.txt
 - ✅ Ver datos
 
@@ -396,7 +396,7 @@ En Consola (F12) deberás ver:
   entropy: 5.48,
   encrypted: false
 }
-[AuditBank] ✅ DTC1B file processed and saved
+[AuditBank] ✅ Digital Commercial Bank Ltd file processed and saved
 [AuditBank] 💾 Datos persistidos - permanecerán al cambiar de pestaña
 ```
 
@@ -408,7 +408,7 @@ En Consola (F12) deberás ver:
 ┌──────────────────────────────────────────────────────┐
 │ Auditoría Bancaria                                    │
 │ ✓ 15 divisas detectadas en el sistema                │
-│ [Cargar DTC1B] [Cargar JSON] [Export] [Limpiar]     │
+│ [Cargar Digital Commercial Bank Ltd] [Cargar JSON] [Export] [Limpiar]     │
 └──────────────────────────────────────────────────────┘
 
 ┌──────────────────────────────────────────────────────┐
@@ -432,7 +432,7 @@ En Consola (F12) deberás ver:
 │ 🔬 Datos RAW - Análisis Forense                      │
 │ Firma: 44 54 43 31 42 00 01 02 ...                  │
 │ Hex: 44 54 43 31 42 00 01 02 55 53 44 ...           │
-│ Text: DTC1B Bank Statement Account: 123...           │
+│ Text: Digital Commercial Bank Ltd Bank Statement Account: 123...           │
 └──────────────────────────────────────────────────────┘
 ```
 
@@ -476,7 +476,7 @@ En Consola (F12) deberás ver:
 ### **✅ AHORA LA AUDITORÍA**:
 
 1. **NO se cierra** al cambiar pestañas ✅
-2. **Extrae TODO** del archivo DTC1B ✅
+2. **Extrae TODO** del archivo Digital Commercial Bank Ltd ✅
 3. **Organiza** perfectamente todos los datos ✅
 4. **Persiste** en localStorage ✅
 5. **Restaura** automáticamente ✅
@@ -502,7 +502,7 @@ En Consola (F12) deberás ver:
 2. F12 para ver logs
 3. Login (admin/admin)
 4. Tab "Auditoría Bancaria"
-5. "Cargar Archivo DTC1B"
+5. "Cargar Archivo Digital Commercial Bank Ltd"
 6. Selecciona test_audit_extraction.txt
 7. ✅ Ver TODOS los datos extraídos
 8. Cambia a "Dashboard"

@@ -51,13 +51,13 @@
 En el dashboard, busca y click en:
 "Analizador de Archivos Grandes"
 o
-"Large File DTC1B Analyzer"
+"Large File Digital Commercial Bank Ltd Analyzer"
 ```
 
 #### Paso 3: Cargar y procesar archivo
 ```
 1. Click en "Seleccionar Archivo" o área de upload
-2. Selecciona: sample_dtc1b_real_data.txt
+2. Selecciona: sample_Digital Commercial Bank Ltd_real_data.txt
 3. Si pide credenciales:
    Usuario: admin
    Password: admin123
@@ -113,8 +113,8 @@ AUTOMÁTICAMENTE verás:
 1. Abre: http://localhost:5173
 2. F12 (DevTools)
 3. Ve a: "Bank Audit"
-4. Click en: "Cargar Archivo DTC1B"
-5. Selecciona: sample_dtc1b_real_data.txt
+4. Click en: "Cargar Archivo Digital Commercial Bank Ltd"
+5. Selecciona: sample_Digital Commercial Bank Ltd_real_data.txt
 6. Espera 1-2 segundos
 7. Verás:
    ✅ 19 cuentas
@@ -135,7 +135,7 @@ AUTOMÁTICAMENTE verás:
 ```
 ════════════════════════════════════════════════════════
 
-📋 Información Completa Extraída del DTC1B
+📋 Información Completa Extraída del Digital Commercial Bank Ltd
 
 ┌────────┐ ┌────────┐ ┌────────┐ ┌────────┐ ┌────────┐
 │ 💳     │ │ 🌍     │ │ 📡     │ │ 🏛️     │ │ 💰     │
@@ -190,7 +190,7 @@ Bancos: 18 | Divisas: 11 | Entropía: 5.23
 
 🔬 Análisis Forense
 Firma Binaria (16 bytes): XX XX XX XX ...
-Muestra de Texto (500 chars): DTC1B FINANCIAL...
+Muestra de Texto (500 chars): Digital Commercial Bank Ltd FINANCIAL...
 
 ════════════════════════════════════════════════════════
 
@@ -235,7 +235,7 @@ TOTAL: $106,687,750
 Hallazgos Detallados
 
 [USD 43,375,000] [M3]
-Banco: DTC1B Analyzer
+Banco: Digital Commercial Bank Ltd Analyzer
 Cuenta: ******XXXX
 Confianza: 98%
 Evidencia: USD: 43,375,000 | XX transacciones ...
@@ -278,7 +278,7 @@ Evidencia: USD: 43,375,000 | XX transacciones ...
 
 ### Antes de Probar:
 - [ ] Servidor corriendo: `netstat -ano | findstr :5173`
-- [ ] Archivo creado: `dir sample_dtc1b_real_data.txt`
+- [ ] Archivo creado: `dir sample_Digital Commercial Bank Ltd_real_data.txt`
 - [ ] Navegador listo: Chrome/Edge/Firefox
 
 ### Durante la Prueba:
@@ -288,7 +288,7 @@ Evidencia: USD: 43,375,000 | XX transacciones ...
 
 ### Opción A - Integración Automática:
 - [ ] Ir a "Analizador de Archivos Grandes"
-- [ ] Cargar sample_dtc1b_real_data.txt
+- [ ] Cargar sample_Digital Commercial Bank Ltd_real_data.txt
 - [ ] Procesar (0% → 100%)
 - [ ] Ver balances en Analizador
 - [ ] Ir a "Bank Audit"
@@ -300,8 +300,8 @@ Evidencia: USD: 43,375,000 | XX transacciones ...
 
 ### Opción B - Carga Directa:
 - [ ] Ir a "Bank Audit"
-- [ ] Click "Cargar Archivo DTC1B"
-- [ ] Seleccionar sample_dtc1b_real_data.txt
+- [ ] Click "Cargar Archivo Digital Commercial Bank Ltd"
+- [ ] Seleccionar sample_Digital Commercial Bank Ltd_real_data.txt
 - [ ] Esperar 1-2 segundos
 - [ ] Ver tarjetas: [19] [11] [15] [18] [50+]
 - [ ] Scroll → ver listas completas
@@ -331,14 +331,14 @@ Evidencia: USD: 43,375,000 | XX transacciones ...
 ```
 ═══════════════════════════════════════════════════════
 🔍 Audit Bank Panel
-Detección de Activos Financieros DTC1B
+Detección de Activos Financieros Digital Commercial Bank Ltd
 
 Fuentes de Datos
 ┌────────────────────────────────────────────────────┐
 │ ● 🔗 Integración con Analizador de Archivos Grandes│
 │                                                    │
 │ Bank Audit está escuchando datos del Analizador   │
-│ en tiempo real. Cuando proceses un archivo DTC1B,  │
+│ en tiempo real. Cuando proceses un archivo Digital Commercial Bank Ltd,  │
 │ los datos aparecerán AUTOMÁTICAMENTE aquí.         │
 │                                                    │
 │ ✓ Suscripción activa • Sincronización automática  │
@@ -448,7 +448,7 @@ Hallazgos Detallados
 ### Problema: "En consola dice cuentas: 0"
 ```
 ✅ El archivo está vacío o mal formateado
-✅ Usa: sample_dtc1b_real_data.txt
+✅ Usa: sample_Digital Commercial Bank Ltd_real_data.txt
 ✅ NO uses otro archivo
 ```
 
@@ -477,14 +477,14 @@ Hallazgos Detallados
 - **`GUIA_VISUAL_PASO_A_PASO.md`** - Guía con diagramas
 
 ### Archivos de Prueba:
-- **`sample_dtc1b_real_data.txt`** - Datos bancarios reales (19 cuentas, 11 divisas)
-- **`create_sample_dtc1b.py`** - Script para crear archivo de prueba
+- **`sample_Digital Commercial Bank Ltd_real_data.txt`** - Datos bancarios reales (19 cuentas, 11 divisas)
+- **`create_sample_Digital Commercial Bank Ltd.py`** - Script para crear archivo de prueba
 
 ### Código Implementado:
 - **`src/components/AuditBankWindow.tsx`** - Componente con integración
 - **`src/lib/audit-store.ts`** - Store de auditoría
 - **`src/lib/balances-store.ts`** - Store con sistema de suscripción
-- **`dtc1b_advanced_reverse_engineer.py`** - Sistema de ingeniería inversa
+- **`Digital Commercial Bank Ltd_advanced_reverse_engineer.py`** - Sistema de ingeniería inversa
 
 ---
 

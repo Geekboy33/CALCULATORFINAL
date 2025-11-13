@@ -46,7 +46,7 @@ Fondos Reservados: $10,000
 Fondos Disponibles: $9,990,000
 Reservas Confirmadas: 1
 
-Fondos Disponibles del Sistema DTC1B
+Fondos Disponibles del Sistema Digital Commercial Bank Ltd
 [USD] [EUR] [GBP]
 
 Cuenta: USD Stablecoin Reserve
@@ -74,7 +74,7 @@ Reserved Funds: $10,000
 Available Funds: $9,990,000
 Confirmed Reservations: 1
 
-DTC1B System Available Funds
+Digital Commercial Bank Ltd System Available Funds
 [USD] [EUR] [GBP]
 
 Account: USD Stablecoin Reserve

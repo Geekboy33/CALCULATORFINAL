@@ -1,12 +1,12 @@
 /**
- * Authenticity Extractor - DTC1B Authenticity Verification
+ * Authenticity Extractor - Digital Commercial Bank Ltd Authenticity Verification
  * Extracts hashes, digital signatures, and verification codes
  */
 
 import type { AuthenticityProof } from './audit-store';
 
 /**
- * Extract authenticity proof from DTC1B binary data
+ * Extract authenticity proof from Digital Commercial Bank Ltd binary data
  */
 export function extractAuthenticityProof(
   data: ArrayBuffer,
@@ -299,7 +299,7 @@ export function generateAuthenticityReport(
   let report = '';
 
   report += '='.repeat(80) + '\n';
-  report += 'DTC1B AUTHENTICITY VERIFICATION REPORT\n';
+  report += 'Digital Commercial Bank Ltd AUTHENTICITY VERIFICATION REPORT\n';
   report += '='.repeat(80) + '\n\n';
 
   report += `Currency: ${currency}\n`;

@@ -1,6 +1,6 @@
 /**
  * Global Balance Store - Persistent Storage for Analyzed Balances
- * Manages balances from Large File DTC1B Analyzer
+ * Manages balances from Large File Digital Commercial Bank Ltd Analyzer
  */
 
 export interface CurrencyBalance {
@@ -23,7 +23,7 @@ export interface BalanceStoreData {
   totalTransactions: number;
 }
 
-const STORAGE_KEY = 'dtc1b_analyzed_balances';
+const STORAGE_KEY = 'Digital Commercial Bank Ltd_analyzed_balances';
 
 /**
  * Global Balance Store Class

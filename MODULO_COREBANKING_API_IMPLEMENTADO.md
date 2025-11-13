@@ -47,7 +47,7 @@ Crear transferencias bancarias:
 - Banco destino
 ```
 
-### 3. **Integración con Sistema DTC1B** 🔗
+### 3. **Integración con Sistema Digital Commercial Bank Ltd** 🔗
 ```
 - Ve balances disponibles del sistema
 - Usa tasas de cambio del sistema
@@ -135,7 +135,7 @@ Para cada transacción "Pending":
 ### El módulo está conectado:
 
 ```
-1. Bank Audit extrae datos DTC1B
+1. Bank Audit extrae datos Digital Commercial Bank Ltd
    ↓
 2. Datos se guardan en balanceStore
    ↓
@@ -268,7 +268,7 @@ Body:
 
 ```
 1. ANALIZADOR DE ARCHIVOS GRANDES
-   ↓ Procesa archivo DTC1B
+   ↓ Procesa archivo Digital Commercial Bank Ltd
    ↓ Extrae balances
    
 2. BANK AUDIT
@@ -346,7 +346,7 @@ Body:
 **El módulo CoreBanking API ya está:**
 - ✅ Disponible en el dashboard
 - ✅ Al lado de Bank Audit
-- ✅ Integrado con el sistema DTC1B
+- ✅ Integrado con el sistema Digital Commercial Bank Ltd
 - ✅ Listo para usar
 
 **¡PRUÉBALO AHORA! 🚀**

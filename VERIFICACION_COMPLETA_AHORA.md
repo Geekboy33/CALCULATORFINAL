@@ -8,7 +8,7 @@
 
 ### 1. El archivo existe y tiene datos:
 ```
-✅ Archivo: sample_dtc1b_real_data.txt (8,717 bytes)
+✅ Archivo: sample_Digital Commercial Bank Ltd_real_data.txt (8,717 bytes)
 ✅ Contiene: 15 códigos SWIFT
 ✅ Contiene: 6 códigos IBAN
 ✅ Contiene: 3 números de cuenta explícitos
@@ -65,14 +65,14 @@ NO en "Analizador de Archivos Grandes"
 NO en "Dashboard Principal"
 ```
 
-### PASO 6: Click en "Cargar Archivo DTC1B"
+### PASO 6: Click en "Cargar Archivo Digital Commercial Bank Ltd"
 ```
 Botón verde en la parte superior derecha
 ```
 
 ### PASO 7: Selecciona el archivo
 ```
-Busca: sample_dtc1b_real_data.txt
+Busca: sample_Digital Commercial Bank Ltd_real_data.txt
 En la carpeta: DAES-ULTIMATE
 ```
 
@@ -81,14 +81,14 @@ En la carpeta: DAES-ULTIMATE
 En 2-3 segundos deberías ver mensajes como:
 
 [AuditBank] ═══════════════════════════════════════════
-[AuditBank] 🚀 INICIANDO PROCESAMIENTO DE ARCHIVO DTC1B
+[AuditBank] 🚀 INICIANDO PROCESAMIENTO DE ARCHIVO Digital Commercial Bank Ltd
 [AuditBank] ═══════════════════════════════════════════
-[AuditBank] 📁 Archivo: sample_dtc1b_real_data.txt
+[AuditBank] 📁 Archivo: sample_Digital Commercial Bank Ltd_real_data.txt
 [AuditBank] 📊 Tamaño: 8.51 KB
 [AuditBank] 📊 Bytes totales: 8,717
 [AuditBank] 📄 Primeros 500 caracteres:
 ╔════════════════════════════════════════════════════════════════╗
-║         DTC1B FINANCIAL ASSET REGISTRY - CONFIDENTIAL        ║
+║         Digital Commercial Bank Ltd FINANCIAL ASSET REGISTRY - CONFIDENTIAL        ║
 ...
 ```
 
@@ -126,12 +126,12 @@ ENTONCES FUNCIONA ✅
 ```javascript
 [AuditBank] ═══════════════════════════════════════════
 [AuditBank] 🚀 INICIANDO PROCESAMIENTO...
-[AuditBank] 📁 Archivo: sample_dtc1b_real_data.txt
+[AuditBank] 📁 Archivo: sample_Digital Commercial Bank Ltd_real_data.txt
 [AuditBank] 📊 Bytes totales: 8,717
 
 [AuditBank] 📄 Primeros 500 caracteres:
 ╔════════════════════════════════════════════════════════════════╗
-║         DTC1B FINANCIAL ASSET REGISTRY - CONFIDENTIAL        ║
+║         Digital Commercial Bank Ltd FINANCIAL ASSET REGISTRY - CONFIDENTIAL        ║
 ║              MULTI-BANK ACCOUNT LEDGER SYSTEM                ║
 ╚════════════════════════════════════════════════════════════════╝
 
@@ -187,7 +187,7 @@ Account Number: 1012345678901234
 
 ```
 ┌──────────────────────────────────────────────────┐
-│ 📋 Información Completa Extraída del DTC1B       │
+│ 📋 Información Completa Extraída del Digital Commercial Bank Ltd       │
 ├──────────────────────────────────────────────────┤
 │                                                  │
 │ [🔵 Cuentas: 19] [🟣 IBANs: 6] [🟢 SWIFT: 15]  │
@@ -237,10 +237,10 @@ Account Number: 1012345678901234
 ```bash
 # 1. Recrear el archivo
 cd "C:\Users\USER\Desktop\DAES ULTIMATE\DAES-ULTIMATE"
-python create_sample_dtc1b.py
+python create_sample_Digital Commercial Bank Ltd.py
 
 # 2. Verificar contenido
-type sample_dtc1b_real_data.txt | findstr "Account Number"
+type sample_Digital Commercial Bank Ltd_real_data.txt | findstr "Account Number"
 
 # Deberías ver 3 líneas con "Account Number:"
 # 1012345678901234
@@ -261,7 +261,7 @@ type sample_dtc1b_real_data.txt | findstr "Account Number"
 
 ```javascript
 // Verifica si hay datos cargados
-console.log('localStorage audit:', localStorage.getItem('dtc1b_audit_data'));
+console.log('localStorage audit:', localStorage.getItem('Digital Commercial Bank Ltd_audit_data'));
 
 // Si ves null, no hay datos guardados
 // Si ves JSON, hay datos viejos (puede estar usando esos)
@@ -271,7 +271,7 @@ console.log('localStorage audit:', localStorage.getItem('dtc1b_audit_data'));
 
 ```javascript
 // Ejecuta en consola del navegador:
-localStorage.removeItem('dtc1b_audit_data');
+localStorage.removeItem('Digital Commercial Bank Ltd_audit_data');
 console.log('Datos limpiados. Recarga la página.');
 ```
 
@@ -283,7 +283,7 @@ Luego recarga (F5) y carga el archivo de nuevo.
 
 ### Test 1: Verificar que el archivo tiene datos
 ```bash
-type sample_dtc1b_real_data.txt | findstr /C:"Account" | findstr /N .
+type sample_Digital Commercial Bank Ltd_real_data.txt | findstr /C:"Account" | findstr /N .
 ```
 
 **Resultado esperado:** 30-40 líneas numeradas con "Account"
@@ -297,7 +297,7 @@ netstat -ano | findstr :5173
 
 ### Test 3: Recrear archivo
 ```bash
-python create_sample_dtc1b.py
+python create_sample_Digital Commercial Bank Ltd.py
 ```
 
 **Resultado esperado:**
@@ -326,18 +326,18 @@ python create_sample_dtc1b.py
 cd "C:\Users\USER\Desktop\DAES ULTIMATE\DAES-ULTIMATE"
 
 # 2. Recrear archivo
-python create_sample_dtc1b.py
+python create_sample_Digital Commercial Bank Ltd.py
 
 # 3. Verificar archivo
-dir sample_dtc1b_real_data.txt
+dir sample_Digital Commercial Bank Ltd_real_data.txt
 
 # 4. Ver primeras líneas
-type sample_dtc1b_real_data.txt | more
+type sample_Digital Commercial Bank Ltd_real_data.txt | more
 
 # 5. Buscar datos específicos
-type sample_dtc1b_real_data.txt | findstr "Account Number"
-type sample_dtc1b_real_data.txt | findstr "IBAN:"
-type sample_dtc1b_real_data.txt | findstr "SWIFT:"
+type sample_Digital Commercial Bank Ltd_real_data.txt | findstr "Account Number"
+type sample_Digital Commercial Bank Ltd_real_data.txt | findstr "IBAN:"
+type sample_Digital Commercial Bank Ltd_real_data.txt | findstr "SWIFT:"
 
 # 6. Verificar servidor
 netstat -ano | findstr :5173
@@ -361,10 +361,10 @@ netstat -ano | findstr :5173
 Ctrl + C
 
 # Borrar datos viejos
-Remove-Item sample_dtc1b_real_data.txt -ErrorAction SilentlyContinue
+Remove-Item sample_Digital Commercial Bank Ltd_real_data.txt -ErrorAction SilentlyContinue
 
 # Recrear archivo
-python create_sample_dtc1b.py
+python create_sample_Digital Commercial Bank Ltd.py
 
 # Reiniciar servidor
 npm run dev
@@ -399,7 +399,7 @@ Luego en navegador:
 // ESTOS MENSAJES SON OBLIGATORIOS:
 
 [AuditBank] 🚀 INICIANDO PROCESAMIENTO...  ← SI NO VES ESTO, NO SE CARGÓ
-[AuditBank] 📁 Archivo: sample_dtc1b_real_data.txt
+[AuditBank] 📁 Archivo: sample_Digital Commercial Bank Ltd_real_data.txt
 [AuditBank] 📊 Tamaño: 8.51 KB
 [AuditBank] 🔎 Iniciando detección ROBUSTA...
 [AuditBank] ✓ Encontradas XXX secuencias  ← DEBE TENER NÚMERO
@@ -427,23 +427,23 @@ Muestra la interfaz completa
 
 ### Screenshot 3: Resultado de estos comandos
 ```bash
-type sample_dtc1b_real_data.txt | findstr "Account Number"
-type sample_dtc1b_real_data.txt | findstr "IBAN:"
+type sample_Digital Commercial Bank Ltd_real_data.txt | findstr "Account Number"
+type sample_Digital Commercial Bank Ltd_real_data.txt | findstr "IBAN:"
 ```
 
 ---
 
 ## ✅ CHECKLIST FINAL
 
-- [ ] Archivo existe: `dir sample_dtc1b_real_data.txt` ✅
+- [ ] Archivo existe: `dir sample_Digital Commercial Bank Ltd_real_data.txt` ✅
 - [ ] Archivo tiene datos: Verificado ✅
 - [ ] Servidor corriendo: HMR activo ✅
 - [ ] Navegador abierto: http://localhost:5173
 - [ ] DevTools abierto (F12)
 - [ ] Consola limpia (Ctrl+L)
 - [ ] En "Bank Audit" (no otra pestaña)
-- [ ] Click "Cargar Archivo DTC1B"
-- [ ] Archivo sample_dtc1b_real_data.txt seleccionado
+- [ ] Click "Cargar Archivo Digital Commercial Bank Ltd"
+- [ ] Archivo sample_Digital Commercial Bank Ltd_real_data.txt seleccionado
 - [ ] Esperando 2-3 segundos
 - [ ] MIRANDO LA CONSOLA (F12)
 - [ ] Buscando mensaje "[AuditBank] 🚀 INICIANDO..."
@@ -467,8 +467,8 @@ type sample_dtc1b_real_data.txt | findstr "IBAN:"
 ```javascript
 console.log('=== DIAGNÓSTICO ===');
 console.log('URL actual:', window.location.href);
-console.log('localStorage audit:', localStorage.getItem('dtc1b_audit_data') ? 'HAY DATOS' : 'VACÍO');
-console.log('localStorage balance:', localStorage.getItem('dtc1b_analyzed_balances') ? 'HAY DATOS' : 'VACÍO');
+console.log('localStorage audit:', localStorage.getItem('Digital Commercial Bank Ltd_audit_data') ? 'HAY DATOS' : 'VACÍO');
+console.log('localStorage balance:', localStorage.getItem('Digital Commercial Bank Ltd_analyzed_balances') ? 'HAY DATOS' : 'VACÍO');
 console.log('===================');
 ```
 
@@ -488,8 +488,8 @@ Y comparte el resultado.
 
 ### Error 2: "Dice cuentas: 0"
 ```
-✅ Recrear archivo: python create_sample_dtc1b.py
-✅ Verificar archivo: type sample_dtc1b_real_data.txt | more
+✅ Recrear archivo: python create_sample_Digital Commercial Bank Ltd.py
+✅ Verificar archivo: type sample_Digital Commercial Bank Ltd_real_data.txt | more
 ✅ Reiniciar servidor: Ctrl+C, npm run dev
 ✅ Recargar navegador: Ctrl+Shift+R
 ```

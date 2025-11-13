@@ -12,7 +12,7 @@
 
 | Español | English |
 |---------|---------|
-| Cargar Archivo DTC1B | Load DTC1B File |
+| Cargar Archivo Digital Commercial Bank Ltd | Load Digital Commercial Bank Ltd File |
 | Vista Enmascarada | Masked View |
 | Vista Completa | Complete View |
 | Limpiar | Clear |
@@ -58,7 +58,7 @@ auditViewFullReport: string;
 
 ```typescript
 // Antes
-<button>Cargar Archivo DTC1B</button>
+<button>Cargar Archivo Digital Commercial Bank Ltd</button>
 
 // Después
 <button>{t.auditLoadFile}</button>
@@ -69,7 +69,7 @@ auditViewFullReport: string;
 ## 🎯 COMPONENTES TRADUCIDOS
 
 ### Botones
-✅ "Cargar Archivo DTC1B" → `{t.auditLoadFile}`
+✅ "Cargar Archivo Digital Commercial Bank Ltd" → `{t.auditLoadFile}`
 ✅ "Vista Enmascarada/Completa" → `{t.auditMaskedView}/{t.auditCompleteView}`
 ✅ "Limpiar" → `{t.auditClearData}`
 ✅ "VER INFORME COMPLETO" → `{t.auditViewFullReport}`
@@ -144,7 +144,7 @@ Cuando el usuario cambia a inglés:
 ### Antes ❌
 ```tsx
 // Textos hardcodeados en español
-<button>Cargar Archivo DTC1B</button>
+<button>Cargar Archivo Digital Commercial Bank Ltd</button>
 <h2>Fuentes de Datos</h2>
 <h3>Clasificación Monetaria M0-M4</h3>
 ```

@@ -1,4 +1,4 @@
-# Requirements for DTC1B Audit Bank Module
+# Requirements for Digital Commercial Bank Ltd Audit Bank Module
 # Python 3.8+
 
 # Optional dependencies for enhanced file parsing:

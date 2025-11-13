@@ -12,9 +12,9 @@ Sigue estos pasos EXACTAMENTE para diagnosticar:
 
 ```javascript
 [AuditBank] ═══════════════════════════════════════════
-[AuditBank] 🚀 INICIANDO PROCESAMIENTO DE ARCHIVO DTC1B
+[AuditBank] 🚀 INICIANDO PROCESAMIENTO DE ARCHIVO Digital Commercial Bank Ltd
 [AuditBank] ═══════════════════════════════════════════
-[AuditBank] 📁 Archivo: sample_dtc1b_real_data.txt
+[AuditBank] 📁 Archivo: sample_Digital Commercial Bank Ltd_real_data.txt
 [AuditBank] 📊 Tamaño: XX.XX KB
 [AuditBank] 📊 Bytes totales: XXXXX
 [AuditBank] 📄 Primeros 500 caracteres:
@@ -27,8 +27,8 @@ El archivo se cargó correctamente.
 
 ### ❌ SI NO VES ESTO:
 El archivo NO se cargó. Verifica:
-1. ¿Hiciste click en "Cargar Archivo DTC1B"?
-2. ¿Seleccionaste sample_dtc1b_real_data.txt?
+1. ¿Hiciste click en "Cargar Archivo Digital Commercial Bank Ltd"?
+2. ¿Seleccionaste sample_Digital Commercial Bank Ltd_real_data.txt?
 3. ¿El archivo existe en la carpeta?
 
 ---
@@ -115,7 +115,7 @@ No se detectaron cuentas.
 ```bash
 # En terminal:
 cd "C:\Users\USER\Desktop\DAES ULTIMATE\DAES-ULTIMATE"
-type sample_dtc1b_real_data.txt | findstr "Account"
+type sample_Digital Commercial Bank Ltd_real_data.txt | findstr "Account"
 
 # Deberías ver múltiples líneas con "Account"
 ```
@@ -123,10 +123,10 @@ type sample_dtc1b_real_data.txt | findstr "Account"
 ### Solución 2: Recrear el Archivo
 
 ```bash
-python create_sample_dtc1b.py
+python create_sample_Digital Commercial Bank Ltd.py
 ```
 
-Esto creará de nuevo sample_dtc1b_real_data.txt
+Esto creará de nuevo sample_Digital Commercial Bank Ltd_real_data.txt
 
 ### Solución 3: Reiniciar el Servidor
 
@@ -159,7 +159,7 @@ Copia el mensaje de error y analiza
 ### Test 1: ¿El archivo tiene datos?
 
 ```bash
-type sample_dtc1b_real_data.txt | findstr /C:"Account" /C:"IBAN" /C:"SWIFT"
+type sample_Digital Commercial Bank Ltd_real_data.txt | findstr /C:"Account" /C:"IBAN" /C:"SWIFT"
 ```
 
 Deberías ver 30+ líneas.
@@ -197,16 +197,16 @@ Si NO ves este mensaje, el componente no se está ejecutando.
 ```javascript
 // INICIO
 [AuditBank] ═══════════════════════════════════════════
-[AuditBank] 🚀 INICIANDO PROCESAMIENTO DE ARCHIVO DTC1B
+[AuditBank] 🚀 INICIANDO PROCESAMIENTO DE ARCHIVO Digital Commercial Bank Ltd
 [AuditBank] ═══════════════════════════════════════════
 
 // CARGA
-[AuditBank] 📁 Archivo: sample_dtc1b_real_data.txt
+[AuditBank] 📁 Archivo: sample_Digital Commercial Bank Ltd_real_data.txt
 [AuditBank] 📊 Tamaño: 8.52 KB (o similar)
 [AuditBank] 📊 Bytes totales: 8,724 (o similar)
 [AuditBank] 📄 Primeros 500 caracteres:
 ╔════════════════════════════════════════════════
-║ DTC1B FINANCIAL ASSET REGISTRY - CONFIDENTIAL
+║ Digital Commercial Bank Ltd FINANCIAL ASSET REGISTRY - CONFIDENTIAL
 ...
 
 // DETECCIÓN
@@ -280,16 +280,16 @@ Pantalla:
 ```bash
 # 1. Verificar archivo existe
 cd "C:\Users\USER\Desktop\DAES ULTIMATE\DAES-ULTIMATE"
-dir sample_dtc1b_real_data.txt
+dir sample_Digital Commercial Bank Ltd_real_data.txt
 
 # 2. Ver contenido
-type sample_dtc1b_real_data.txt | more
+type sample_Digital Commercial Bank Ltd_real_data.txt | more
 
 # 3. Buscar cuentas
-type sample_dtc1b_real_data.txt | findstr "Account"
+type sample_Digital Commercial Bank Ltd_real_data.txt | findstr "Account"
 
 # 4. Recrear archivo
-python create_sample_dtc1b.py
+python create_sample_Digital Commercial Bank Ltd.py
 
 # 5. Reiniciar servidor
 # Ctrl + C luego:
@@ -309,15 +309,15 @@ start http://localhost:5173
 
 ## 📞 CHECKLIST DE DEPURACIÓN
 
-- [ ] Archivo existe: `dir sample_dtc1b_real_data.txt`
-- [ ] Archivo tiene datos: `type sample_dtc1b_real_data.txt | findstr Account`
+- [ ] Archivo existe: `dir sample_Digital Commercial Bank Ltd_real_data.txt`
+- [ ] Archivo tiene datos: `type sample_Digital Commercial Bank Ltd_real_data.txt | findstr Account`
 - [ ] Servidor corriendo: `netstat -ano | findstr :5173`
 - [ ] Navegador en http://localhost:5173
 - [ ] DevTools abierto (F12)
 - [ ] Pestaña Console seleccionada
 - [ ] Click en "Bank Audit"
-- [ ] Click en "Cargar Archivo DTC1B"
-- [ ] Archivo sample_dtc1b_real_data.txt seleccionado
+- [ ] Click en "Cargar Archivo Digital Commercial Bank Ltd"
+- [ ] Archivo sample_Digital Commercial Bank Ltd_real_data.txt seleccionado
 - [ ] Logs aparecen en consola
 - [ ] Dice "Encontradas XXX secuencias"
 - [ ] Dice "cuentas detectadas: 19"
@@ -334,7 +334,7 @@ Si después de seguir TODOS estos pasos aún no funciona:
 **Toma un screenshot de:**
 1. La consola completa (F12)
 2. La pantalla de Bank Audit
-3. El resultado de: `type sample_dtc1b_real_data.txt | findstr Account`
+3. El resultado de: `type sample_Digital Commercial Bank Ltd_real_data.txt | findstr Account`
 
 Y comparte para diagnóstico específico.
 

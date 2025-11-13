@@ -85,7 +85,7 @@ function MiComponente() {
 ```tsx
 <div>
   <h1>Account Ledger - Libro Mayor de Cuentas</h1>
-  <p>Actualización en tiempo real desde el Analizador DTC1B</p>
+  <p>Actualización en tiempo real desde el Analizador Digital Commercial Bank Ltd</p>
   <button>Refrescar</button>
   <div>Total Cuentas: 0</div>
   <div>de 15 monedas</div>
@@ -204,11 +204,11 @@ function XcpB2BInterface() {
 ### **Antes**:
 ```tsx
 <div>
-  <h1>Analizador de Archivos Grandes DTC1B</h1>
+  <h1>Analizador de Archivos Grandes Digital Commercial Bank Ltd</h1>
   <p>Procesamiento por bloques con extracción de balances en tiempo real</p>
   <div>
     <h2>Cargar Archivo para Análisis</h2>
-    <button>Seleccionar Archivo DTC1B</button>
+    <button>Seleccionar Archivo Digital Commercial Bank Ltd</button>
     <button>Cargar Balances Guardados</button>
   </div>
   <p>15 monedas detectadas</p>
@@ -219,7 +219,7 @@ function XcpB2BInterface() {
 ```tsx
 import { useLanguage } from '../lib/i18n.tsx';
 
-function LargeFileDTC1BAnalyzer() {
+function LargeFileDigital Commercial Bank LtdAnalyzer() {
   const { t } = useLanguage();
 
   return (
@@ -279,7 +279,7 @@ function LargeFileDTC1BAnalyzer() {
    ```
    src/components/AccountLedger.tsx
    src/components/XcpB2BInterface.tsx
-   src/components/LargeFileDTC1BAnalyzer.tsx
+   src/components/LargeFileDigital Commercial Bank LtdAnalyzer.tsx
    ```
 
 2. **Importa el hook**:

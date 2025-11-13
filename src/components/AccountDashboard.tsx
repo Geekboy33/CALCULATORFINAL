@@ -649,12 +649,12 @@ export function AccountDashboard() {
         </div>
       </div>
 
-      {/* Sección de Herramientas Avanzadas DTC1B */}
+      {/* Sección de Herramientas Avanzadas Digital Commercial Bank Ltd */}
       <div className="bg-[#0d0d0d]/50 border-t border-[#1a1a1a] p-6">
         <div className="max-w-4xl mx-auto">
           <div className="flex items-center gap-3 mb-4">
             <Database className="w-6 h-6 text-[#39ff14] pulse-green" />
-            <h3 className="text-lg font-bold text-[#e0ffe0]">Herramientas Avanzadas de Análisis DTC1B</h3>
+            <h3 className="text-lg font-bold text-[#e0ffe0]">Herramientas Avanzadas de Análisis Digital Commercial Bank Ltd</h3>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
@@ -669,7 +669,7 @@ export function AccountDashboard() {
                 </div>
               </div>
               <p className="text-sm text-[#80ff80] mb-3">
-                Análisis avanzado de archivos DTC1B con detección automática de estructuras,
+                Análisis avanzado de archivos Digital Commercial Bank Ltd con detección automática de estructuras,
                 extracción de transacciones y análisis forense profesional.
               </p>
               <div className="text-xs text-[#4d7c4d]">
@@ -721,7 +721,7 @@ export function AccountDashboard() {
               <div className="flex-1">
                 <h4 className="font-semibold text-white mb-1">Acceso a Herramientas Avanzadas</h4>
                 <p className="text-sm text-slate-400 mb-3">
-                  Navega a la pestaña "Analizador DTC1B Pro" para acceder a todas las funcionalidades profesionales
+                  Navega a la pestaña "Analizador Digital Commercial Bank Ltd Pro" para acceder a todas las funcionalidades profesionales
                   de análisis forense y criptográfico avanzado.
                 </p>
                 <div className="flex gap-2">
@@ -734,8 +734,8 @@ export function AccountDashboard() {
                   <button
                     onClick={() => {
                       const link = document.createElement('a');
-                      link.href = '/analizador_dtc1b.py';
-                      link.download = 'analizador_dtc1b.py';
+                      link.href = '/analizador_Digital Commercial Bank Ltd.py';
+                      link.download = 'analizador_Digital Commercial Bank Ltd.py';
                       link.click();
                     }}
                     className="px-3 py-2 bg-slate-600 hover:bg-slate-500 text-white rounded-lg text-sm font-medium transition-colors"

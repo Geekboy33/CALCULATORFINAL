@@ -468,7 +468,7 @@ Performance: EXCELENTE ⚡⚡⚡⚡
 - ✅ Black Screen
 - ✅ API Key Manager
 - ✅ Audit Logs
-- ✅ DTC1B Processor
+- ✅ Digital Commercial Bank Ltd Processor
 - ✅ Binary Reader
 - ✅ Transfer Interface
 

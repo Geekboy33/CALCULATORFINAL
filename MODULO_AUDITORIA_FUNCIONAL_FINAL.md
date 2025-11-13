@@ -61,7 +61,7 @@ if (USD >= $100,000 && Transacciones < 20) → M2 🟢
 ```
 ┌────────────────────────────────────────────────┐
 │ Auditoría Bancaria                             │
-│ [Cargar DTC1B] [JSON] [CSV] [Limpiar]         │
+│ [Cargar Digital Commercial Bank Ltd] [JSON] [CSV] [Limpiar]         │
 └────────────────────────────────────────────────┘
 
 ┌────────────────────────────────────────────────┐
@@ -118,10 +118,10 @@ if (USD >= $100,000 && Transacciones < 20) → M2 🟢
 
 ## 🚀 **CÓMO USAR**
 
-### **Opción 1: Archivo DTC1B desde Disco**
+### **Opción 1: Archivo Digital Commercial Bank Ltd desde Disco**
 ```
 1. Tab "Auditoría Bancaria"
-2. Botón "Cargar Archivo DTC1B"
+2. Botón "Cargar Archivo Digital Commercial Bank Ltd"
 3. Seleccionar: test_audit_extraction.txt
 4. ✅ Ver TODOS los datos:
    - Cuentas detectadas
@@ -133,7 +133,7 @@ if (USD >= $100,000 && Transacciones < 20) → M2 🟢
 ### **Opción 2: Balances del Sistema**
 ```
 1. Ve a "Analizador de Archivos Grandes"
-2. Carga un archivo DTC1B
+2. Carga un archivo Digital Commercial Bank Ltd
 3. Ve a "Auditoría Bancaria"
 4. Botón "Analizar Balances del Sistema"
 5. ✅ Ver clasificación M0-M4 de balances
@@ -261,7 +261,7 @@ Console muestra:
 
 4️⃣ Tab "Auditoría Bancaria"
 
-5️⃣ Botón verde "Cargar Archivo DTC1B"
+5️⃣ Botón verde "Cargar Archivo Digital Commercial Bank Ltd"
 
 6️⃣ Seleccionar: test_audit_extraction.txt
 
@@ -374,7 +374,7 @@ Verifica que TODO funcione:
 - [ ] Abriste consola (F12)
 - [ ] Login: admin / admin
 - [ ] Tab "Auditoría Bancaria" visible
-- [ ] Botón verde "Cargar Archivo DTC1B" visible
+- [ ] Botón verde "Cargar Archivo Digital Commercial Bank Ltd" visible
 - [ ] Al cargar archivo, consola muestra extracciones
 - [ ] Panel "Datos Extraídos" muestra números > 0
 - [ ] Panel "Clasificación M0-M4" muestra 5 badges con colores

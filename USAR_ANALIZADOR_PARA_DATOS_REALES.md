@@ -9,7 +9,7 @@
 ```
 1️⃣ ANALIZADOR DE ARCHIVOS GRANDES
    ↓
-   Procesas un archivo DTC1B REAL
+   Procesas un archivo Digital Commercial Bank Ltd REAL
    ↓
    Desencripta y extrae balances por divisa
    ↓
@@ -33,14 +33,14 @@
 
 ---
 
-## 🚀 CÓMO USAR CON ARCHIVO DTC1B REAL
+## 🚀 CÓMO USAR CON ARCHIVO Digital Commercial Bank Ltd REAL
 
-### PASO 1: Tener un Archivo DTC1B Real
+### PASO 1: Tener un Archivo Digital Commercial Bank Ltd Real
 
 ```
 Opciones:
-A. Usar un archivo DTC1B real que tengas
-B. Usar el archivo de prueba mejorado: sample_dtc1b_real_data.txt
+A. Usar un archivo Digital Commercial Bank Ltd real que tengas
+B. Usar el archivo de prueba mejorado: sample_Digital Commercial Bank Ltd_real_data.txt
 ```
 
 ### PASO 2: Ir al Analizador de Archivos Grandes
@@ -56,7 +56,7 @@ B. Usar el archivo de prueba mejorado: sample_dtc1b_real_data.txt
 
 ```
 1. Click en "Seleccionar Archivo" o área de upload
-2. Selecciona tu archivo DTC1B real
+2. Selecciona tu archivo Digital Commercial Bank Ltd real
 3. Si pide credenciales:
    Usuario: admin (o el que uses)
    Password: admin123 (o el que uses)
@@ -134,9 +134,9 @@ USD M2: 1,500,000 (suma de los 3 montos M2) ✅
 
 ```javascript
 // En el ANALIZADOR:
-[LargeFileDTC1BAnalyzer] Procesando...
-[LargeFileDTC1BAnalyzer] Balance detectado: USD 500000
-[LargeFileDTC1BAnalyzer] Balance detectado: USD 750000
+[LargeFileDigital Commercial Bank LtdAnalyzer] Procesando...
+[LargeFileDigital Commercial Bank LtdAnalyzer] Balance detectado: USD 500000
+[LargeFileDigital Commercial Bank LtdAnalyzer] Balance detectado: USD 750000
 [BalanceStore] Saved balances: { currencies: 11, ... }
 
 // AUTOMÁTICAMENTE en BANK AUDIT:
@@ -161,7 +161,7 @@ USD M2: 1,500,000 (suma de los 3 montos M2) ✅
 
 ## 🎯 PARA VER M0, M1, M2 CON DATOS REALES
 
-### Tu archivo DTC1B DEBE contener:
+### Tu archivo Digital Commercial Bank Ltd DEBE contener:
 
 ```
 Montos variados:
@@ -217,8 +217,8 @@ if (bal.amounts && bal.amounts.length > 0) {
 1. http://localhost:5173
 2. F12 (Console)
 3. "Analizador de Archivos Grandes"
-4. Carga TU archivo DTC1B real
-   (o usa sample_dtc1b_real_data.txt actualizado)
+4. Carga TU archivo Digital Commercial Bank Ltd real
+   (o usa sample_Digital Commercial Bank Ltd_real_data.txt actualizado)
 5. Procesa (0% → 100%)
 6. Ve a "Bank Audit"
 7. Mira la consola:
@@ -279,7 +279,7 @@ TOTAL: $12,555,000
 **Para ver M0, M1, M2 con datos REALES:**
 
 1. ✅ Usa el **Analizador de Archivos Grandes**
-2. ✅ Procesa un archivo DTC1B real (con montos variados)
+2. ✅ Procesa un archivo Digital Commercial Bank Ltd real (con montos variados)
 3. ✅ Bank Audit recibe automáticamente
 4. ✅ Clasifica según montos REALES
 5. ✅ M0-M4 reflejan los datos del archivo
@@ -304,7 +304,7 @@ TOTAL: $12,555,000
 
 ```
 1. Analizador de Archivos Grandes
-2. Procesa archivo DTC1B real
+2. Procesa archivo Digital Commercial Bank Ltd real
 3. Ve a Bank Audit
 4. Verás M0-M4 con datos REALES
 ```
