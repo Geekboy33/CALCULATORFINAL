@@ -29,6 +29,7 @@ import {
 import { custodyStore, type CustodyAccount } from '../lib/custody-store';
 import { iso20022Store, type PaymentInstruction } from '../lib/iso20022-store';
 import { auditStore } from '../lib/audit-store';
+import { balanceStore } from '../lib/balances-store';
 import {
   generateBlackScreenData,
   downloadBlackScreenHTML,
@@ -121,6 +122,16 @@ export default function APIGlobalModule() {
     loadData();
     checkAPIConnection();
     loadM2Balance();
+
+    // Listen to balance changes
+    const unsubscribe = balanceStore.subscribe(() => {
+      console.log('[API GLOBAL] Balance store updated, reloading data...');
+      loadData();
+    });
+
+    return () => {
+      unsubscribe();
+    };
   }, []);
 
   const loadM2Balance = () => {
@@ -193,7 +204,38 @@ export default function APIGlobalModule() {
 
   const loadData = () => {
     // Load custody accounts
-    const accounts = custodyStore.getAccounts();
+    let accounts = custodyStore.getAccounts();
+
+    // Sync balances with balanceStore (from DTC1B analysis)
+    const analyzedBalances = balanceStore.getBalances();
+    if (analyzedBalances.length > 0) {
+      console.log('[API GLOBAL] Syncing custody accounts with analyzed balances:', analyzedBalances.length);
+
+      accounts = accounts.map(account => {
+        // Find matching balance by currency and account name
+        const matchingBalance = analyzedBalances.find(
+          b => b.currency === account.currency &&
+               (b.accountName.includes(account.accountName) ||
+                account.accountName.includes(b.accountName) ||
+                b.accountName.includes(account.accountNumber))
+        );
+
+        if (matchingBalance) {
+          console.log(`[API GLOBAL] ✅ Found balance for ${account.accountName}:`, matchingBalance.totalAmount);
+          return {
+            ...account,
+            availableBalance: matchingBalance.totalAmount,
+            totalBalance: matchingBalance.totalAmount
+          };
+        }
+
+        console.log(`[API GLOBAL] ⚠️ No balance found for ${account.accountName}, using stored value:`, account.availableBalance);
+        return account;
+      });
+    } else {
+      console.log('[API GLOBAL] No analyzed balances found, using custody store balances');
+    }
+
     setCustodyAccounts(accounts);
 
     // Load transfers from localStorage
@@ -999,11 +1041,21 @@ export default function APIGlobalModule() {
         {/* Send Transfer */}
         {selectedView === 'transfer' && (
           <div className="bg-gradient-to-br from-gray-900 to-black border border-gray-700 rounded-lg overflow-hidden flex flex-col" style={{ maxHeight: 'calc(100vh - 200px)' }}>
-            <div className="p-6 border-b border-gray-700">
+            <div className="p-6 border-b border-gray-700 flex items-center justify-between">
               <h2 className="text-2xl font-bold flex items-center gap-2">
                 <Send className="w-6 h-6 text-blue-400" />
                 Send M2 Money Transfer
               </h2>
+              <button
+                onClick={() => {
+                  loadData();
+                  loadM2Balance();
+                }}
+                className="flex items-center gap-2 px-4 py-2 bg-blue-900/30 hover:bg-blue-900/50 border border-blue-500/30 hover:border-blue-500 text-blue-400 rounded-lg transition-all"
+              >
+                <RefreshCw className="w-4 h-4" />
+                Refresh Balances
+              </button>
             </div>
 
             <div ref={scrollContainerRef} className="overflow-y-auto flex-1 p-6 custom-scrollbar">
