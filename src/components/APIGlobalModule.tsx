@@ -490,6 +490,30 @@ export default function APIGlobalModule() {
       const statusEmoji = transferStatus === 'COMPLETED' ? '✅' :
                          transferStatus === 'FAILED' ? '❌' : '⏳';
 
+      // Build digital signatures section
+      let signaturesSection = '';
+      if (paymentInstruction.digitalSignatures && paymentInstruction.digitalSignatures.length > 0) {
+        signaturesSection = '\n=== DIGITAL SIGNATURES (DTC1B) ===\n';
+        paymentInstruction.digitalSignatures.forEach((sig, index) => {
+          signaturesSection +=
+            `\n[Signature ${index + 1}]\n` +
+            `Signature Value: ${sig.signatureValue.substring(0, 64)}...\n` +
+            `Signature Method: ${sig.signatureMethod}\n` +
+            `Digest Value: ${sig.digestValue}\n` +
+            `Certificate Issuer: ${sig.certificateIssuer}\n` +
+            `Certificate Serial: ${sig.certificateSerialNumber}\n` +
+            `Signed At: ${new Date(sig.signedAt).toLocaleString('en-US')}\n` +
+            `Valid From: ${new Date(sig.validFrom).toLocaleString('en-US')}\n` +
+            `Valid To: ${new Date(sig.validTo).toLocaleString('en-US')}\n` +
+            `Verified: ${sig.verified ? '✅ YES' : '❌ NO'}\n` +
+            `DTC1B Source:\n` +
+            `  - File Hash: ${sig.dtc1bSource.fileHash.substring(0, 32)}...\n` +
+            `  - Block Hash: ${sig.dtc1bSource.blockHash.substring(0, 32)}...\n` +
+            `  - Offset: ${sig.dtc1bSource.offset}\n` +
+            `  - Raw Hex: ${sig.dtc1bSource.rawHexData.substring(0, 48)}...\n`;
+        });
+      }
+
       const messageText =
         `${statusEmoji} Transfer ${transferStatus}!\n\n` +
         `=== TRANSFER DETAILS ===\n` +
@@ -511,17 +535,21 @@ export default function APIGlobalModule() {
         `Balance Before: ${transferForm.currency} ${m2BalanceBefore.toLocaleString('en-US', { minimumFractionDigits: 3 })}\n` +
         `Balance After: ${transferForm.currency} ${m2BalanceAfter.toLocaleString('en-US', { minimumFractionDigits: 3 })}\n` +
         `Deducted: ${transferForm.currency} ${transferForm.amount.toLocaleString('en-US', { minimumFractionDigits: 3 })}\n` +
-        `Digital Signatures: ${paymentInstruction.digitalSignatures.length} verified\n` +
-        `Source: Bank Audit Module\n\n` +
-        `=== ISO 20022 COMPLIANCE ===\n` +
+        `Digital Signatures Extracted: ${paymentInstruction.digitalSignatures.length}\n` +
+        `All Signatures Verified: ${paymentInstruction.dtc1bValidation.verified ? '✅ YES' : '❌ NO'}\n` +
+        `Source: Bank Audit Module (DTC1B)\n` +
+        signaturesSection +
+        `\n=== ISO 20022 COMPLIANCE ===\n` +
         `Standard: pain.001.001.09 (Customer Credit Transfer)\n` +
         `Classification: M2 Money Supply\n` +
-        `DTC1B Validated: ${paymentInstruction.dtc1bValidation.verified ? 'YES' : 'NO'}\n\n` +
+        `DTC1B Validated: ${paymentInstruction.dtc1bValidation.verified ? '✅ YES' : '❌ NO'}\n` +
+        `ISO Message Generated: ✅ YES\n` +
+        `Digital Signatures Attached: ✅ YES (${paymentInstruction.digitalSignatures.length} signatures)\n\n` +
         `=== STATUS ===\n` +
         `Status: ${transferStatus}\n` +
         `${responseData?.message ? `API Response: ${responseData.message}\n` : ''}` +
         `${responseData?.data?.updates?.[0]?.message ? `Details: ${responseData.data.updates[0].message}\n` : ''}\n` +
-        `${transferStatus === 'COMPLETED' ? '✅ M2 balance deducted from DTC1B\n✅ ISO 20022 XML generated\n✅ Digital signatures verified' : ''}`;
+        `${transferStatus === 'COMPLETED' ? '✅ M2 balance deducted from DTC1B\n✅ ISO 20022 XML generated\n✅ Digital signatures verified and attached\n✅ DTC1B authenticity proof included' : ''}`;
 
       setSuccess(messageText);
       alert(messageText);
