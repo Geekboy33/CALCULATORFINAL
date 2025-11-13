@@ -46,7 +46,6 @@ export function APIVUSD1KeysManager() {
   // Form state
   const [keyName, setKeyName] = useState('');
   const [rateLimit, setRateLimit] = useState(60);
-  const [expiresInDays, setExpiresInDays] = useState<number | undefined>(undefined);
   const [selectedCustodyAccountId, setSelectedCustodyAccountId] = useState('');
   const [selectedPledgeId, setSelectedPledgeId] = useState('');
   const [permissions, setPermissions] = useState({
@@ -55,6 +54,11 @@ export function APIVUSD1KeysManager() {
     update_pledges: false,
     delete_pledges: false,
   });
+
+  // Filtered pledges based on selected custody account
+  const filteredPledges = selectedCustodyAccountId
+    ? pledges.filter(p => p.custody_account_id === selectedCustodyAccountId)
+    : pledges;
 
   useEffect(() => {
     loadKeys();
@@ -132,7 +136,6 @@ export function APIVUSD1KeysManager() {
         name: keyName,
         permissions,
         rate_limit: rateLimit,
-        expires_in_days: expiresInDays,
         custody_account: custodyAccount,
         pledge: pledge,
       });
@@ -144,7 +147,6 @@ export function APIVUSD1KeysManager() {
       // Reset form
       setKeyName('');
       setRateLimit(60);
-      setExpiresInDays(undefined);
       setSelectedCustodyAccountId('');
       setSelectedPledgeId('');
       setPermissions({
@@ -402,17 +404,6 @@ export function APIVUSD1KeysManager() {
                 />
               </div>
 
-              <div>
-                <label className="text-[#80ff80] text-sm block mb-2">Expires In (days, optional)</label>
-                <input
-                  type="number"
-                  value={expiresInDays || ''}
-                  onChange={(e) => setExpiresInDays(e.target.value ? parseInt(e.target.value) : undefined)}
-                  className="w-full bg-[#0a0a0a] border border-[#1a1a1a] focus:border-[#00ff88] text-[#e0ffe0] px-4 py-3 rounded-lg outline-none transition-all"
-                  placeholder="Leave empty for no expiration"
-                />
-              </div>
-
               {/* Custody Account Selector */}
               <div className="bg-[#0a0a0a] border border-[#00ff88]/20 rounded-lg p-4">
                 <label className="text-[#80ff80] text-sm block mb-2 flex items-center gap-2">
@@ -421,7 +412,10 @@ export function APIVUSD1KeysManager() {
                 </label>
                 <select
                   value={selectedCustodyAccountId}
-                  onChange={(e) => setSelectedCustodyAccountId(e.target.value)}
+                  onChange={(e) => {
+                    setSelectedCustodyAccountId(e.target.value);
+                    setSelectedPledgeId(''); // Reset pledge selection when account changes
+                  }}
                   className="w-full bg-[#0d0d0d] border border-[#1a1a1a] focus:border-[#00ff88] text-[#e0ffe0] px-4 py-3 rounded-lg outline-none transition-all"
                 >
                   <option value="">-- No association --</option>
@@ -432,7 +426,7 @@ export function APIVUSD1KeysManager() {
                   ))}
                 </select>
                 <p className="text-[#4d7c4d] text-xs mt-2">
-                  Select a custody account to automatically link it with this API key
+                  Select a custody account to see pledges with balance
                 </p>
               </div>
 
@@ -446,16 +440,19 @@ export function APIVUSD1KeysManager() {
                   value={selectedPledgeId}
                   onChange={(e) => setSelectedPledgeId(e.target.value)}
                   className="w-full bg-[#0d0d0d] border border-[#1a1a1a] focus:border-[#00ff88] text-[#e0ffe0] px-4 py-3 rounded-lg outline-none transition-all"
+                  disabled={!selectedCustodyAccountId}
                 >
                   <option value="">-- No association --</option>
-                  {pledges.map((pledge) => (
+                  {filteredPledges.map((pledge) => (
                     <option key={pledge.id} value={pledge.id}>
                       {pledge.reference_number} - {pledge.currency} ${pledge.amount.toLocaleString()} ({pledge.status})
                     </option>
                   ))}
                 </select>
                 <p className="text-[#4d7c4d] text-xs mt-2">
-                  Select a pledge to automatically link it with this API key
+                  {selectedCustodyAccountId
+                    ? `Showing pledges for selected custody account (${filteredPledges.length} available)`
+                    : 'Select a custody account first to view its pledges'}
                 </p>
               </div>
 
@@ -550,12 +547,26 @@ export function APIVUSD1KeysManager() {
                 </p>
               </div>
 
-              <button
-                onClick={() => setNewKey(null)}
-                className="w-full bg-gradient-to-r from-[#00ff88] to-[#00cc6a] text-black px-6 py-3 rounded-lg font-bold"
-              >
-                I've Saved My Credentials
-              </button>
+              <div className="flex gap-3">
+                <button
+                  onClick={() => setNewKey(null)}
+                  className="flex-1 bg-gradient-to-r from-[#00ff88] to-[#00cc6a] hover:from-[#00cc6a] hover:to-[#00aa55] text-black px-6 py-3 rounded-lg font-bold transition-all"
+                >
+                  I've Saved My Credentials
+                </button>
+                <button
+                  onClick={async () => {
+                    if (confirm('Are you sure you want to delete this API key? This action cannot be undone.')) {
+                      await handleDeleteKey(newKey.id);
+                      setNewKey(null);
+                    }
+                  }}
+                  className="bg-[#1a1a1a] border border-red-400/30 hover:border-red-400 hover:bg-red-400/10 text-red-400 px-6 py-3 rounded-lg font-bold transition-all flex items-center gap-2"
+                >
+                  <Trash2 className="w-5 h-5" />
+                  Delete
+                </button>
+              </div>
             </div>
           </div>
         </div>
