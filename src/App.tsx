@@ -31,8 +31,9 @@ const APIVUSDModule = lazy(() => import('./components/APIVUSDModule').then(m => 
 const APIDAESPledgeModule = lazy(() => import('./components/APIDAESPledgeModule').then(m => ({ default: m.APIDAESPledgeModule })));
 const APIVUSD1Module = lazy(() => import('./components/APIVUSD1Module').then(m => ({ default: m.default })));
 const APIGlobalModule = lazy(() => import('./components/APIGlobalModule').then(m => ({ default: m.default })));
+const APIDigitalModule = lazy(() => import('./components/APIDigitalModule').then(m => ({ default: m.APIDigitalModule })));
 
-type Tab = 'dashboard' | 'analytics' | 'processor' | 'transfer' | 'api-keys' | 'audit' | 'binary-reader' | 'hex-viewer' | 'large-file-analyzer' | 'xcp-b2b' | 'ledger' | 'blackscreen' | 'audit-bank' | 'corebanking-api' | 'custody' | 'api-daes' | 'api-vusd' | 'api-daes-pledge' | 'api-vusd1' | 'api-global';
+type Tab = 'dashboard' | 'analytics' | 'processor' | 'transfer' | 'api-keys' | 'audit' | 'binary-reader' | 'hex-viewer' | 'large-file-analyzer' | 'xcp-b2b' | 'ledger' | 'blackscreen' | 'audit-bank' | 'corebanking-api' | 'custody' | 'api-daes' | 'api-vusd' | 'api-daes-pledge' | 'api-vusd1' | 'api-global' | 'api-digital';
 
 function App() {
   const [activeTab, setActiveTab] = useState<Tab>('dashboard');
@@ -105,6 +106,7 @@ function App() {
     { id: 'custody' as Tab, name: t.navCustody, icon: Lock },
     { id: 'api-daes' as Tab, name: 'API DAES', icon: Key },
     { id: 'api-global' as Tab, name: 'API GLOBAL', icon: Globe },
+    { id: 'api-digital' as Tab, name: 'API DIGITAL', icon: Building2 },
     { id: 'api-vusd' as Tab, name: 'API VUSD', icon: TrendingUp },
     { id: 'api-vusd1' as Tab, name: 'API VUSD1', icon: Database },
     { id: 'api-daes-pledge' as Tab, name: 'DAES Pledge/Escrow', icon: Shield },
@@ -221,6 +223,7 @@ function App() {
           {activeTab === 'custody' && <CustodyAccountsModule />}
           {activeTab === 'api-daes' && <APIDAESModule />}
           {activeTab === 'api-global' && <APIGlobalModule />}
+          {activeTab === 'api-digital' && <APIDigitalModule />}
           {activeTab === 'api-vusd' && <APIVUSDModule />}
           {activeTab === 'api-vusd1' && <APIVUSD1Module />}
           {activeTab === 'api-daes-pledge' && <APIDAESPledgeModule />}
