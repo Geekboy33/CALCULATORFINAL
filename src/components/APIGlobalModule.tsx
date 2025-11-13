@@ -224,26 +224,43 @@ export default function APIGlobalModule() {
   const handleSendTransfer = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    console.log('[API GLOBAL] 🚀 handleSendTransfer called');
+    console.log('[API GLOBAL] 📋 Form data:', {
+      selectedAccount,
+      amount: transferForm.amount,
+      currency: transferForm.currency
+    });
+
     if (!selectedAccount) {
+      console.log('[API GLOBAL] ❌ No account selected');
       alert('Please select a custody account');
       return;
     }
 
     const account = custodyAccounts.find(a => a.id === selectedAccount);
     if (!account) {
+      console.log('[API GLOBAL] ❌ Account not found');
       alert('Custody account not found');
       return;
     }
 
+    console.log('[API GLOBAL] ✅ Account found:', account.accountName);
+
     if (transferForm.amount <= 0) {
+      console.log('[API GLOBAL] ❌ Amount is zero or negative');
       alert('Amount must be greater than 0');
       return;
     }
 
+    console.log('[API GLOBAL] ✅ Amount valid:', transferForm.amount);
+
     if (transferForm.amount > account.availableBalance) {
+      console.log('[API GLOBAL] ❌ Insufficient balance');
       alert(`Insufficient balance!\n\nAvailable: ${account.currency} ${account.availableBalance.toLocaleString()}\nRequested: ${transferForm.currency} ${transferForm.amount.toLocaleString()}`);
       return;
     }
+
+    console.log('[API GLOBAL] ✅ Balance sufficient, starting transfer process...');
 
     try {
       setLoading(true);
