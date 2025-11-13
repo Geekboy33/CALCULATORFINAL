@@ -67,32 +67,49 @@ export function APIVUSD1KeysManager() {
 
   const loadCustodyAccountsAndPledges = async () => {
     const supabase = getSupabaseClient();
-    if (!supabase) return;
+    console.log('[APIVUSD1KeysManager] loadCustodyAccountsAndPledges called, supabase:', !!supabase);
+    if (!supabase) {
+      console.error('[APIVUSD1KeysManager] Supabase client not available!');
+      return;
+    }
 
     try {
       setLoadingData(true);
+      console.log('[APIVUSD1KeysManager] Set loadingData to true');
 
       // Get current user
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) return;
+      const { data: { user }, error: userError } = await supabase.auth.getUser();
+      console.log('[APIVUSD1KeysManager] User:', user?.id, 'Error:', userError);
+      if (!user) {
+        console.error('[APIVUSD1KeysManager] No user found!');
+        return;
+      }
 
       // Load pledges - only ACTIVE pledges (no custody accounts needed)
-      console.log('[APIVUSD1KeysManager] Loading ACTIVE pledges...');
+      console.log('[APIVUSD1KeysManager] Loading ACTIVE pledges from api_pledges table...');
       const { data: pledgesData, error: pledgesError } = await supabase
         .from('api_pledges')
         .select('*')
         .eq('status', 'ACTIVE')
         .order('created_at', { ascending: false });
 
+      console.log('[APIVUSD1KeysManager] Query result:', {
+        data: pledgesData,
+        error: pledgesError,
+        count: pledgesData?.length || 0
+      });
+
       if (pledgesError) {
         console.error('[APIVUSD1KeysManager] Error loading pledges:', pledgesError);
       } else {
-        console.log('[APIVUSD1KeysManager] Loaded pledges:', pledgesData?.length || 0, pledgesData);
+        console.log('[APIVUSD1KeysManager] SUCCESS - Loaded pledges:', pledgesData?.length || 0, pledgesData);
+        console.log('[APIVUSD1KeysManager] Setting pledges state with:', pledgesData);
         setPledges(pledgesData || []);
       }
     } catch (error) {
-      console.error('Error loading data:', error);
+      console.error('[APIVUSD1KeysManager] Exception in loadCustodyAccountsAndPledges:', error);
     } finally {
+      console.log('[APIVUSD1KeysManager] Setting loadingData to false');
       setLoadingData(false);
     }
   };
@@ -393,6 +410,12 @@ export function APIVUSD1KeysManager() {
                   <Lock className="w-4 h-4 text-[#00ff88]" />
                   Select Pledge
                 </label>
+                {/* DEBUG INFO */}
+                <div className="mb-2 p-2 bg-blue-900/20 border border-blue-500/30 rounded text-xs">
+                  <p className="text-blue-400">Debug: pledges.length = {pledges.length}</p>
+                  <p className="text-blue-400">Debug: availablePledges.length = {availablePledges.length}</p>
+                  <p className="text-blue-400">Debug: loadingData = {loadingData.toString()}</p>
+                </div>
                 {loadingData ? (
                   <div className="text-center py-4">
                     <RefreshCw className="w-5 h-5 text-[#00ff88] animate-spin mx-auto mb-2" />
@@ -402,8 +425,11 @@ export function APIVUSD1KeysManager() {
                   <div className="bg-[#1a1a1a] border border-yellow-500/30 rounded-lg p-4 text-center">
                     <AlertCircle className="w-8 h-8 text-yellow-500 mx-auto mb-2" />
                     <p className="text-yellow-500 font-semibold mb-1">No Active Pledges Found</p>
-                    <p className="text-[#80ff80] text-xs">
+                    <p className="text-[#80ff80] text-xs mb-2">
                       Create pledges in the API VUSD1 module first to associate them with API keys.
+                    </p>
+                    <p className="text-[#4d7c4d] text-xs">
+                      Check browser console for detailed logs.
                     </p>
                   </div>
                 ) : (
