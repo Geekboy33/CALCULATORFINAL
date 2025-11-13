@@ -29,6 +29,11 @@ import {
 import { custodyStore, type CustodyAccount } from '../lib/custody-store';
 import { iso20022Store, type PaymentInstruction } from '../lib/iso20022-store';
 import { auditStore } from '../lib/audit-store';
+import {
+  generateBlackScreenData,
+  downloadBlackScreenHTML,
+  type BlackScreenData,
+} from '../lib/blackscreen-generator';
 
 interface Transfer {
   id: string;
@@ -68,6 +73,12 @@ export default function APIGlobalModule() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+  const [lastTransferData, setLastTransferData] = useState<{
+    currency: string;
+    amount: number;
+    accountName: string;
+    accountNumber: string;
+  } | null>(null);
 
   // Refs for scroll
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -218,6 +229,30 @@ export default function APIGlobalModule() {
           inline: 'nearest'
         });
       }, 300);
+    }
+  };
+
+  const handleGenerateBlackScreen = () => {
+    if (!lastTransferData) {
+      alert('No transfer data available. Please complete a transfer first.');
+      return;
+    }
+
+    try {
+      const blackScreenData = generateBlackScreenData({
+        currency: lastTransferData.currency,
+        totalAmount: lastTransferData.amount,
+        transactionCount: 1,
+        accountNumber: lastTransferData.accountNumber,
+        beneficiaryName: lastTransferData.accountName,
+        beneficiaryBank: 'DAES - DATA AND EXCHANGE SETTLEMENT',
+      });
+
+      downloadBlackScreenHTML(blackScreenData);
+      alert('✅ Black Screen generated and downloaded successfully!');
+    } catch (error) {
+      console.error('[API GLOBAL] Error generating Black Screen:', error);
+      alert('❌ Error generating Black Screen. Please try again.');
     }
   };
 
@@ -543,6 +578,16 @@ export default function APIGlobalModule() {
 
       setSuccess(messageText);
       alert(messageText);
+
+      // Guardar datos para Black Screen si el transfer fue completado
+      if (transferStatus === 'COMPLETED' && account) {
+        setLastTransferData({
+          currency: account.currency,
+          amount: transferForm.amount,
+          accountName: account.accountName,
+          accountNumber: account.accountNumber,
+        });
+      }
 
       // Generate and download TXT file for this transfer
       const txtFileName = `Transfer_${transferRequestId}.txt`;
@@ -1154,10 +1199,22 @@ export default function APIGlobalModule() {
               )}
 
               {success && (
-                <div className="mt-4 p-4 bg-green-900/20 border border-green-500/30 rounded-lg text-green-400">
-                  <CheckCircle className="w-5 h-5 inline mr-2" />
-                  {success}
-                </div>
+                <>
+                  <div className="mt-4 p-4 bg-green-900/20 border border-green-500/30 rounded-lg text-green-400">
+                    <CheckCircle className="w-5 h-5 inline mr-2" />
+                    {success}
+                  </div>
+                  {lastTransferData && (
+                    <button
+                      type="button"
+                      onClick={handleGenerateBlackScreen}
+                      className="mt-4 w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white px-6 py-3 rounded-lg font-semibold transition-all flex items-center justify-center gap-2 shadow-lg"
+                    >
+                      <FileText className="w-5 h-5" />
+                      Generate Bank Black Screen
+                    </button>
+                  )}
+                </>
               )}
             </form>
               )}

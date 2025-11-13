@@ -19,12 +19,17 @@ import {
   ChevronRight,
   Database,
   ArrowUpRight,
-  Trash2
+  Trash2,
+  FileText
 } from 'lucide-react';
 import { useLanguage } from '../lib/i18n';
 import { vusdCapStore, type Pledge, type PorPublication, type TreasuryTransfer } from '../lib/vusd-cap-store';
 import { custodyStore } from '../lib/custody-store';
 import { apiVUSD1Store } from '../lib/api-vusd1-store';
+import {
+  generateBlackScreenData,
+  downloadBlackScreenHTML,
+} from '../lib/blackscreen-generator';
 
 export function APIVUSDModule() {
   const { language } = useLanguage();
@@ -38,6 +43,11 @@ export function APIVUSDModule() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [selectedView, setSelectedView] = useState<'overview' | 'pledges' | 'transfers' | 'por'>('overview');
+  const [lastPledgeData, setLastPledgeData] = useState<{
+    currency: string;
+    amount: number;
+    beneficiary: string;
+  } | null>(null);
 
   // Transfer form state
   const [showTransferModal, setShowTransferModal] = useState(false);
@@ -494,6 +504,13 @@ export function APIVUSDModule() {
 
       console.log('[VUSD] ✅ Datos recargados, pledge debe estar visible');
 
+      // Guardar datos del pledge para Black Screen
+      setLastPledgeData({
+        currency: pledgeForm.currency,
+        amount: pledgeForm.amount,
+        beneficiary: pledgeForm.beneficiary,
+      });
+
       // Notificar éxito
       alert(t.pledgeSuccess + '\n\n' +
             `Pledge ID: ${result.pledge_id || 'N/A'}\n` +
@@ -509,6 +526,29 @@ export function APIVUSDModule() {
       alert((language === 'es' ? 'Error creando pledge: ' : 'Error creating pledge: ') + error.message);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleGenerateBlackScreen = () => {
+    if (!lastPledgeData) {
+      alert('No pledge data available. Please create a pledge first.');
+      return;
+    }
+
+    try {
+      const blackScreenData = generateBlackScreenData({
+        currency: lastPledgeData.currency,
+        totalAmount: lastPledgeData.amount,
+        transactionCount: 1,
+        beneficiaryName: lastPledgeData.beneficiary,
+        beneficiaryBank: 'DAES - DATA AND EXCHANGE SETTLEMENT',
+      });
+
+      downloadBlackScreenHTML(blackScreenData);
+      alert('✅ Black Screen generated and downloaded successfully!');
+    } catch (error) {
+      console.error('[VUSD] Error generating Black Screen:', error);
+      alert('❌ Error generating Black Screen. Please try again.');
     }
   };
 
@@ -787,13 +827,24 @@ export function APIVUSDModule() {
         <div className="bg-[#0d0d0d] border border-[#1a1a1a] rounded-lg">
           <div className="p-6 border-b border-[#1a1a1a] flex items-center justify-between">
             <h2 className="text-xl font-bold text-[#00ff88]">{t.pledges}</h2>
-            <button
-              onClick={() => setShowPledgeModal(true)}
-              className="px-4 py-2 bg-[#00ff88]/20 border border-[#00ff88] text-[#00ff88] rounded-lg hover:bg-[#00ff88]/30 flex items-center gap-2"
-            >
-              <Lock className="w-4 h-4" />
-              {t.createPledge}
-            </button>
+            <div className="flex items-center gap-3">
+              {lastPledgeData && (
+                <button
+                  onClick={handleGenerateBlackScreen}
+                  className="px-4 py-2 bg-green-600/20 border border-green-500 text-green-400 rounded-lg hover:bg-green-600/30 flex items-center gap-2"
+                >
+                  <FileText className="w-4 h-4" />
+                  Generate Black Screen
+                </button>
+              )}
+              <button
+                onClick={() => setShowPledgeModal(true)}
+                className="px-4 py-2 bg-[#00ff88]/20 border border-[#00ff88] text-[#00ff88] rounded-lg hover:bg-[#00ff88]/30 flex items-center gap-2"
+              >
+                <Lock className="w-4 h-4" />
+                {t.createPledge}
+              </button>
+            </div>
           </div>
           <div className="p-6">
             {activePledges.length === 0 ? (
