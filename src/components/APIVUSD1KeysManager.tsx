@@ -243,28 +243,29 @@ export function APIVUSD1KeysManager() {
         </div>
       </div>
 
-      {/* Keys List */}
-      {loading ? (
-        <div className="text-center py-12">
-          <RefreshCw className="w-8 h-8 text-[#00ff88] animate-spin mx-auto mb-3" />
-          <p className="text-[#80ff80]">Loading API keys...</p>
-        </div>
-      ) : keys.length === 0 ? (
-        <div className="bg-[#0d0d0d] border border-[#1a1a1a] rounded-xl p-12 text-center">
-          <Key className="w-16 h-16 text-[#4d7c4d] mx-auto mb-4" />
-          <h3 className="text-xl font-bold text-[#e0ffe0] mb-2">No API Keys</h3>
-          <p className="text-[#80ff80] mb-6">
-            Create your first API key to start integrating with external applications
-          </p>
-          <button
-            onClick={() => setShowCreateModal(true)}
-            className="bg-gradient-to-r from-[#00ff88] to-[#00cc6a] text-black px-6 py-3 rounded-lg font-bold"
-          >
-            Create First API Key
-          </button>
-        </div>
-      ) : (
-        <div className="max-h-[600px] overflow-y-auto space-y-4 pr-2 scrollbar-thin scrollbar-thumb-[#00ff88]/30 scrollbar-track-[#0a0a0a] hover:scrollbar-thumb-[#00ff88]/50">
+      {/* Keys List Container with Scroll */}
+      <div className="max-h-[600px] overflow-y-auto pr-2 custom-scrollbar">
+        {loading ? (
+          <div className="text-center py-12">
+            <RefreshCw className="w-8 h-8 text-[#00ff88] animate-spin mx-auto mb-3" />
+            <p className="text-[#80ff80]">Loading API keys...</p>
+          </div>
+        ) : keys.length === 0 ? (
+          <div className="bg-[#0d0d0d] border border-[#1a1a1a] rounded-xl p-12 text-center">
+            <Key className="w-16 h-16 text-[#4d7c4d] mx-auto mb-4" />
+            <h3 className="text-xl font-bold text-[#e0ffe0] mb-2">No API Keys</h3>
+            <p className="text-[#80ff80] mb-6">
+              Create your first API key to start integrating with external applications
+            </p>
+            <button
+              onClick={() => setShowCreateModal(true)}
+              className="bg-gradient-to-r from-[#00ff88] to-[#00cc6a] hover:from-[#00cc6a] hover:to-[#00aa55] text-black px-6 py-3 rounded-lg font-bold transition-all shadow-[0_0_20px_rgba(0,255,136,0.4)]"
+            >
+              Create First API Key
+            </button>
+          </div>
+        ) : (
+        <div className="space-y-4">
           {keys.map((key) => (
             <div
               key={key.id}
@@ -365,7 +366,8 @@ export function APIVUSD1KeysManager() {
             </div>
           ))}
         </div>
-      )}
+        )}
+      </div>
 
       {/* Create Modal */}
       {showCreateModal && (
