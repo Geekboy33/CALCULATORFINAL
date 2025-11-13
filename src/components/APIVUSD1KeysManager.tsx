@@ -46,7 +46,6 @@ export function APIVUSD1KeysManager() {
   // Form state
   const [keyName, setKeyName] = useState('');
   const [rateLimit, setRateLimit] = useState(60);
-  const [selectedCustodyAccountId, setSelectedCustodyAccountId] = useState('');
   const [selectedPledgeId, setSelectedPledgeId] = useState('');
   const [permissions, setPermissions] = useState({
     read_pledges: true,
@@ -55,10 +54,8 @@ export function APIVUSD1KeysManager() {
     delete_pledges: false,
   });
 
-  // Filtered pledges based on selected custody account
-  const filteredPledges = selectedCustodyAccountId
-    ? pledges.filter(p => p.custody_account_id === selectedCustodyAccountId)
-    : pledges;
+  // All pledges available for selection
+  const availablePledges = pledges;
 
   useEffect(() => {
     loadKeys();
@@ -135,13 +132,13 @@ export function APIVUSD1KeysManager() {
         return;
       }
 
-      // Get selected custody account and pledge data
-      const custodyAccount = selectedCustodyAccountId
-        ? custodyAccounts.find(a => a.id === selectedCustodyAccountId)
-        : undefined;
-
+      // Get selected pledge data and its associated custody account
       const pledge = selectedPledgeId
         ? pledges.find(p => p.id === selectedPledgeId)
+        : undefined;
+
+      const custodyAccount = pledge
+        ? custodyAccounts.find(a => a.id === pledge.custody_account_id)
         : undefined;
 
       const result = await apiKeysStore.createKey({
@@ -159,7 +156,6 @@ export function APIVUSD1KeysManager() {
       // Reset form
       setKeyName('');
       setRateLimit(60);
-      setSelectedCustodyAccountId('');
       setSelectedPledgeId('');
       setPermissions({
         read_pledges: true,
@@ -417,55 +413,29 @@ export function APIVUSD1KeysManager() {
                 />
               </div>
 
-              {/* Custody Account Selector */}
-              <div className="bg-[#0a0a0a] border border-[#00ff88]/20 rounded-lg p-4">
-                <label className="text-[#80ff80] text-sm block mb-2 flex items-center gap-2">
-                  <DollarSign className="w-4 h-4 text-[#00ff88]" />
-                  Associate with Custody Account (optional)
-                </label>
-                <select
-                  value={selectedCustodyAccountId}
-                  onChange={(e) => {
-                    setSelectedCustodyAccountId(e.target.value);
-                    setSelectedPledgeId(''); // Reset pledge selection when account changes
-                  }}
-                  className="w-full bg-[#0d0d0d] border border-[#1a1a1a] focus:border-[#00ff88] text-[#e0ffe0] px-4 py-3 rounded-lg outline-none transition-all"
-                >
-                  <option value="">-- No association --</option>
-                  {custodyAccounts.map((account) => (
-                    <option key={account.id} value={account.id}>
-                      {account.account_name} ({account.account_number}) - {account.currency} ${account.balance_available.toLocaleString()}
-                    </option>
-                  ))}
-                </select>
-                <p className="text-[#4d7c4d] text-xs mt-2">
-                  Select a custody account to see pledges with balance
-                </p>
-              </div>
-
               {/* Pledge Selector */}
               <div className="bg-[#0a0a0a] border border-[#00ff88]/20 rounded-lg p-4">
                 <label className="text-[#80ff80] text-sm block mb-2 flex items-center gap-2">
                   <Lock className="w-4 h-4 text-[#00ff88]" />
-                  Associate with Pledge (optional)
+                  Select Pledge
                 </label>
                 <select
                   value={selectedPledgeId}
                   onChange={(e) => setSelectedPledgeId(e.target.value)}
                   className="w-full bg-[#0d0d0d] border border-[#1a1a1a] focus:border-[#00ff88] text-[#e0ffe0] px-4 py-3 rounded-lg outline-none transition-all"
-                  disabled={!selectedCustodyAccountId}
                 >
-                  <option value="">-- No association --</option>
-                  {filteredPledges.map((pledge) => (
-                    <option key={pledge.id} value={pledge.id}>
-                      {pledge.reference_number} - {pledge.currency} ${pledge.amount.toLocaleString()} ({pledge.status})
-                    </option>
-                  ))}
+                  <option value="">-- Select a pledge --</option>
+                  {availablePledges.map((pledge) => {
+                    const account = custodyAccounts.find(a => a.id === pledge.custody_account_id);
+                    return (
+                      <option key={pledge.id} value={pledge.id}>
+                        {pledge.reference_number} - {pledge.currency} ${pledge.amount.toLocaleString()} - {account?.account_name || 'Unknown Account'} ({pledge.status})
+                      </option>
+                    );
+                  })}
                 </select>
                 <p className="text-[#4d7c4d] text-xs mt-2">
-                  {selectedCustodyAccountId
-                    ? `Showing pledges for selected custody account (${filteredPledges.length} available)`
-                    : 'Select a custody account first to view its pledges'}
+                  {availablePledges.length} pledge(s) available. Each pledge includes its custody account automatically.
                 </p>
               </div>
 
