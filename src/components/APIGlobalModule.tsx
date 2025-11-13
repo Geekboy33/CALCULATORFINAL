@@ -6,7 +6,7 @@
  * Deducts from M2 balance directly from DTC1B file
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   Globe,
   Send,
@@ -68,6 +68,10 @@ export default function APIGlobalModule() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+
+  // Refs for scroll
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const submitButtonRef = useRef<HTMLButtonElement>(null);
 
   // Custody accounts
   const [custodyAccounts, setCustodyAccounts] = useState<CustodyAccount[]>([]);
@@ -198,6 +202,22 @@ export default function APIGlobalModule() {
         completed_transfers: parsedTransfers.filter((t: Transfer) => t.status === 'COMPLETED').length,
         failed_transfers: parsedTransfers.filter((t: Transfer) => t.status === 'FAILED').length
       });
+    }
+  };
+
+  // Auto-scroll to submit button when account is selected
+  const handleAccountSelect = (accountId: string) => {
+    setSelectedAccount(accountId);
+
+    // Scroll to bottom after a short delay to ensure DOM is updated
+    if (accountId && scrollContainerRef.current && submitButtonRef.current) {
+      setTimeout(() => {
+        submitButtonRef.current?.scrollIntoView({
+          behavior: 'smooth',
+          block: 'end',
+          inline: 'nearest'
+        });
+      }, 300);
     }
   };
 
@@ -810,7 +830,7 @@ export default function APIGlobalModule() {
               </h2>
             </div>
 
-            <div className="overflow-y-auto flex-1 p-6 custom-scrollbar">
+            <div ref={scrollContainerRef} className="overflow-y-auto flex-1 p-6 custom-scrollbar">
               <form onSubmit={handleSendTransfer} className="space-y-6">
               {/* Select Custody Account */}
               <div>
@@ -820,7 +840,7 @@ export default function APIGlobalModule() {
                 </label>
                 <select
                   value={selectedAccount}
-                  onChange={(e) => setSelectedAccount(e.target.value)}
+                  onChange={(e) => handleAccountSelect(e.target.value)}
                   className="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500"
                   required
                 >
@@ -963,6 +983,7 @@ export default function APIGlobalModule() {
 
               {/* Submit */}
               <button
+                ref={submitButtonRef}
                 type="submit"
                 disabled={loading || !selectedAccount}
                 className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 disabled:from-gray-600 disabled:to-gray-700 text-white font-bold py-4 px-6 rounded-lg flex items-center justify-center gap-2 transition-all"
