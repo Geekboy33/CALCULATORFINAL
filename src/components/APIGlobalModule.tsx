@@ -1191,7 +1191,7 @@ export default function APIGlobalModule() {
                 No transfers yet. Send your first transfer to get started.
               </div>
             ) : (
-              <div className="space-y-3">
+              <div className="space-y-3 max-h-[600px] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-blue-500 scrollbar-track-gray-800">
                 {transfers.map((transfer) => (
                   <div
                     key={transfer.id}
