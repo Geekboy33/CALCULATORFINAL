@@ -119,18 +119,26 @@ export default function APIGlobalModule() {
   const [digitalSignaturesCount, setDigitalSignaturesCount] = useState<number>(0);
 
   useEffect(() => {
+    console.log('[API GLOBAL] Component mounted, initializing...');
     loadData();
     checkAPIConnection();
     loadM2Balance();
 
     // Listen to balance changes
-    const unsubscribe = balanceStore.subscribe(() => {
-      console.log('[API GLOBAL] Balance store updated, reloading data...');
+    const unsubscribe = balanceStore.subscribe((balances) => {
+      console.log('[API GLOBAL] Balance store updated with', balances.length, 'balances, reloading data...');
+      loadData();
+    });
+
+    // Listen to custody store changes
+    const unsubscribeCustody = custodyStore.subscribe(() => {
+      console.log('[API GLOBAL] Custody store updated, reloading data...');
       loadData();
     });
 
     return () => {
       unsubscribe();
+      unsubscribeCustody();
     };
   }, []);
 
@@ -203,25 +211,34 @@ export default function APIGlobalModule() {
   };
 
   const loadData = () => {
+    console.log('[API GLOBAL] ========== LOADING DATA ==========');
+
     // Load custody accounts
     let accounts = custodyStore.getAccounts();
+    console.log('[API GLOBAL] Loaded custody accounts:', accounts.length);
+    accounts.forEach(acc => {
+      console.log(`  - ${acc.accountName} (${acc.accountNumber}): ${acc.currency} ${acc.availableBalance}`);
+    });
 
     // Sync balances with balanceStore (from DTC1B analysis)
     const analyzedBalances = balanceStore.getBalances();
-    if (analyzedBalances.length > 0) {
-      console.log('[API GLOBAL] Syncing custody accounts with analyzed balances:', analyzedBalances.length);
+    console.log('[API GLOBAL] Analyzed balances from balanceStore:', analyzedBalances.length);
 
+    if (analyzedBalances.length > 0) {
+      analyzedBalances.forEach(bal => {
+        console.log(`  - ${bal.accountName}: ${bal.currency} ${bal.totalAmount}`);
+      });
+
+      console.log('[API GLOBAL] Starting balance sync...');
       accounts = accounts.map(account => {
-        // Find matching balance by currency and account name
-        const matchingBalance = analyzedBalances.find(
-          b => b.currency === account.currency &&
-               (b.accountName.includes(account.accountName) ||
-                account.accountName.includes(b.accountName) ||
-                b.accountName.includes(account.accountNumber))
-        );
+        console.log(`[API GLOBAL] Processing account: ${account.accountName} (${account.accountNumber})`);
+
+        // Find matching balance by currency
+        const matchingBalance = analyzedBalances.find(b => b.currency === account.currency);
 
         if (matchingBalance) {
-          console.log(`[API GLOBAL] ✅ Found balance for ${account.accountName}:`, matchingBalance.totalAmount);
+          console.log(`[API GLOBAL] ✅ MATCH FOUND for ${account.accountName}!`);
+          console.log(`    Using balance from ${matchingBalance.accountName}: ${matchingBalance.totalAmount}`);
           return {
             ...account,
             availableBalance: matchingBalance.totalAmount,
@@ -229,14 +246,21 @@ export default function APIGlobalModule() {
           };
         }
 
-        console.log(`[API GLOBAL] ⚠️ No balance found for ${account.accountName}, using stored value:`, account.availableBalance);
+        console.log(`[API GLOBAL] ⚠️ NO MATCH for ${account.accountName}, keeping original: ${account.availableBalance}`);
         return account;
       });
+
+      console.log('[API GLOBAL] Final synced accounts:');
+      accounts.forEach(acc => {
+        console.log(`  - ${acc.accountName}: ${acc.currency} ${acc.availableBalance}`);
+      });
     } else {
-      console.log('[API GLOBAL] No analyzed balances found, using custody store balances');
+      console.log('[API GLOBAL] ⚠️ No analyzed balances found in balanceStore');
+      console.log('[API GLOBAL] Using original custody store balances');
     }
 
     setCustodyAccounts(accounts);
+    console.log('[API GLOBAL] ========== DATA LOADED ==========');
 
     // Load transfers from localStorage
     const savedTransfers = localStorage.getItem('api_global_transfers');
@@ -1048,13 +1072,21 @@ export default function APIGlobalModule() {
               </h2>
               <button
                 onClick={() => {
-                  loadData();
-                  loadM2Balance();
+                  console.log('[API GLOBAL] 🔄 REFRESH BUTTON CLICKED');
+                  setLoading(true);
+
+                  // Force reload
+                  setTimeout(() => {
+                    loadData();
+                    loadM2Balance();
+                    setLoading(false);
+                  }, 100);
                 }}
-                className="flex items-center gap-2 px-4 py-2 bg-blue-900/30 hover:bg-blue-900/50 border border-blue-500/30 hover:border-blue-500 text-blue-400 rounded-lg transition-all"
+                disabled={loading}
+                className="flex items-center gap-2 px-4 py-2 bg-blue-900/30 hover:bg-blue-900/50 border border-blue-500/30 hover:border-blue-500 text-blue-400 rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                <RefreshCw className="w-4 h-4" />
-                Refresh Balances
+                <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
+                {loading ? 'Refreshing...' : 'Refresh Balances'}
               </button>
             </div>
 
@@ -1094,20 +1126,38 @@ export default function APIGlobalModule() {
                   ))}
                 </select>
                 {selectedAccount && (
-                  <div className="mt-2 p-3 bg-blue-900/20 border border-blue-500/30 rounded">
+                  <div className="mt-2 p-4 bg-blue-900/20 border border-blue-500/30 rounded-lg">
                     {(() => {
                       const account = custodyAccounts.find(a => a.id === selectedAccount);
-                      return account ? (
+                      if (!account) return null;
+
+                      const hasBalance = account.availableBalance > 0;
+
+                      return (
                         <div className="text-sm">
                           <div className="text-blue-400 font-semibold mb-1">Available Balance</div>
-                          <div className="text-white text-lg font-bold">
+                          <div className={`text-lg font-bold mb-2 ${hasBalance ? 'text-green-400' : 'text-yellow-400'}`}>
                             {account.currency} {account.availableBalance.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                           </div>
-                          <div className="text-xs text-gray-400 mt-1">
+                          <div className="text-xs text-gray-400 mb-2">
                             Institution: Digital Commercial Bank Ltd
                           </div>
+                          {!hasBalance && (
+                            <div className="mt-3 p-3 bg-yellow-900/20 border border-yellow-500/30 rounded">
+                              <div className="flex items-start gap-2">
+                                <AlertCircle className="w-4 h-4 text-yellow-400 flex-shrink-0 mt-0.5" />
+                                <div className="text-xs text-yellow-300">
+                                  <div className="font-semibold mb-1">No Balance Detected</div>
+                                  <div className="text-yellow-400/80">
+                                    To load the real balance, go to <span className="font-bold">Large File DTC1B Analyzer</span> and upload your DTC1B file.
+                                    The balance will sync automatically after analysis.
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          )}
                         </div>
-                      ) : null;
+                      );
                     })()}
                   </div>
                 )}
