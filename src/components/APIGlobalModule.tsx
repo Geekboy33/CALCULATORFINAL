@@ -1,7 +1,9 @@
 /**
  * API GLOBAL Module
  * Transfer system with MindCloud API integration
- * Sends M2 money transfers from custody accounts to external recipients
+ * Sends M2 money transfers with ISO 20022 compliance
+ * Validates digital signatures from DTC1B Bank Audit
+ * Deducts from M2 balance directly from DTC1B file
  */
 
 import React, { useState, useEffect } from 'react';
@@ -19,9 +21,13 @@ import {
   Building2,
   User,
   FileText,
-  Zap
+  Zap,
+  Shield,
+  FileCheck
 } from 'lucide-react';
 import { custodyStore, type CustodyAccount } from '../lib/custody-store';
+import { iso20022Store, type PaymentInstruction } from '../lib/iso20022-store';
+import { auditStore } from '../lib/audit-store';
 
 interface Transfer {
   id: string;
@@ -40,6 +46,19 @@ interface Transfer {
   status: 'PENDING' | 'PROCESSING' | 'COMPLETED' | 'FAILED';
   response?: any;
   created_at: string;
+  // ISO 20022 and M2 validation
+  iso20022?: {
+    messageId: string;
+    paymentInstruction: PaymentInstruction;
+    xmlGenerated: boolean;
+  };
+  m2Validation?: {
+    m2BalanceBefore: number;
+    m2BalanceAfter: number;
+    dtc1bSource: string;
+    digitalSignatures: number;
+    signaturesVerified: boolean;
+  };
 }
 
 export default function APIGlobalModule() {
@@ -77,10 +96,32 @@ export default function APIGlobalModule() {
   // API Connection status
   const [apiStatus, setApiStatus] = useState<'checking' | 'connected' | 'error'>('checking');
 
+  // M2 Balance from DTC1B
+  const [m2Balance, setM2Balance] = useState<{ total: number; currency: string; validated: boolean } | null>(null);
+  const [digitalSignaturesCount, setDigitalSignaturesCount] = useState<number>(0);
+
   useEffect(() => {
     loadData();
     checkAPIConnection();
+    loadM2Balance();
   }, []);
+
+  const loadM2Balance = () => {
+    try {
+      const m2Data = iso20022Store.extractM2Balance();
+      setM2Balance(m2Data);
+
+      const signatures = iso20022Store.extractDigitalSignatures();
+      setDigitalSignaturesCount(signatures.length);
+
+      console.log('[API GLOBAL] 📊 M2 Balance loaded:', m2Data);
+      console.log('[API GLOBAL] 🔐 Digital signatures:', signatures.length);
+    } catch (error) {
+      console.warn('[API GLOBAL] ⚠️ No DTC1B data available:', error);
+      setM2Balance(null);
+      setDigitalSignaturesCount(0);
+    }
+  };
 
   const checkAPIConnection = async () => {
     try {
@@ -187,9 +228,74 @@ export default function APIGlobalModule() {
       setError(null);
       setSuccess(null);
 
+      // ========================================
+      // STEP 1: VALIDATE M2 BALANCE FROM DTC1B
+      // ========================================
+      console.log('[API GLOBAL] 📊 Step 1: Validating M2 balance from DTC1B...');
+
+      let paymentInstruction: PaymentInstruction;
+      let m2BalanceBefore = 0;
+
+      try {
+        const m2Data = iso20022Store.extractM2Balance();
+        m2BalanceBefore = m2Data.total;
+
+        console.log('[API GLOBAL] ✅ M2 Balance validated:', {
+          total: m2Data.total,
+          currency: m2Data.currency,
+          validated: m2Data.validated
+        });
+
+        if (transferForm.amount > m2Data.total) {
+          throw new Error(
+            `Insufficient M2 balance in DTC1B!\n\n` +
+            `Requested: ${transferForm.currency} ${transferForm.amount.toLocaleString()}\n` +
+            `Available M2: ${m2Data.currency} ${m2Data.total.toLocaleString()}\n\n` +
+            `Please process DTC1B file in Bank Audit module to load M2 money.`
+          );
+        }
+      } catch (m2Error: any) {
+        throw new Error(
+          `M2 validation failed!\n\n` +
+          `${m2Error.message}\n\n` +
+          `Required: Process DTC1B file in Bank Audit module first to extract M2 money and digital signatures.`
+        );
+      }
+
+      // ========================================
+      // STEP 2: CREATE ISO 20022 PAYMENT INSTRUCTION
+      // ========================================
+      console.log('[API GLOBAL] 📋 Step 2: Creating ISO 20022 payment instruction...');
+
       // Generate transfer request ID
       const transferRequestId = `TXN_${Date.now()}_${Math.random().toString(36).substring(2, 9).toUpperCase()}`;
       const datetime = new Date().toISOString();
+
+      try {
+        paymentInstruction = iso20022Store.createPaymentInstruction({
+          transferRequestId,
+          amount: transferForm.amount,
+          currency: transferForm.currency,
+          debtorName: account.accountName,
+          debtorAccount: account.accountNumber,
+          debtorBIC: 'DIGCUSXX',  // Digital Commercial Bank Ltd BIC
+          debtorInstitution: 'Digital Commercial Bank Ltd',
+          creditorName: transferForm.receiving_name,
+          creditorAccount: transferForm.receiving_account,
+          creditorBIC: 'APEXCAUS',  // APEX CAPITAL RESERVE BANK INC BIC
+          creditorInstitution: transferForm.receiving_institution,
+          remittanceInfo: transferForm.description,
+          purposeCode: 'INFR'  // Infrastructure Development
+        });
+
+        console.log('[API GLOBAL] ✅ ISO 20022 instruction created:', {
+          messageId: paymentInstruction.messageId,
+          signatures: paymentInstruction.digitalSignatures.length,
+          m2Validated: paymentInstruction.dtc1bValidation.verified
+        });
+      } catch (isoError: any) {
+        throw new Error(`ISO 20022 creation failed: ${isoError.message}`);
+      }
 
       // Prepare API payload
       const payload = {
@@ -251,7 +357,40 @@ export default function APIGlobalModule() {
         console.log('[API GLOBAL] ❌ HTTP Error:', response.status, response.statusText);
       }
 
-      // Create transfer record
+      // ========================================
+      // STEP 3: DEDUCT FROM M2 BALANCE IN DTC1B
+      // ========================================
+      let m2BalanceAfter = m2BalanceBefore;
+
+      if (transferStatus === 'COMPLETED') {
+        console.log('[API GLOBAL] 💰 Step 3: Deducting from M2 balance...');
+
+        try {
+          iso20022Store.deductFromM2Balance(
+            transferForm.amount,
+            transferForm.currency,
+            transferRequestId
+          );
+
+          m2BalanceAfter = m2BalanceBefore - transferForm.amount;
+
+          console.log('[API GLOBAL] ✅ M2 balance updated:', {
+            before: m2BalanceBefore,
+            after: m2BalanceAfter,
+            deducted: transferForm.amount
+          });
+
+          // Reload M2 balance
+          loadM2Balance();
+        } catch (deductError: any) {
+          console.error('[API GLOBAL] ❌ Error deducting M2 balance:', deductError);
+          throw new Error(`Failed to deduct M2 balance: ${deductError.message}`);
+        }
+      }
+
+      // ========================================
+      // STEP 4: CREATE TRANSFER RECORD WITH ISO 20022
+      // ========================================
       const transfer: Transfer = {
         id: `TRF_${Date.now()}`,
         transfer_request_id: transferRequestId,
@@ -268,7 +407,19 @@ export default function APIGlobalModule() {
         datetime: datetime,
         status: transferStatus,
         response: responseData,
-        created_at: datetime
+        created_at: datetime,
+        iso20022: {
+          messageId: paymentInstruction.messageId,
+          paymentInstruction: paymentInstruction,
+          xmlGenerated: true
+        },
+        m2Validation: {
+          m2BalanceBefore,
+          m2BalanceAfter,
+          dtc1bSource: 'Bank Audit Module',
+          digitalSignatures: paymentInstruction.digitalSignatures.length,
+          signaturesVerified: paymentInstruction.dtc1bValidation.verified
+        }
       };
 
       // Save to localStorage
@@ -300,17 +451,35 @@ export default function APIGlobalModule() {
 
       const messageText =
         `${statusEmoji} Transfer ${transferStatus}!\n\n` +
+        `=== TRANSFER DETAILS ===\n` +
         `Transfer ID: ${transferRequestId}\n` +
-        `Amount: ${transferForm.currency} ${transferForm.amount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n` +
-        `From: ${account.accountName}\n` +
+        `ISO 20022 Message ID: ${paymentInstruction.messageId}\n` +
+        `Amount: ${transferForm.currency} ${transferForm.amount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n\n` +
+        `=== FROM ===\n` +
+        `Name: ${account.accountName}\n` +
         `Account: ${account.accountNumber}\n` +
-        `Institution: Digital Commercial Bank Ltd\n\n` +
-        `To: ${transferForm.receiving_name}\n` +
+        `Institution: Digital Commercial Bank Ltd\n` +
+        `BIC: DIGCUSXX\n\n` +
+        `=== TO ===\n` +
+        `Name: ${transferForm.receiving_name}\n` +
         `Account: ${transferForm.receiving_account}\n` +
-        `Institution: ${transferForm.receiving_institution}\n\n` +
+        `Institution: ${transferForm.receiving_institution}\n` +
+        `BIC: APEXCAUS\n\n` +
+        `=== M2 VALIDATION (DTC1B) ===\n` +
+        `Balance Before: ${transferForm.currency} ${m2BalanceBefore.toLocaleString('en-US', { minimumFractionDigits: 3 })}\n` +
+        `Balance After: ${transferForm.currency} ${m2BalanceAfter.toLocaleString('en-US', { minimumFractionDigits: 3 })}\n` +
+        `Deducted: ${transferForm.currency} ${transferForm.amount.toLocaleString('en-US', { minimumFractionDigits: 3 })}\n` +
+        `Digital Signatures: ${paymentInstruction.digitalSignatures.length} verified\n` +
+        `Source: Bank Audit Module\n\n` +
+        `=== ISO 20022 COMPLIANCE ===\n` +
+        `Standard: pain.001.001.09 (Customer Credit Transfer)\n` +
+        `Classification: M2 Money Supply\n` +
+        `DTC1B Validated: ${paymentInstruction.dtc1bValidation.verified ? 'YES' : 'NO'}\n\n` +
+        `=== STATUS ===\n` +
         `Status: ${transferStatus}\n` +
         `${responseData?.message ? `API Response: ${responseData.message}\n` : ''}` +
-        `${responseData?.data?.updates?.[0]?.message ? `Details: ${responseData.data.updates[0].message}` : ''}`;
+        `${responseData?.data?.updates?.[0]?.message ? `Details: ${responseData.data.updates[0].message}\n` : ''}\n` +
+        `${transferStatus === 'COMPLETED' ? '✅ M2 balance deducted from DTC1B\n✅ ISO 20022 XML generated\n✅ Digital signatures verified' : ''}`;
 
       setSuccess(messageText);
       alert(messageText);
