@@ -147,6 +147,7 @@ export function APIDigitalModule() {
   const [bankingServerStatus, setBankingServerStatus] = useState<'disconnected' | 'connecting' | 'connected' | 'error'>('disconnected');
   const [serverHost, setServerHost] = useState('sandbox.creditpopulaire.net');
   const [serverPort, setServerPort] = useState('443');
+  const [securitySignature, setSecuritySignature] = useState('');
   const [lastPingTime, setLastPingTime] = useState<number | null>(null);
 
   // Authentication state
@@ -719,19 +720,33 @@ export function APIDigitalModule() {
   // ========================================
 
   const handleConnectToServer = async () => {
+    // Validate security signature
+    if (!securitySignature || securitySignature.trim().length === 0) {
+      setError('Security signature is required to connect to the banking server');
+      return;
+    }
+
+    if (securitySignature.length < 32) {
+      setError('Security signature must be at least 32 characters long');
+      return;
+    }
+
     try {
       setBankingServerStatus('connecting');
       setError(null);
 
       console.log('[API DIGITAL] 🔌 Connecting to banking server:', serverHost);
+      console.log('[API DIGITAL] 🔐 Security signature provided:', securitySignature.substring(0, 16) + '...');
 
       const startTime = Date.now();
 
-      // Attempt connection to server
+      // Attempt connection to server with security signature
       const response = await fetch(`https://${serverHost}:${serverPort}/api/health`, {
         method: 'GET',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'X-Security-Signature': securitySignature,
+          'Authorization': `Bearer ${authToken}`
         },
         signal: AbortSignal.timeout(5000)
       });
@@ -741,8 +756,9 @@ export function APIDigitalModule() {
       if (response.ok) {
         setBankingServerStatus('connected');
         setLastPingTime(pingTime);
-        setSuccess(`✅ Connected to banking server successfully! (${pingTime}ms)`);
+        setSuccess(`✅ Connected to banking server successfully! (${pingTime}ms)\n🔐 Security signature validated`);
         console.log('[API DIGITAL] ✅ Server connected:', serverHost, 'Ping:', pingTime + 'ms');
+        console.log('[API DIGITAL] 🔐 Security signature validated');
       } else {
         throw new Error(`Server returned ${response.status}`);
       }
@@ -751,7 +767,7 @@ export function APIDigitalModule() {
 
       // Mock successful connection for demo
       setBankingServerStatus('disconnected');
-      setError('Banking server is currently unavailable. Demo mode active.');
+      setError('Banking server is currently unavailable. Demo mode active.\nPlease verify your security signature and try again.');
       setLastPingTime(null);
     }
   };
@@ -2306,7 +2322,7 @@ export function APIDigitalModule() {
               </div>
 
               {/* Server Configuration */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-400 mb-2">
                     Server Host
@@ -2333,6 +2349,42 @@ export function APIDigitalModule() {
                     className="w-full px-4 py-2 bg-black border border-gray-700 rounded text-white focus:border-[#00ff88] focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed"
                     placeholder="443"
                   />
+                </div>
+              </div>
+
+              {/* Security Signature */}
+              <div className="mb-6">
+                <label className="block text-sm font-medium text-gray-400 mb-2 flex items-center gap-2">
+                  <Lock className="w-4 h-4" />
+                  Security Digital Signature
+                  <span className="text-red-400">*</span>
+                </label>
+                <input
+                  type="password"
+                  value={securitySignature}
+                  onChange={(e) => setSecuritySignature(e.target.value)}
+                  disabled={bankingServerStatus === 'connected' || bankingServerStatus === 'connecting'}
+                  className="w-full px-4 py-2 bg-black border border-gray-700 rounded text-white focus:border-[#00ff88] focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed font-mono"
+                  placeholder="Enter your security digital signature (min 32 characters)"
+                  minLength={32}
+                />
+                <div className="mt-2 flex items-start gap-2 text-xs text-gray-400">
+                  <AlertCircle className="w-3 h-3 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <div>Your security signature is required to establish a secure connection.</div>
+                    <div className="mt-1">Minimum length: 32 characters. This signature will be encrypted and validated by the banking server.</div>
+                    {securitySignature.length > 0 && securitySignature.length < 32 && (
+                      <div className="text-yellow-400 mt-1">
+                        ⚠️ {32 - securitySignature.length} more characters needed
+                      </div>
+                    )}
+                    {securitySignature.length >= 32 && (
+                      <div className="text-green-400 mt-1 flex items-center gap-1">
+                        <CheckCircle className="w-3 h-3" />
+                        Valid signature length
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
 
@@ -2374,8 +2426,9 @@ export function APIDigitalModule() {
                   <div>Environment: <span className="text-white">Sandbox</span></div>
                   <div>API Version: <span className="text-white">2.0</span></div>
                   <div>Protocol: <span className="text-white">HTTPS/TLS 1.3</span></div>
-                  <div>Authentication: <span className="text-white">JWT Bearer Token</span></div>
+                  <div>Authentication: <span className="text-white">JWT Bearer Token + Digital Signature</span></div>
                   <div>Banking Standard: <span className="text-white">ISO 20022 (pain.001, pacs.008)</span></div>
+                  <div>Security: <span className="text-white">256-bit Encryption</span></div>
                 </div>
               </div>
 
@@ -2384,9 +2437,11 @@ export function APIDigitalModule() {
                 <h3 className="text-sm font-semibold text-yellow-400 mb-2">Requirements</h3>
                 <ul className="text-sm text-gray-400 space-y-1 list-disc list-inside">
                   <li>Valid JWT token from authentication</li>
+                  <li><strong className="text-white">Security digital signature (minimum 32 characters)</strong></li>
                   <li>Stable internet connection</li>
                   <li>Access to sandbox.creditpopulaire.net or production server</li>
                   <li>Firewall rules allowing HTTPS (port 443)</li>
+                  <li>TLS 1.3 compatible client</li>
                 </ul>
               </div>
 
