@@ -33,6 +33,7 @@ export function BankBlackScreen() {
   const [balances, setBalances] = useState<CurrencyBalance[]>([]);
   const [showBlackScreen, setShowBlackScreen] = useState(false);
   const [blackScreenData, setBlackScreenData] = useState<BlackScreenData | null>(null);
+  const [selectedBalance, setSelectedBalance] = useState<CurrencyBalance | null>(null);
   const blackScreenRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
