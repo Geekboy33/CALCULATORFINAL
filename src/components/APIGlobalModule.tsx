@@ -74,9 +74,64 @@ export default function APIGlobalModule() {
     failed_transfers: 0
   });
 
+  // API Connection status
+  const [apiStatus, setApiStatus] = useState<'checking' | 'connected' | 'error'>('checking');
+
   useEffect(() => {
     loadData();
+    checkAPIConnection();
   }, []);
+
+  const checkAPIConnection = async () => {
+    try {
+      setApiStatus('checking');
+      console.log('[API GLOBAL] 🔍 Checking MindCloud API connectivity...');
+
+      const response = await fetch(
+        'https://api.mindcloud.co/api/job/8wZsHuEIK3xu/run?key=831b9d45-d9ec-4594-80a3-3126a700b60f&force=true',
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            "CashTransfer.v1": {
+              "SendingName": "API_CONNECTION_TEST",
+              "SendingAccount": "TEST_000",
+              "ReceivingName": "GLOBAL INFRASTRUCTURE DEVELOPMENT AND INTERNATIONAL FINANCE AGENCY (G.I.D.I.F.A)",
+              "ReceivingAccount": "23890111",
+              "Datetime": new Date().toISOString(),
+              "Amount": "0.01",
+              "ReceivingCurrency": "USD",
+              "SendingCurrency": "USD",
+              "Description": "API CONNECTION VERIFICATION",
+              "TransferRequestID": `TEST_${Date.now()}`,
+              "ReceivingInstitution": "APEX CAPITAL RESERVE BANK INC",
+              "SendingInstitution": "Digital Commercial Bank Ltd",
+              "method": "API",
+              "purpose": "CONNECTION_TEST",
+              "source": "DAES_CORE_SYSTEM"
+            }
+          })
+        }
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        if (data.success) {
+          setApiStatus('connected');
+          console.log('[API GLOBAL] ✅ MindCloud API is CONNECTED and FUNCTIONAL');
+        } else {
+          setApiStatus('error');
+          console.warn('[API GLOBAL] ⚠️ MindCloud API responded but returned error:', data);
+        }
+      } else {
+        setApiStatus('error');
+        console.error('[API GLOBAL] ❌ MindCloud API connection failed:', response.status);
+      }
+    } catch (error) {
+      setApiStatus('error');
+      console.error('[API GLOBAL] ❌ Error checking API connection:', error);
+    }
+  };
 
   const loadData = () => {
     // Load custody accounts
@@ -171,9 +226,30 @@ export default function APIGlobalModule() {
         }
       );
 
-      const responseData = await response.json();
+      let responseData;
+      try {
+        responseData = await response.json();
+      } catch (jsonError) {
+        console.error('[API GLOBAL] Error parsing response:', jsonError);
+        responseData = { error: 'Failed to parse response', raw: await response.text() };
+      }
 
       console.log('[API GLOBAL] ✅ MindCloud response:', responseData);
+      console.log('[API GLOBAL] 📊 Response status:', response.status, response.statusText);
+
+      // Determine transfer status based on response
+      let transferStatus: 'PENDING' | 'PROCESSING' | 'COMPLETED' | 'FAILED' = 'PROCESSING';
+
+      if (response.ok && responseData?.success === true) {
+        transferStatus = 'COMPLETED';
+        console.log('[API GLOBAL] ✅ Transfer COMPLETED successfully');
+      } else if (response.ok && responseData?.success === false) {
+        transferStatus = 'FAILED';
+        console.log('[API GLOBAL] ⚠️ Transfer FAILED:', responseData?.message);
+      } else if (!response.ok) {
+        transferStatus = 'FAILED';
+        console.log('[API GLOBAL] ❌ HTTP Error:', response.status, response.statusText);
+      }
 
       // Create transfer record
       const transfer: Transfer = {
@@ -190,7 +266,7 @@ export default function APIGlobalModule() {
         receiving_currency: transferForm.currency,
         description: transferForm.description,
         datetime: datetime,
-        status: response.ok ? 'COMPLETED' : 'FAILED',
+        status: transferStatus,
         response: responseData,
         created_at: datetime
       };
@@ -200,36 +276,44 @@ export default function APIGlobalModule() {
       localStorage.setItem('api_global_transfers', JSON.stringify(updatedTransfers));
       setTransfers(updatedTransfers);
 
-      // Deduct from custody account
-      if (response.ok) {
+      // Deduct from custody account only if COMPLETED
+      if (transferStatus === 'COMPLETED') {
         account.availableBalance -= transferForm.amount;
         account.reservedBalance += transferForm.amount;
         const accounts = custodyStore.getAccounts();
         custodyStore.saveAccounts(accounts);
         setCustodyAccounts([...accounts]);
+
+        console.log('[API GLOBAL] 💰 Balance updated:', {
+          account: account.accountName,
+          deducted: transferForm.amount,
+          newAvailable: account.availableBalance,
+          newReserved: account.reservedBalance
+        });
       }
 
       loadData();
 
-      setSuccess(
-        `✅ Transfer Sent Successfully!\n\n` +
-        `Transfer ID: ${transferRequestId}\n` +
-        `Amount: ${transferForm.currency} ${transferForm.amount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n` +
-        `To: ${transferForm.receiving_name}\n` +
-        `Status: ${response.ok ? 'COMPLETED' : 'PENDING'}`
-      );
+      // Build success/failure message
+      const statusEmoji = transferStatus === 'COMPLETED' ? '✅' :
+                         transferStatus === 'FAILED' ? '❌' : '⏳';
 
-      alert(
-        `✅ Transfer Sent Successfully!\n\n` +
+      const messageText =
+        `${statusEmoji} Transfer ${transferStatus}!\n\n` +
         `Transfer ID: ${transferRequestId}\n` +
         `Amount: ${transferForm.currency} ${transferForm.amount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n` +
         `From: ${account.accountName}\n` +
         `Account: ${account.accountNumber}\n` +
+        `Institution: Digital Commercial Bank Ltd\n\n` +
         `To: ${transferForm.receiving_name}\n` +
         `Account: ${transferForm.receiving_account}\n` +
         `Institution: ${transferForm.receiving_institution}\n\n` +
-        `Status: ${response.ok ? 'COMPLETED' : 'PROCESSING'}`
-      );
+        `Status: ${transferStatus}\n` +
+        `${responseData?.message ? `API Response: ${responseData.message}\n` : ''}` +
+        `${responseData?.data?.updates?.[0]?.message ? `Details: ${responseData.data.updates[0].message}` : ''}`;
+
+      setSuccess(messageText);
+      alert(messageText);
 
       // Reset form
       setTransferForm({
@@ -362,6 +446,50 @@ export default function APIGlobalModule() {
                   </span>
                 </div>
                 <div className="text-sm text-gray-400">Custody Accounts</div>
+              </div>
+            </div>
+
+            {/* API Connection Status */}
+            <div className={`bg-gradient-to-br border rounded-lg p-6 ${
+              apiStatus === 'connected' ? 'from-green-900/50 to-black border-green-500/30' :
+              apiStatus === 'error' ? 'from-red-900/50 to-black border-red-500/30' :
+              'from-yellow-900/50 to-black border-yellow-500/30'
+            }`}>
+              <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
+                <Zap className={`w-5 h-5 ${
+                  apiStatus === 'connected' ? 'text-green-400' :
+                  apiStatus === 'error' ? 'text-red-400' : 'text-yellow-400'
+                }`} />
+                MindCloud API Status
+              </h3>
+              <div className="flex items-center gap-4">
+                <div className={`px-4 py-2 rounded-lg font-bold ${
+                  apiStatus === 'connected' ? 'bg-green-500/20 text-green-400' :
+                  apiStatus === 'error' ? 'bg-red-500/20 text-red-400' :
+                  'bg-yellow-500/20 text-yellow-400'
+                }`}>
+                  {apiStatus === 'connected' && '✅ CONNECTED & READY'}
+                  {apiStatus === 'error' && '❌ CONNECTION ERROR'}
+                  {apiStatus === 'checking' && '⏳ CHECKING...'}
+                </div>
+                <button
+                  onClick={checkAPIConnection}
+                  disabled={apiStatus === 'checking'}
+                  className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-600 rounded-lg transition-colors"
+                >
+                  <RefreshCw className={`w-4 h-4 ${apiStatus === 'checking' ? 'animate-spin' : ''}`} />
+                  Test Connection
+                </button>
+              </div>
+              <div className="mt-4 text-sm text-gray-400">
+                <div className="font-mono">
+                  Endpoint: https://api.mindcloud.co/api/job/8wZsHuEIK3xu/run
+                </div>
+                <div className="mt-1">
+                  {apiStatus === 'connected' && 'All systems operational. Ready to process real transfers.'}
+                  {apiStatus === 'error' && 'Unable to connect to MindCloud API. Check network connection.'}
+                  {apiStatus === 'checking' && 'Verifying API connectivity...'}
+                </div>
               </div>
             </div>
 
