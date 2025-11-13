@@ -802,13 +802,16 @@ export default function APIGlobalModule() {
 
         {/* Send Transfer */}
         {selectedView === 'transfer' && (
-          <div className="bg-gradient-to-br from-gray-900 to-black border border-gray-700 rounded-lg p-6">
-            <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
-              <Send className="w-6 h-6 text-blue-400" />
-              Send M2 Money Transfer
-            </h2>
+          <div className="bg-gradient-to-br from-gray-900 to-black border border-gray-700 rounded-lg overflow-hidden flex flex-col" style={{ maxHeight: 'calc(100vh - 200px)' }}>
+            <div className="p-6 border-b border-gray-700">
+              <h2 className="text-2xl font-bold flex items-center gap-2">
+                <Send className="w-6 h-6 text-blue-400" />
+                Send M2 Money Transfer
+              </h2>
+            </div>
 
-            <form onSubmit={handleSendTransfer} className="space-y-6">
+            <div className="overflow-y-auto flex-1 p-6 custom-scrollbar">
+              <form onSubmit={handleSendTransfer} className="space-y-6">
               {/* Select Custody Account */}
               <div>
                 <label className="block text-sm font-medium mb-2">
@@ -976,21 +979,22 @@ export default function APIGlobalModule() {
                   </>
                 )}
               </button>
+
+              {error && (
+                <div className="mt-4 p-4 bg-red-900/20 border border-red-500/30 rounded-lg text-red-400">
+                  <AlertCircle className="w-5 h-5 inline mr-2" />
+                  {error}
+                </div>
+              )}
+
+              {success && (
+                <div className="mt-4 p-4 bg-green-900/20 border border-green-500/30 rounded-lg text-green-400">
+                  <CheckCircle className="w-5 h-5 inline mr-2" />
+                  {success}
+                </div>
+              )}
             </form>
-
-            {error && (
-              <div className="mt-4 p-4 bg-red-900/20 border border-red-500/30 rounded-lg text-red-400">
-                <AlertCircle className="w-5 h-5 inline mr-2" />
-                {error}
-              </div>
-            )}
-
-            {success && (
-              <div className="mt-4 p-4 bg-green-900/20 border border-green-500/30 rounded-lg text-green-400">
-                <CheckCircle className="w-5 h-5 inline mr-2" />
-                {success}
-              </div>
-            )}
+            </div>
           </div>
         )}
 
