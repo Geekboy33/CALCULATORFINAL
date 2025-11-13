@@ -392,63 +392,54 @@ export function APIVUSD1KeysManager() {
                 />
               </div>
 
-              <div>
-                <label className="text-[#80ff80] text-sm block mb-2">Rate Limit (requests/minute)</label>
-                <input
-                  type="number"
-                  value={rateLimit}
-                  onChange={(e) => setRateLimit(parseInt(e.target.value))}
-                  className="w-full bg-[#0a0a0a] border border-[#1a1a1a] focus:border-[#00ff88] text-[#e0ffe0] px-4 py-3 rounded-lg outline-none transition-all"
-                  min="1"
-                  max="1000"
-                />
-              </div>
-
-              {/* Pledge Selector */}
-              <div className="bg-[#0a0a0a] border border-[#00ff88]/20 rounded-lg p-4">
-                <label className="text-[#80ff80] text-sm block mb-2 flex items-center gap-2">
-                  <Lock className="w-4 h-4 text-[#00ff88]" />
-                  Select Pledge
+              {/* Pledge Selector - MAIN FOCUS */}
+              <div className="bg-[#0a0a0a] border-2 border-[#00ff88]/40 rounded-lg p-5 shadow-[0_0_20px_rgba(0,255,136,0.2)]">
+                <label className="text-[#00ff88] text-base font-semibold block mb-3 flex items-center gap-2">
+                  <Lock className="w-5 h-5 text-[#00ff88]" />
+                  Select Active Pledge *
                 </label>
-                {/* DEBUG INFO */}
-                <div className="mb-2 p-2 bg-blue-900/20 border border-blue-500/30 rounded text-xs">
-                  <p className="text-blue-400">Debug: pledges.length = {pledges.length}</p>
-                  <p className="text-blue-400">Debug: availablePledges.length = {availablePledges.length}</p>
-                  <p className="text-blue-400">Debug: loadingData = {loadingData.toString()}</p>
-                </div>
                 {loadingData ? (
-                  <div className="text-center py-4">
-                    <RefreshCw className="w-5 h-5 text-[#00ff88] animate-spin mx-auto mb-2" />
-                    <p className="text-[#80ff80] text-sm">Loading pledges...</p>
+                  <div className="text-center py-6">
+                    <RefreshCw className="w-6 h-6 text-[#00ff88] animate-spin mx-auto mb-2" />
+                    <p className="text-[#80ff80]">Loading active pledges...</p>
                   </div>
                 ) : availablePledges.length === 0 ? (
-                  <div className="bg-[#1a1a1a] border border-yellow-500/30 rounded-lg p-4 text-center">
-                    <AlertCircle className="w-8 h-8 text-yellow-500 mx-auto mb-2" />
-                    <p className="text-yellow-500 font-semibold mb-1">No Active Pledges Found</p>
-                    <p className="text-[#80ff80] text-xs mb-2">
-                      Create pledges in the API VUSD1 module first to associate them with API keys.
+                  <div className="bg-[#1a1a1a] border-2 border-yellow-500/50 rounded-lg p-5 text-center">
+                    <AlertCircle className="w-10 h-10 text-yellow-500 mx-auto mb-3" />
+                    <p className="text-yellow-400 font-bold text-lg mb-2">No Active Pledges Available</p>
+                    <p className="text-[#e0ffe0] text-sm mb-3">
+                      You need to create pledges first in the <span className="text-[#00ff88] font-semibold">API VUSD1</span> module before you can associate them with API keys.
                     </p>
-                    <p className="text-[#4d7c4d] text-xs">
-                      Check browser console for detailed logs.
-                    </p>
+                    <div className="bg-[#0a0a0a] border border-blue-500/30 rounded p-3 mt-3">
+                      <p className="text-blue-400 text-xs font-mono">
+                        Debug: {pledges.length} pledges loaded | Status: {loadingData ? 'loading' : 'ready'}
+                      </p>
+                      <p className="text-[#4d7c4d] text-xs mt-1">Open browser console (F12) for detailed logs</p>
+                    </div>
                   </div>
                 ) : (
                   <>
                     <select
                       value={selectedPledgeId}
                       onChange={(e) => setSelectedPledgeId(e.target.value)}
-                      className="w-full bg-[#0d0d0d] border border-[#1a1a1a] focus:border-[#00ff88] text-[#e0ffe0] px-4 py-3 rounded-lg outline-none transition-all"
+                      className="w-full bg-[#0d0d0d] border-2 border-[#00ff88]/30 focus:border-[#00ff88] text-[#e0ffe0] px-4 py-4 rounded-lg outline-none transition-all text-base font-medium"
                     >
-                      <option value="">-- Select a pledge --</option>
+                      <option value="" className="bg-[#0d0d0d]">-- Choose a pledge from the list --</option>
                       {availablePledges.map((pledge) => (
-                        <option key={pledge.id} value={pledge.id}>
-                          {pledge.pledge_id} - {pledge.currency} ${Number(pledge.amount).toLocaleString()} - {pledge.beneficiary}
+                        <option key={pledge.id} value={pledge.id} className="bg-[#0d0d0d] py-2">
+                          {pledge.pledge_id} | {pledge.currency} ${Number(pledge.amount).toLocaleString()} | {pledge.beneficiary}
                         </option>
                       ))}
                     </select>
-                    <p className="text-[#4d7c4d] text-xs mt-2">
-                      {availablePledges.length} ACTIVE pledge(s) available from API VUSD1 module.
-                    </p>
+                    <div className="mt-3 p-3 bg-green-900/20 border border-green-500/30 rounded">
+                      <p className="text-green-400 font-semibold flex items-center gap-2">
+                        <CheckCircle className="w-4 h-4" />
+                        {availablePledges.length} Active Pledge{availablePledges.length !== 1 ? 's' : ''} Available
+                      </p>
+                      <p className="text-[#80ff80] text-xs mt-1">
+                        Select the pledge you want to associate with this API key
+                      </p>
+                    </div>
                   </>
                 )}
               </div>
@@ -475,17 +466,17 @@ export function APIVUSD1KeysManager() {
                 </div>
               </div>
 
-              <div className="flex gap-3 pt-4">
+              <div className="flex gap-3 pt-6 border-t border-[#00ff88]/20 mt-6">
                 <button
                   onClick={handleCreateKey}
-                  disabled={!keyName}
-                  className="flex-1 bg-gradient-to-r from-[#00ff88] to-[#00cc6a] hover:from-[#00cc6a] hover:to-[#00aa55] text-black px-6 py-3 rounded-lg font-bold transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                  disabled={!keyName || !selectedPledgeId}
+                  className="flex-1 bg-gradient-to-r from-[#00ff88] to-[#00cc6a] hover:from-[#00cc6a] hover:to-[#00aa55] text-black px-6 py-4 rounded-lg font-bold text-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-[0_0_20px_rgba(0,255,136,0.5)]"
                 >
-                  Create API Key
+                  {!selectedPledgeId ? 'Select a Pledge First' : 'Create API Key'}
                 </button>
                 <button
                   onClick={() => setShowCreateModal(false)}
-                  className="flex-1 bg-[#1a1a1a] border border-[#00ff88]/30 hover:border-[#00ff88] text-[#00ff88] px-6 py-3 rounded-lg font-bold transition-all"
+                  className="px-6 py-4 bg-[#1a1a1a] border border-[#00ff88]/30 hover:border-[#00ff88] text-[#00ff88] rounded-lg font-bold transition-all"
                 >
                   Cancel
                 </button>
