@@ -23,7 +23,8 @@ import {
   FileText,
   Zap,
   Shield,
-  FileCheck
+  FileCheck,
+  Download
 } from 'lucide-react';
 import { custodyStore, type CustodyAccount } from '../lib/custody-store';
 import { iso20022Store, type PaymentInstruction } from '../lib/iso20022-store';
@@ -35,6 +36,7 @@ interface Transfer {
   sending_name: string;
   sending_account: string;
   sending_institution: string;
+  sending_institution_website: string;
   receiving_name: string;
   receiving_account: string;
   receiving_institution: string;
@@ -297,7 +299,7 @@ export default function APIGlobalModule() {
         throw new Error(`ISO 20022 creation failed: ${isoError.message}`);
       }
 
-      // Prepare API payload
+      // Prepare API payload with bank website
       const payload = {
         "CashTransfer.v1": {
           "SendingName": account.accountName,
@@ -312,6 +314,7 @@ export default function APIGlobalModule() {
           "TransferRequestID": transferRequestId,
           "ReceivingInstitution": transferForm.receiving_institution,
           "SendingInstitution": "Digital Commercial Bank Ltd",
+          "SendingInstitutionWebsite": "https://digcommbank.com/",
           "method": "API",
           "purpose": transferForm.purpose,
           "source": "DAES_CORE_SYSTEM"
@@ -397,6 +400,7 @@ export default function APIGlobalModule() {
         sending_name: account.accountName,
         sending_account: account.accountNumber,
         sending_institution: 'Digital Commercial Bank Ltd',
+        sending_institution_website: 'https://digcommbank.com/',
         receiving_name: transferForm.receiving_name,
         receiving_account: transferForm.receiving_account,
         receiving_institution: transferForm.receiving_institution,
@@ -459,6 +463,7 @@ export default function APIGlobalModule() {
         `Name: ${account.accountName}\n` +
         `Account: ${account.accountNumber}\n` +
         `Institution: Digital Commercial Bank Ltd\n` +
+        `Website: https://digcommbank.com/\n` +
         `BIC: DIGCUSXX\n\n` +
         `=== TO ===\n` +
         `Name: ${transferForm.receiving_name}\n` +
@@ -509,6 +514,109 @@ export default function APIGlobalModule() {
       case 'FAILED': return 'text-red-400 bg-red-500/20';
       default: return 'text-gray-400 bg-gray-500/20';
     }
+  };
+
+  const exportTransfersToTXT = () => {
+    if (transfers.length === 0) {
+      alert('No transfers to export');
+      return;
+    }
+
+    let txtContent = '═══════════════════════════════════════════════════════════════════\n';
+    txtContent += '         API GLOBAL - TRANSFER HISTORY EXPORT\n';
+    txtContent += '         Digital Commercial Bank Ltd\n';
+    txtContent += '         https://digcommbank.com/\n';
+    txtContent += '═══════════════════════════════════════════════════════════════════\n\n';
+    txtContent += `Export Date: ${new Date().toISOString()}\n`;
+    txtContent += `Total Transfers: ${transfers.length}\n`;
+    txtContent += `Completed: ${transfers.filter(t => t.status === 'COMPLETED').length}\n`;
+    txtContent += `Failed: ${transfers.filter(t => t.status === 'FAILED').length}\n`;
+    txtContent += `Pending: ${transfers.filter(t => t.status === 'PENDING' || t.status === 'PROCESSING').length}\n\n`;
+    txtContent += '═══════════════════════════════════════════════════════════════════\n\n';
+
+    transfers.forEach((transfer, index) => {
+      txtContent += `\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+      txtContent += `TRANSFER #${index + 1}\n`;
+      txtContent += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
+
+      txtContent += `═══ TRANSFER DETAILS ═══\n`;
+      txtContent += `Transfer ID: ${transfer.transfer_request_id}\n`;
+      if (transfer.iso20022?.messageId) {
+        txtContent += `ISO 20022 Message ID: ${transfer.iso20022.messageId}\n`;
+      }
+      txtContent += `Date/Time: ${new Date(transfer.datetime).toLocaleString()}\n`;
+      txtContent += `Amount: ${transfer.receiving_currency} ${transfer.amount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n`;
+      txtContent += `Status: ${transfer.status}\n`;
+      txtContent += `Description: ${transfer.description}\n\n`;
+
+      txtContent += `═══ FROM (SENDER) ═══\n`;
+      txtContent += `Name: ${transfer.sending_name}\n`;
+      txtContent += `Account: ${transfer.sending_account}\n`;
+      txtContent += `Institution: ${transfer.sending_institution}\n`;
+      txtContent += `Website: ${transfer.sending_institution_website}\n`;
+      txtContent += `Currency: ${transfer.sending_currency}\n`;
+      txtContent += `BIC: DIGCUSXX\n\n`;
+
+      txtContent += `═══ TO (RECEIVER) ═══\n`;
+      txtContent += `Name: ${transfer.receiving_name}\n`;
+      txtContent += `Account: ${transfer.receiving_account}\n`;
+      txtContent += `Institution: ${transfer.receiving_institution}\n`;
+      txtContent += `Currency: ${transfer.receiving_currency}\n`;
+      txtContent += `BIC: APEXCAUS\n\n`;
+
+      if (transfer.m2Validation) {
+        txtContent += `═══ M2 VALIDATION (DTC1B) ═══\n`;
+        txtContent += `Balance Before: ${transfer.receiving_currency} ${transfer.m2Validation.m2BalanceBefore.toLocaleString('en-US', { minimumFractionDigits: 3 })}\n`;
+        txtContent += `Balance After: ${transfer.receiving_currency} ${transfer.m2Validation.m2BalanceAfter.toLocaleString('en-US', { minimumFractionDigits: 3 })}\n`;
+        txtContent += `Deducted: ${transfer.receiving_currency} ${transfer.amount.toLocaleString('en-US', { minimumFractionDigits: 3 })}\n`;
+        txtContent += `Digital Signatures: ${transfer.m2Validation.digitalSignatures} verified\n`;
+        txtContent += `Signatures Verified: ${transfer.m2Validation.signaturesVerified ? 'YES' : 'NO'}\n`;
+        txtContent += `Source: ${transfer.m2Validation.dtc1bSource}\n\n`;
+      }
+
+      if (transfer.iso20022) {
+        txtContent += `═══ ISO 20022 COMPLIANCE ═══\n`;
+        txtContent += `Standard: pain.001.001.09 (Customer Credit Transfer)\n`;
+        txtContent += `Classification: M2 Money Supply\n`;
+        txtContent += `Message ID: ${transfer.iso20022.messageId}\n`;
+        txtContent += `XML Generated: ${transfer.iso20022.xmlGenerated ? 'YES' : 'NO'}\n\n`;
+      }
+
+      if (transfer.response) {
+        txtContent += `═══ API RESPONSE ═══\n`;
+        txtContent += `Success: ${transfer.response.success ? 'YES' : 'NO'}\n`;
+        if (transfer.response.message) {
+          txtContent += `Message: ${transfer.response.message}\n`;
+        }
+        if (transfer.response.data?.updates?.[0]?.message) {
+          txtContent += `Details: ${transfer.response.data.updates[0].message}\n`;
+        }
+        txtContent += `\n`;
+      }
+
+      txtContent += `Created: ${new Date(transfer.created_at).toLocaleString()}\n`;
+    });
+
+    txtContent += '\n\n═══════════════════════════════════════════════════════════════════\n';
+    txtContent += 'END OF TRANSFER HISTORY\n';
+    txtContent += '═══════════════════════════════════════════════════════════════════\n';
+    txtContent += '\nGenerated by API GLOBAL Module\n';
+    txtContent += 'Digital Commercial Bank Ltd - https://digcommbank.com/\n';
+    txtContent += 'ISO 20022 Compliant | M2 Money Supply | DTC1B Validated\n';
+
+    // Create and download file
+    const blob = new Blob([txtContent], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `API_GLOBAL_Transfers_${new Date().toISOString().split('T')[0]}.txt`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+
+    console.log('[API GLOBAL] 📥 Transfer history exported to TXT');
+    alert(`✅ Transfer history exported!\n\n${transfers.length} transfers saved to TXT file.`);
   };
 
   return (
@@ -894,13 +1002,24 @@ export default function APIGlobalModule() {
                 <Clock className="w-6 h-6 text-blue-400" />
                 Transfer History
               </h2>
-              <button
-                onClick={loadData}
-                className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors"
-              >
-                <RefreshCw className="w-4 h-4" />
-                Refresh
-              </button>
+              <div className="flex gap-2">
+                <button
+                  onClick={exportTransfersToTXT}
+                  disabled={transfers.length === 0}
+                  className="flex items-center gap-2 px-4 py-2 bg-green-600 hover:bg-green-700 disabled:bg-gray-600 disabled:cursor-not-allowed rounded-lg transition-colors"
+                  title="Download transfers as TXT file"
+                >
+                  <Download className="w-4 h-4" />
+                  Export TXT
+                </button>
+                <button
+                  onClick={loadData}
+                  className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors"
+                >
+                  <RefreshCw className="w-4 h-4" />
+                  Refresh
+                </button>
+              </div>
             </div>
 
             {transfers.length === 0 ? (
