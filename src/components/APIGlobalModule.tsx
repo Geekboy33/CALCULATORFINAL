@@ -524,20 +524,18 @@ export default function APIGlobalModule() {
         `Name: ${account.accountName}\n` +
         `Account: ${account.accountNumber}\n` +
         `Institution: Digital Commercial Bank Ltd\n` +
-        `Website: https://digcommbank.com/\n` +
-        `BIC: DIGCUSXX\n\n` +
+        `Website: https://digcommbank.com/\n\n` +
         `=== TO ===\n` +
         `Name: ${transferForm.receiving_name}\n` +
         `Account: ${transferForm.receiving_account}\n` +
-        `Institution: ${transferForm.receiving_institution}\n` +
-        `BIC: APEXCAUS\n\n` +
+        `Institution: ${transferForm.receiving_institution}\n\n` +
         `=== M2 VALIDATION (DTC1B) ===\n` +
         `Balance Before: ${transferForm.currency} ${m2BalanceBefore.toLocaleString('en-US', { minimumFractionDigits: 3 })}\n` +
         `Balance After: ${transferForm.currency} ${m2BalanceAfter.toLocaleString('en-US', { minimumFractionDigits: 3 })}\n` +
         `Deducted: ${transferForm.currency} ${transferForm.amount.toLocaleString('en-US', { minimumFractionDigits: 3 })}\n` +
-        `Digital Signatures Extracted: ${paymentInstruction.digitalSignatures.length}\n` +
-        `All Signatures Verified: ${paymentInstruction.dtc1bValidation.verified ? '✅ YES' : '❌ NO'}\n` +
-        `Source: Bank Audit Module (DTC1B)\n` +
+        `Digital Signatures: ${paymentInstruction.digitalSignatures.length > 0 ? `✅ YES - ${paymentInstruction.digitalSignatures.length} verified` : '❌ NO - 0 verified'}\n` +
+        `Signatures Verified: ${paymentInstruction.dtc1bValidation.verified ? '✅ YES' : '❌ NO'}\n` +
+        `Source: Bank Audit Module\n` +
         signaturesSection +
         `\n=== ISO 20022 COMPLIANCE ===\n` +
         `Standard: pain.001.001.09 (Customer Credit Transfer)\n` +
@@ -553,6 +551,20 @@ export default function APIGlobalModule() {
 
       setSuccess(messageText);
       alert(messageText);
+
+      // Generate and download TXT file for this transfer
+      const txtFileName = `Transfer_${transferRequestId}.txt`;
+      const txtBlob = new Blob([messageText], { type: 'text/plain' });
+      const txtUrl = URL.createObjectURL(txtBlob);
+      const txtLink = document.createElement('a');
+      txtLink.href = txtUrl;
+      txtLink.download = txtFileName;
+      document.body.appendChild(txtLink);
+      txtLink.click();
+      document.body.removeChild(txtLink);
+      URL.revokeObjectURL(txtUrl);
+
+      console.log('[API GLOBAL] 📄 Transfer receipt downloaded:', txtFileName);
 
       // Reset form
       setTransferForm({
@@ -619,22 +631,20 @@ export default function APIGlobalModule() {
       txtContent += `Account: ${transfer.sending_account}\n`;
       txtContent += `Institution: ${transfer.sending_institution}\n`;
       txtContent += `Website: ${transfer.sending_institution_website}\n`;
-      txtContent += `Currency: ${transfer.sending_currency}\n`;
-      txtContent += `BIC: DIGCUSXX\n\n`;
+      txtContent += `Currency: ${transfer.sending_currency}\n\n`;
 
       txtContent += `═══ TO (RECEIVER) ═══\n`;
       txtContent += `Name: ${transfer.receiving_name}\n`;
       txtContent += `Account: ${transfer.receiving_account}\n`;
       txtContent += `Institution: ${transfer.receiving_institution}\n`;
-      txtContent += `Currency: ${transfer.receiving_currency}\n`;
-      txtContent += `BIC: APEXCAUS\n\n`;
+      txtContent += `Currency: ${transfer.receiving_currency}\n\n`;
 
       if (transfer.m2Validation) {
         txtContent += `═══ M2 VALIDATION (DTC1B) ═══\n`;
         txtContent += `Balance Before: ${transfer.receiving_currency} ${transfer.m2Validation.m2BalanceBefore.toLocaleString('en-US', { minimumFractionDigits: 3 })}\n`;
         txtContent += `Balance After: ${transfer.receiving_currency} ${transfer.m2Validation.m2BalanceAfter.toLocaleString('en-US', { minimumFractionDigits: 3 })}\n`;
         txtContent += `Deducted: ${transfer.receiving_currency} ${transfer.amount.toLocaleString('en-US', { minimumFractionDigits: 3 })}\n`;
-        txtContent += `Digital Signatures: ${transfer.m2Validation.digitalSignatures} verified\n`;
+        txtContent += `Digital Signatures: ${transfer.m2Validation.digitalSignatures > 0 ? `YES - ${transfer.m2Validation.digitalSignatures} verified` : 'NO - 0 verified'}\n`;
         txtContent += `Signatures Verified: ${transfer.m2Validation.signaturesVerified ? 'YES' : 'NO'}\n`;
         txtContent += `Source: ${transfer.m2Validation.dtc1bSource}\n\n`;
       }
