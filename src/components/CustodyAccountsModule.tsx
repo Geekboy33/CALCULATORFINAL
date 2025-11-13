@@ -23,6 +23,7 @@ import { useLanguage } from '../lib/i18n';
 import { balanceStore, type CurrencyBalance } from '../lib/balances-store';
 import { custodyStore, type CustodyAccount } from '../lib/custody-store';
 import { CustodyBlackScreen } from './CustodyBlackScreen';
+import { apiVUSD1Store } from '../lib/api-vusd1-store';
 
 const BLOCKCHAINS = [
   { name: 'Ethereum', symbol: 'ETH', color: 'text-blue-400' },
@@ -199,7 +200,7 @@ export function CustodyAccountsModule() {
   };
 
   // Eliminar cuenta con confirmación y devolución de fondos
-  const handleDeleteAccount = (account: CustodyAccount) => {
+  const handleDeleteAccount = async (account: CustodyAccount) => {
     const confirmMessage = language === 'es'
       ? `¿Estás seguro de que deseas eliminar esta cuenta?\n\n` +
         `Cuenta: ${account.accountName}\n` +
@@ -208,7 +209,8 @@ export function CustodyAccountsModule() {
         `Total de fondos: ${account.currency} ${account.totalBalance.toLocaleString()}\n` +
         `Reservado: ${account.currency} ${account.reservedBalance.toLocaleString()}\n` +
         `Disponible: ${account.currency} ${account.availableBalance.toLocaleString()}\n\n` +
-        `⚠️ Los fondos (${account.currency} ${account.totalBalance.toLocaleString()}) se devolverán automáticamente al sistema DAES.\n\n` +
+        `⚠️ Los fondos (${account.currency} ${account.totalBalance.toLocaleString()}) se devolverán automáticamente al sistema DAES.\n` +
+        `⚠️ Se eliminarán todos los pledges asociados (API VUSD y API VUSD1).\n\n` +
         `Esta acción NO se puede deshacer.`
       : `Are you sure you want to delete this account?\n\n` +
         `Account: ${account.accountName}\n` +
@@ -217,7 +219,8 @@ export function CustodyAccountsModule() {
         `Total funds: ${account.currency} ${account.totalBalance.toLocaleString()}\n` +
         `Reserved: ${account.currency} ${account.reservedBalance.toLocaleString()}\n` +
         `Available: ${account.currency} ${account.availableBalance.toLocaleString()}\n\n` +
-        `⚠️ Funds (${account.currency} ${account.totalBalance.toLocaleString()}) will be automatically returned to DAES system.\n\n` +
+        `⚠️ Funds (${account.currency} ${account.totalBalance.toLocaleString()}) will be automatically returned to DAES system.\n` +
+        `⚠️ All associated pledges will be deleted (API VUSD and API VUSD1).\n\n` +
         `This action CANNOT be undone.`;
 
     if (confirm(confirmMessage)) {
@@ -226,20 +229,39 @@ export function CustodyAccountsModule() {
       console.log(`  Tipo: ${account.accountType === 'blockchain' ? 'BLOCKCHAIN' : 'BANKING'}`);
       console.log(`  Número: ${account.accountNumber}`);
       console.log(`  Fondos a devolver: ${account.currency} ${account.totalBalance.toLocaleString()}`);
-      
+
       const balanceBefore = systemBalances.find(b => b.currency === account.currency)?.totalAmount || 0;
-      
+
+      // ========================================
+      // STEP 1: ELIMINAR PLEDGES ASOCIADOS
+      // ========================================
+      console.log('[CustodyModule] 🗑️ Step 1: Eliminando pledges asociados...');
+
+      let vusd1DeletedCount = 0;
+      try {
+        vusd1DeletedCount = await apiVUSD1Store.deletePledgesByCustodyAccountId(account.id);
+        console.log(`[CustodyModule] ✅ API VUSD1: ${vusd1DeletedCount} pledges eliminados`);
+      } catch (error) {
+        console.error('[CustodyModule] ⚠️ Error eliminando pledges API VUSD1:', error);
+      }
+
+      // ========================================
+      // STEP 2: ELIMINAR CUENTA
+      // ========================================
+      console.log('[CustodyModule] 🗑️ Step 2: Eliminando cuenta custody...');
+
       // Eliminar cuenta (automáticamente devuelve fondos al sistema)
       const success = custodyStore.deleteAccount(account.id);
       
       if (success) {
         const balanceAfter = balanceBefore + account.totalBalance;
-        
+
         console.log('[CustodyModule] ✅ CUENTA ELIMINADA Y FONDOS DEVUELTOS');
         console.log(`  Balance DAES ANTES: ${account.currency} ${balanceBefore.toLocaleString()}`);
         console.log(`  Fondos devueltos: ${account.currency} ${account.totalBalance.toLocaleString()}`);
         console.log(`  Balance DAES DESPUÉS: ${account.currency} ${balanceAfter.toLocaleString()}`);
-        
+        console.log(`  Pledges API VUSD1 eliminados: ${vusd1DeletedCount}`);
+
         // Mostrar confirmación
         const confirmationMsg = language === 'es'
           ? `✅ Cuenta eliminada exitosamente\n\n` +
@@ -248,6 +270,8 @@ export function CustodyAccountsModule() {
             `Balance DAES actualizado:\n` +
             `ANTES: ${account.currency} ${balanceBefore.toLocaleString()}\n` +
             `DESPUÉS: ${account.currency} ${balanceAfter.toLocaleString()}\n\n` +
+            `Pledges eliminados:\n` +
+            `API VUSD1: ${vusd1DeletedCount} pledge${vusd1DeletedCount !== 1 ? 's' : ''}\n\n` +
             `Los fondos están nuevamente disponibles en el sistema.`
           : `✅ Account deleted successfully\n\n` +
             `Funds returned to DAES system:\n` +
@@ -255,8 +279,10 @@ export function CustodyAccountsModule() {
             `DAES Balance updated:\n` +
             `BEFORE: ${account.currency} ${balanceBefore.toLocaleString()}\n` +
             `AFTER: ${account.currency} ${balanceAfter.toLocaleString()}\n\n` +
+            `Pledges deleted:\n` +
+            `API VUSD1: ${vusd1DeletedCount} pledge${vusd1DeletedCount !== 1 ? 's' : ''}\n\n` +
             `Funds are now available in the system again.`;
-        
+
         setTimeout(() => {
           alert(confirmationMsg);
         }, 100);

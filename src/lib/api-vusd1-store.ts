@@ -484,6 +484,52 @@ class ApiVUSD1Store {
     }
   }
 
+  /**
+   * Delete all pledges associated with a custody account
+   */
+  async deletePledgesByCustodyAccountId(custody_account_id: string): Promise<number> {
+    try {
+      const supabase = getSupabaseClient();
+      if (!supabase) throw new Error('Supabase not configured');
+
+      console.log(`[API-VUSD1] 🗑️ Deleting pledges for custody account: ${custody_account_id}`);
+
+      // Get all pledges for this custody account
+      const { data: pledges, error: fetchError } = await supabase
+        .from('api_pledges')
+        .select('*')
+        .contains('metadata', { custody_account_id });
+
+      if (fetchError) throw fetchError;
+
+      if (!pledges || pledges.length === 0) {
+        console.log(`[API-VUSD1] ℹ️ No pledges found for custody account: ${custody_account_id}`);
+        return 0;
+      }
+
+      console.log(`[API-VUSD1] 📊 Found ${pledges.length} pledges to delete`);
+
+      // Delete each pledge
+      let deletedCount = 0;
+      for (const pledge of pledges) {
+        try {
+          await this.deletePledge(pledge.pledge_id);
+          deletedCount++;
+          console.log(`[API-VUSD1] ✅ Deleted pledge ${pledge.pledge_id} (${deletedCount}/${pledges.length})`);
+        } catch (error) {
+          console.error(`[API-VUSD1] ❌ Error deleting pledge ${pledge.pledge_id}:`, error);
+        }
+      }
+
+      console.log(`[API-VUSD1] ✅ Deleted ${deletedCount} pledges for custody account: ${custody_account_id}`);
+      return deletedCount;
+
+    } catch (error) {
+      console.error('[API-VUSD1] Error deleting pledges by custody account:', error);
+      throw error;
+    }
+  }
+
   // =====================================================
   // PAYOUTS ENDPOINTS
   // =====================================================
