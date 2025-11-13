@@ -15,7 +15,10 @@ import {
   CreditCard,
   Building2,
   Lock,
-  Unlock
+  Unlock,
+  Server,
+  Wifi,
+  WifiOff
 } from 'lucide-react';
 
 // Types
@@ -138,7 +141,13 @@ interface FXConversion {
 }
 
 export function APIDigitalModule() {
-  const [activeTab, setActiveTab] = useState<'auth' | 'domestic' | 'international' | 'scheduled' | 'beneficiaries' | 'fx'>('auth');
+  const [activeTab, setActiveTab] = useState<'auth' | 'domestic' | 'international' | 'scheduled' | 'beneficiaries' | 'fx' | 'server'>('auth');
+
+  // Banking Server Connection state
+  const [bankingServerStatus, setBankingServerStatus] = useState<'disconnected' | 'connecting' | 'connected' | 'error'>('disconnected');
+  const [serverHost, setServerHost] = useState('sandbox.creditpopulaire.net');
+  const [serverPort, setServerPort] = useState('443');
+  const [lastPingTime, setLastPingTime] = useState<number | null>(null);
 
   // Authentication state
   const [authCredentials, setAuthCredentials] = useState<AuthCredentials>({
@@ -706,6 +715,55 @@ export function APIDigitalModule() {
   };
 
   // ========================================
+  // BANKING SERVER CONNECTION
+  // ========================================
+
+  const handleConnectToServer = async () => {
+    try {
+      setBankingServerStatus('connecting');
+      setError(null);
+
+      console.log('[API DIGITAL] 🔌 Connecting to banking server:', serverHost);
+
+      const startTime = Date.now();
+
+      // Attempt connection to server
+      const response = await fetch(`https://${serverHost}:${serverPort}/api/health`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        signal: AbortSignal.timeout(5000)
+      });
+
+      const pingTime = Date.now() - startTime;
+
+      if (response.ok) {
+        setBankingServerStatus('connected');
+        setLastPingTime(pingTime);
+        setSuccess(`✅ Connected to banking server successfully! (${pingTime}ms)`);
+        console.log('[API DIGITAL] ✅ Server connected:', serverHost, 'Ping:', pingTime + 'ms');
+      } else {
+        throw new Error(`Server returned ${response.status}`);
+      }
+    } catch (err: any) {
+      console.error('[API DIGITAL] ❌ Server connection failed:', err);
+
+      // Mock successful connection for demo
+      setBankingServerStatus('disconnected');
+      setError('Banking server is currently unavailable. Demo mode active.');
+      setLastPingTime(null);
+    }
+  };
+
+  const handleDisconnectFromServer = () => {
+    setBankingServerStatus('disconnected');
+    setLastPingTime(null);
+    setSuccess('✅ Disconnected from banking server');
+    console.log('[API DIGITAL] 🔌 Disconnected from server');
+  };
+
+  // ========================================
   // UI HELPERS
   // ========================================
 
@@ -895,6 +953,20 @@ export function APIDigitalModule() {
         >
           <DollarSign className="w-4 h-4" />
           Foreign Exchange
+        </button>
+        <button
+          onClick={() => setActiveTab('server')}
+          disabled={!isAuthenticated}
+          className={`px-4 py-2 rounded-lg flex items-center gap-2 transition-colors whitespace-nowrap ${
+            activeTab === 'server'
+              ? 'bg-[#00ff88] text-black font-semibold'
+              : isAuthenticated
+              ? 'bg-gray-800 text-gray-400 hover:bg-gray-700'
+              : 'bg-gray-900 text-gray-600 cursor-not-allowed'
+          }`}
+        >
+          <Server className="w-4 h-4" />
+          Banking Server
         </button>
       </div>
 
@@ -2176,6 +2248,178 @@ export function APIDigitalModule() {
                   </div>
                 </div>
               )}
+            </div>
+          </div>
+        )}
+
+        {/* BANKING SERVER CONNECTION TAB */}
+        {activeTab === 'server' && (
+          <div className="space-y-6">
+            <div className="bg-gray-900 border border-gray-800 rounded-lg p-6">
+              <h2 className="text-2xl font-bold text-neon mb-4 flex items-center gap-2">
+                <Server className="w-6 h-6" />
+                Banking Server Connection
+              </h2>
+
+              {/* Connection Status */}
+              <div className="mb-6 p-6 bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700 rounded-lg">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-3">
+                    {bankingServerStatus === 'disconnected' && <WifiOff className="w-8 h-8 text-red-400" />}
+                    {bankingServerStatus === 'connecting' && <RefreshCw className="w-8 h-8 text-yellow-400 animate-spin" />}
+                    {bankingServerStatus === 'connected' && <Wifi className="w-8 h-8 text-green-400" />}
+                    {bankingServerStatus === 'error' && <AlertCircle className="w-8 h-8 text-red-400" />}
+                    <div>
+                      <div className="text-xl font-bold text-white">
+                        {bankingServerStatus === 'disconnected' && 'DISCONNECTED'}
+                        {bankingServerStatus === 'connecting' && 'CONNECTING...'}
+                        {bankingServerStatus === 'connected' && 'CONNECTED'}
+                        {bankingServerStatus === 'error' && 'ERROR'}
+                      </div>
+                      <div className="text-sm text-gray-400">
+                        {bankingServerStatus === 'disconnected' && 'Not connected to banking server'}
+                        {bankingServerStatus === 'connecting' && 'Establishing connection...'}
+                        {bankingServerStatus === 'connected' && `Connected to ${serverHost}`}
+                        {bankingServerStatus === 'error' && 'Failed to connect to server'}
+                      </div>
+                    </div>
+                  </div>
+                  <div className={`px-4 py-2 rounded-full font-semibold text-sm ${
+                    bankingServerStatus === 'disconnected'
+                      ? 'bg-red-500/20 text-red-400 border border-red-500/30'
+                      : bankingServerStatus === 'connecting'
+                      ? 'bg-yellow-500/20 text-yellow-400 border border-yellow-500/30'
+                      : bankingServerStatus === 'connected'
+                      ? 'bg-green-500/20 text-green-400 border border-green-500/30'
+                      : 'bg-red-500/20 text-red-400 border border-red-500/30'
+                  }`}>
+                    {bankingServerStatus.toUpperCase()}
+                  </div>
+                </div>
+
+                {lastPingTime !== null && (
+                  <div className="flex items-center gap-2 text-sm text-gray-400">
+                    <Clock className="w-4 h-4" />
+                    <span>Latency: <span className="text-green-400 font-semibold">{lastPingTime}ms</span></span>
+                  </div>
+                )}
+              </div>
+
+              {/* Server Configuration */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                <div>
+                  <label className="block text-sm font-medium text-gray-400 mb-2">
+                    Server Host
+                  </label>
+                  <input
+                    type="text"
+                    value={serverHost}
+                    onChange={(e) => setServerHost(e.target.value)}
+                    disabled={bankingServerStatus === 'connected' || bankingServerStatus === 'connecting'}
+                    className="w-full px-4 py-2 bg-black border border-gray-700 rounded text-white focus:border-[#00ff88] focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed"
+                    placeholder="sandbox.creditpopulaire.net"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-400 mb-2">
+                    Port
+                  </label>
+                  <input
+                    type="text"
+                    value={serverPort}
+                    onChange={(e) => setServerPort(e.target.value)}
+                    disabled={bankingServerStatus === 'connected' || bankingServerStatus === 'connecting'}
+                    className="w-full px-4 py-2 bg-black border border-gray-700 rounded text-white focus:border-[#00ff88] focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed"
+                    placeholder="443"
+                  />
+                </div>
+              </div>
+
+              {/* Connection Actions */}
+              <div className="flex gap-4">
+                {bankingServerStatus === 'disconnected' || bankingServerStatus === 'error' ? (
+                  <button
+                    onClick={handleConnectToServer}
+                    disabled={loading}
+                    className="flex-1 px-6 py-3 bg-[#00ff88] text-black font-bold rounded-lg hover:bg-[#00cc6a] transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                  >
+                    {loading ? (
+                      <>
+                        <RefreshCw className="w-5 h-5 animate-spin" />
+                        Connecting...
+                      </>
+                    ) : (
+                      <>
+                        <Wifi className="w-5 h-5" />
+                        Connect to Banking Server
+                      </>
+                    )}
+                  </button>
+                ) : bankingServerStatus === 'connected' ? (
+                  <button
+                    onClick={handleDisconnectFromServer}
+                    className="flex-1 px-6 py-3 bg-red-600 text-white font-bold rounded-lg hover:bg-red-700 transition-colors flex items-center justify-center gap-2"
+                  >
+                    <WifiOff className="w-5 h-5" />
+                    Disconnect
+                  </button>
+                ) : null}
+              </div>
+
+              {/* Server Information */}
+              <div className="mt-6 p-4 bg-blue-500/10 border border-blue-500/30 rounded-lg">
+                <h3 className="text-sm font-semibold text-blue-400 mb-2">Server Information</h3>
+                <div className="text-sm text-gray-400 space-y-1">
+                  <div>Environment: <span className="text-white">Sandbox</span></div>
+                  <div>API Version: <span className="text-white">2.0</span></div>
+                  <div>Protocol: <span className="text-white">HTTPS/TLS 1.3</span></div>
+                  <div>Authentication: <span className="text-white">JWT Bearer Token</span></div>
+                  <div>Banking Standard: <span className="text-white">ISO 20022 (pain.001, pacs.008)</span></div>
+                </div>
+              </div>
+
+              {/* Connection Requirements */}
+              <div className="mt-4 p-4 bg-yellow-500/10 border border-yellow-500/30 rounded-lg">
+                <h3 className="text-sm font-semibold text-yellow-400 mb-2">Requirements</h3>
+                <ul className="text-sm text-gray-400 space-y-1 list-disc list-inside">
+                  <li>Valid JWT token from authentication</li>
+                  <li>Stable internet connection</li>
+                  <li>Access to sandbox.creditpopulaire.net or production server</li>
+                  <li>Firewall rules allowing HTTPS (port 443)</li>
+                </ul>
+              </div>
+
+              {/* Connection Benefits */}
+              <div className="mt-4 p-4 bg-green-500/10 border border-green-500/30 rounded-lg">
+                <h3 className="text-sm font-semibold text-green-400 mb-2">Connection Benefits</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm text-gray-400">
+                  <div className="flex items-start gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-400 flex-shrink-0 mt-0.5" />
+                    <span>Real-time payment processing</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-400 flex-shrink-0 mt-0.5" />
+                    <span>Live FX rate updates</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-400 flex-shrink-0 mt-0.5" />
+                    <span>Instant transfer validation</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-400 flex-shrink-0 mt-0.5" />
+                    <span>Secure SWIFT messaging</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-400 flex-shrink-0 mt-0.5" />
+                    <span>Account balance synchronization</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-400 flex-shrink-0 mt-0.5" />
+                    <span>Beneficiary management</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         )}
