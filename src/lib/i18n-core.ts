@@ -162,6 +162,50 @@ export interface Translations {
   analyzerLastTransactions: string;
   analyzerLoadFileForAnalysis: string;
   analyzerCurrenciesDetected: string;
+  analyzerPendingProcess: string;
+  analyzerProcessInterrupted: string;
+  analyzerReadyToContinue: string;
+  analyzerFile: string;
+  analyzerSavedProgress: string;
+  analyzerContinueFrom: string;
+  analyzerCancelProcess: string;
+  analyzerError: string;
+  analyzerNoPendingProcess: string;
+  analyzerCouldNotRecover: string;
+  analyzerLoadFileAgain: string;
+  analyzerConfirmCancel: string;
+  analyzerAccountsByCurrency: string;
+  analyzerUpdatingRealTime: string;
+  analyzerExportReport: string;
+  analyzerTotalTransactions: string;
+  analyzerDetectedCurrencies: string;
+  analyzerSyncing: string;
+  analyzerCompletedSuccessfully: string;
+  analyzerMagicNumber: string;
+  analyzerEntropyAnalysis: string;
+  analyzerAverageEntropy: string;
+  analyzerHighEntropyDescription: string;
+  analyzerLowEntropyDescription: string;
+  analyzerDecryptFile: string;
+  analyzerUsername: string;
+  analyzerPassword: string;
+  analyzerEnterUsername: string;
+  analyzerEnterPassword: string;
+  analyzerDecrypt: string;
+  analyzerUsernamePasswordRequired: string;
+  analyzerDecryptionDevelopment: string;
+  analyzerNavigateToOtherModules: string;
+  analyzerFloatingIndicator: string;
+  analyzerProcessed: string;
+  analyzerLastUpdate: string;
+  analyzerTotalBalance: string;
+  analyzerAverage: string;
+  analyzerHighest: string;
+  analyzerLowest: string;
+  analyzerPrincipal: string;
+  analyzerSecondary: string;
+  analyzerAccount: string;
+  analyzerAdding: string;
 
   // XCP B2B API
   xcpTitle: string;
@@ -539,7 +583,7 @@ export const translations: Record<Language, Translations> = {
 
     // Large File Analyzer
     analyzerTitle: 'Analizador de Archivos Grandes Digital Commercial Bank Ltd',
-    analyzerSubtitle: 'Procesamiento por bloques con extracción de balances en tiempo real',
+    analyzerSubtitle: 'Procesamiento por bloques • Extracción en tiempo real • Persistencia automática',
     analyzerSelectFile: 'Seleccionar Archivo Digital Commercial Bank Ltd',
     analyzerLoadSaved: 'Cargar Balances Guardados',
     analyzerPause: 'Pausar',
@@ -562,9 +606,53 @@ export const translations: Record<Language, Translations> = {
     analyzerHighEntropy: 'ALTA ENTROPÍA',
     analyzerLowEntropy: 'BAJA ENTROPÍA',
     analyzerTryDecrypt: 'Intentar Desencriptar',
-    analyzerLastTransactions: 'Últimas 10 transacciones encontradas:',
+    analyzerLastTransactions: 'Últimas 10 transacciones:',
     analyzerLoadFileForAnalysis: 'Cargar Archivo para Análisis',
     analyzerCurrenciesDetected: 'monedas detectadas',
+    analyzerPendingProcess: 'Proceso Pendiente',
+    analyzerProcessInterrupted: '⚡ PROCESO INTERRUMPIDO - LISTO PARA CONTINUAR',
+    analyzerReadyToContinue: 'Listo para Continuar',
+    analyzerFile: 'Archivo',
+    analyzerSavedProgress: '📊 Progreso guardado',
+    analyzerContinueFrom: 'CONTINUAR DESDE',
+    analyzerCancelProcess: 'Cancelar Proceso',
+    analyzerError: 'Error',
+    analyzerNoPendingProcess: '⚠️ No se encontró un proceso pendiente',
+    analyzerCouldNotRecover: '❌ No se pudo recuperar el archivo.',
+    analyzerLoadFileAgain: 'Por favor, carga el archivo nuevamente.',
+    analyzerConfirmCancel: '¿Estás seguro de que quieres cancelar el proceso pendiente?',
+    analyzerAccountsByCurrency: 'Cuentas por Moneda',
+    analyzerUpdatingRealTime: 'Actualizando en Tiempo Real',
+    analyzerExportReport: 'Exportar Reporte',
+    analyzerTotalTransactions: 'Total Transacciones',
+    analyzerDetectedCurrencies: 'Monedas Detectadas',
+    analyzerSyncing: 'Sincronizando',
+    analyzerCompletedSuccessfully: '✓ Análisis Completado Exitosamente',
+    analyzerMagicNumber: 'Magic Number',
+    analyzerEntropyAnalysis: 'Análisis de Entropía',
+    analyzerAverageEntropy: 'Entropía Promedio',
+    analyzerHighEntropyDescription: 'Los datos están fuertemente encriptados. Se requieren credenciales para desencriptar.',
+    analyzerLowEntropyDescription: 'Datos estructurados sin encriptación fuerte. Balances extraíbles.',
+    analyzerDecryptFile: 'Desencriptar Archivo',
+    analyzerUsername: 'Username',
+    analyzerPassword: 'Password',
+    analyzerEnterUsername: 'Ingresa el username',
+    analyzerEnterPassword: 'Ingresa el password',
+    analyzerDecrypt: 'Desencriptar',
+    analyzerUsernamePasswordRequired: 'Por favor ingresa username y password',
+    analyzerDecryptionDevelopment: 'Función de desencriptación en desarrollo. Se requiere implementar PBKDF2 + AES-GCM',
+    analyzerNavigateToOtherModules: '✓ Puedes navegar a otros módulos sin detener el proceso',
+    analyzerFloatingIndicator: 'El indicador flotante te mostrará el progreso desde cualquier ventana',
+    analyzerProcessed: 'procesado',
+    analyzerLastUpdate: 'Última actualización',
+    analyzerTotalBalance: '💰 Balance Total Acumulado',
+    analyzerAverage: '📈 Promedio',
+    analyzerHighest: '🔺 Mayor',
+    analyzerLowest: '🔻 Menor',
+    analyzerPrincipal: '🥇 PRINCIPAL',
+    analyzerSecondary: '🥈 SECUNDARIA',
+    analyzerAccount: 'Cuenta',
+    analyzerAdding: 'Sumando...',
 
     // XCP B2B API
     xcpTitle: 'XCP B2B API - Remesas Internacionales',
@@ -941,7 +1029,7 @@ export const translations: Record<Language, Translations> = {
 
     // Large File Analyzer
     analyzerTitle: 'Large File Digital Commercial Bank Ltd Analyzer',
-    analyzerSubtitle: 'Block processing with real-time balance extraction',
+    analyzerSubtitle: 'Block processing • Real-time extraction • Automatic persistence',
     analyzerSelectFile: 'Select Digital Commercial Bank Ltd File',
     analyzerLoadSaved: 'Load Saved Balances',
     analyzerPause: 'Pause',
@@ -964,9 +1052,53 @@ export const translations: Record<Language, Translations> = {
     analyzerHighEntropy: 'HIGH ENTROPY',
     analyzerLowEntropy: 'LOW ENTROPY',
     analyzerTryDecrypt: 'Try Decrypt',
-    analyzerLastTransactions: 'Last 10 transactions found:',
+    analyzerLastTransactions: 'Last 10 transactions:',
     analyzerLoadFileForAnalysis: 'Load File for Analysis',
     analyzerCurrenciesDetected: 'currencies detected',
+    analyzerPendingProcess: 'Pending Process',
+    analyzerProcessInterrupted: '⚡ PROCESS INTERRUPTED - READY TO CONTINUE',
+    analyzerReadyToContinue: 'Ready to Continue',
+    analyzerFile: 'File',
+    analyzerSavedProgress: '📊 Saved progress',
+    analyzerContinueFrom: 'CONTINUE FROM',
+    analyzerCancelProcess: 'Cancel Process',
+    analyzerError: 'Error',
+    analyzerNoPendingProcess: '⚠️ No pending process found',
+    analyzerCouldNotRecover: '❌ Could not recover file.',
+    analyzerLoadFileAgain: 'Please load the file again.',
+    analyzerConfirmCancel: 'Are you sure you want to cancel the pending process?',
+    analyzerAccountsByCurrency: 'Accounts by Currency',
+    analyzerUpdatingRealTime: 'Updating in Real Time',
+    analyzerExportReport: 'Export Report',
+    analyzerTotalTransactions: 'Total Transactions',
+    analyzerDetectedCurrencies: 'Detected Currencies',
+    analyzerSyncing: 'Syncing',
+    analyzerCompletedSuccessfully: '✓ Analysis Completed Successfully',
+    analyzerMagicNumber: 'Magic Number',
+    analyzerEntropyAnalysis: 'Entropy Analysis',
+    analyzerAverageEntropy: 'Average Entropy',
+    analyzerHighEntropyDescription: 'Data is heavily encrypted. Credentials required to decrypt.',
+    analyzerLowEntropyDescription: 'Structured data without strong encryption. Balances can be extracted.',
+    analyzerDecryptFile: 'Decrypt File',
+    analyzerUsername: 'Username',
+    analyzerPassword: 'Password',
+    analyzerEnterUsername: 'Enter username',
+    analyzerEnterPassword: 'Enter password',
+    analyzerDecrypt: 'Decrypt',
+    analyzerUsernamePasswordRequired: 'Please enter username and password',
+    analyzerDecryptionDevelopment: 'Decryption function in development. Requires PBKDF2 + AES-GCM implementation',
+    analyzerNavigateToOtherModules: '✓ You can navigate to other modules without stopping the process',
+    analyzerFloatingIndicator: 'The floating indicator will show progress from any window',
+    analyzerProcessed: 'processed',
+    analyzerLastUpdate: 'Last update',
+    analyzerTotalBalance: '💰 Total Accumulated Balance',
+    analyzerAverage: '📈 Average',
+    analyzerHighest: '🔺 Highest',
+    analyzerLowest: '🔻 Lowest',
+    analyzerPrincipal: '🥇 PRIMARY',
+    analyzerSecondary: '🥈 SECONDARY',
+    analyzerAccount: 'Account',
+    analyzerAdding: 'Adding...',
 
     // XCP B2B API
     xcpTitle: 'XCP B2B API - International Remittances',
