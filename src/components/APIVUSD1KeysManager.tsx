@@ -99,6 +99,7 @@ export function APIVUSD1KeysManager() {
       }
 
       // Load pledges - only ACTIVE pledges
+      console.log('[APIVUSD1KeysManager] Loading pledges for user:', user.id);
       const { data: pledgesData, error: pledgesError } = await supabase
         .from('api_vusd1_pledges')
         .select('*')
@@ -107,8 +108,9 @@ export function APIVUSD1KeysManager() {
         .order('created_at', { ascending: false });
 
       if (pledgesError) {
-        console.error('Error loading pledges:', pledgesError);
+        console.error('[APIVUSD1KeysManager] Error loading pledges:', pledgesError);
       } else {
+        console.log('[APIVUSD1KeysManager] Loaded pledges:', pledgesData?.length || 0, pledgesData);
         setPledges(pledgesData || []);
       }
     } catch (error) {
@@ -419,24 +421,41 @@ export function APIVUSD1KeysManager() {
                   <Lock className="w-4 h-4 text-[#00ff88]" />
                   Select Pledge
                 </label>
-                <select
-                  value={selectedPledgeId}
-                  onChange={(e) => setSelectedPledgeId(e.target.value)}
-                  className="w-full bg-[#0d0d0d] border border-[#1a1a1a] focus:border-[#00ff88] text-[#e0ffe0] px-4 py-3 rounded-lg outline-none transition-all"
-                >
-                  <option value="">-- Select a pledge --</option>
-                  {availablePledges.map((pledge) => {
-                    const account = custodyAccounts.find(a => a.id === pledge.custody_account_id);
-                    return (
-                      <option key={pledge.id} value={pledge.id}>
-                        {pledge.reference_number} - {pledge.currency} ${pledge.amount.toLocaleString()} - {account?.account_name || 'Unknown Account'}
-                      </option>
-                    );
-                  })}
-                </select>
-                <p className="text-[#4d7c4d] text-xs mt-2">
-                  {availablePledges.length} ACTIVE pledge(s) available. Each pledge includes its custody account automatically.
-                </p>
+                {loadingData ? (
+                  <div className="text-center py-4">
+                    <RefreshCw className="w-5 h-5 text-[#00ff88] animate-spin mx-auto mb-2" />
+                    <p className="text-[#80ff80] text-sm">Loading pledges...</p>
+                  </div>
+                ) : availablePledges.length === 0 ? (
+                  <div className="bg-[#1a1a1a] border border-yellow-500/30 rounded-lg p-4 text-center">
+                    <AlertCircle className="w-8 h-8 text-yellow-500 mx-auto mb-2" />
+                    <p className="text-yellow-500 font-semibold mb-1">No Active Pledges Found</p>
+                    <p className="text-[#80ff80] text-xs">
+                      Create pledges in the API VUSD1 module first to associate them with API keys.
+                    </p>
+                  </div>
+                ) : (
+                  <>
+                    <select
+                      value={selectedPledgeId}
+                      onChange={(e) => setSelectedPledgeId(e.target.value)}
+                      className="w-full bg-[#0d0d0d] border border-[#1a1a1a] focus:border-[#00ff88] text-[#e0ffe0] px-4 py-3 rounded-lg outline-none transition-all"
+                    >
+                      <option value="">-- Select a pledge --</option>
+                      {availablePledges.map((pledge) => {
+                        const account = custodyAccounts.find(a => a.id === pledge.custody_account_id);
+                        return (
+                          <option key={pledge.id} value={pledge.id}>
+                            {pledge.reference_number} - {pledge.currency} ${pledge.amount.toLocaleString()} - {account?.account_name || 'Unknown Account'}
+                          </option>
+                        );
+                      })}
+                    </select>
+                    <p className="text-[#4d7c4d] text-xs mt-2">
+                      {availablePledges.length} ACTIVE pledge(s) available. Each pledge includes its custody account automatically.
+                    </p>
+                  </>
+                )}
               </div>
 
               <div>
