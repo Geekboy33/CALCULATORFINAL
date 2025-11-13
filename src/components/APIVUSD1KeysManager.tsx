@@ -11,22 +11,14 @@ import {
 import { apiKeysStore, type ApiKey, type ApiKeyUsage } from '../lib/api-keys-store';
 import { getSupabaseClient } from '../lib/supabase-client';
 
-interface CustodyAccount {
-  id: string;
-  account_name: string;
-  account_number: string;
-  currency: string;
-  balance_total: number;
-  balance_available: number;
-}
-
 interface Pledge {
   id: string;
-  custody_account_id: string;
-  amount: number;
+  pledge_id: string;
+  amount: string | number;
+  available: string | number;
   currency: string;
   status: string;
-  reference_number: string;
+  beneficiary: string;
   created_at: string;
 }
 
@@ -38,8 +30,7 @@ export function APIVUSD1KeysManager() {
   const [showSecret, setShowSecret] = useState<Record<string, boolean>>({});
   const [selectedKeyUsage, setSelectedKeyUsage] = useState<{ keyId: string; usage: ApiKeyUsage } | null>(null);
 
-  // Custody accounts and pledges
-  const [custodyAccounts, setCustodyAccounts] = useState<CustodyAccount[]>([]);
+  // Pledges
   const [pledges, setPledges] = useState<Pledge[]>([]);
   const [loadingData, setLoadingData] = useState(false);
 
@@ -85,25 +76,11 @@ export function APIVUSD1KeysManager() {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) return;
 
-      // Load custody accounts
-      const { data: accounts, error: accountsError } = await supabase
-        .from('api_vusd1_custody_accounts')
-        .select('*')
-        .eq('user_id', user.id)
-        .order('created_at', { ascending: false });
-
-      if (accountsError) {
-        console.error('Error loading custody accounts:', accountsError);
-      } else {
-        setCustodyAccounts(accounts || []);
-      }
-
-      // Load pledges - only ACTIVE pledges
-      console.log('[APIVUSD1KeysManager] Loading pledges for user:', user.id);
+      // Load pledges - only ACTIVE pledges (no custody accounts needed)
+      console.log('[APIVUSD1KeysManager] Loading ACTIVE pledges...');
       const { data: pledgesData, error: pledgesError } = await supabase
-        .from('api_vusd1_pledges')
+        .from('api_pledges')
         .select('*')
-        .eq('user_id', user.id)
         .eq('status', 'ACTIVE')
         .order('created_at', { ascending: false });
 
@@ -134,20 +111,15 @@ export function APIVUSD1KeysManager() {
         return;
       }
 
-      // Get selected pledge data and its associated custody account
+      // Get selected pledge data
       const pledge = selectedPledgeId
         ? pledges.find(p => p.id === selectedPledgeId)
-        : undefined;
-
-      const custodyAccount = pledge
-        ? custodyAccounts.find(a => a.id === pledge.custody_account_id)
         : undefined;
 
       const result = await apiKeysStore.createKey({
         name: keyName,
         permissions,
         rate_limit: rateLimit,
-        custody_account: custodyAccount,
         pledge: pledge,
       });
 
@@ -442,17 +414,14 @@ export function APIVUSD1KeysManager() {
                       className="w-full bg-[#0d0d0d] border border-[#1a1a1a] focus:border-[#00ff88] text-[#e0ffe0] px-4 py-3 rounded-lg outline-none transition-all"
                     >
                       <option value="">-- Select a pledge --</option>
-                      {availablePledges.map((pledge) => {
-                        const account = custodyAccounts.find(a => a.id === pledge.custody_account_id);
-                        return (
-                          <option key={pledge.id} value={pledge.id}>
-                            {pledge.reference_number} - {pledge.currency} ${pledge.amount.toLocaleString()} - {account?.account_name || 'Unknown Account'}
-                          </option>
-                        );
-                      })}
+                      {availablePledges.map((pledge) => (
+                        <option key={pledge.id} value={pledge.id}>
+                          {pledge.pledge_id} - {pledge.currency} ${Number(pledge.amount).toLocaleString()} - {pledge.beneficiary}
+                        </option>
+                      ))}
                     </select>
                     <p className="text-[#4d7c4d] text-xs mt-2">
-                      {availablePledges.length} ACTIVE pledge(s) available. Each pledge includes its custody account automatically.
+                      {availablePledges.length} ACTIVE pledge(s) available from API VUSD1 module.
                     </p>
                   </>
                 )}
