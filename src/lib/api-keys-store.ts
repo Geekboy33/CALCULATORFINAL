@@ -51,9 +51,28 @@ class ApiKeysStore {
       throw new Error('Supabase client not initialized');
     }
 
-    const { data: { session } } = await supabase.auth.getSession();
-    if (!session) {
-      throw new Error('Not authenticated');
+    const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+
+    if (sessionError) {
+      console.error('Session error:', sessionError);
+      throw new Error(`Session error: ${sessionError.message}`);
+    }
+
+    if (!session || !session.access_token) {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        throw new Error('Not authenticated. Please log in again.');
+      }
+
+      const { data: refreshData } = await supabase.auth.refreshSession();
+      if (!refreshData.session) {
+        throw new Error('Could not refresh session. Please log in again.');
+      }
+
+      return {
+        'Authorization': `Bearer ${refreshData.session.access_token}`,
+        'Content-Type': 'application/json',
+      };
     }
 
     return {

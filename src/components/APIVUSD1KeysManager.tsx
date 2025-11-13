@@ -123,6 +123,18 @@ export function APIVUSD1KeysManager() {
 
   const handleCreateKey = async () => {
     try {
+      const supabase = getSupabaseClient();
+      if (!supabase) {
+        alert('Supabase client not initialized');
+        return;
+      }
+
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
+        alert('You must be logged in to create API keys. Please log in and try again.');
+        return;
+      }
+
       // Get selected custody account and pledge data
       const custodyAccount = selectedCustodyAccountId
         ? custodyAccounts.find(a => a.id === selectedCustodyAccountId)
@@ -156,6 +168,7 @@ export function APIVUSD1KeysManager() {
         delete_pledges: false,
       });
     } catch (error: any) {
+      console.error('Error creating API key:', error);
       alert('Error creating API key: ' + error.message);
     }
   };
