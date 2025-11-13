@@ -962,7 +962,21 @@ export default function APIGlobalModule() {
             </div>
 
             <div ref={scrollContainerRef} className="overflow-y-auto flex-1 p-6 custom-scrollbar">
-              <form onSubmit={handleSendTransfer} className="space-y-6">
+              {custodyAccounts.length === 0 ? (
+                <div className="flex items-center justify-center h-full">
+                  <div className="text-center p-8">
+                    <Lock className="w-16 h-16 text-gray-600 mx-auto mb-4" />
+                    <h3 className="text-xl font-semibold text-gray-400 mb-2">No Custody Accounts Available</h3>
+                    <p className="text-gray-500 mb-4">
+                      You need to create custody accounts first to use the API GLOBAL transfer system.
+                    </p>
+                    <p className="text-sm text-gray-600">
+                      Please go to the <span className="text-blue-400 font-semibold">Custody Accounts</span> module to create your first account.
+                    </p>
+                  </div>
+                </div>
+              ) : (
+                <form onSubmit={handleSendTransfer} className="space-y-6">
               {/* Select Custody Account */}
               <div>
                 <label className="block text-sm font-medium mb-2">
@@ -1146,6 +1160,7 @@ export default function APIGlobalModule() {
                 </div>
               )}
             </form>
+              )}
             </div>
           </div>
         )}

@@ -1052,39 +1052,53 @@ export function APIVUSDModule() {
           <div className="bg-[#0d0d0d] border border-purple-500 rounded-lg max-w-2xl w-full p-6">
             <h3 className="text-xl font-bold text-purple-400 mb-4">{t.createPledge}</h3>
             <form onSubmit={handleCreatePledge} className="space-y-4">
-              {/* Selector de Cuenta Custodio */}
-              <div>
-                <label className="block text-purple-300 text-sm mb-2">{t.selectCustodyAccount}</label>
-                <select
-                  value={selectedCustodyAccount}
-                  onChange={(e) => handleCustodyAccountSelect(e.target.value)}
-                  className="w-full bg-[#0a0a0a] border border-[#1a1a1a] rounded px-4 py-2 text-white"
-                >
-                  <option value="">{t.manualEntry}</option>
-                  {custodyAccounts.map(account => (
-                    <option key={account.id} value={account.id}>
-                      {account.accountName} - {account.currency} {account.totalBalance.toLocaleString()}
-                    </option>
-                  ))}
-                </select>
-              </div>
+              {/* Selector de Cuenta Custodio - Solo si existen cuentas */}
+              {custodyAccounts.length > 0 ? (
+                <>
+                  <div>
+                    <label className="block text-purple-300 text-sm mb-2">{t.selectCustodyAccount}</label>
+                    <select
+                      value={selectedCustodyAccount}
+                      onChange={(e) => handleCustodyAccountSelect(e.target.value)}
+                      className="w-full bg-[#0a0a0a] border border-[#1a1a1a] rounded px-4 py-2 text-white"
+                    >
+                      <option value="">{t.manualEntry}</option>
+                      {custodyAccounts.map(account => (
+                        <option key={account.id} value={account.id}>
+                          {account.accountName} - {account.currency} {account.totalBalance.toLocaleString()}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
 
-              {/* Información de cuenta seleccionada */}
-              {selectedCustodyAccount && custodyAccounts.find(a => a.id === selectedCustodyAccount) && (
-                <div className="bg-purple-900/20 border border-purple-500/40 rounded-lg p-4">
-                  <div className="text-sm font-semibold text-purple-400 mb-2">{t.custodyAccountInfo}</div>
-                  {(() => {
-                    const account = custodyAccounts.find(a => a.id === selectedCustodyAccount)!;
-                    return (
-                      <div className="space-y-1 text-xs text-purple-300/80">
-                        <div>• {t.beneficiary}: {account.accountName}</div>
-                        <div>• {t.totalBalance}: {account.currency} {account.totalBalance.toLocaleString()}</div>
-                        <div>• {t.availableBalance}: {account.currency} {account.availableBalance.toLocaleString()}</div>
-                        <div>• Currency: {account.currency}</div>
-                        {account.blockchain && <div>• Blockchain: {account.blockchain}</div>}
-                      </div>
-                    );
-                  })()}
+                  {/* Información de cuenta seleccionada */}
+                  {selectedCustodyAccount && custodyAccounts.find(a => a.id === selectedCustodyAccount) && (
+                    <div className="bg-purple-900/20 border border-purple-500/40 rounded-lg p-4">
+                      <div className="text-sm font-semibold text-purple-400 mb-2">{t.custodyAccountInfo}</div>
+                      {(() => {
+                        const account = custodyAccounts.find(a => a.id === selectedCustodyAccount)!;
+                        return (
+                          <div className="space-y-1 text-xs text-purple-300/80">
+                            <div>• {t.beneficiary}: {account.accountName}</div>
+                            <div>• {t.totalBalance}: {account.currency} {account.totalBalance.toLocaleString()}</div>
+                            <div>• {t.availableBalance}: {account.currency} {account.availableBalance.toLocaleString()}</div>
+                            <div>• Currency: {account.currency}</div>
+                            {account.blockchain && <div>• Blockchain: {account.blockchain}</div>}
+                          </div>
+                        );
+                      })()}
+                    </div>
+                  )}
+                </>
+              ) : (
+                <div className="bg-yellow-900/20 border border-yellow-500/40 rounded-lg p-4">
+                  <div className="text-sm text-yellow-300">
+                    <AlertCircle className="w-4 h-4 inline mr-2" />
+                    No custody accounts available. Using manual entry mode.
+                  </div>
+                  <div className="text-xs text-yellow-300/60 mt-2">
+                    Go to <span className="font-semibold">Custody Accounts</span> module to create accounts.
+                  </div>
                 </div>
               )}
 
