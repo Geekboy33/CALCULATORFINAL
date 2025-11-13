@@ -6,12 +6,13 @@
 import React, { useState, useEffect } from 'react';
 import {
   Lock, Send, FileText, Activity, CheckCircle, Clock,
-  AlertCircle, Database, Shield, Zap, Download, RefreshCw, Trash2
+  AlertCircle, Database, Shield, Zap, Download, RefreshCw, Trash2, Key
 } from 'lucide-react';
 import { apiVUSD1Store, type ApiPledge, type ApiPayout, type ApiAttestation, type ReserveSummary } from '../lib/api-vusd1-store';
+import { APIVUSD1KeysManager } from './APIVUSD1KeysManager';
 
 export default function APIVUSD1Module() {
-  const [selectedView, setSelectedView] = useState<'overview' | 'pledges' | 'payouts' | 'attestations' | 'events'>('overview');
+  const [selectedView, setSelectedView] = useState<'overview' | 'pledges' | 'payouts' | 'attestations' | 'events' | 'api-keys'>('overview');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -328,18 +329,19 @@ export default function APIVUSD1Module() {
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-2 mb-6 border-b border-[#1a1a1a] pb-2">
-        {['overview', 'pledges', 'payouts', 'attestations', 'events'].map((view) => (
+      <div className="flex gap-2 mb-6 border-b border-[#1a1a1a] pb-2 overflow-x-auto">
+        {['overview', 'pledges', 'payouts', 'attestations', 'events', 'api-keys'].map((view) => (
           <button
             key={view}
             onClick={() => setSelectedView(view as any)}
-            className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+            className={`px-4 py-2 rounded-lg font-medium transition-colors whitespace-nowrap flex items-center gap-2 ${
               selectedView === view
                 ? 'bg-[#00ff88] text-black'
                 : 'text-[#4d7c4d] hover:text-[#00ff88]'
             }`}
           >
-            {view.charAt(0).toUpperCase() + view.slice(1)}
+            {view === 'api-keys' && <Key className="w-4 h-4" />}
+            {view === 'api-keys' ? 'API Keys' : view.charAt(0).toUpperCase() + view.slice(1)}
           </button>
         ))}
       </div>
@@ -463,6 +465,10 @@ export default function APIVUSD1Module() {
               Payout tracking coming soon...
             </div>
           </div>
+        )}
+
+        {selectedView === 'api-keys' && (
+          <APIVUSD1KeysManager />
         )}
       </div>
 
