@@ -6,9 +6,29 @@
 import { useState, useEffect } from 'react';
 import {
   Key, Plus, Trash2, Eye, EyeOff, Copy, CheckCircle, AlertCircle,
-  Settings, TrendingUp, Clock, Shield, RefreshCw, ExternalLink
+  Settings, TrendingUp, Clock, Shield, RefreshCw, ExternalLink, DollarSign, Lock
 } from 'lucide-react';
 import { apiKeysStore, type ApiKey, type ApiKeyUsage } from '../lib/api-keys-store';
+import { getSupabaseClient } from '../lib/supabase-client';
+
+interface CustodyAccount {
+  id: string;
+  account_name: string;
+  account_number: string;
+  currency: string;
+  balance_total: number;
+  balance_available: number;
+}
+
+interface Pledge {
+  id: string;
+  custody_account_id: string;
+  amount: number;
+  currency: string;
+  status: string;
+  reference_number: string;
+  created_at: string;
+}
 
 export function APIVUSD1KeysManager() {
   const [keys, setKeys] = useState<ApiKey[]>([]);
@@ -18,10 +38,17 @@ export function APIVUSD1KeysManager() {
   const [showSecret, setShowSecret] = useState<Record<string, boolean>>({});
   const [selectedKeyUsage, setSelectedKeyUsage] = useState<{ keyId: string; usage: ApiKeyUsage } | null>(null);
 
+  // Custody accounts and pledges
+  const [custodyAccounts, setCustodyAccounts] = useState<CustodyAccount[]>([]);
+  const [pledges, setPledges] = useState<Pledge[]>([]);
+  const [loadingData, setLoadingData] = useState(false);
+
   // Form state
   const [keyName, setKeyName] = useState('');
   const [rateLimit, setRateLimit] = useState(60);
   const [expiresInDays, setExpiresInDays] = useState<number | undefined>(undefined);
+  const [selectedCustodyAccountId, setSelectedCustodyAccountId] = useState('');
+  const [selectedPledgeId, setSelectedPledgeId] = useState('');
   const [permissions, setPermissions] = useState({
     read_pledges: true,
     create_pledges: false,
@@ -31,6 +58,7 @@ export function APIVUSD1KeysManager() {
 
   useEffect(() => {
     loadKeys();
+    loadCustodyAccountsAndPledges();
   }, []);
 
   const loadKeys = async () => {
@@ -45,13 +73,68 @@ export function APIVUSD1KeysManager() {
     }
   };
 
+  const loadCustodyAccountsAndPledges = async () => {
+    const supabase = getSupabaseClient();
+    if (!supabase) return;
+
+    try {
+      setLoadingData(true);
+
+      // Get current user
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
+
+      // Load custody accounts
+      const { data: accounts, error: accountsError } = await supabase
+        .from('api_vusd1_custody_accounts')
+        .select('*')
+        .eq('user_id', user.id)
+        .order('created_at', { ascending: false });
+
+      if (accountsError) {
+        console.error('Error loading custody accounts:', accountsError);
+      } else {
+        setCustodyAccounts(accounts || []);
+      }
+
+      // Load pledges
+      const { data: pledgesData, error: pledgesError } = await supabase
+        .from('api_vusd1_pledges')
+        .select('*')
+        .eq('user_id', user.id)
+        .eq('status', 'active')
+        .order('created_at', { ascending: false });
+
+      if (pledgesError) {
+        console.error('Error loading pledges:', pledgesError);
+      } else {
+        setPledges(pledgesData || []);
+      }
+    } catch (error) {
+      console.error('Error loading data:', error);
+    } finally {
+      setLoadingData(false);
+    }
+  };
+
   const handleCreateKey = async () => {
     try {
+      // Get selected custody account and pledge data
+      const custodyAccount = selectedCustodyAccountId
+        ? custodyAccounts.find(a => a.id === selectedCustodyAccountId)
+        : undefined;
+
+      const pledge = selectedPledgeId
+        ? pledges.find(p => p.id === selectedPledgeId)
+        : undefined;
+
       const result = await apiKeysStore.createKey({
         name: keyName,
         permissions,
         rate_limit: rateLimit,
         expires_in_days: expiresInDays,
+        custody_account: custodyAccount,
+        pledge: pledge,
       });
 
       setNewKey(result.key);
@@ -62,6 +145,8 @@ export function APIVUSD1KeysManager() {
       setKeyName('');
       setRateLimit(60);
       setExpiresInDays(undefined);
+      setSelectedCustodyAccountId('');
+      setSelectedPledgeId('');
       setPermissions({
         read_pledges: true,
         create_pledges: false,
@@ -324,6 +409,52 @@ export function APIVUSD1KeysManager() {
                   className="w-full bg-[#0a0a0a] border border-[#1a1a1a] focus:border-[#00ff88] text-[#e0ffe0] px-4 py-3 rounded-lg outline-none transition-all"
                   placeholder="Leave empty for no expiration"
                 />
+              </div>
+
+              {/* Custody Account Selector */}
+              <div className="bg-[#0a0a0a] border border-[#00ff88]/20 rounded-lg p-4">
+                <label className="text-[#80ff80] text-sm block mb-2 flex items-center gap-2">
+                  <DollarSign className="w-4 h-4 text-[#00ff88]" />
+                  Associate with Custody Account (optional)
+                </label>
+                <select
+                  value={selectedCustodyAccountId}
+                  onChange={(e) => setSelectedCustodyAccountId(e.target.value)}
+                  className="w-full bg-[#0d0d0d] border border-[#1a1a1a] focus:border-[#00ff88] text-[#e0ffe0] px-4 py-3 rounded-lg outline-none transition-all"
+                >
+                  <option value="">-- No association --</option>
+                  {custodyAccounts.map((account) => (
+                    <option key={account.id} value={account.id}>
+                      {account.account_name} ({account.account_number}) - {account.currency} ${account.balance_available.toLocaleString()}
+                    </option>
+                  ))}
+                </select>
+                <p className="text-[#4d7c4d] text-xs mt-2">
+                  Select a custody account to automatically link it with this API key
+                </p>
+              </div>
+
+              {/* Pledge Selector */}
+              <div className="bg-[#0a0a0a] border border-[#00ff88]/20 rounded-lg p-4">
+                <label className="text-[#80ff80] text-sm block mb-2 flex items-center gap-2">
+                  <Lock className="w-4 h-4 text-[#00ff88]" />
+                  Associate with Pledge (optional)
+                </label>
+                <select
+                  value={selectedPledgeId}
+                  onChange={(e) => setSelectedPledgeId(e.target.value)}
+                  className="w-full bg-[#0d0d0d] border border-[#1a1a1a] focus:border-[#00ff88] text-[#e0ffe0] px-4 py-3 rounded-lg outline-none transition-all"
+                >
+                  <option value="">-- No association --</option>
+                  {pledges.map((pledge) => (
+                    <option key={pledge.id} value={pledge.id}>
+                      {pledge.reference_number} - {pledge.currency} ${pledge.amount.toLocaleString()} ({pledge.status})
+                    </option>
+                  ))}
+                </select>
+                <p className="text-[#4d7c4d] text-xs mt-2">
+                  Select a pledge to automatically link it with this API key
+                </p>
               </div>
 
               <div>

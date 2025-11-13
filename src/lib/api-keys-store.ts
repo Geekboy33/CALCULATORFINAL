@@ -88,6 +88,8 @@ class ApiKeysStore {
     permissions?: Partial<ApiKey['permissions']>;
     rate_limit?: number;
     expires_in_days?: number;
+    custody_account?: any;
+    pledge?: any;
   }): Promise<{ key: ApiKey; warning: string }> {
     const headers = await this.getHeaders();
     const response = await fetch(`${this.baseUrl}/api-keys-manager`, {

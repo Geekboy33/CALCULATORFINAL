@@ -17,6 +17,8 @@ interface CreateKeyRequest {
   };
   rate_limit?: number;
   expires_in_days?: number;
+  custody_account?: any;
+  pledge?: any;
 }
 
 interface UpdateKeyRequest {
@@ -27,18 +29,15 @@ interface UpdateKeyRequest {
 }
 
 Deno.serve(async (req: Request) => {
-  // Handle CORS preflight
   if (req.method === "OPTIONS") {
     return new Response(null, { status: 200, headers: corsHeaders });
   }
 
   try {
-    // Get Supabase client
     const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
     const supabaseKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
     const supabase = createClient(supabaseUrl, supabaseKey);
 
-    // Get auth token and verify user
     const authHeader = req.headers.get("Authorization");
     if (!authHeader) {
       return new Response(
@@ -60,11 +59,10 @@ Deno.serve(async (req: Request) => {
     const url = new URL(req.url);
     const path = url.pathname;
 
-    // GET /api-keys-manager - List all API keys for user
     if (req.method === "GET" && path === "/api-keys-manager") {
       const { data: keys, error } = await supabase
         .from("api_keys")
-        .select("id, name, api_key, status, permissions, rate_limit, last_used_at, expires_at, created_at")
+        .select("id, name, api_key, status, permissions, rate_limit, last_used_at, expires_at, created_at, associated_custody_account, associated_pledge")
         .eq("user_id", user.id)
         .order("created_at", { ascending: false });
 
@@ -81,7 +79,6 @@ Deno.serve(async (req: Request) => {
       );
     }
 
-    // POST /api-keys-manager - Create new API key
     if (req.method === "POST" && path === "/api-keys-manager") {
       const body: CreateKeyRequest = await req.json();
 
@@ -92,11 +89,9 @@ Deno.serve(async (req: Request) => {
         );
       }
 
-      // Generate API key and secret
       const apiKey = `luxliq_live_${crypto.randomUUID().replace(/-/g, '')}`;
       const apiSecret = `luxliq_secret_${crypto.randomUUID().replace(/-/g, '')}`;
 
-      // Hash the secret using database function
       const { data: hashData, error: hashError } = await supabase
         .rpc("hash_api_secret", { secret: apiSecret });
 
@@ -109,7 +104,6 @@ Deno.serve(async (req: Request) => {
 
       const hashedSecret = hashData;
 
-      // Calculate expiration if specified
       let expiresAt = null;
       if (body.expires_in_days) {
         const expireDate = new Date();
@@ -117,7 +111,6 @@ Deno.serve(async (req: Request) => {
         expiresAt = expireDate.toISOString();
       }
 
-      // Insert API key
       const { data: newKey, error: insertError } = await supabase
         .from("api_keys")
         .insert({
@@ -133,8 +126,10 @@ Deno.serve(async (req: Request) => {
           },
           rate_limit: body.rate_limit || 60,
           expires_at: expiresAt,
+          associated_custody_account: body.custody_account || null,
+          associated_pledge: body.pledge || null,
         })
-        .select("id, name, api_key, status, permissions, rate_limit, expires_at, created_at")
+        .select("id, name, api_key, status, permissions, rate_limit, expires_at, created_at, associated_custody_account, associated_pledge")
         .single();
 
       if (insertError) {
@@ -144,13 +139,12 @@ Deno.serve(async (req: Request) => {
         );
       }
 
-      // Return the key with the unhashed secret (only shown once)
       return new Response(
         JSON.stringify({
           message: "API key created successfully",
           key: {
             ...newKey,
-            api_secret: apiSecret, // Only shown on creation!
+            api_secret: apiSecret,
           },
           warning: "Save the API secret securely. It will not be shown again.",
         }),
@@ -158,7 +152,6 @@ Deno.serve(async (req: Request) => {
       );
     }
 
-    // PUT /api-keys-manager/:id - Update API key
     if (req.method === "PUT" && path.startsWith("/api-keys-manager/")) {
       const keyId = path.split("/").pop();
       const body: UpdateKeyRequest = await req.json();
@@ -190,7 +183,6 @@ Deno.serve(async (req: Request) => {
       );
     }
 
-    // DELETE /api-keys-manager/:id - Delete API key
     if (req.method === "DELETE" && path.startsWith("/api-keys-manager/")) {
       const keyId = path.split("/").pop();
 
@@ -213,11 +205,9 @@ Deno.serve(async (req: Request) => {
       );
     }
 
-    // GET /api-keys-manager/:id/usage - Get usage statistics
     if (req.method === "GET" && path.includes("/usage")) {
       const keyId = path.split("/")[2];
 
-      // Get request count by day for last 30 days
       const { data: usage, error } = await supabase
         .from("api_requests")
         .select("endpoint, method, status_code, created_at")
@@ -233,7 +223,6 @@ Deno.serve(async (req: Request) => {
         );
       }
 
-      // Calculate statistics
       const stats = {
         total_requests: usage?.length || 0,
         success_rate: usage ? (usage.filter(r => r.status_code < 400).length / usage.length) * 100 : 0,
