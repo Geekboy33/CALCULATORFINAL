@@ -264,7 +264,7 @@ export function APIVUSD1KeysManager() {
           </button>
         </div>
       ) : (
-        <div className="space-y-4">
+        <div className="max-h-[600px] overflow-y-auto space-y-4 pr-2 scrollbar-thin scrollbar-thumb-[#00ff88]/30 scrollbar-track-[#0a0a0a] hover:scrollbar-thumb-[#00ff88]/50">
           {keys.map((key) => (
             <div
               key={key.id}
