@@ -26,6 +26,7 @@ import { useLanguage } from '../lib/i18n';
 import { vusdCapStore, type Pledge, type PorPublication, type TreasuryTransfer } from '../lib/vusd-cap-store';
 import { custodyStore } from '../lib/custody-store';
 import { apiVUSD1Store } from '../lib/api-vusd1-store';
+import { unifiedPledgeStore } from '../lib/unified-pledge-store';
 import {
   generateBlackScreenData,
   downloadBlackScreenHTML,
@@ -323,88 +324,36 @@ export function APIVUSDModule() {
       setError(null);
 
       // ========================================
-      // VALIDACIÓN 1: CAPITAL DISPONIBLE EN CUSTODY
+      // VALIDACIÓN UNIFICADA DE BALANCE
       // ========================================
       if (selectedCustodyAccount) {
-        // IMPORTANTE: Obtener balance REAL actual antes de validar
-        const accounts = custodyStore.getAccounts();
-        const custodyAccount = accounts.find(a => a.id === selectedCustodyAccount);
+        const validation = unifiedPledgeStore.canCreatePledge(selectedCustodyAccount, pledgeForm.amount);
 
-        if (!custodyAccount) {
-          throw new Error('❌ CUENTA CUSTODY NO ENCONTRADA\n\nSelecciona una cuenta válida.');
-        }
-
-        // Recalcular balance disponible REAL basado en pledges activos
-        const activePledges = await vusdCapStore.getActivePledges();
-        const totalReservedByThisAccount = activePledges
-          .filter(p => p.custody_account_id === selectedCustodyAccount && p.status === 'active')
-          .reduce((sum, p) => sum + p.amount, 0);
-
-        const realAvailableBalance = custodyAccount.totalBalance - totalReservedByThisAccount;
-
-        console.log('[VUSD] 🔍 Validación de capital:', {
-          account: custodyAccount.accountName,
-          totalBalance: custodyAccount.totalBalance,
-          activePledges: activePledges.filter(p => p.custody_account_id === selectedCustodyAccount).length,
-          totalReserved: totalReservedByThisAccount,
-          realAvailable: realAvailableBalance,
-          requestedAmount: pledgeForm.amount
-        });
-
-        if (realAvailableBalance <= 0) {
+        if (!validation.allowed) {
+          const custodyAccount = custodyStore.getAccountById(selectedCustodyAccount);
           throw new Error(
             `❌ ${t.validationNoCapitalTitle}\n\n` +
-            `${t.validationNoCapitalAccount}: ${custodyAccount.accountName}\n` +
-            `${t.validationNoCapitalBalanceTotal}: ${custodyAccount.currency} ${custodyAccount.totalBalance.toLocaleString('en-US', { minimumFractionDigits: 3, maximumFractionDigits: 3 })}\n` +
-            `${t.validationNoCapitalBalanceAvailable}: ${custodyAccount.currency} ${realAvailableBalance.toLocaleString('en-US', { minimumFractionDigits: 3, maximumFractionDigits: 3 })}\n` +
-            `${t.validationNoCapitalBalanceReserved}: ${custodyAccount.currency} ${totalReservedByThisAccount.toLocaleString('en-US', { minimumFractionDigits: 3, maximumFractionDigits: 3 })}\n\n` +
-            `${t.validationNoCapitalMessage}\n\n` +
+            `${t.validationNoCapitalAccount}: ${custodyAccount?.accountName || 'Unknown'}\n` +
+            `${t.validationNoCapitalBalanceTotal}: ${pledgeForm.currency} ${custodyAccount?.totalBalance.toLocaleString('en-US', { minimumFractionDigits: 3, maximumFractionDigits: 3 })}\n` +
+            `${t.validationNoCapitalBalanceAvailable}: ${pledgeForm.currency} ${(validation.availableBalance || 0).toLocaleString('en-US', { minimumFractionDigits: 3, maximumFractionDigits: 3 })}\n` +
+            `${t.validationNoCapitalBalanceReserved}: ${pledgeForm.currency} ${(validation.totalPledged || 0).toLocaleString('en-US', { minimumFractionDigits: 3, maximumFractionDigits: 3 })}\n\n` +
+            `${validation.reason}\n\n` +
             `${t.validationNoCapitalSolution}\n` +
             `1. ${t.validationNoCapitalSolution1}\n` +
             `2. ${t.validationNoCapitalSolution2}`
           );
         }
 
-        // ========================================
-        // VALIDACIÓN 2: MONTO NO EXCEDE DISPONIBLE
-        // ========================================
-        if (pledgeForm.amount > realAvailableBalance) {
-          throw new Error(
-            `❌ ${t.validationAmountExceedsTitle}\n\n` +
-            `${t.validationAmountExceedsRequested}: ${pledgeForm.currency} ${pledgeForm.amount.toLocaleString('en-US', { minimumFractionDigits: 3, maximumFractionDigits: 3 })}\n` +
-            `${t.validationAmountExceedsAvailable}: ${custodyAccount.currency} ${realAvailableBalance.toLocaleString('en-US', { minimumFractionDigits: 3, maximumFractionDigits: 3 })}\n\n` +
-            `${t.validationAmountExceedsMessage}`
-          );
-        }
+        const custodyAccount = custodyStore.getAccountById(selectedCustodyAccount);
+        const realAvailableBalance = validation.availableBalance || 0;
 
-        // ========================================
-        // VALIDACIÓN 3: PREVENIR DOUBLE-SPEND
-        // ========================================
-        // Verificar que no se esté intentando usar más capital del disponible
-        const willBeAvailable = realAvailableBalance - pledgeForm.amount;
-        if (willBeAvailable < 0) {
-          throw new Error(
-            `❌ DOUBLE-SPEND DETECTADO\n\n` +
-            `No puedes usar más capital del disponible.\n\n` +
-            `Balance Disponible: ${custodyAccount.currency} ${realAvailableBalance.toLocaleString('en-US', { minimumFractionDigits: 3, maximumFractionDigits: 3 })}\n` +
-            `Solicitado: ${pledgeForm.currency} ${pledgeForm.amount.toLocaleString('en-US', { minimumFractionDigits: 3, maximumFractionDigits: 3 })}\n` +
-            `Faltante: ${custodyAccount.currency} ${Math.abs(willBeAvailable).toLocaleString('en-US', { minimumFractionDigits: 3, maximumFractionDigits: 3 })}\n\n` +
-            `Solución:\n` +
-            `1. Reduce el monto del pledge\n` +
-            `2. Elimina un pledge existente de esta cuenta\n` +
-            `3. Usa una cuenta con más capital disponible`
-          );
-        }
-
-        console.log('[VUSD] ✅ Validación de capital aprobada:', {
-          account: custodyAccount.accountName,
-          totalBalance: custodyAccount.totalBalance,
-          currentlyReserved: totalReservedByThisAccount,
-          activePledgesCount: activePledges.filter(p => p.custody_account_id === selectedCustodyAccount).length,
-          realAvailable: realAvailableBalance,
+        console.log('[VUSD] ✅ Balance validation APPROVED by UnifiedPledgeStore:', {
+          account: custodyAccount?.accountName,
+          totalBalance: custodyAccount?.totalBalance,
+          totalPledged: validation.totalPledged,
+          available: realAvailableBalance,
           requested: pledgeForm.amount,
-          willBeAvailableAfter: willBeAvailable,
-          status: willBeAvailable >= 0 ? 'OK' : 'BLOCKED'
+          afterPledge: realAvailableBalance - pledgeForm.amount
         });
       }
 

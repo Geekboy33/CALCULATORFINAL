@@ -6,10 +6,12 @@
 import { useState, useEffect } from 'react';
 import {
   Key, Plus, Trash2, Eye, EyeOff, Copy, CheckCircle, AlertCircle,
-  Settings, TrendingUp, Clock, Shield, RefreshCw, ExternalLink, DollarSign, Lock
+  Settings, TrendingUp, Clock, Shield, RefreshCw, ExternalLink, DollarSign, Lock, Download, Database
 } from 'lucide-react';
 import { apiKeysStore, type ApiKey, type ApiKeyUsage } from '../lib/api-keys-store';
 import { getSupabaseClient } from '../lib/supabase-client';
+import { proofOfReservesAPI, type ProofOfReservesAPIKey } from '../lib/proof-of-reserves-api';
+import { unifiedPledgeStore } from '../lib/unified-pledge-store';
 
 interface Pledge {
   id: string;
@@ -34,6 +36,13 @@ export function APIVUSD1KeysManager() {
   const [pledges, setPledges] = useState<Pledge[]>([]);
   const [loadingData, setLoadingData] = useState(false);
 
+  // Proof of Reserves API Keys
+  const [porKeys, setPorKeys] = useState<ProofOfReservesAPIKey[]>([]);
+  const [showPorModal, setShowPorModal] = useState(false);
+  const [porKeyName, setPorKeyName] = useState('');
+  const [selectedPledgeIds, setSelectedPledgeIds] = useState<string[]>([]);
+  const [viewMode, setViewMode] = useState<'standard' | 'por'>('standard');
+
   // Form state
   const [keyName, setKeyName] = useState('');
   const [rateLimit, setRateLimit] = useState(60);
@@ -51,7 +60,14 @@ export function APIVUSD1KeysManager() {
   useEffect(() => {
     loadKeys();
     loadCustodyAccountsAndPledges();
+    loadPorKeys();
   }, []);
+
+  const loadPorKeys = () => {
+    const keys = proofOfReservesAPI.getAllAPIKeys();
+    setPorKeys(keys);
+    console.log('[PoR Keys] Loaded', keys.length, 'API keys');
+  };
 
   const loadKeys = async () => {
     try {
