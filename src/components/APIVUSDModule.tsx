@@ -402,30 +402,29 @@ export function APIVUSDModule() {
       }
 
       // ========================================
-      // RESERVAR CAPITAL EN CUSTODY STORE
+      // ACTUALIZAR BALANCES EN CUSTODY STORE DESDE UNIFIED STORE
       // ========================================
-      if (selectedCustodyAccount) {
+      if (selectedCustodyAccount && unifiedPledge) {
         try {
-          const account = custodyAccounts.find(a => a.id === selectedCustodyAccount);
-          if (account) {
-            // Actualizar los balances en custody store
-            const accounts = custodyStore.getAccounts();
-            const custodyAccount = accounts.find(a => a.id === selectedCustodyAccount);
-            if (custodyAccount) {
-              custodyAccount.reservedBalance += pledgeForm.amount;
-              custodyAccount.availableBalance -= pledgeForm.amount;
-              custodyStore.saveAccounts(accounts);
+          const accounts = custodyStore.getAccounts();
+          const custodyAccount = accounts.find(a => a.id === selectedCustodyAccount);
+          if (custodyAccount) {
+            // IMPORTANTE: Recalcular SIEMPRE desde unified store (fuente de verdad)
+            const totalPledged = unifiedPledgeStore.getTotalPledgedAmount(selectedCustodyAccount);
+            custodyAccount.reservedBalance = totalPledged;
+            custodyAccount.availableBalance = custodyAccount.totalBalance - totalPledged;
+            custodyStore.saveAccounts(accounts);
 
-              console.log('[VUSD→Custody] ✅ Capital reservado:', {
-                account: custodyAccount.accountName,
-                reserved: pledgeForm.amount,
-                newAvailable: custodyAccount.availableBalance,
-                newReserved: custodyAccount.reservedBalance
-              });
-            }
+            console.log('[VUSD→Custody] ✅ Balance actualizado desde unified store:', {
+              account: custodyAccount.accountName,
+              totalBalance: custodyAccount.totalBalance,
+              totalPledged: totalPledged,
+              newAvailable: custodyAccount.availableBalance,
+              newReserved: custodyAccount.reservedBalance
+            });
           }
         } catch (reserveError) {
-          console.warn('[VUSD→Custody] ⚠️ Error reservando capital (no crítico):', reserveError);
+          console.warn('[VUSD→Custody] ⚠️ Error actualizando balance (no crítico):', reserveError);
         }
       }
 
@@ -597,6 +596,24 @@ export function APIVUSDModule() {
       }
 
       // ========================================
+      // LIBERAR EN UNIFIED PLEDGE STORE (CENTRAL)
+      // ========================================
+      try {
+        const unifiedPledges = unifiedPledgeStore.getPledges();
+        const matchingUnifiedPledge = unifiedPledges.find(p =>
+          p.external_ref === pledge.pledge_id ||
+          p.vusd_pledge_id === pledge.pledge_id
+        );
+
+        if (matchingUnifiedPledge) {
+          unifiedPledgeStore.releasePledge(matchingUnifiedPledge.id);
+          console.log('[VUSD→Unified] ✅ Released pledge in unified store:', matchingUnifiedPledge.id);
+        }
+      } catch (unifiedError) {
+        console.warn('[VUSD→Unified] ⚠️ Error releasing unified pledge (no crítico):', unifiedError);
+      }
+
+      // ========================================
       // LIBERAR CAPITAL EN CUSTODY STORE
       // ========================================
       if (pledge.custody_account_id) {
@@ -604,13 +621,16 @@ export function APIVUSDModule() {
           const accounts = custodyStore.getAccounts();
           const custodyAccount = accounts.find(a => a.id === pledge.custody_account_id);
           if (custodyAccount) {
-            custodyAccount.reservedBalance -= pledge.amount;
-            custodyAccount.availableBalance += pledge.amount;
+            // IMPORTANTE: Recalcular desde unified store
+            const totalPledged = unifiedPledgeStore.getTotalPledgedAmount(pledge.custody_account_id);
+            custodyAccount.reservedBalance = totalPledged;
+            custodyAccount.availableBalance = custodyAccount.totalBalance - totalPledged;
             custodyStore.saveAccounts(accounts);
 
-            console.log('[VUSD→Custody] ✅ Capital liberado:', {
+            console.log('[VUSD→Custody] ✅ Capital recalculado desde unified store:', {
               account: custodyAccount.accountName,
-              liberated: pledge.amount,
+              totalBalance: custodyAccount.totalBalance,
+              totalPledged: totalPledged,
               newAvailable: custodyAccount.availableBalance,
               newReserved: custodyAccount.reservedBalance
             });
