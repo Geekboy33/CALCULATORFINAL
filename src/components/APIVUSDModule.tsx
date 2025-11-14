@@ -376,6 +376,32 @@ export function APIVUSDModule() {
       console.log('[VUSD] ✅ Pledge creado exitosamente:', result);
 
       // ========================================
+      // CREAR UNIFIED PLEDGE (TRACKING CENTRAL)
+      // ========================================
+      let unifiedPledge = null;
+      if (selectedCustodyAccount) {
+        try {
+          const custodyAccount = custodyStore.getAccountById(selectedCustodyAccount);
+          unifiedPledge = await unifiedPledgeStore.createPledge({
+            custody_account_id: selectedCustodyAccount,
+            amount: pledgeForm.amount,
+            currency: pledgeForm.currency,
+            beneficiary: pledgeForm.beneficiary,
+            source_module: 'API_VUSD',
+            external_ref: result.pledge_id,
+            expires_at: pledgeForm.expires_at || undefined,
+            blockchain_network: custodyAccount?.blockchainLink,
+            contract_address: custodyAccount?.contractAddress,
+            token_symbol: custodyAccount?.tokenSymbol
+          });
+
+          console.log('[VUSD→Unified] ✅ Unified pledge created:', unifiedPledge.id);
+        } catch (unifiedError) {
+          console.error('[VUSD→Unified] ❌ Error creating unified pledge:', unifiedError);
+        }
+      }
+
+      // ========================================
       // RESERVAR CAPITAL EN CUSTODY STORE
       // ========================================
       if (selectedCustodyAccount) {
@@ -434,6 +460,12 @@ export function APIVUSDModule() {
         console.log('[VUSD→VUSD1] ✅ Pledge replicado exitosamente en API VUSD1:', vusd1Pledge.pledge_id);
         console.log('[VUSD→VUSD1] 📊 Circulating Cap actualizado automáticamente');
         console.log('[VUSD→VUSD1] 📨 Webhook HMAC queued hacia Anchor');
+
+        // Link unified pledge with VUSD1
+        if (unifiedPledge) {
+          unifiedPledgeStore.linkVUSD1Pledge(unifiedPledge.id, vusd1Pledge.pledge_id);
+          console.log('[VUSD→VUSD1] 🔗 Linked unified pledge with VUSD1 pledge');
+        }
 
       } catch (vusd1Error) {
         console.warn('[VUSD→VUSD1] ⚠️ Error replicando a VUSD1 (no crítico):', vusd1Error);

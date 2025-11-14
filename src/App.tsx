@@ -32,8 +32,9 @@ const APIDAESPledgeModule = lazy(() => import('./components/APIDAESPledgeModule'
 const APIVUSD1Module = lazy(() => import('./components/APIVUSD1Module').then(m => ({ default: m.default })));
 const APIGlobalModule = lazy(() => import('./components/APIGlobalModule').then(m => ({ default: m.default })));
 const APIDigitalModule = lazy(() => import('./components/APIDigitalModule').then(m => ({ default: m.APIDigitalModule })));
+const ProofOfReservesManager = lazy(() => import('./components/ProofOfReservesManager').then(m => ({ default: m.ProofOfReservesManager })));
 
-type Tab = 'dashboard' | 'analytics' | 'processor' | 'transfer' | 'api-keys' | 'audit' | 'binary-reader' | 'hex-viewer' | 'large-file-analyzer' | 'xcp-b2b' | 'ledger' | 'blackscreen' | 'audit-bank' | 'corebanking-api' | 'custody' | 'api-daes' | 'api-vusd' | 'api-daes-pledge' | 'api-vusd1' | 'api-global' | 'api-digital';
+type Tab = 'dashboard' | 'analytics' | 'processor' | 'transfer' | 'api-keys' | 'audit' | 'binary-reader' | 'hex-viewer' | 'large-file-analyzer' | 'xcp-b2b' | 'ledger' | 'blackscreen' | 'audit-bank' | 'corebanking-api' | 'custody' | 'api-daes' | 'api-vusd' | 'api-daes-pledge' | 'api-vusd1' | 'api-global' | 'api-digital' | 'proof-of-reserves';
 
 function App() {
   const [activeTab, setActiveTab] = useState<Tab>('dashboard');
@@ -109,7 +110,8 @@ function App() {
     { id: 'api-digital' as Tab, name: 'API DIGITAL', icon: Building2 },
     { id: 'api-vusd' as Tab, name: 'API VUSD', icon: TrendingUp },
     { id: 'api-vusd1' as Tab, name: 'API VUSD1', icon: Database },
-    { id: 'api-daes-pledge' as Tab, name: 'DAES Pledge/Escrow', icon: Shield },
+    { id: 'proof-of-reserves' as Tab, name: 'Proof of Reserves API', icon: Shield },
+    { id: 'api-daes-pledge' as Tab, name: 'DAES Pledge/Escrow', icon: TrendingUp },
     { id: 'audit-bank' as Tab, name: t.navAuditBank, icon: FileSearch },
     { id: 'corebanking-api' as Tab, name: 'CoreBanking API', icon: ArrowRightLeft },
     { id: 'xcp-b2b' as Tab, name: t.navXcpB2B, icon: Building2 },
@@ -226,6 +228,7 @@ function App() {
           {activeTab === 'api-digital' && <APIDigitalModule />}
           {activeTab === 'api-vusd' && <APIVUSDModule />}
           {activeTab === 'api-vusd1' && <APIVUSD1Module />}
+          {activeTab === 'proof-of-reserves' && <ProofOfReservesManager />}
           {activeTab === 'api-daes-pledge' && <APIDAESPledgeModule />}
           {activeTab === 'audit-bank' && <AuditBankWindow />}
           {activeTab === 'corebanking-api' && <CoreBankingAPIModule />}
