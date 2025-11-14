@@ -907,23 +907,23 @@ class ProcessingStore {
 
   private getCurrencyAccountName(currency: string): string {
     const accountNames: { [key: string]: string } = {
-      'USD': 'Cuenta en Dólares Estadounidenses',
-      'EUR': 'Cuenta en Euros',
-      'GBP': 'Cuenta en Libras Esterlinas',
-      'CAD': 'Cuenta en Dólares Canadienses',
-      'AUD': 'Cuenta en Dólares Australianos',
-      'JPY': 'Cuenta en Yenes Japoneses',
-      'CHF': 'Cuenta en Francos Suizos',
-      'CNY': 'Cuenta en Yuan Chino',
-      'INR': 'Cuenta en Rupias Indias',
-      'MXN': 'Cuenta en Pesos Mexicanos',
-      'BRL': 'Cuenta en Reales Brasileños',
-      'RUB': 'Cuenta en Rublos Rusos',
-      'KRW': 'Cuenta en Won Surcoreano',
-      'SGD': 'Cuenta en Dólares de Singapur',
-      'HKD': 'Cuenta en Dólares de Hong Kong'
+      'USD': 'US Dollars Account',
+      'EUR': 'Euros Account',
+      'GBP': 'Pound Sterling Account',
+      'CAD': 'Canadian Dollars Account',
+      'AUD': 'Australian Dollars Account',
+      'JPY': 'Japanese Yen Account',
+      'CHF': 'Swiss Francs Account',
+      'CNY': 'Chinese Yuan Account',
+      'INR': 'Indian Rupees Account',
+      'MXN': 'Mexican Pesos Account',
+      'BRL': 'Brazilian Reals Account',
+      'RUB': 'Russian Rubles Account',
+      'KRW': 'South Korean Won Account',
+      'SGD': 'Singapore Dollars Account',
+      'HKD': 'Hong Kong Dollars Account'
     };
-    return accountNames[currency] || `Cuenta en ${currency}`;
+    return accountNames[currency] || `${currency} Account`;
   }
 
   private async saveBalancesToSupabase(

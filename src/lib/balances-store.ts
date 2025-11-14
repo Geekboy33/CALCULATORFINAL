@@ -280,21 +280,21 @@ export function formatCurrency(amount: number, currency: string): string {
 // Helper to get currency name
 export function getCurrencyName(currency: string): string {
   const names: { [key: string]: string } = {
-    'USD': 'Dólares Estadounidenses',
+    'USD': 'US Dollars',
     'EUR': 'Euros',
-    'GBP': 'Libras Esterlinas',
-    'CHF': 'Francos Suizos',
-    'CAD': 'Dólares Canadienses',
-    'AUD': 'Dólares Australianos',
-    'JPY': 'Yenes Japoneses',
-    'CNY': 'Yuan Chino',
-    'INR': 'Rupias Indias',
-    'MXN': 'Pesos Mexicanos',
-    'BRL': 'Reales Brasileños',
-    'RUB': 'Rublos Rusos',
-    'KRW': 'Won Surcoreano',
-    'SGD': 'Dólares de Singapur',
-    'HKD': 'Dólares de Hong Kong',
+    'GBP': 'Pound Sterling',
+    'CHF': 'Swiss Francs',
+    'CAD': 'Canadian Dollars',
+    'AUD': 'Australian Dollars',
+    'JPY': 'Japanese Yen',
+    'CNY': 'Chinese Yuan',
+    'INR': 'Indian Rupees',
+    'MXN': 'Mexican Pesos',
+    'BRL': 'Brazilian Reals',
+    'RUB': 'Russian Rubles',
+    'KRW': 'South Korean Won',
+    'SGD': 'Singapore Dollars',
+    'HKD': 'Hong Kong Dollars',
   };
   return names[currency] || currency;
 }
