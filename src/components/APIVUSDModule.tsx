@@ -190,6 +190,10 @@ export function APIVUSDModule() {
 
   // Load initial data
   useEffect(() => {
+    // IMPORTANTE: Recalcular balances desde unified store al montar el componente
+    console.log('[VUSD] 🔄 Initializing: Recalculating all balances from unified store...');
+    unifiedPledgeStore.recalculateAllBalances();
+
     loadData();
     loadCustodyAccounts();
     const interval = setInterval(loadData, 30000); // Refresh every 30s

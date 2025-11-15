@@ -195,17 +195,23 @@ class UnifiedPledgeStore {
    */
   private updateCustodyAccountBalance(custodyAccountId: string): void {
     const totalPledged = this.getTotalPledgedAmount(custodyAccountId);
-    const account = custodyStore.getAccountById(custodyAccountId);
+    const accounts = custodyStore.getAccounts();
+    const account = accounts.find(a => a.id === custodyAccountId);
 
     if (account) {
       account.reservedBalance = totalPledged;
       account.availableBalance = account.totalBalance - totalPledged;
 
-      console.log('[UnifiedPledgeStore] Updated account balance:', {
+      // IMPORTANTE: Guardar cambios en localStorage
+      custodyStore.saveAccounts(accounts);
+
+      console.log('[UnifiedPledgeStore] ✅ Updated and SAVED account balance:', {
         accountId: custodyAccountId,
+        accountName: account.accountName,
         totalBalance: account.totalBalance,
         reservedBalance: account.reservedBalance,
-        availableBalance: account.availableBalance
+        availableBalance: account.availableBalance,
+        totalActivePledges: this.getActivePledgesByCustodyAccount(custodyAccountId).length
       });
     }
   }
@@ -269,6 +275,46 @@ class UnifiedPledgeStore {
   clearPledges(): void {
     localStorage.removeItem(this.STORAGE_KEY);
     this.notifyListeners();
+  }
+
+  /**
+   * Recalculate ALL custody account balances based on active pledges
+   * Call this on app initialization to ensure consistency
+   */
+  recalculateAllBalances(): void {
+    console.log('[UnifiedPledgeStore] 🔄 Recalculating all custody account balances...');
+
+    const accounts = custodyStore.getAccounts();
+    const pledges = this.getPledges();
+
+    // Group pledges by custody account
+    const pledgesByAccount = new Map<string, number>();
+
+    pledges.forEach(pledge => {
+      if (pledge.status === 'ACTIVE') {
+        const current = pledgesByAccount.get(pledge.custody_account_id) || 0;
+        pledgesByAccount.set(pledge.custody_account_id, current + pledge.amount);
+      }
+    });
+
+    // Update all accounts
+    accounts.forEach(account => {
+      const totalPledged = pledgesByAccount.get(account.id) || 0;
+      account.reservedBalance = totalPledged;
+      account.availableBalance = account.totalBalance - totalPledged;
+
+      console.log('[UnifiedPledgeStore] Account recalculated:', {
+        account: account.accountName,
+        totalBalance: account.totalBalance,
+        reservedBalance: account.reservedBalance,
+        availableBalance: account.availableBalance
+      });
+    });
+
+    // Save all changes
+    custodyStore.saveAccounts(accounts);
+
+    console.log('[UnifiedPledgeStore] ✅ All balances recalculated and saved');
   }
 }
 
